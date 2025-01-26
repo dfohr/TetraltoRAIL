@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Services - Tetralto Roofing{% endblock %}
+
+{% block content %}
+<main class="services-page">
+    <section class="services-hero">
+        <div class="container">
+            <h1>Our Services</h1>
+            <p class="subtitle">Professional roofing services for your home or business</p>
+        </div>
+    </section>
+
+    <section class="services-list">
+        <div class="container">
+            {% for service in services %}
+                <article class="service-item {% if forloop.counter|divisibleby:2 %}reverse{% endif %}">
+                    <div class="service-image">
+                        <img src="{% static 'images/'|add:service.image_filename %}" 
+                             alt="{{ service.title }}"
+                             loading="lazy">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-header">
+                            <img src="{% static 'images/'|add:service.icon_filename %}" 
+                                 alt="{{ service.title }} icon"
+                                 class="service-icon"
+                                 loading="lazy">
+                            <h2>{{ service.title }}</h2>
+                        </div>
+                        <p class="service-subtitle">{{ service.subtitle }}</p>
+                        <div class="service-description">
+                            {{ service.description_html|safe }}
+                        </div>
+                        <div class="button-group">
+                            <a href="tel:281-895-1213" class="button primary">Call Us: 281-895-1213</a>
+                            <a href="#contact" class="button secondary">Get Free Estimate</a>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    </section>
+</main>
+{% endblock %} 

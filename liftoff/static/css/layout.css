@@ -1,0 +1,184 @@
+/* Your new layout styles will go here */
+
+/* Hero section */
+.hero {
+    padding: var(--spacing-xl) 0;
+    background-color: var(--background-light);
+}
+
+.hero h1 {
+    font-size: 4.5rem;
+    line-height: 1.1;
+    margin-bottom: var(--spacing-xl);
+    font-weight: 700;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(var(--spacing-xl) * 2);
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero-content {
+    padding-right: var(--spacing-xl);
+}
+
+.hero-content h2 {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-lg);
+    color: var(--text-secondary);
+}
+
+.hero-content .description {
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-xl);
+    max-width: 90%;
+}
+
+.hero-image {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.hero-image img {
+    width: 64%;
+    height: auto;
+}
+
+/* Services section */
+.services {
+    padding: var(--spacing-xl) 0;
+    background-color: white;
+}
+
+.services h2 {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-color);
+}
+
+.section-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto var(--spacing-xl) auto;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-xl);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.service-card {
+    padding: var(--spacing-xl);
+    background-color: white;
+    border: 2px solid var(--background-light);
+    border-radius: var(--border-radius);
+    position: relative;
+    z-index: 1;
+    transition: transform 0.2s ease-in-out;
+}
+
+.service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-color: var(--secondary-color);
+}
+
+.service-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.service-icon {
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.service-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.service-title {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    min-height: 64px;  /* Match icon height */
+}
+
+.service-card h3 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: var(--secondary-color);
+    line-height: 1.2;
+}
+
+.service-subtitle {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 3rem;
+        padding: 0 var(--spacing-md);
+    }
+
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+    }
+
+    .hero-content {
+        padding-right: 0;
+        text-align: center;
+    }
+
+    .hero-content .description {
+        max-width: 100%;
+    }
+
+    .hero-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .hero-image img {
+        width: 100%;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+        padding: 0 var(--spacing-md);
+    }
+
+    .service-card {
+        padding: var(--spacing-lg);
+    }
+
+    .services h2 {
+        font-size: 2.5rem;
+    }
+} 

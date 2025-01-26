@@ -1,0 +1,30 @@
+"""
+Development Standards for TetraltoRail Project
+
+1. Code Quality:
+   - Keep code simple and readable
+   - Follow PEP 8 style guidelines
+   - No "clever" hacks or overly complex solutions
+   - Document any non-obvious code decisions
+
+2. Dev/Prod Parity:
+   - Minimize differences between development and production environments
+   - Use environment variables for configuration
+   - Keep dependencies consistent between environments
+   - Document any necessary environment-specific settings
+
+3. Security:
+   - No hardcoded secrets
+   - Use environment variables for sensitive data
+   - Follow Django security best practices
+   - Regular security updates for dependencies
+
+4. Testing:
+   - Write tests for critical functionality
+   - Test in conditions similar to production
+
+5. Documentation:
+   - Clear README with setup instructions
+   - Document environment variables
+   - Document deployment process
+""" 

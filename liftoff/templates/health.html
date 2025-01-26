@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="health-check">
+    <h1>System Health Check</h1>
+    
+    <div class="info-grid">
+        {% for key, value in system_info.items %}
+        <div class="info-item">
+            <strong>{{ key }}:</strong>
+            <span>{{ value }}</span>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .health-check {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .health-check h1 {
+        color: #333;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .info-grid {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .info-item {
+        padding: 1rem;
+        background: #f5f5f5;
+        border-radius: 4px;
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        align-items: center;
+    }
+
+    .info-item strong {
+        color: #666;
+    }
+
+    .info-item span {
+        color: #333;
+        font-family: monospace;
+    }
+</style>
+{% endblock %} 

@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Tetralto Roofing - Trusted Roofing Experts{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <div class="container">
+        <h1>Trusted Roofing Experts.</h1>
+        <div class="hero-grid">
+            <div class="hero-content">
+                <h2>High-quality, great-value roofing</h2>
+                <p class="description">Tetralto Roofing delivers state-of-the-art roofing services including roof repair, roof replacement, and gutter installation.</p>
+                <div class="buttons">
+                    <a href="#contact" class="button primary">Get Free Estimate</a>
+                    <a href="#services" class="button secondary">Our Services</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="{% static 'images/roof-components.avif' %}" alt="Roof Components">
+            </div>
+        </div>
+    </div>
+</div>
+
+<section id="services" class="services">
+    <div class="container">
+        <h2>Our Services</h2>
+        <p class="section-subtitle">Professional roofing solutions tailored to your needs.</p>
+        
+        <div class="services-grid">
+            {% for service in services %}
+            <div class="service-card">
+                <div class="service-header">
+                    <div class="service-icon">
+                        <img src="{% static 'images/'|add:service.icon_filename %}" alt="{{ service.title }} Icon">
+                    </div>
+                    <div class="service-title">
+                        <h3>{{ service.title }}</h3>
+                    </div>
+                </div>
+                <p class="service-subtitle">{{ service.subtitle }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features">
+    <div class="container">
+        <h2>The Things That Make Us Great!</h2>
+        <p class="subtitle">What sets us apart from other roofing companies? Here are the reasons why homeowners choose Tetralto Roofing.</p>
+        
+        <div class="features-grid">
+            {% for feature in features %}
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="{% static 'images/'|add:feature.icon_filename %}" alt="{{ feature.title }} icon">
+                </div>
+                <h3>{{ feature.title }}</h3>
+                <p>{{ feature.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="features-cta">
+            <h2>Ready to Experience the Tetralto Difference?</h2>
+            <div class="button-group">
+                <a href="tel:281-895-1213" class="button primary">Call Us: 281-895-1213</a>
+                <a href="#contact" class="button secondary">Get Free Estimate</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials">
+    <div class="container">
+        <div class="testimonial-carousel">
+            <button class="carousel-arrow prev" aria-label="Previous testimonial">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                </svg>
+            </button>
+            
+            <div class="testimonial-slides">
+                {% for testimonial in testimonials %}
+                <div class="testimonial-card {% if forloop.first %}active{% endif %}">
+                    <div class="testimonial-content">
+                        <div class="rating">
+                            {% for i in "12345" %}
+                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                            </svg>
+                            {% endfor %}
+                        </div>
+                        <div class="testimonial-text">
+                            {{ testimonial.text }}
+                            <div class="testimonial-text-fade"></div>
+                        </div>
+                        <div class="testimonial-meta">
+                            <div class="testimonial-info">
+                                <div class="testimonial-name">{{ testimonial.name }}</div>
+                                <div class="testimonial-city">{{ testimonial.city }}</div>
+                                <div class="testimonial-service">{{ testimonial.service }}</div>
+                            </div>
+                            <a href="{{ testimonial.url }}" class="testimonial-link" target="_blank" rel="noopener">
+                                Read the full review here
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <button class="carousel-arrow next" aria-label="Next testimonial">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</section>
+
+{% endblock %} 

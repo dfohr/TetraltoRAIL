@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <title>{% block title %}Tetralto Roofing - Trusted Roofing Experts{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Our CSS -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layout.css' %}">
+</head>
+<body>
+    {% if request.path != '/health/' and request.path != '/admin/' %}
+    <header class="site-header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="{% static 'images/tetralto-roofing-logo.avif' %}" alt="Tetralto Roofing Logo">
+            </a>
+            <nav class="nav-links">
+                <a href="/">Home</a>
+                <a href="/services/">Services</a>
+                <a href="/contact/">Contact Us</a>
+                <a href="/blog/">Blog</a>
+            </nav>
+            <a href="tel:281-895-1213" class="cta-phone">Call Us: <span>281-895-1213</span></a>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+    {% endif %}
+    {% block content %}
+    {% endblock %}
+
+    <section class="social-bar">
+        <div class="container">
+            <div class="social-icons">
+                {% for social in social_links %}
+                    <a href="{{ social.url }}" target="_blank" title="{{ social.popupText }}" class="social-icon">
+                        <img src="{% static 'images/'|add:social.icon_filename %}" alt="{{ social.name }}" loading="lazy">
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <a href="/" class="footer-logo">
+                <img src="{% static 'images/tetralto-roofing-logo.avif' %}" alt="Tetralto Roofing Logo">
+            </a>
+            <div class="copyright">
+                © {% now "Y" %} Tetralto Roofing
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/carousel.js' %}"></script>
+</body>
+</html> 
