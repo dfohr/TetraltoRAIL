@@ -3,6 +3,15 @@
 
 {% block title %}Services - Tetralto Roofing{% endblock %}
 
+{% block meta_description %}
+<meta name="description" content="Professional roofing services including roof replacement, repairs, and gutter installation. Free estimates, quality materials, and expert installation by Tetralto's experienced team.">
+<meta name="keywords" content="roof replacement, roof repair, gutter installation, gutter repair, roofing services, Missouri City TX, Sugar Land TX, Houston area roofing">
+{% endblock %}
+
+{% block og_description %}Professional roofing services including roof replacement, repairs, and gutter installation. Free estimates, quality materials, and expert installation by Tetralto's experienced team.{% endblock %}
+
+{% block twitter_description %}{{ block.super }}{% endblock %}
+
 {% block content %}
 <main class="services-page">
     <section class="services-hero">
@@ -43,4 +52,40 @@
         </div>
     </section>
 </main>
+
+<!-- Services Schema.org Markup -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": [
+        {% for service in services %}
+        {
+            "@type": "Service",
+            "position": {{ forloop.counter }},
+            "name": "{{ service.title }}",
+            "description": "{{ service.subtitle }}",
+            "provider": {
+                "@id": "https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}/#organization"
+            },
+            "areaServed": [
+                {
+                    "@type": "City",
+                    "name": "Missouri City"
+                },
+                {
+                    "@type": "City",
+                    "name": "Sugar Land"
+                },
+                {
+                    "@type": "City",
+                    "name": "Houston"
+                }
+            ],
+            "image": "https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}{% static 'images/'|add:service.image_filename %}"
+        }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ]
+}
+</script>
 {% endblock %} 

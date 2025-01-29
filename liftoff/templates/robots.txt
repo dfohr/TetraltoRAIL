@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+Allow: /static/
+Allow: /media/
+
+# Prevent crawling of non-public URLs
+Disallow: /admin/
+Disallow: /health/
+Disallow: /*?*  # Prevent crawling of URLs with query parameters
+
+# Prevent crawling of duplicate content
+Disallow: /*?utm_*
+Disallow: /*?fbclid=*
+
+# Sitemap location
+Sitemap: https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}/sitemap.xml
+
+# Crawl-delay for better server performance
+Crawl-delay: 1 

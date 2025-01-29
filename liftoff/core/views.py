@@ -8,6 +8,9 @@ import django
 import sys
 import os
 import markdown
+from django.http import HttpResponse
+from django.conf import settings
+from django.urls import reverse
 
 def home(request):
     services = Service.objects.order_by('order')
@@ -85,4 +88,13 @@ def contact(request):
 def blog(request):
     return render(request, 'blog.html', {
         'social_links': SocialLink.objects.filter(is_active=True).order_by('order'),
-    }) 
+    })
+
+def robots_txt(request):
+    protocol = 'https' if not settings.DEBUG else 'http'
+    domain = settings.SITE_DOMAIN
+    sitemap_url = f"{protocol}://{domain}/sitemap.xml"
+    content = f"""User-agent: *
+Allow: /
+Sitemap: {sitemap_url}"""
+    return HttpResponse(content, content_type="text/plain") 

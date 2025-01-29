@@ -4,9 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Tetralto Roofing">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="geo.region" content="US-TX">
+    <meta name="geo.placename" content="Missouri City">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}{{ request.path }}" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}{{ request.path }}">
+    <meta property="og:title" content="{% block og_title %}{{ block.super }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Tetralto Roofing provides expert roof replacement, repair, and gutter services in Missouri City, Sugar Land, and Houston.{% endblock %}">
+    <meta property="og:image" content="https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}{% static 'images/tetralto-roofing-logo.avif' %}">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:url" content="https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}{{ request.path }}">
+    <meta name="twitter:title" content="{% block twitter_title %}{{ block.super }}{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}{{ block.super }}{% endblock %}">
+    <meta name="twitter:image" content="https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}{% static 'images/tetralto-roofing-logo.avif' %}">
+
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     <title>{% block title %}Tetralto Roofing - Trusted Roofing Experts{% endblock %}</title>
+    {% block meta_description %}{% endblock %}
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,13 +41,25 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="{% static 'css/components.css' %}">
     <link rel="stylesheet" href="{% static 'css/layout.css' %}">
+
+    <!-- Preload critical assets -->
+    <link rel="preload" as="image" href="{% static 'images/tetralto-roofing-logo.avif' %}" type="image/avif">
+    <link rel="preload" as="font" href="https://fonts.gstatic.com/s/comfortaa/v45/1Pt_g8LJRfWJmhDAuUsSQamb1W0lwk4S4WjMPrQ.ttf" type="font/ttf" crossorigin>
+    
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
 </head>
 <body>
     {% if request.path != '/health/' and request.path != '/admin/' %}
     <header class="site-header">
         <div class="header-container">
             <a href="/" class="logo">
-                <img src="{% static 'images/tetralto-roofing-logo.avif' %}" alt="Tetralto Roofing Logo">
+                <img src="{% static 'images/tetralto-roofing-logo.avif' %}" 
+                     alt="Tetralto Roofing Logo"
+                     width="200" 
+                     height="60"
+                     fetchpriority="high">
             </a>
             <nav class="nav-links">
                 <a href="/">Home</a>
@@ -40,6 +76,11 @@
         </div>
     </header>
     {% endif %}
+    
+    {% if request.path != '/' and request.path != '/health/' and request.path != '/admin/' %}
+    <!-- Removing breadcrumb navigation -->
+    {% endif %}
+
     {% block content %}
     {% endblock %}
 
@@ -68,5 +109,64 @@
 
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/carousel.js' %}"></script>
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "RoofingContractor",
+        "@id": "https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}/#organization",
+        "name": "Tetralto Roofing",
+        "url": "https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}",
+        "logo": "https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}{% static 'images/tetralto-roofing-logo.avif' %}",
+        "image": "https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}{% static 'images/tetralto-roofing-logo.avif' %}",
+        "telephone": "+12818951213",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "29.6185",
+            "longitude": "-95.5377"
+        },
+        "areaServed": [
+            {
+                "@type": "City",
+                "name": "Missouri City"
+            },
+            {
+                "@type": "City",
+                "name": "Sugar Land"
+            },
+            {
+                "@type": "City",
+                "name": "Houston"
+            }
+        ],
+        "sameAs": [
+            {% for social in social_links %}
+            "{{ social.url }}"{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ]
+    }
+    </script>
+
+    <!-- Website Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": "https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}/#website",
+        "url": "https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}",
+        "name": "Tetralto Roofing",
+        "description": "Professional roofing services in Missouri City, Sugar Land, and Houston areas",
+        "publisher": {
+            "@id": "https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}/#organization"
+        }
+    }
+    </script>
 </body>
 </html> 
