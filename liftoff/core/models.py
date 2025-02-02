@@ -86,4 +86,48 @@ class Lead(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return f"{self.name} - {self.created_at.strftime('%Y-%m-%d')}" 
+        return f"{self.name} - {self.created_at.strftime('%Y-%m-%d')}"
+
+class BlogPost(models.Model):
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True, null=True, blank=True)
+    hero_image_filename = models.CharField(
+        max_length=100,
+        help_text="Filename of the hero image in static/images/"
+    )
+    author = models.CharField(max_length=100)
+    is_active = models.BooleanField(
+        default=False,
+        help_text="Only active posts will be shown on the site"
+    )
+    content = models.TextField(
+        help_text="""
+        Markdown formatted text. Supports:
+        * Headers (# ## ###)
+        * Lists (* or -)
+        * Links [text](url)
+        * Images ![alt](/static/images/filename)
+        * Code blocks (```)
+        * Emphasis (*italic* or **bold**)
+        """
+    )
+    meta_description = models.CharField(
+        max_length=160,
+        help_text="SEO meta description, recommended length 150-160 characters"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    published_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['-published_at', '-created_at']
+        verbose_name = "Blog Post"
+        verbose_name_plural = "Blog Posts"
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs) 

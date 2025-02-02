@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db import connection
 from django.contrib import messages
 from django.contrib.auth import get_user_model
-from .models import Service, Feature, Testimonial, SocialLink
+from .models import Service, Feature, Testimonial, SocialLink, BlogPost
 from .forms import LeadForm
 import django
 import sys
@@ -11,6 +11,7 @@ import markdown
 from django.http import HttpResponse
 from django.conf import settings
 from django.urls import reverse
+from django.utils import timezone
 
 def home(request):
     services = Service.objects.order_by('order')
@@ -89,6 +90,40 @@ def blog(request):
     return render(request, 'blog.html', {
         'social_links': SocialLink.objects.filter(is_active=True).order_by('order'),
     })
+
+def blog_list(request):
+    posts = BlogPost.objects.filter(
+        is_active=True,
+        published_at__lte=timezone.now()
+    ).order_by('-published_at')
+    
+    context = {
+        'posts': posts,
+        'social_links': SocialLink.objects.filter(is_active=True).order_by('order'),
+    }
+    return render(request, 'blog.html', context)
+
+def blog_post(request, slug):
+    post = get_object_or_404(
+        BlogPost,
+        slug=slug,
+        is_active=True,
+        published_at__lte=timezone.now()
+    )
+    
+    # Convert markdown to HTML
+    md = markdown.Markdown(extensions=[
+        'markdown.extensions.fenced_code',
+        'markdown.extensions.tables',
+        'markdown.extensions.toc',
+    ])
+    post.content_html = md.convert(post.content)
+    
+    context = {
+        'post': post,
+        'social_links': SocialLink.objects.filter(is_active=True).order_by('order'),
+    }
+    return render(request, 'blog_post.html', context)
 
 def robots_txt(request):
     protocol = 'https' if not settings.DEBUG else 'http'

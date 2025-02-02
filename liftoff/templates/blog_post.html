@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ post.title }} - Tetralto Roofing Blog{% endblock %}
+
+{% block meta_description %}
+<meta name="description" content="{{ post.meta_description }}">
+{% endblock %}
+
+{% block content %}
+<div class="blog-hero">
+    <div class="container">
+        <h1>Experts are standing by to help</h1>
+        <p class="subtitle">Schedule a free inspection and quote</p>
+        <div class="button-group">
+            <a href="{% url 'contact' %}" class="button primary">Contact Us</a>
+        </div>
+    </div>
+</div>
+
+<div class="container mx-auto px-4 py-12">
+    <div class="blog-post-container">
+        <div class="post-meta">
+            {{ post.author }} • Published {{ post.published_at|date:"F j, Y" }}
+        </div>
+        
+        <div class="post-title">
+            <h1>{{ post.title }}</h1>
+        </div>
+        
+        <div class="service-description prose prose-lg">
+            {{ post.content_html|safe }}
+        </div>
+
+        <div class="post-cta">
+            <a href="{% url 'contact' %}" class="button primary">Schedule Free Inspection</a>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -16,7 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from core.views import home, health, services_view, contact, blog, robots_txt
+from core.views import (
+    home, health, services_view, contact, 
+    blog_list, blog_post, robots_txt
+)
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
@@ -32,7 +35,8 @@ urlpatterns = [
     path('health/', health, name='health'),
     path('services/', services_view, name='services'),
     path('contact/', contact, name='contact'),
-    path('blog/', blog, name='blog'),
+    path('blog/', blog_list, name='blog'),
+    path('blog/<slug:slug>/', blog_post, name='blog_post'),
     path('robots.txt', robots_txt, name='robots_txt'),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

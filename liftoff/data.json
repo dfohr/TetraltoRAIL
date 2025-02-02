@@ -749,31 +749,51 @@
   }
 },
 {
-  "model": "core.lead",
+  "model": "core.blogpost",
   "pk": 1,
   "fields": {
-    "name": "David Fohr",
-    "phone": "2818951213",
-    "email": "david@tetralto.com",
-    "address": "7007 Verado Way",
-    "description": "ññalsdklkdsldklk lkalsdklakl lkal",
-    "internal_notes": "",
-    "created_at": "2025-01-26T18:45:23.171Z",
-    "updated_at": "2025-01-26T18:45:23.171Z"
+    "title": "Test Post",
+    "slug": "test-post",
+    "hero_image_filename": "serv_gutter.avif",
+    "author": "David Fohr",
+    "is_active": true,
+    "content": "Let's test this blog!\r\nAlthough a well-maintained roof can last many years, the following are symptoms of a roof that needs to be replaced:\r\n\r\n* Missing, loose, or cracked shingles\r\n* Water damage due to roof failure\r\n* Increased electric bills (leaking air)\r\n* Algae growth\r\n* Granule loss\r\n\r\nIf you see these symptoms, give Tetralto Roofing a call. We'll inspect your roof and give you an estimate for the replacement!\r\n\r\n![A beautiful roof](/static/images/serv_gutter.avif)",
+    "meta_description": "Blog test",
+    "created_at": "2025-02-02T04:20:46.435Z",
+    "updated_at": "2025-02-02T06:27:03.249Z",
+    "published_at": "2025-02-02T04:20:40Z"
   }
 },
 {
-  "model": "core.lead",
+  "model": "core.blogpost",
   "pk": 2,
   "fields": {
-    "name": "Tetralto Roofing",
-    "phone": "2818951213",
-    "email": "david@tetralto.com",
-    "address": "7007 Verado Way",
-    "description": "oiuoiuoiuu oi uoiuoiuoiu iu oiuoiu oiuoiuo",
-    "internal_notes": "",
-    "created_at": "2025-01-26T18:49:11.659Z",
-    "updated_at": "2025-01-26T18:49:11.659Z"
+    "title": "Say Goodbye to Ugly Box Vents: A Roof Ventilation Upgrade Story",
+    "slug": "say-goodbye-to-ugly-box-vents-a-roof-ventilation-u",
+    "hero_image_filename": "blog-ugly-box-vents-1.webp",
+    "author": "David Fohr",
+    "is_active": true,
+    "content": "Are you tired of those outdated, eyesore box vents on your roof? We recently had the pleasure of upgrading a customer's roof ventilation system, and the results were truly transformational!\r\n\r\nOur customer, let's call her Mrs. Smith, had been dealing with old box vents that not only looked unappealing but were also inefficient at ventilating her attic. With our expertise and dedication to quality, we suggested upgrading her ventilation system to ridge vents, which offer superior ventilation and a sleek, modern look.\r\n\r\n![Box vents looking ugly on a roof](/static/images/blog-ugly-box-vents-1.webp)\r\n**Box vents looking ugly on a roof**\r\n\r\nBefore the upgrade, Mrs. Smith's roof looked like a typical suburban home, with box vents protruding from the roofline. These vents were not only detracting from the curb appeal of her home but were also not providing adequate ventilation for her attic, leading to potential issues like moisture buildup and poor air quality.\r\n\r\nAfter performing ventilation requirements calculations to verify that the solution was appropriate, and discussing the benefits of ridge vents, Mrs. Smith was excited to move forward with the upgrade. Our team got to work, removing the old box vents and installing the new ridge vents along the peak of her roof. The difference was stunning!\r\n\r\n![Cleaner, modern appearance with ridge vents](/static/images/blog-ugly-box-vents-2.webp)\r\n**Cleaner, modern appearance with ridge vents**\r\n\r\nThe new ridge vents not only improved the ventilation of Mrs. Smith's attic, helping to regulate temperature and reduce moisture, but they also gave her roof a modern and clean appearance. The sleek lines of the ridge vents blended seamlessly with her roofline, enhancing the overall look of her home.\r\n\r\nMrs. Smith was thrilled with the results, and we were delighted to have been able to improve both the functionality and aesthetics of her roof. If you're considering upgrading your roof ventilation system, don't hesitate to reach out to us at Tetralto Roofing. We're here to help you achieve a roof that not only looks great but works great too!",
+    "meta_description": "Say Goodbye to Ugly Box Vents",
+    "created_at": "2025-02-02T06:10:57.481Z",
+    "updated_at": "2025-02-02T06:44:10.542Z",
+    "published_at": "2024-02-12T06:05:55Z"
+  }
+},
+{
+  "model": "core.blogpost",
+  "pk": 3,
+  "fields": {
+    "title": "Red Barn with Slate Shingles",
+    "slug": "red-barn-with-slate-shingles",
+    "hero_image_filename": "blog-red-barn-after.webp",
+    "author": "David Fohr",
+    "is_active": true,
+    "content": "We recently completed a barn roof replacement project, and we are thrilled with the stunning results. By using GAF Timberline HDZ® Shingles in the captivating color slate, we achieved a perfect match for the red barn.\r\n\r\n ![Stunning red barn with slate-colored shingles](/static/images/blog-red-barn-after.webp)\r\n\r\n ![Red barn before the transformation](/static/images/blog-red-barn-before.webp)\r\n\r\nShingles: GAF Timberline HDZ® Shingles\r\nColor: Slate",
+    "meta_description": "Red Barn with Slate-colored Shingles",
+    "created_at": "2025-02-02T06:35:32.125Z",
+    "updated_at": "2025-02-02T06:35:32.125Z",
+    "published_at": "2023-05-23T06:35:27Z"
   }
 }
 ]

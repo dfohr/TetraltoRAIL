@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Service, Feature, Testimonial, SocialLink, Lead
+from .models import Service, Feature, Testimonial, SocialLink, Lead, BlogPost
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
@@ -35,4 +35,27 @@ class LeadAdmin(admin.ModelAdmin):
     list_display = ['name', 'phone', 'email', 'created_at']
     list_filter = ['created_at']
     search_fields = ['name', 'email', 'phone', 'description', 'internal_notes']
-    readonly_fields = ('created_at', 'updated_at') 
+    readonly_fields = ('created_at', 'updated_at')
+
+@admin.register(BlogPost)
+class BlogPostAdmin(admin.ModelAdmin):
+    list_display = ['title', 'author', 'is_active', 'published_at', 'created_at']
+    list_filter = ['is_active', 'published_at', 'created_at']
+    search_fields = ['title', 'content', 'meta_description']
+    readonly_fields = ('created_at', 'updated_at')
+    prepopulated_fields = {'slug': ('title',)}
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'slug', 'author', 'hero_image_filename')
+        }),
+        ('Content', {
+            'fields': ('content', 'meta_description')
+        }),
+        ('Publication', {
+            'fields': ('is_active', 'published_at')
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        })
+    ) 
