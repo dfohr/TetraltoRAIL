@@ -111,6 +111,9 @@ def blog_post(request, slug):
         published_at__lte=timezone.now()
     )
     
+    # Debug print
+    print(f"DEBUG setting is: {settings.DEBUG}")
+    
     # Convert markdown to HTML
     md = markdown.Markdown(extensions=[
         'markdown.extensions.fenced_code',
@@ -122,6 +125,7 @@ def blog_post(request, slug):
     context = {
         'post': post,
         'social_links': SocialLink.objects.filter(is_active=True).order_by('order'),
+        'debug': settings.DEBUG,
     }
     return render(request, 'blog_post.html', context)
 

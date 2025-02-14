@@ -3,14 +3,11 @@
 
 {% block title %}Tetralto Roofing - Trusted Roofing Experts{% endblock %}
 
-{% block meta_description %}
-<meta name="description" content="Tetralto Roofing provides expert roof replacement, repair, and gutter services in Missouri City, Sugar Land, and Houston. Family-owned, trusted local roofers with over 10 years experience.">
-<meta name="keywords" content="roofing contractor, roof replacement, roof repair, gutter services, Missouri City roofer, Sugar Land roofing, Houston roofing company, professional roofers">
-{% endblock %}
+{% block meta_description %}Tetralto Roofing provides expert roof replacement, repair, and gutter services in Missouri City, Sugar Land, and Houston. Family-owned, trusted local roofers with over 10 years experience.{% endblock %}
 
 {% block og_description %}Tetralto Roofing provides expert roof replacement, repair, and gutter services in Missouri City, Sugar Land, and Houston. Family-owned, trusted local roofers with over 10 years experience.{% endblock %}
 
-{% block twitter_description %}{{ block.super }}{% endblock %}
+{% block twitter_description %}Tetralto Roofing provides expert roof replacement, repair, and gutter services in Missouri City, Sugar Land, and Houston. Family-owned, trusted local roofers with over 10 years experience.{% endblock %}
 
 {% block content %}
 <div class="hero">
@@ -20,7 +17,7 @@
             <div class="hero-content">
                 <h2>High-quality, great-value roofing</h2>
                 <p class="description">Tetralto Roofing delivers state-of-the-art roofing services including roof repair, roof replacement, and gutter installation.</p>
-                <div class="buttons">
+                <div class="button-group">
                     <a href="{% url 'contact' %}" class="button primary">Get Free Estimate</a>
                     <a href="#services" class="button secondary">Our Services</a>
                 </div>
@@ -115,7 +112,7 @@
                                 <div class="testimonial-service">{{ testimonial.service }}</div>
                             </div>
                             <a href="{{ testimonial.url }}" class="testimonial-link" target="_blank" rel="noopener">
-                                Read the full review here
+                                <span>Read the full review here</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
                                     <path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
                                 </svg>

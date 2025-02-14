@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+import markdown
 
 class Service(models.Model):
     title = models.CharField(max_length=100)
@@ -91,14 +92,9 @@ class Lead(models.Model):
 class BlogPost(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, null=True, blank=True)
-    hero_image_filename = models.CharField(
-        max_length=100,
-        help_text="Filename of the hero image in static/images/"
-    )
-    author = models.CharField(max_length=100)
-    is_active = models.BooleanField(
-        default=False,
-        help_text="Only active posts will be shown on the site"
+    meta_description = models.CharField(
+        max_length=160,
+        help_text="SEO meta description, recommended length 150-160 characters"
     )
     content = models.TextField(
         help_text="""
@@ -111,13 +107,21 @@ class BlogPost(models.Model):
         * Emphasis (*italic* or **bold**)
         """
     )
-    meta_description = models.CharField(
-        max_length=160,
-        help_text="SEO meta description, recommended length 150-160 characters"
+    content_html = models.TextField(editable=False)
+    author = models.CharField(max_length=100)
+    hero_image_filename = models.CharField(
+        max_length=100,
+        help_text="Filename of the hero image in static/images/",
+        blank=True
     )
+    hero_image_alt = models.CharField(max_length=200, blank=True, default="")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     published_at = models.DateTimeField(null=True, blank=True)
+    is_active = models.BooleanField(
+        default=False,
+        help_text="Only active posts will be shown on the site"
+    )
 
     class Meta:
         ordering = ['-published_at', '-created_at']
@@ -130,4 +134,6 @@ class BlogPost(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
+        # Convert markdown to HTML
+        self.content_html = markdown.markdown(self.content)
         super().save(*args, **kwargs) 

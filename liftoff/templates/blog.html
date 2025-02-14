@@ -3,10 +3,11 @@
 
 {% block title %}Blog - Tetralto Roofing{% endblock %}
 
-{% block meta_description %}
-<meta name="description" content="Expert roofing tips, maintenance guides, and industry insights from Tetralto Roofing. Learn how to protect your home and make informed decisions about your roof.">
-<meta name="keywords" content="roofing tips, roof maintenance, roofing advice, roofing blog, Missouri City roofer, Sugar Land roofing tips, Houston roofing guides">
-{% endblock %}
+{% block meta_description %}Expert roofing tips, maintenance guides, and industry insights from Tetralto Roofing. Learn how to protect your home and make informed decisions about your roof.{% endblock %}
+
+{% block og_description %}Expert roofing tips, maintenance guides, and industry insights from Tetralto Roofing. Learn how to protect your home and make informed decisions about your roof.{% endblock %}
+
+{% block twitter_description %}Expert roofing tips, maintenance guides, and industry insights from Tetralto Roofing. Learn how to protect your home and make informed decisions about your roof.{% endblock %}
 
 {% block content %}
 <div class="blog-hero">
@@ -19,7 +20,7 @@
 <div class="blog-posts">
     <div class="container">
         {% if posts %}
-            <div class="features-grid">
+            <div class="blog-tiles-container">
                 {% for post in posts %}
                     <a href="{% url 'blog_post' post.slug %}" class="blog-tile">
                         <div class="blog-tile-image">

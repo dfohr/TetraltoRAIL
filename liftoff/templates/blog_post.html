@@ -3,8 +3,60 @@
 
 {% block title %}{{ post.title }} - Tetralto Roofing Blog{% endblock %}
 
-{% block meta_description %}
-<meta name="description" content="{{ post.meta_description }}">
+{% block meta_description %}{{ post.meta_description }}{% endblock %}
+
+{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}
+
+{% block og_title %}{{ post.title }} - Tetralto Roofing Blog{% endblock %}
+
+{% block og_description %}{{ post.meta_description }}{% endblock %}
+
+{% block og_image %}{% if post.hero_image_filename %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/'|add:post.hero_image_filename %}{% endif %}{% endblock %}
+
+{% block og_image_alt %}{{ post.hero_image_alt|default:post.title }}{% endblock %}
+
+{% block twitter_title %}{{ post.title }} - Tetralto Roofing Blog{% endblock %}
+
+{% block twitter_description %}{{ post.meta_description }}{% endblock %}
+
+{% block twitter_image %}{% if post.hero_image_filename %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/'|add:post.hero_image_filename %}{% endif %}{% endblock %}
+
+{% block twitter_image_alt %}{{ post.hero_image_alt|default:post.title }}{% endblock %}
+
+{% block extra_head %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ request.build_absolute_uri }}"
+    },
+    "headline": "{{ post.title }}",
+    "description": "{{ post.meta_description }}"
+    {% if post.hero_image_filename %}
+    ,"image": {
+        "@type": "ImageObject",
+        "url": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/'|add:post.hero_image_filename %}",
+        "caption": "{{ post.hero_image_alt|default:post.title }}"
+    }
+    {% endif %}
+    ,"author": {
+        "@type": "Person",
+        "name": "{{ post.author }}"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Tetralto Roofing",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/tetralto-roofing-logo.avif' %}"
+        }
+    },
+    "datePublished": "{{ post.published_at|date:'c' }}",
+    "dateModified": "{{ post.updated_at|date:'c' }}"
+}
+</script>
 {% endblock %}
 
 {% block content %}
@@ -30,6 +82,28 @@
         
         <div class="service-description prose prose-lg">
             {{ post.content_html|safe }}
+        </div>
+
+        <div class="share-post">
+            <h3>Share this article</h3>
+            <div class="share-buttons">
+                <a href="https://facebook.com/share.php?u={{ request.build_absolute_uri|urlencode }}" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   class="share-button facebook"
+                   aria-label="Share on Facebook">
+                    <img src="{% static 'images/social_facebook_icon.avif' %}" alt="Facebook" width="24" height="24">
+                    Share on Facebook
+                </a>
+                <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ post.title }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="share-button twitter"
+                   aria-label="Share on X (Twitter)">
+                    <img src="{% static 'images/social_x_icon.avif' %}" alt="X (Twitter)" width="24" height="24">
+                    Share on X
+                </a>
+            </div>
         </div>
 
         <div class="post-cta">

@@ -10,27 +10,29 @@
     <meta name="geo.region" content="US-TX">
     <meta name="geo.placename" content="Missouri City">
     
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}{{ request.path }}" />
+    <link rel="canonical" href="{% block canonical %}https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}{{ request.path }}{% endblock %}">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}{{ request.path }}">
-    <meta property="og:title" content="{% block og_title %}{{ block.super }}{% endblock %}">
+    <meta property="og:url" content="{% block og_url %}https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}{{ request.path }}{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}Tetralto Roofing - Trusted Roofing Experts{% endblock %}">
     <meta property="og:description" content="{% block og_description %}Tetralto Roofing provides expert roof replacement, repair, and gutter services in Missouri City, Sugar Land, and Houston.{% endblock %}">
-    <meta property="og:image" content="https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}{% static 'images/tetralto-roofing-logo.avif' %}">
+    <meta property="og:image" content="{% block og_image %}https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}{% static 'images/tetralto-roofing-logo.avif' %}{% endblock %}">
+    <meta property="og:image:alt" content="{% block og_image_alt %}Tetralto Roofing Logo{% endblock %}">
     
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:url" content="https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}{{ request.path }}">
-    <meta name="twitter:title" content="{% block twitter_title %}{{ block.super }}{% endblock %}">
-    <meta name="twitter:description" content="{% block twitter_description %}{{ block.super }}{% endblock %}">
-    <meta name="twitter:image" content="https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}{% static 'images/tetralto-roofing-logo.avif' %}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{% block twitter_url %}https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}{{ request.path }}{% endblock %}">
+    <meta name="twitter:title" content="{% block twitter_title %}Tetralto Roofing - Trusted Roofing Experts{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Tetralto Roofing provides expert roof replacement, repair, and gutter services in Missouri City, Sugar Land, and Houston.{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}{% static 'images/tetralto-roofing-logo.avif' %}{% endblock %}">
+    <meta name="twitter:image:alt" content="{% block twitter_image_alt %}Tetralto Roofing Logo{% endblock %}">
 
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     <title>{% block title %}Tetralto Roofing - Trusted Roofing Experts{% endblock %}</title>
-    {% block meta_description %}{% endblock %}
+    <meta name="description" content="{% block meta_description %}Tetralto Roofing provides expert roof replacement, repair, and gutter services in Missouri City, Sugar Land, and Houston.{% endblock %}">
+    <meta name="keywords" content="roofing contractor, roof replacement, roof repair, gutter services, Missouri City roofer, Sugar Land roofing, Houston roofing company, professional roofers">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,23 +46,31 @@
 
     <!-- Preload critical assets -->
     <link rel="preload" as="image" href="{% static 'images/tetralto-roofing-logo.avif' %}" type="image/avif">
-    <link rel="preload" as="font" href="https://fonts.gstatic.com/s/comfortaa/v45/1Pt_g8LJRfWJmhDAuUsSQamb1W0lwk4S4WjMPrQ.ttf" type="font/ttf" crossorigin>
     
     <!-- DNS Prefetch -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
+
+    {% block extra_head %}{% endblock %}
 </head>
 <body>
     {% if request.path != '/health/' and request.path != '/admin/' %}
     <header class="site-header">
         <div class="header-container">
-            <a href="/" class="logo">
-                <img src="{% static 'images/tetralto-roofing-logo.avif' %}" 
-                     alt="Tetralto Roofing Logo"
-                     width="200" 
-                     height="60"
-                     fetchpriority="high">
-            </a>
+            <div class="header-top">
+                <a href="/" class="logo">
+                    <img src="{% static 'images/tetralto-roofing-logo.avif' %}" 
+                         alt="Tetralto Roofing Logo"
+                         width="200" 
+                         height="60"
+                         fetchpriority="high">
+                </a>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
             <nav class="nav-links">
                 <a href="/">Home</a>
                 <a href="/services/">Services</a>
@@ -68,11 +78,6 @@
                 <a href="/blog/">Blog</a>
             </nav>
             <a href="tel:281-895-1213" class="cta-phone">Call Us: <span>281-895-1213</span></a>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
         </div>
     </header>
     {% endif %}
@@ -81,8 +86,10 @@
     <!-- Removing breadcrumb navigation -->
     {% endif %}
 
-    {% block content %}
-    {% endblock %}
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
 
     <section class="social-bar">
         <div class="container">
