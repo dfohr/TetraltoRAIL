@@ -27,4 +27,17 @@ Development Standards for TetraltoRail Project
    - Clear README with setup instructions
    - Document environment variables
    - Document deployment process
+
+6. Problem-Solving Approach:
+   - Consider fundamental principles before specific fixes
+   - Prefer solutions that automatically adapt to content
+   - Think through implications for:
+     * Different screen sizes and devices
+     * Dynamic or changing content
+     * Future maintenance needs
+     * Accessibility requirements
+   - Evaluate and explain trade-offs between approaches
+   - If using fixed values (heights, padding, etc.), justify why they're necessary
+   - Question whether a solution addresses root causes or just symptoms
+   - Consider edge cases and potential future requirements
 """ 

@@ -761,9 +761,9 @@
     "hero_image_filename": "serv_gutter.avif",
     "hero_image_alt": "",
     "created_at": "2025-02-02T04:20:46.435Z",
-    "updated_at": "2025-02-02T16:36:53.332Z",
+    "updated_at": "2025-02-15T05:12:50.095Z",
     "published_at": "2025-02-02T04:20:40Z",
-    "is_active": true
+    "is_active": false
   }
 },
 {
@@ -799,6 +799,60 @@
     "created_at": "2025-02-02T06:35:32.125Z",
     "updated_at": "2025-02-02T16:36:53.344Z",
     "published_at": "2023-05-23T06:35:27Z",
+    "is_active": true
+  }
+},
+{
+  "model": "core.blogpost",
+  "pk": 4,
+  "fields": {
+    "title": "Transforming Homes with Quality Roofing – A Recent Project in Braeburn Featuring Malarkey Vista® AR Shingles",
+    "slug": "transforming-homes-with-quality-roofing-a-recent-p",
+    "meta_description": "See how Tetralto Roofing upgraded a Braeburn home with Storm Grey Malarkey Vista® AR shingles & new gutters for style, durability & protection!",
+    "content": "At **Tetralto Roofing**, we take pride in each project we complete, and our most recent roofing transformation in the **Braeburn** neighborhood is a perfect example of how the right materials and professional installation can elevate the look of a home. We had the pleasure of working with fantastic homeowners on this project, and the results were truly outstanding.\r\n\r\n ![alt](/static/images/blog-braeburn-1.avif)\r\n\r\nFor this job, we installed **Malarkey Vista® AR** shingles in the sleek **Storm Grey** color. These high-performance shingles are not only visually appealing but also offer superior protection against algae growth, keeping the roof looking fresh and clean over time. The Storm Grey color beautifully complemented the home’s exterior, giving it a modern, refined look that truly enhanced its curb appeal.\r\n\r\n ![alt](/static/images/blog-braeburn-2.avif)\r\n\r\nIn addition to the roofing, we also installed new gutters to ensure the home has a reliable drainage system. This combination of a durable roof and efficient gutters creates a long-lasting solution to protect the home from weather-related issues. The end result? As the homeowners put it, their home received “a facelift,” and we couldn’t agree more!\r\n\r\n ![alt](/static/images/blog-braeburn-3.avif)\r\n\r\nThe Braeburn community is known for its charming homes, and this project added even more character to the neighborhood. Working with such kind and enthusiastic homeowners made the process even more enjoyable, and we’re thrilled with how the project turned out.\r\n\r\nAt Tetralto Roofing, we’re committed to delivering not only top-quality roofing systems but also an exceptional customer experience. Whether you need a full roof replacement, gutter installation, or both, we’re here to make your home look and perform at its best.\r\n\r\n ![alt](/static/images/blog-braeburn-4.avif)",
+    "content_html": "<p>At <strong>Tetralto Roofing</strong>, we take pride in each project we complete, and our most recent roofing transformation in the <strong>Braeburn</strong> neighborhood is a perfect example of how the right materials and professional installation can elevate the look of a home. We had the pleasure of working with fantastic homeowners on this project, and the results were truly outstanding.</p>\n<p><img alt=\"alt\" src=\"/static/images/blog-braeburn-1.avif\" /></p>\n<p>For this job, we installed <strong>Malarkey Vista® AR</strong> shingles in the sleek <strong>Storm Grey</strong> color. These high-performance shingles are not only visually appealing but also offer superior protection against algae growth, keeping the roof looking fresh and clean over time. The Storm Grey color beautifully complemented the home’s exterior, giving it a modern, refined look that truly enhanced its curb appeal.</p>\n<p><img alt=\"alt\" src=\"/static/images/blog-braeburn-2.avif\" /></p>\n<p>In addition to the roofing, we also installed new gutters to ensure the home has a reliable drainage system. This combination of a durable roof and efficient gutters creates a long-lasting solution to protect the home from weather-related issues. The end result? As the homeowners put it, their home received “a facelift,” and we couldn’t agree more!</p>\n<p><img alt=\"alt\" src=\"/static/images/blog-braeburn-3.avif\" /></p>\n<p>The Braeburn community is known for its charming homes, and this project added even more character to the neighborhood. Working with such kind and enthusiastic homeowners made the process even more enjoyable, and we’re thrilled with how the project turned out.</p>\n<p>At Tetralto Roofing, we’re committed to delivering not only top-quality roofing systems but also an exceptional customer experience. Whether you need a full roof replacement, gutter installation, or both, we’re here to make your home look and perform at its best.</p>\n<p><img alt=\"alt\" src=\"/static/images/blog-braeburn-4.avif\" /></p>",
+    "author": "David Fohr",
+    "hero_image_filename": "blog-braeburn-1.avif",
+    "hero_image_alt": "",
+    "created_at": "2025-02-15T05:21:10.665Z",
+    "updated_at": "2025-02-15T05:21:10.665Z",
+    "published_at": "2024-11-17T05:21:04Z",
+    "is_active": true
+  }
+},
+{
+  "model": "core.blogpost",
+  "pk": 5,
+  "fields": {
+    "title": "From Woes to Wows!",
+    "slug": "from-woes-to-wows",
+    "meta_description": "Leak emergency in Missouri City, TX? We replaced a failing roof with GAF Timberline HDZ® in Slate, delivering durability, style & peace of mind!",
+    "content": "This homeowner in **Missouri City, TX**, was dealing with a serious ceiling leak, so we jumped in right away to stop the damage from getting worse. After inspecting the roof, we found it was in rough shape overall, and a full replacement was the best long-term solution.\r\n\r\n![alt](/static/images/blog-wows-1.avif)\r\n\r\nOnce the homeowner gave us the green light, our expert crew got to work, replacing the old, worn-out roof with a brand-new **GAF Timberline HDZ®** roofing system in **Slate**. These high-performance architectural shingles offer exceptional durability, advanced wind resistance, and long-lasting curb appeal. Now, the home is leak-free, worry-free, and built to withstand the elements for years to come!\r\n\r\n![alt](/static/images/blog-wows-2.avif)\r\n\r\nAt Tetralto Roofing, we don’t just fix roofs—we provide lasting protection and peace of mind. If you’re dealing with leaks or an aging roof, we’re here to help!\r\n\r\n![alt](/static/images/blog-wows-3.avif)\r\n\r\n![alt](/static/images/blog-wows-4.avif)",
+    "content_html": "<p>This homeowner in <strong>Missouri City, TX</strong>, was dealing with a serious ceiling leak, so we jumped in right away to stop the damage from getting worse. After inspecting the roof, we found it was in rough shape overall, and a full replacement was the best long-term solution.</p>\n<p><img alt=\"alt\" src=\"/static/images/blog-wows-1.avif\" /></p>\n<p>Once the homeowner gave us the green light, our expert crew got to work, replacing the old, worn-out roof with a brand-new <strong>GAF Timberline HDZ®</strong> roofing system in <strong>Slate</strong>. These high-performance architectural shingles offer exceptional durability, advanced wind resistance, and long-lasting curb appeal. Now, the home is leak-free, worry-free, and built to withstand the elements for years to come!</p>\n<p><img alt=\"alt\" src=\"/static/images/blog-wows-2.avif\" /></p>\n<p>At Tetralto Roofing, we don’t just fix roofs—we provide lasting protection and peace of mind. If you’re dealing with leaks or an aging roof, we’re here to help!</p>\n<p><img alt=\"alt\" src=\"/static/images/blog-wows-3.avif\" /></p>\n<p><img alt=\"alt\" src=\"/static/images/blog-wows-4.avif\" /></p>",
+    "author": "David Fohr",
+    "hero_image_filename": "blog-wows-1.avif",
+    "hero_image_alt": "",
+    "created_at": "2025-02-15T05:32:03.654Z",
+    "updated_at": "2025-02-15T05:45:31.528Z",
+    "published_at": "2023-08-29T05:31:59Z",
+    "is_active": true
+  }
+},
+{
+  "model": "core.blogpost",
+  "pk": 6,
+  "fields": {
+    "title": "Roofing Elevation: Bridging Aesthetics and Functionality Amidst Houston's Skyline",
+    "slug": "roofing-elevation-bridging-aesthetics-and-function",
+    "meta_description": "Roof replacement in downtown Houston with a view",
+    "content": "Elevating Architecture and Views: Feast your eyes on our latest project, where innovation meets panoramic beauty! We had the privilege of replacing the roofs of a stunning home featuring a unique skillion and butterfly roof designs, creating a striking visual contrast. As the sun sets over downtown Houston, with the iconic Minute Maid Stadium in view, our craftsmanship shines as brilliantly as the city lights. This project resents roofing as both an art and a science, showcasing our dedication to marrying sound roofing science with beautiful design.\r\n\r\n![alt](/static/images/blog-elevation-1.avif)\r\n\r\n![alt](/static/images/blog-elevation-2.avif)\r\n\r\n![alt](/static/images/blog-elevation-3.avif)\r\n\r\n![alt](/static/images/blog-elevation-4.avif)\r\n\r\n![alt](/static/images/blog-elevation-5.avif)\r\n\r\n![alt](/static/images/blog-elevation-6.avif)",
+    "content_html": "<p>Elevating Architecture and Views: Feast your eyes on our latest project, where innovation meets panoramic beauty! We had the privilege of replacing the roofs of a stunning home featuring a unique skillion and butterfly roof designs, creating a striking visual contrast. As the sun sets over downtown Houston, with the iconic Minute Maid Stadium in view, our craftsmanship shines as brilliantly as the city lights. This project resents roofing as both an art and a science, showcasing our dedication to marrying sound roofing science with beautiful design.</p>\n<p><img alt=\"alt\" src=\"/static/images/blog-elevation-1.avif\" /></p>\n<p><img alt=\"alt\" src=\"/static/images/blog-elevation-2.avif\" /></p>\n<p><img alt=\"alt\" src=\"/static/images/blog-elevation-3.avif\" /></p>\n<p><img alt=\"alt\" src=\"/static/images/blog-elevation-4.avif\" /></p>\n<p><img alt=\"alt\" src=\"/static/images/blog-elevation-5.avif\" /></p>\n<p><img alt=\"alt\" src=\"/static/images/blog-elevation-6.avif\" /></p>",
+    "author": "David Fohr",
+    "hero_image_filename": "blog-elevation-1.avif",
+    "hero_image_alt": "",
+    "created_at": "2025-02-24T00:47:48.446Z",
+    "updated_at": "2025-02-24T00:53:16.839Z",
+    "published_at": "2023-08-15T00:43:08Z",
     "is_active": true
   }
 }

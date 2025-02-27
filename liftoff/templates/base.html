@@ -46,6 +46,7 @@
 
     <!-- Preload critical assets -->
     <link rel="preload" as="image" href="{% static 'images/tetralto-roofing-logo.avif' %}" type="image/avif">
+    <link rel="preload" as="font" href="https://fonts.gstatic.com/s/comfortaa/v45/1Pt_g8LJRfWJmhDAuUsSQamb1W0lwk4S4WjMPrQ.ttf" type="font/ttf" crossorigin>
     
     <!-- DNS Prefetch -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
@@ -82,26 +83,26 @@
     </header>
     {% endif %}
     
-    {% if request.path != '/' and request.path != '/health/' and request.path != '/admin/' %}
-    <!-- Removing breadcrumb navigation -->
-    {% endif %}
-
     <main>
+        {% if request.path != '/' and request.path != '/health/' and request.path != '/admin/' %}
+        <!-- Removing breadcrumb navigation -->
+        {% endif %}
+
         {% block content %}
         {% endblock %}
-    </main>
 
-    <section class="social-bar">
-        <div class="container">
-            <div class="social-icons">
-                {% for social in social_links %}
-                    <a href="{{ social.url }}" target="_blank" title="{{ social.popupText }}" class="social-icon">
-                        <img src="{% static 'images/'|add:social.icon_filename %}" alt="{{ social.name }}" loading="lazy">
-                    </a>
-                {% endfor %}
+        <section class="social-bar">
+            <div class="container">
+                <div class="social-icons">
+                    {% for social in social_links %}
+                        <a href="{{ social.url }}" target="_blank" title="{{ social.popupText }}" class="social-icon">
+                            <img src="{% static 'images/'|add:social.icon_filename %}" alt="{{ social.name }}" loading="lazy">
+                        </a>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <footer class="site-footer">
         <div class="footer-container">
