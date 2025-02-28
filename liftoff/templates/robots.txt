@@ -13,7 +13,7 @@ Disallow: /*?utm_*
 Disallow: /*?fbclid=*
 
 # Sitemap location
-Sitemap: https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}/sitemap.xml
+Sitemap: https://tetralto.com/sitemap.xml
 
 # Crawl-delay for better server performance
 Crawl-delay: 1 
