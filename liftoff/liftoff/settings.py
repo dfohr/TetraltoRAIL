@@ -74,6 +74,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.context_processors.settings_context',
             ],
         },
     },
@@ -180,3 +181,6 @@ CACHES = {
 
 # Site framework settings
 SITE_ID = 1
+
+# Google Analytics
+GOOGLE_ANALYTICS_ID = os.environ.get('GOOGLE_ANALYTICS_ID', '')  # G-XXXXXXXXXX format
