@@ -4,4 +4,4 @@ def settings_context(request):
     """
     Make Django settings available in templates.
     """
-    return {'settings': settings} 
+    return {"settings": settings}
