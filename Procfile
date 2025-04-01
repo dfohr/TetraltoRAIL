@@ -1,1 +1,0 @@
-web: cd liftoff && gunicorn liftoff.wsgi:application 
