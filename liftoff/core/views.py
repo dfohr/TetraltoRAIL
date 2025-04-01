@@ -136,4 +136,10 @@ def robots_txt(request):
     content = f"""User-agent: *
 Allow: /
 Sitemap: {sitemap_url}"""
-    return HttpResponse(content, content_type="text/plain") 
+    return HttpResponse(content, content_type="text/plain")
+
+def terms_and_conditions(request):
+    """View for the Terms and Conditions page."""
+    return render(request, 'terms.html', {
+        'social_links': SocialLink.objects.filter(is_active=True).order_by('order'),
+    }) 

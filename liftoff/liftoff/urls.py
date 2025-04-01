@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from core.views import (
     home, health, services_view, contact, 
-    blog_list, blog_post, robots_txt
+    blog_list, blog_post, robots_txt, terms_and_conditions
 )
 from django.conf import settings
 from django.conf.urls.static import static
@@ -39,5 +39,6 @@ urlpatterns = [
     path('blog/', blog_list, name='blog'),
     path('blog/<slug:slug>/', blog_post, name='blog_post'),
     path('robots.txt', robots_txt, name='robots_txt'),
+    path('terms-and-conditions/', terms_and_conditions, name='terms_and_conditions'),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
