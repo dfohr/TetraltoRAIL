@@ -11,13 +11,13 @@ This document tracks our deployment process, challenges encountered, and solutio
 
 ## Deployment History
 
-### May 2023 - Initial Deployment
+### April 2025 - Initial Deployment
 
 _Initial deployment details to be filled in..._
 
 ## Deployment Challenges and Solutions
 
-### May 2023 - Railway CLI Upload Size Limitations
+### April 2025 - Railway CLI Upload Size Limitations
 
 **Issue**: 
 When attempting to deploy using `railway up`, we encountered timeout errors. Investigation revealed our project size is approximately 117MB, which exceeds Railway's 45MB upload limit for direct deployments.
@@ -39,7 +39,7 @@ Switching to GitHub-based deployments to:
 3. Consider moving large static assets to a CDN in the future
 4. Optimize image files to reduce overall project size
 
-### May 2023 - SSH Access and Name Collision Issues
+### April 2025 - SSH Access and Name Collision Issues
 
 **Issue**:
 We encountered difficulties establishing SSH access to our Railway deployment. Initial attempts to connect via SSH failed, and we suspected configuration issues with the service.
@@ -62,6 +62,47 @@ Successfully established SSH access to the deployed application, which provides:
 
 **Lessons Learned**:
 Consistent naming and simplified configuration are crucial for Railway deployments. When multiple configuration approaches overlap (like mixing Railpack and Nixpacks configurations), Railway may experience conflicts that prevent proper service execution and SSH access.
+
+### April 7, 2025 - GitHub Integration for Deployment
+
+**Plan**:
+After determining that the Railway CLI upload method is not feasible due to our project size exceeding the 45MB limit, we're now preparing to connect TetraltoDjango to Railway via GitHub integration.
+
+**Current Status**:
+1. Created a checkpoint commit (13df4f7) that contains:
+   - Our deployment chronicle documentation
+   - Updated data export in data.json
+   - New blog images for the algae streaks content
+2. All changes pushed to the GitHub repository
+
+**Next Steps**:
+1. Connect our GitHub repository to Railway
+2. Configure the deployment settings in Railway dashboard
+3. Set up environment variables
+4. Test the deployment process
+5. Monitor the first GitHub-triggered deployment
+
+**Rollback Information**:
+If we encounter issues with this new deployment approach, we can revert to our current state using:
+```bash
+git reset --hard 13df4f7
+```
+
+This ensures we have a stable point to return to if the GitHub integration doesn't work as expected.
+
+**Update - April 7, 2025**:
+Successfully connected the GitHub repository to Railway with the following configuration:
+1. Repository: dfohr/TetraltoRAIL
+2. Root Directory: TetraltoDjango
+3. Branch: main
+
+The deployment worked perfectly on the first attempt. Specifying `TetraltoDjango` as the root directory was essential since our Django application is contained within this subdirectory rather than at the repository root. This approach allows us to maintain documentation and other files outside the application directory while still enabling smooth Railway deployment.
+
+Benefits observed:
+- Eliminated the timeout errors encountered with railway up
+- Deployment process is faster and more reliable
+- Changes automatically deploy when pushed to GitHub
+- No need to manually run collectstatic or other commands
 
 ## Future Considerations for Microservices Architecture
 
