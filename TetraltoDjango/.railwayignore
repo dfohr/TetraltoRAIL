@@ -1,0 +1,43 @@
+# Ignore staticfiles directory as it can be generated during deployment
+staticfiles/
+
+# Ignore development and test files
+*.pyc
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+.env
+.venv/
+venv/
+ENV/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Ignore git and version control
+.git
+.gitignore
+.gitattributes
+
+# Ignore Docker files
+docker-compose.yml
+Dockerfile
+.dockerignore
+
+# Ignore IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Ignore local database files
+*.sqlite3
+*.db 

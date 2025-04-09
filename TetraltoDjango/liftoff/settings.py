@@ -184,3 +184,6 @@ SITE_ID = 1
 
 # Google Analytics
 GOOGLE_ANALYTICS_ID = os.environ.get('GOOGLE_ANALYTICS_ID', '')  # G-XXXXXXXXXX format
+
+# Google Tag Manager
+GTM_CONTAINER_ID = os.environ.get('GTM_CONTAINER_ID', '')  # GTM-XXXXXXXXX format
