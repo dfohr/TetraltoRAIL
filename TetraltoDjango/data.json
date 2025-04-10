@@ -963,5 +963,23 @@
         "published_at": "2025-04-05T16:17:04Z",
         "is_active": true
     }
+},
+{
+    "model": "core.blogpost",
+    "pk": 13,
+    "fields": {
+        "title": "Discover How Tetralto Roofing Revitalized a Residence with a Stunning Pewter Gray Roof in Sienna!",
+        "slug": "Stunning-Pewter-Gray-Roof-in-Sienna",
+        "meta_description": "Missouri City's premier roofers transform homes with GAF Timberline HDZ shingles in stunning Pewter Gray. See how Tetralto elevates protection with style.",
+        "content": "Witness the remarkable transformation by **Tetralto Roofing!** This recent project showcases our expert craftsmanship and meticulous attention to detail.\r\n\r\n![alt](/static/images/blog-roof-pewter-sienna1.avif)\r\n\r\nWe installed premium **GAF Timberline HDZ** shingles in sophisticated **Pewter Gray**, creating a roof that does more than protect—it elevates the entire home's curb appeal.\r\nThe rich texture and dimensional color variations of these high-performance shingles complement the home's architecture perfectly, adding depth and character to every angle.\r\n\r\nThis Missouri City project demonstrates why homeowners trust Tetralto Roofing to turn necessary roof replacements into stunning property upgrades. Our team brings precision, quality materials, and design sensibility to every installation.\r\n\r\nWant to transform your home with a roof that makes a statement? Contact us today for a free inspection and quote: 281-895-1213.\r\n\r\n![alt](/static/images/blog-roof-pewter-sienna2.avif)\r\n![alt](/static/images/blog-roof-pewter-sienna3.avif)",
+        "content_html": "<p>Witness the remarkable transformation by <strong>Tetralto Roofing!</strong> This recent project showcases our expert craftsmanship and meticulous attention to detail.</p>\n<p><img alt=\"alt\" src=\"/static/images/blog-roof-pewter-sienna1.avif\" /></p>\n<p>We installed premium <strong>GAF Timberline HDZ</strong> shingles in sophisticated <strong>Pewter Gray</strong>, creating a roof that does more than protect—it elevates the entire home's curb appeal.\nThe rich texture and dimensional color variations of these high-performance shingles complement the home's architecture perfectly, adding depth and character to every angle.</p>\n<p>This Missouri City project demonstrates why homeowners trust Tetralto Roofing to turn necessary roof replacements into stunning property upgrades. Our team brings precision, quality materials, and design sensibility to every installation.</p>\n<p>Want to transform your home with a roof that makes a statement? Contact us today for a free inspection and quote: 281-895-1213.</p>\n<p><img alt=\"alt\" src=\"/static/images/blog-roof-pewter-sienna2.avif\" />\n<img alt=\"alt\" src=\"/static/images/blog-roof-pewter-sienna3.avif\" /></p>",
+        "author": "David Fohr",
+        "hero_image_filename": "blog-roof-pewter-sienna1.avif",
+        "hero_image_alt": "",
+        "created_at": "2025-04-10T01:16:18.696Z",
+        "updated_at": "2025-04-10T01:16:18.696Z",
+        "published_at": "2023-08-10T10:15:48Z",
+        "is_active": true
+    }
 }
 ]
