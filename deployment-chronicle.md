@@ -32,6 +32,20 @@ This document tracks our deployment process, challenges encountered, and solutio
 
 _Initial deployment details to be filled in..._
 
+### April 11, 2025 - Geolocation Service Deployment
+
+**Changes**:
+1. Added new geolocation microservice:
+   - FastAPI-based service for IP geolocation
+   - Uses MaxMind's web service
+   - Configured for Railway deployment
+   - Internal networking enabled for service-to-service communication
+
+**Benefits**:
+- Enhanced location-based features
+- Improved service architecture
+- Better separation of concerns
+
 ## Deployment Challenges and Solutions
 
 ### April 2025 - Railway CLI Upload Size Limitations
