@@ -46,6 +46,35 @@ _Initial deployment details to be filled in..._
 - Improved service architecture
 - Better separation of concerns
 
+### April 11, 2025 - SSH Connectivity and Production Server Configuration
+
+**Issues**:
+1. SSH access to TetraltoDjango service was lost after git-based deployments
+2. Service remained accessible via web but SSH connections failed
+3. Other services (Postgres, geo-service) maintained SSH access
+
+**Investigation**:
+- Issue occurred specifically after git-based deployments that triggered simultaneous redeployment of multiple services
+- Direct deployments using `railway up` maintained SSH access
+- Error message indicated protocol-level connection issues
+
+**Solution**:
+1. Switched to Railpack builder for TetraltoDjango service
+2. Configured proper production server using Gunicorn
+3. Moved data loading to start command for better visibility
+4. Maintained consistent deployment configuration
+
+**Results**:
+- SSH access restored to all services
+- Production-grade server configuration implemented
+- More reliable deployment process established
+- Better visibility into deployment steps
+
+**Lessons Learned**:
+- Different deployment methods (git vs direct) can affect service configurations differently
+- Railpack provides more stable service configuration for Django applications
+- Production server configuration is essential for reliable service operation
+
 ### April 11, 2025 - Deployment Method Observations
 
 **Behavior Differences**:
