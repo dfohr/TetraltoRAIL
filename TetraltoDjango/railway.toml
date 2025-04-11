@@ -1,0 +1,7 @@
+[build]
+builder = "railpack"
+buildCommand = "pip install -r requirements.txt"
+
+[deploy]
+startCommand = "python manage.py runserver 0.0.0.0:$PORT"
+postDeploy = "python manage.py loaddata data.json --exclude core.lead" 
