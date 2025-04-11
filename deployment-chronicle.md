@@ -46,6 +46,19 @@ _Initial deployment details to be filled in..._
 - Improved service architecture
 - Better separation of concerns
 
+### April 11, 2025 - Deployment Method Observations
+
+**Behavior Differences**:
+1. `railway up` deployment:
+   - Direct deployment to specific service
+   - Maintains SSH access to all services
+   - More isolated deployment process
+
+2. Git-based deployment:
+   - Triggers redeployment of all services
+   - May affect service configurations differently
+   - More comprehensive but potentially disruptive
+
 ## Deployment Challenges and Solutions
 
 ### April 2025 - Railway CLI Upload Size Limitations
