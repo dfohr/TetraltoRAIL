@@ -8,7 +8,9 @@ This document outlines the planned microservices architecture for the TetraltoRa
 
 - **Website Traffic**: Low volume (~10 visitors per day)
 - **Main Application**: Django-based website (in `liftoff` directory)
-- **Database**: PostgreSQL
+- **Databases**: 
+  - Public PostgreSQL: Main website database, exposed to web traffic
+  - Postgres-Internal: Internal services database, not exposed to web
 - **Hosting**: Railway.app with direct code uploads via `railway up`
 - **Static Files**: Using WhiteNoise for static file serving
 
@@ -26,10 +28,11 @@ The planned architecture consists of:
    - Translates IP addresses to location data
    - Simple API with standardized response format
 
-3. **Visit Analysis Service**
+3. **Visitor Analytics Service**
    - Processes raw visit data
    - Deduplicates visitors
    - Analyzes sessions and user journeys
+   - Tracks visitor behavior and engagement
    - Triggers notifications for real visitors (not bots)
 
 4. **Notification Service**
@@ -60,41 +63,48 @@ The planned architecture consists of:
 - No Docker required
 - Uses Railway's Nixpacks for automatic detection
 
-### 2. Visit Analysis Service
+### 2. Visitor Analytics Service
 
-**Purpose**: Process raw visitor data to extract insights and trigger notifications.
+**Purpose**: Track and analyze visitor behavior to provide insights and trigger notifications.
 
 **Functionality**:
 - Receive visit events from the main website
 - Enrich visit data with geolocation information
 - Detect and filter bot traffic
 - Identify unique visitor sessions
+- Track visitor engagement metrics
 - Trigger notification events for genuine visitors
 
 **API Endpoints**:
-- `POST /visit` - Record a new visit
+- `POST /visits` - Record a new visit
 - `GET /visits` - Retrieve processed visit data
 - `GET /health` - Health check endpoint
 
 **Tech Stack**:
 - Python with FastAPI
+- SQLAlchemy for database operations
+- Alembic for database migrations
 - Requests library for service communication
 
 **Environment Variables**:
+- `DATABASE_URL` - Connection string for PostgreSQL
 - `GEO_SERVICE_URL` - URL of the geolocation service
 - `NOTIFICATION_SERVICE_URL` - URL of the notification service
 - `PORT` - Port to run the service on (defaults to 8000)
 
 **Data Storage**:
-- Dedicated database for visit data
+- Uses Postgres-Internal database
+- Dedicated schema for visitor analytics
 - Optimized for time-series analytics
+- Tables for visits, sessions, and analytics
+- Not exposed to web traffic
 
 ### 3. Notification Service
 
 **Purpose**: Send notifications about website visitors through various channels.
 
 **Functionality**:
-- Receive notification requests from the analysis service
+- Receive notification requests from the analytics service
 - Send SMS notifications via provider API
 - Future capability for multiple notification channels
 - Rate limiting and notification rules
@@ -119,9 +129,10 @@ The planned architecture consists of:
    - Creates event with timestamp, URL, IP, user agent
 
 2. **Visit Processing**:
-   - Analysis service receives visit data
+   - Visitor Analytics service receives visit data
    - Calls geolocation service to enrich with location data
    - Applies bot detection and session logic
+   - Tracks visitor engagement metrics
    - Determines if notification should be sent
 
 3. **Notification**:
@@ -138,10 +149,11 @@ cd geo-service
 export MAXMIND_API_KEY=your_dev_key
 python app.py --port 8001
 
-# Terminal 2 - Analysis Service 
-cd analysis-service
+# Terminal 2 - Visitor Analytics Service 
+cd visitor-analytics-service
+export DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres_internal_dev
 export GEO_SERVICE_URL=http://localhost:8001
-python app.py --port 8002
+python -m uvicorn app.main:app --port 8002
 
 # Terminal 3 - Notification Service
 cd notification-service
@@ -150,7 +162,7 @@ python app.py --port 8003
 
 # Terminal 4 - Main Django App
 cd liftoff
-export ANALYSIS_SERVICE_URL=http://localhost:8002
+export VISITOR_ANALYTICS_SERVICE_URL=http://localhost:8002
 python manage.py runserver
 ```
 
@@ -163,10 +175,13 @@ TetraltoRail/
 │   ├── app.py
 │   ├── requirements.txt
 │   └── railway.json
-├── analysis-service/       # Visit analysis service
-│   ├── app.py
+├── visitor-analytics-service/  # Visitor analytics service
+│   ├── app/
+│   │   ├── main.py
+│   │   ├── models/
+│   │   └── api/
 │   ├── requirements.txt
-│   └── railway.json
+│   └── railway.toml
 └── notification-service/   # Notification service
     ├── app.py
     ├── requirements.txt
@@ -178,10 +193,10 @@ TetraltoRail/
 ### Phase 1: Basic Infrastructure
 1. Create the geolocation service (simplest to test)
 2. Set up the basic visit tracking in the Django app
-3. Create a minimal analysis service that can receive events
+3. Create a minimal visitor analytics service that can receive events
 
 ### Phase 2: Core Functionality
-1. Implement visitor session management in the analysis service
+1. Implement visitor session management in the analytics service
 2. Create the notification service
 3. Connect all services to test the full flow
 
@@ -203,7 +218,7 @@ TetraltoRail/
 The Django application will need minimal changes:
 
 1. Add middleware to capture visit data
-2. Create background task or asynchronous call to the analysis service
+2. Create background task or asynchronous call to the analytics service
 3. Ensure no impact on website performance
 
 ## Conclusion
