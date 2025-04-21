@@ -12,8 +12,8 @@
 {% block content %}
 <main class="service-detail-page">
     <section class="service-hero" style="background: white; padding: 4rem 0;">
-        <div class="container" style="display: flex; align-items: flex-start; gap: 4rem;">
-            <div class="hero-content" style="flex: 1;">
+        <div class="container" style="display: flex; align-items: flex-start; gap: 4rem; flex-wrap: wrap;">
+            <div class="hero-content" style="flex: 1; min-width: 300px;">
                 <div class="service-header" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
                     <img src="{% static 'images/'|add:service.icon_filename %}" 
                          alt="{{ service.title }} icon"
@@ -25,7 +25,7 @@
                 <div class="service-description" style="margin-bottom: 2rem;">
                     {{ service.description_html|safe }}
                 </div>
-                <div class="button-group" style="display: flex; gap: 1rem;">
+                <div class="button-group" style="display: flex; gap: 1rem; flex-wrap: wrap;">
                     <a href="tel:281-895-1213" class="button primary" style="background: var(--primary-color); color: white; padding: 0.75rem 1.5rem; border-radius: 4px; text-decoration: none; font-weight: 500;">
                         Call Us: 281-895-1213
                     </a>
@@ -34,7 +34,7 @@
                     </a>
                 </div>
             </div>
-            <div class="hero-right" style="flex: 1; display: flex; flex-direction: column; gap: 2rem;">
+            <div class="hero-right" style="flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 2rem;">
                 <div class="hero-image">
                     <img src="{% static 'images/'|add:service.image_filename %}" 
                          alt="{{ service.title }}"
@@ -66,7 +66,7 @@
         <div class="process-steps" style="background: #f8f9fa; padding: 1rem 0;">
             <div class="container">
                 <h2 style="text-align: center; color: var(--primary-color); font-size: 1.75rem; margin-bottom: 1.5rem;">Our Roof Replacement Process</h2>
-                <div style="display: flex; gap: 1.5rem; padding: 0.5rem 0;">
+                <div style="display: flex; gap: 1.5rem; padding: 0.5rem 0; flex-wrap: wrap;">
                     <!-- Step 1 -->
                     <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); min-width: 240px; flex: 1;">
                         <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.75rem;">
@@ -110,9 +110,9 @@
         <div class="related-posts" style="margin-top: 3rem; padding: 2rem 0; background-color: var(--background-light);">
             <div class="container">
                 <h2 style="text-align: center; color: var(--primary-color); font-size: 1.75rem; margin-bottom: 1.5rem;">Recent Roofing Projects</h2>
-                <div style="display: flex; gap: 1.5rem; padding: 0.5rem 0;">
+                <div style="display: flex; gap: 1.5rem; padding: 0.5rem 0; flex-wrap: wrap;">
                     {% for post in related_posts %}
-                    <a href="{% url 'blog_post' post.slug %}" class="blog-tile" style="display: block; text-decoration: none; color: inherit; position: relative; width: 100%; height: 200px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <a href="{% url 'blog_post' post.slug %}" class="blog-tile" style="display: block; text-decoration: none; color: inherit; position: relative; flex: 1; min-width: 300px; height: 200px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                         <div class="blog-tile-image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
                             <img src="{% static 'images/'|add:post.hero_image_filename %}" 
                                  alt="{{ post.hero_image_alt|default:post.title }}"
@@ -130,7 +130,7 @@
                 </div>
                 <div class="cta-section" style="text-align: center; margin-top: 3rem;">
                     <h2 style="font-size: 1.75rem; margin-bottom: 1.5rem;">Ready to Get Started?</h2>
-                    <div class="button-group" style="display: flex; gap: 1rem; justify-content: center;">
+                    <div class="button-group" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                         <a href="tel:281-895-1213" class="button primary" style="background: var(--primary-color); color: white; padding: 0.75rem 1.5rem; border-radius: 4px; text-decoration: none; font-weight: 500;">
                             Call Us: 281-895-1213
                         </a>
