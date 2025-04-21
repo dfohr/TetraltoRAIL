@@ -4,14 +4,14 @@
     "pk": 1,
     "fields": {
         "title": "Roof Replacement",
-        "slug": null,
+        "slug": "roof-replacement",
         "subtitle": "If your roof is beyond repair, a roof replacement may be required. Call us for a free estimate!.\"",
         "description": "Although a well-maintained roof can last many years, the following are symptoms of a roof that needs to be replaced:\r\n\r\n* Missing, loose, or cracked shingles\r\n* Water damage due to roof failure\r\n* Increased electric bills (leaking air)\r\n* Algae growth\r\n* Granule loss\r\n\r\nIf you see these symptoms, give Tetralto Roofing a call. We'll inspect your roof and give you an estimate for the replacement!",
         "image_filename": "serv_roof_replacement.avif",
         "icon_filename": "serv_roof_replacement_icon.avif",
         "order": 1,
         "created_at": "2025-01-24T15:21:13.788Z",
-        "updated_at": "2025-01-26T06:47:15.183Z"
+        "updated_at": "2025-04-21T04:11:50.329Z"
     }
 },
 {
