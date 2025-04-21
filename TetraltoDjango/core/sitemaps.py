@@ -1,6 +1,6 @@
 from django.contrib.sitemaps import Sitemap
 from django.urls import reverse
-from .models import BlogPost
+from .models import BlogPost, Service
 from django.utils import timezone
 from datetime import timedelta
 
@@ -81,4 +81,25 @@ class BlogPostSitemap(Sitemap):
         elif age <= timedelta(days=90):
             return 'monthly'   # Older posts get occasional updates
         else:
-            return 'yearly'    # Very old posts rarely change 
+            return 'yearly'    # Very old posts rarely change
+
+class ServiceSitemap(Sitemap):
+    protocol = 'https'
+
+    def items(self):
+        # Only include services with slugs
+        return Service.objects.filter(slug__isnull=False)
+
+    def lastmod(self, obj):
+        return obj.updated_at or obj.created_at
+
+    def location(self, obj):
+        return reverse('service_detail', args=[obj.slug])
+    
+    def priority(self, obj):
+        # Services are important content, give them high priority
+        return 0.9
+
+    def changefreq(self, obj):
+        # Services don't change very often
+        return 'monthly' 
