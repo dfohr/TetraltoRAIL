@@ -46,6 +46,11 @@
                     </div>
                 </div>
                 <p class="service-subtitle">{{ service.subtitle }}</p>
+                {% if service.slug %}
+                <a href="{% url 'service_detail' service.slug %}" class="more-about-link" style="color: var(--primary-color); text-decoration: none; display: inline-block; margin-top: 0.5rem;">
+                    More about {{ service.title }} →
+                </a>
+                {% endif %}
             </div>
             {% endfor %}
         </div>

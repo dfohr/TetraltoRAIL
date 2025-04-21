@@ -26,6 +26,17 @@
                         <img src="{% static 'images/'|add:service.image_filename %}" 
                              alt="{{ service.title }}"
                              loading="lazy">
+                        {% if service.slug %}
+                        <div style="text-align: center; margin-top: 1rem;">
+                            <a href="{% url 'service_detail' service.slug %}" 
+                               style="color: var(--primary-color); text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 0.5rem;">
+                                More about {{ service.title }}
+                                <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        </div>
+                        {% endif %}
                     </div>
                     <div class="service-content">
                         <div class="service-header">

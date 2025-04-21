@@ -142,4 +142,29 @@ def terms_and_conditions(request):
     """View for the Terms and Conditions page."""
     return render(request, 'terms.html', {
         'social_links': SocialLink.objects.filter(is_active=True).order_by('order'),
+    })
+
+def service_detail(request, slug):
+    service = get_object_or_404(Service, slug=slug)
+    
+    # Convert markdown to HTML
+    md = markdown.Markdown(extensions=[
+        'markdown.extensions.fenced_code',
+        'markdown.extensions.tables',
+        'markdown.extensions.toc',
+    ])
+    service.description_html = md.convert(service.description)
+    
+    # Get the featured blog post
+    featured_blog = get_object_or_404(
+        BlogPost,
+        slug='beautiful-new-roof-in-meadows-place',
+        is_active=True,
+        published_at__lte=timezone.now()
+    )
+    
+    return render(request, 'roof-replacement.html', {
+        'service': service,
+        'featured_blog': featured_blog,
+        'social_links': SocialLink.objects.filter(is_active=True).order_by('order'),
     }) 
