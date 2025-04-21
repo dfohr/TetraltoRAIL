@@ -146,25 +146,26 @@ def terms_and_conditions(request):
 
 def service_detail(request, slug):
     service = get_object_or_404(Service, slug=slug)
+    featured_blog = get_object_or_404(BlogPost, slug='beautiful-new-roof-in-meadows-place', is_active=True)
     
     # Convert markdown to HTML
-    md = markdown.Markdown(extensions=[
-        'markdown.extensions.fenced_code',
-        'markdown.extensions.tables',
-        'markdown.extensions.toc',
-    ])
-    service.description_html = md.convert(service.description)
-    
-    # Get the featured blog post
-    featured_blog = get_object_or_404(
-        BlogPost,
-        slug='beautiful-new-roof-in-meadows-place',
-        is_active=True,
-        published_at__lte=timezone.now()
+    service.description_html = markdown.markdown(
+        service.description,
+        extensions=['nl2br', 'tables', 'fenced_code']
     )
     
-    return render(request, 'roof-replacement.html', {
+    # Fetch the specific blog posts by their slugs
+    related_posts = BlogPost.objects.filter(
+        is_active=True,
+        slug__in=[
+            'transforming-homes-with-quality-roofing-a-recent-p',
+            'roofing-elevation-bridging-aesthetics-and-function',
+            'Stunning-Pewter-Gray-Roof-in-Sienna'
+        ]
+    ).order_by('slug')  # Order by slug to maintain consistent order
+    
+    return render(request, f'{slug}.html', {
         'service': service,
         'featured_blog': featured_blog,
-        'social_links': SocialLink.objects.filter(is_active=True).order_by('order'),
+        'related_posts': related_posts
     }) 

@@ -12,7 +12,7 @@
 {% block content %}
 <main class="service-detail-page">
     <section class="service-hero" style="background: white; padding: 4rem 0;">
-        <div class="container" style="display: flex; align-items: center; gap: 4rem;">
+        <div class="container" style="display: flex; align-items: flex-start; gap: 4rem;">
             <div class="hero-content" style="flex: 1;">
                 <div class="service-header" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
                     <img src="{% static 'images/'|add:service.icon_filename %}" 
@@ -21,7 +21,10 @@
                          loading="lazy">
                     <h1 style="margin: 0; font-size: 2.5rem; color: var(--primary-color);">{{ service.title }}</h1>
                 </div>
-                <p class="service-subtitle" style="font-size: 1.25rem; color: #333; margin-bottom: 2rem;">{{ service.subtitle }}</p>
+                <p class="service-subtitle" style="font-size: 1.25rem; color: #333; margin-bottom: 1rem;">{{ service.subtitle }}</p>
+                <div class="service-description" style="margin-bottom: 2rem;">
+                    {{ service.description_html|safe }}
+                </div>
                 <div class="button-group" style="display: flex; gap: 1rem;">
                     <a href="tel:281-895-1213" class="button primary" style="background: var(--primary-color); color: white; padding: 0.75rem 1.5rem; border-radius: 4px; text-decoration: none; font-weight: 500;">
                         Call Us: 281-895-1213
@@ -31,50 +34,111 @@
                     </a>
                 </div>
             </div>
-            <div class="hero-image" style="flex: 1;">
-                <img src="{% static 'images/'|add:service.image_filename %}" 
-                     alt="{{ service.title }}"
-                     style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
-                     loading="lazy">
+            <div class="hero-right" style="flex: 1; display: flex; flex-direction: column; gap: 2rem;">
+                <div class="hero-image">
+                    <img src="{% static 'images/'|add:service.image_filename %}" 
+                         alt="{{ service.title }}"
+                         style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
+                         loading="lazy">
+                </div>
+                <div class="featured-blog">
+                    <a href="{% url 'blog_post' featured_blog.slug %}" class="blog-tile" style="display: block; text-decoration: none; color: inherit; position: relative; width: 100%; height: 200px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <div class="blog-tile-image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                            <img src="{% static 'images/'|add:featured_blog.hero_image_filename %}" 
+                                 alt="{{ featured_blog.hero_image_alt|default:featured_blog.title }}"
+                                 style="width: 100%; height: 100%; object-fit: cover;"
+                                 loading="lazy">
+                        </div>
+                        <div class="blog-tile-meta" style="position: absolute; top: 0; left: 0; right: 0; padding: 1rem; color: white; font-size: 0.875rem; font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,0.5); z-index: 2;">
+                            {{ featured_blog.published_at|date:"F j, Y" }} • {{ featured_blog.author }}
+                        </div>
+                        <div class="blog-tile-content" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem 1rem; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.4) 60%, transparent); z-index: 2;">
+                            <h3 style="color: white; font-size: 1.25rem; font-weight: 600; margin: 0; line-height: 1.3; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">{{ featured_blog.title }}</h3>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="service-content" style="padding: 4rem 0; background: #f8f9fa;">
-        <div class="container" style="display: flex; gap: 4rem;">
-            <div class="service-description" style="flex: 2;">
-                <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                    {{ service.description_html|safe }}
+    <section class="service-content" style="padding: 2rem 0; background: #f8f9fa;">
+        <!-- Process Steps Section -->
+        <div class="process-steps" style="background: #f8f9fa; padding: 1rem 0;">
+            <div class="container">
+                <h2 style="text-align: center; color: var(--primary-color); font-size: 1.75rem; margin-bottom: 1.5rem;">Our Roof Replacement Process</h2>
+                <div style="display: flex; gap: 1.5rem; padding: 0.5rem 0;">
+                    <!-- Step 1 -->
+                    <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); min-width: 240px; flex: 1;">
+                        <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.75rem;">
+                            <div style="background: var(--secondary-color); color: white; width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; font-weight: bold;">1</div>
+                            <h3 style="font-size: 1.125rem; font-weight: 600; margin: 0;">Roof Inspection</h3>
+                            <p style="margin: 0; color: #666; font-size: 0.9375rem;">Our experts perform a comprehensive inspection of your roof, attic ventilation, gutters, and flashings to determine if replacement is necessary and assess the current condition.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2 -->
+                    <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); min-width: 240px; flex: 1;">
+                        <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.75rem;">
+                            <div style="background: var(--secondary-color); color: white; width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; font-weight: bold;">2</div>
+                            <h3 style="font-size: 1.125rem; font-weight: 600; margin: 0;">Solution Design</h3>
+                            <p style="margin: 0; color: #666; font-size: 0.9375rem;">We collaborate with you to understand your specific requirements and design a customized solution that meets your needs and budget.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3 -->
+                    <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); min-width: 240px; flex: 1;">
+                        <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.75rem;">
+                            <div style="background: var(--secondary-color); color: white; width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; font-weight: bold;">3</div>
+                            <h3 style="font-size: 1.125rem; font-weight: 600; margin: 0;">Roof Replacement</h3>
+                            <p style="margin: 0; color: #666; font-size: 0.9375rem;">Our skilled team completes the replacement in a single day, followed by thorough cleanup and a final walkthrough to ensure your complete satisfaction.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 4 -->
+                    <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); min-width: 240px; flex: 1;">
+                        <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.75rem;">
+                            <div style="background: var(--secondary-color); color: white; width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; font-weight: bold;">4</div>
+                            <h3 style="font-size: 1.125rem; font-weight: 600; margin: 0;">Roof Maintenance</h3>
+                            <p style="margin: 0; color: #666; font-size: 0.9375rem;">As a Tetralto roof owner, you receive complimentary annual inspections to maintain your roof's optimal condition and longevity.</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="featured-blog" style="flex: 1;">
-                <a href="{% url 'blog_post' featured_blog.slug %}" class="blog-tile" style="display: block; text-decoration: none; color: inherit; position: relative; width: 100%; height: 300px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                    <div class="blog-tile-image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                        <img src="{% static 'images/'|add:featured_blog.hero_image_filename %}" 
-                             alt="{{ featured_blog.hero_image_alt|default:featured_blog.title }}"
-                             style="width: 100%; height: 100%; object-fit: cover;"
-                             loading="lazy">
-                    </div>
-                    <div class="blog-tile-meta" style="position: absolute; top: 0; left: 0; right: 0; padding: 1.5rem; color: white; font-size: 0.875rem; font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,0.5); z-index: 2;">
-                        {{ featured_blog.published_at|date:"F j, Y" }} • {{ featured_blog.author }}
-                    </div>
-                    <div class="blog-tile-content" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem 1.5rem; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.4) 60%, transparent); z-index: 2;">
-                        <h3 style="color: white; font-size: 1.5rem; font-weight: 600; margin: 0; line-height: 1.3; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">{{ featured_blog.title }}</h3>
-                    </div>
-                </a>
             </div>
         </div>
 
-        <div class="cta-section" style="text-align: center; margin-top: 3rem;">
-            <h2 style="font-size: 1.75rem; margin-bottom: 1.5rem;">Ready to Get Started?</h2>
-            <div class="button-group" style="display: flex; gap: 1rem; justify-content: center;">
-                <a href="tel:281-895-1213" class="button primary" style="background: var(--primary-color); color: white; padding: 0.75rem 1.5rem; border-radius: 4px; text-decoration: none; font-weight: 500;">
-                    Call Us: 281-895-1213
-                </a>
-                <a href="{% url 'contact' %}" class="button secondary" style="background: white; color: var(--primary-color); padding: 0.75rem 1.5rem; border-radius: 4px; text-decoration: none; font-weight: 500; border: 2px solid var(--primary-color);">
-                    Get Free Estimate
-                </a>
+        <!-- Related Blog Posts -->
+        <div class="related-posts" style="margin-top: 3rem; padding: 2rem 0; background-color: var(--background-light);">
+            <div class="container">
+                <h2 style="text-align: center; color: var(--primary-color); font-size: 1.75rem; margin-bottom: 1.5rem;">Recent Roofing Projects</h2>
+                <div style="display: flex; gap: 1.5rem; padding: 0.5rem 0;">
+                    {% for post in related_posts %}
+                    <a href="{% url 'blog_post' post.slug %}" class="blog-tile" style="display: block; text-decoration: none; color: inherit; position: relative; width: 100%; height: 200px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <div class="blog-tile-image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                            <img src="{% static 'images/'|add:post.hero_image_filename %}" 
+                                 alt="{{ post.hero_image_alt|default:post.title }}"
+                                 style="width: 100%; height: 100%; object-fit: cover;"
+                                 loading="lazy">
+                        </div>
+                        <div class="blog-tile-meta" style="position: absolute; top: 0; left: 0; right: 0; padding: 1rem; color: white; font-size: 0.875rem; font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,0.5); z-index: 2;">
+                            {{ post.published_at|date:"F j, Y" }} • {{ post.author }}
+                        </div>
+                        <div class="blog-tile-content" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem 1rem; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.4) 60%, transparent); z-index: 2;">
+                            <h3 style="color: white; font-size: 1.25rem; font-weight: 600; margin: 0; line-height: 1.3; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">{{ post.title }}</h3>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+                <div class="cta-section" style="text-align: center; margin-top: 3rem;">
+                    <h2 style="font-size: 1.75rem; margin-bottom: 1.5rem;">Ready to Get Started?</h2>
+                    <div class="button-group" style="display: flex; gap: 1rem; justify-content: center;">
+                        <a href="tel:281-895-1213" class="button primary" style="background: var(--primary-color); color: white; padding: 0.75rem 1.5rem; border-radius: 4px; text-decoration: none; font-weight: 500;">
+                            Call Us: 281-895-1213
+                        </a>
+                        <a href="{% url 'contact' %}" class="button secondary" style="background: white; color: var(--primary-color); padding: 0.75rem 1.5rem; border-radius: 4px; text-decoration: none; font-weight: 500; border: 2px solid var(--primary-color);">
+                            Get Free Estimate
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -107,4 +171,69 @@
     "image": "https://{% if settings.SITE_DOMAIN %}{{ settings.SITE_DOMAIN }}{% else %}tetralto.com{% endif %}{% static 'images/'|add:service.image_filename %}"
 }
 </script>
+
+<style>
+.related-posts {
+    padding: 2rem 0;
+    background-color: #f8f9fa;
+}
+
+.related-posts h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    font-size: 1.75rem;
+}
+
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.post-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+    text-decoration: none;
+    color: inherit;
+}
+
+.post-card:hover {
+    transform: translateY(-4px);
+}
+
+.post-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.post-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.post-content {
+    padding: 1.5rem;
+}
+
+.post-content h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+    color: var(--primary-color);
+}
+
+.post-content p {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: #666;
+    line-height: 1.5;
+}
+</style>
 {% endblock %} 
