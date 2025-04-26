@@ -18,7 +18,7 @@
         grecaptcha.ready(function() {
             grecaptcha.execute('{{ settings.RECAPTCHA_PUBLIC_KEY }}', {action: 'contact_form'})
             .then(function(token) {
-                document.getElementById('g-recaptcha-response').value = token;
+                document.getElementById('id_g_recaptcha_response').value = token;
             });
         });
     </script>
