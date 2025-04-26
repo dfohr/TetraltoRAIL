@@ -77,6 +77,10 @@ def contact(request):
                 'submission_successful': True,
                 'email': 'sales@tetralto.com'
             })
+        else:
+            # Add debug logging
+            print("Form errors:", form.errors)
+            messages.error(request, "Please correct the errors below.")
     else:
         form = LeadForm()
     
