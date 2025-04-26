@@ -12,6 +12,17 @@
     <!-- End Google Tag Manager -->
     {% endif %}
     
+    <!-- reCAPTCHA v3 -->
+    <script src="https://www.google.com/recaptcha/api.js?render={{ settings.RECAPTCHA_PUBLIC_KEY }}"></script>
+    <script>
+        grecaptcha.ready(function() {
+            grecaptcha.execute('{{ settings.RECAPTCHA_PUBLIC_KEY }}', {action: 'contact_form'})
+            .then(function(token) {
+                document.getElementById('g-recaptcha-response').value = token;
+            });
+        });
+    </script>
+    
     {% if settings.POSTHOG_API_KEY %}
     <!-- PostHog Analytics -->
     <script>

@@ -49,6 +49,7 @@
         <form method="post" class="space-y-6 contact-form">
             {% csrf_token %}
             {% for field in form %}
+            {% if field.name != 'g_recaptcha_response' %}
             <div class="space-y-2">
                 <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700">
                     {{ field.label }}
@@ -60,6 +61,9 @@
                 </div>
                 {% endif %}
             </div>
+            {% else %}
+            {{ field }}
+            {% endif %}
             {% endfor %}
             <div>
                 <button type="submit" class="button primary w-full">
