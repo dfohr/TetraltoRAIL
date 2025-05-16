@@ -12,6 +12,8 @@ from django.http import HttpResponse
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
+from datetime import datetime
+from django.http import JsonResponse
 
 def home(request):
     services = Service.objects.order_by('order')
@@ -39,6 +41,22 @@ def health(request):
     users = User.objects.all()
     user_list = [f"{user.username} (Staff: {user.is_staff}, Superuser: {user.is_superuser})" for user in users]
 
+    # Check PostHog status
+    posthog_status = {
+        "initialized": False,
+        "error": None,
+        "timestamp": None
+    }
+    
+    try:
+        import requests
+        response = requests.get('https://e.tetralto.com/decide/', timeout=5)
+        posthog_status["initialized"] = response.status_code == 200
+        posthog_status["timestamp"] = datetime.now().isoformat()
+    except Exception as e:
+        posthog_status["error"] = str(e)
+        posthog_status["timestamp"] = datetime.now().isoformat()
+
     # System info
     system_info = {
         'Django Version': django.get_version(),
@@ -50,6 +68,7 @@ def health(request):
         'Allowed Hosts': os.environ.get('DJANGO_ALLOWED_HOSTS', '*'),
         'User Count': users.count(),
         'Users': user_list,
+        'PostHog Status': posthog_status
     }
     
     return render(request, 'health.html', {'system_info': system_info})
