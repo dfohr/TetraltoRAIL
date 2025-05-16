@@ -7,10 +7,34 @@
     
     <div class="info-grid">
         {% for key, value in system_info.items %}
-        <div class="info-item">
-            <strong>{{ key }}:</strong>
-            <span>{{ value }}</span>
-        </div>
+            {% if key == 'PostHog Status' %}
+                <div class="info-item posthog-status">
+                    <strong>{{ key }}:</strong>
+                    <div class="posthog-details">
+                        <div class="status-line">
+                            <span class="label">Initialized:</span>
+                            <span class="value {% if value.initialized %}success{% else %}error{% endif %}">
+                                {{ value.initialized|yesno:"Yes,No" }}
+                            </span>
+                        </div>
+                        {% if value.error %}
+                            <div class="status-line">
+                                <span class="label">Error:</span>
+                                <span class="value error">{{ value.error }}</span>
+                            </div>
+                        {% endif %}
+                        <div class="status-line">
+                            <span class="label">Last Check:</span>
+                            <span class="value">{{ value.timestamp }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="info-item">
+                    <strong>{{ key }}:</strong>
+                    <span>{{ value }}</span>
+                </div>
+            {% endif %}
         {% endfor %}
     </div>
 </div>
@@ -52,6 +76,39 @@
     .info-item span {
         color: #333;
         font-family: monospace;
+    }
+
+    .posthog-status {
+        grid-template-columns: 200px 1fr;
+    }
+
+    .posthog-details {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .status-line {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .status-line .label {
+        min-width: 100px;
+        color: #666;
+    }
+
+    .status-line .value {
+        font-family: monospace;
+    }
+
+    .status-line .value.success {
+        color: #28a745;
+    }
+
+    .status-line .value.error {
+        color: #dc3545;
     }
 </style>
 {% endblock %} 
