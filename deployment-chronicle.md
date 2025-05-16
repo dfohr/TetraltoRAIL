@@ -28,6 +28,32 @@ This document tracks our deployment process, challenges encountered, and solutio
 - Better tracking of user interactions and conversion events
 - Richer content offerings to improve SEO and user engagement
 
+### April 26, 2024 - reCAPTCHA v3 Implementation
+- Implemented Google reCAPTCHA v3 for contact form protection
+- Used direct Google API integration instead of Django packages for better compatibility
+- Added test keys for development environment
+- Set score threshold to 0.5 for balanced security
+- Form now validates submissions server-side
+- Added error handling for failed validations
+- Integrated with existing form validation system
+- No user interaction required (invisible reCAPTCHA)
+
+**Security Test Results**:
+- Successfully blocked automated form submission attempt
+- Test using cURL confirmed proper security measures:
+  - Request blocked with 403 Forbidden status
+  - CSRF protection working as expected
+  - Invalid requests properly rejected
+  - Log entry captured for monitoring:
+    ```
+    requestId: "nsMTwlecRUmDNp6ra-GjBg_882434190"
+    timestamp: "2025-04-26T19:55:46.870187688Z"
+    method: "POST"
+    path: "/contact/"
+    httpStatus: 403
+    clientUa: "curl/8.7.1"
+    ```
+
 ### April 2025 - Initial Deployment
 
 _Initial deployment details to be filled in..._
