@@ -12,20 +12,32 @@
                     <strong>{{ key }}:</strong>
                     <div class="posthog-details">
                         <div class="status-line">
-                            <span class="label">Initialized:</span>
+                            <span class="label">Server Check:</span>
                             <span class="value {% if value.initialized %}success{% else %}error{% endif %}">
                                 {{ value.initialized|yesno:"Yes,No" }}
                             </span>
                         </div>
                         {% if value.error %}
                             <div class="status-line">
-                                <span class="label">Error:</span>
+                                <span class="label">Server Error:</span>
                                 <span class="value error">{{ value.error }}</span>
                             </div>
                         {% endif %}
                         <div class="status-line">
-                            <span class="label">Last Check:</span>
+                            <span class="label">Last Server Check:</span>
                             <span class="value">{{ value.timestamp }}</span>
+                        </div>
+                        <div class="status-line">
+                            <span class="label">Browser Status:</span>
+                            <span class="value" id="browser-status">Checking...</span>
+                        </div>
+                        <div class="status-line">
+                            <span class="label">Browser Error:</span>
+                            <span class="value" id="browser-error">-</span>
+                        </div>
+                        <div class="status-line">
+                            <span class="label">Last Browser Check:</span>
+                            <span class="value" id="browser-timestamp">-</span>
                         </div>
                     </div>
                 </div>
@@ -38,6 +50,39 @@
         {% endfor %}
     </div>
 </div>
+
+<script>
+    // Function to update the browser status display
+    function updateBrowserStatus() {
+        const browserStatus = document.getElementById('browser-status');
+        const browserError = document.getElementById('browser-error');
+        const browserTimestamp = document.getElementById('browser-timestamp');
+        
+        if (window.posthogStatus) {
+            browserStatus.textContent = window.posthogStatus.initialized ? 'Yes' : 'No';
+            browserStatus.className = 'value ' + (window.posthogStatus.initialized ? 'success' : 'error');
+            
+            if (window.posthogStatus.error) {
+                browserError.textContent = window.posthogStatus.error;
+                browserError.className = 'value error';
+            } else {
+                browserError.textContent = '-';
+                browserError.className = 'value';
+            }
+            
+            browserTimestamp.textContent = window.posthogStatus.timestamp || '-';
+        } else {
+            browserStatus.textContent = 'No';
+            browserStatus.className = 'value error';
+            browserError.textContent = 'PostHog status not found in browser';
+            browserError.className = 'value error';
+            browserTimestamp.textContent = '-';
+        }
+    }
+
+    // Update status when the page loads
+    document.addEventListener('DOMContentLoaded', updateBrowserStatus);
+</script>
 
 <style>
     .health-check {
