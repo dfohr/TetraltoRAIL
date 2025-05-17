@@ -58,9 +58,16 @@
                         utmParams.gad_campaignid = urlParams.get('gad_campaignid');
                     }
                     
+                    // Capture full URL information
+                    utmParams.landing_page = window.location.href;
+                    utmParams.path = window.location.pathname;
+                    utmParams.referrer = document.referrer;
+                    
                     // Set properties if we have any UTM data
                     if (Object.keys(utmParams).length > 0) {
                         posthog.people.set(utmParams);
+                        // Log campaign data for debugging
+                        console.log('Campaign Data:', utmParams);
                     }
                 }
             });
