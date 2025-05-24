@@ -92,10 +92,7 @@ def contact(request):
         form = LeadForm(request.POST)
         if form.is_valid():
             form.save()
-            return render(request, 'contact.html', {
-                'submission_successful': True,
-                'email': 'sales@tetralto.com'
-            })
+            return redirect('thank_you')
         else:
             # Add debug logging
             print("Form errors:", form.errors)
@@ -105,8 +102,7 @@ def contact(request):
     
     return render(request, 'contact.html', {
         'form': form,
-        'email': 'sales@tetralto.com',
-        'submission_successful': False
+        'email': 'sales@tetralto.com'
     })
 
 def blog(request):
@@ -191,4 +187,9 @@ def service_detail(request, slug):
         'service': service,
         'featured_blog': featured_blog,
         'related_posts': related_posts
+    })
+
+def thank_you(request):
+    return render(request, 'thank-you.html', {
+        'social_links': SocialLink.objects.filter(is_active=True).order_by('order'),
     }) 

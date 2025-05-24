@@ -141,4 +141,42 @@ class BlogPost(models.Model):
             self.slug = slugify(self.title)
         # Convert markdown to HTML
         self.content_html = markdown.markdown(self.content)
-        super().save(*args, **kwargs) 
+        super().save(*args, **kwargs)
+
+# class ProjectImage(models.Model):
+#     STATUS_CHOICES = [
+#         ('raw', 'Raw'),
+#         ('selected', 'Selected for Marketing'),
+#         ('edited', 'Edited'),
+#         ('used', 'Used in Marketing'),
+#     ]
+    
+#     MARKETING_USE_CHOICES = [
+#         ('blog', 'Blog Post'),
+#         ('web', 'Website Content'),
+#         ('ads', 'Google Ads'),
+#         ('gmb', 'Google Business Profile'),
+#         ('social', 'Social Media'),
+#     ]
+
+#     title = models.CharField(max_length=200)
+#     description = models.TextField(blank=True)
+#     image = models.ImageField(upload_to='project_images/%Y/%m/')
+#     customer_name = models.CharField(max_length=100)
+#     project_date = models.DateField()
+#     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='raw')
+#     marketing_use = models.CharField(max_length=20, choices=MARKETING_USE_CHOICES, blank=True)
+#     is_featured = models.BooleanField(default=False)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+
+#     class Meta:
+#         ordering = ['-project_date', '-created_at']
+#         verbose_name = "Project Image"
+#         verbose_name_plural = "Project Images"
+
+#     def __str__(self):
+#         return f"{self.customer_name} - {self.project_date} - {self.title}"
+
+#     def get_image_url(self):
+#         return self.image.url if self.image else None 

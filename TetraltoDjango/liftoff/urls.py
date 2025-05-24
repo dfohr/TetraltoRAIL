@@ -19,7 +19,7 @@ from django.urls import path
 from core.views import (
     home, health, services_view, contact, 
     blog_list, blog_post, robots_txt, terms_and_conditions,
-    service_detail
+    service_detail, thank_you
 )
 from django.conf import settings
 from django.conf.urls.static import static
@@ -39,6 +39,7 @@ urlpatterns = [
     path('services/', services_view, name='services'),
     path('services/<slug:slug>/', service_detail, name='service_detail'),
     path('contact/', contact, name='contact'),
+    path('thank-you/', thank_you, name='thank_you'),
     path('blog/', blog_list, name='blog'),
     path('blog/<slug:slug>/', blog_post, name='blog_post'),
     path('robots.txt', robots_txt, name='robots_txt'),

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Thank You - Tetralto Roofing{% endblock %}
+
+{% block meta_description %}Thank you for contacting Tetralto Roofing. A roof expert will contact you soon.{% endblock %}
+
+{% block content %}
+<main class="thank-you-page" style="min-height: 60vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 2rem;">
+    <div class="container">
+        <div style="max-width: 600px; margin: 0 auto; padding: 3rem; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <div style="margin-bottom: 2rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--primary-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 1rem;">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+            <h1 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 2rem;">Thank You!</h1>
+            <p style="font-size: 1.25rem; color: #333; margin-bottom: 2rem;">A roof expert will contact you soon.</p>
+            <div class="button-group" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="{% url 'home' %}" class="button primary">Return Home</a>
+                <a href="{% url 'services' %}" class="button secondary">View Our Services</a>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %} 

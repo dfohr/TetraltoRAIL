@@ -12,6 +12,9 @@ Disallow: /*?*  # Prevent crawling of URLs with query parameters
 Disallow: /*?utm_*
 Disallow: /*?fbclid=*
 
+# Prevent crawling of thank you page
+Disallow: /thank-you/
+
 # Sitemap location
 Sitemap: https://tetralto.com/sitemap.xml
 
