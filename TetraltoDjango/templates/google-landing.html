@@ -1,0 +1,699 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% if settings.GTM_CONTAINER_ID %}
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','{{ settings.GTM_CONTAINER_ID }}');</script>
+    <!-- End Google Tag Manager -->
+    {% endif %}
+    
+    <!-- reCAPTCHA v3 -->
+    <script src="https://www.google.com/recaptcha/api.js?render={{ settings.RECAPTCHA_PUBLIC_KEY }}"></script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    
+    <title>Tetralto Roofing - Trusted Roofing Experts</title>
+    <meta name="description" content="Get your free roofing quote from trusted Missouri City TX contractors. Tetralto Roofing offers expert roof replacement and repair services. Call (281) 895-1213 now!">
+    
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Our CSS -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}?v=1.1">
+    <link rel="stylesheet" href="{% static 'css/components.css' %}?v=1.1">
+    <link rel="stylesheet" href="{% static 'css/layout.css' %}?v=1.1">
+</head>
+<body>
+    {% if settings.GTM_CONTAINER_ID %}
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ settings.GTM_CONTAINER_ID }}"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    {% endif %}
+
+    <main>
+        <!-- Top Banner -->
+        <div class="top-banner">
+            <div class="container">
+                <p class="banner-text">
+                    <strong>ATTENTION:</strong> Missouri City, Sugarland, Pearland and neighbors:<br>
+                    We are the <strong>Trusted Roofing Experts</strong> in your area!
+                </p>
+            </div>
+        </div>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-container">
+                <!-- Row 1: Logo, Menu, Call CTA -->
+                <div class="hero-row-1">
+                    <div class="logo-section">
+                        <img src="{% static 'images/tetralto-roofing-transparent-logo.png' %}" 
+                             alt="Tetralto Roofing Logo"
+                             class="hero-logo">
+                    </div>
+                    <nav class="hero-menu">
+                        <a href="#reviews">Reviews</a>
+                        <a href="#why-us">Why Us</a>
+                    </nav>
+                    <div class="hero-cta">
+                        <a href="tel:+12818951213" class="hero-call-btn">
+                            📞 Call Now: (281) 895-1213
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Row 2: Text Content and Form -->
+                <div class="hero-row-2">
+                    <div class="hero-content">
+                        <h1 class="hero-heading">The Trusted Roofing Experts for SW Houston</h1>
+                        <p class="hero-subtitle">100% Customer Satisfaction, and 20+ Years of Experience.</p>
+                        <ul class="hero-bullets">
+                            <li>Free inspections and quotes</li>
+                            <li>No aggressive sales tactics</li>
+                            <li>Expert Craftsmanship</li>
+                            <li>Licensed and Insured</li>
+                        </ul>
+                    </div>
+                    <div class="hero-form">
+                        <div class="form-container">
+                            <h2 class="form-title">Get Your Free Quote</h2>
+                            <p class="form-subtitle">Fill out the form below and we'll contact you within 24 hours</p>
+                            
+                            {% if messages %}
+                            <div class="form-messages">
+                                {% for message in messages %}
+                                <div class="message {% if message.tags == 'success' %}message-success{% else %}message-error{% endif %}">
+                                    {{ message }}
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+
+                            <form method="post" class="hero-form-element">
+                                {% csrf_token %}
+                                
+                                <div class="form-group">
+                                    <input type="text" name="name" placeholder="Full Name" class="form-input" value="{{ form.name.value|default:'' }}">
+                                    {% if form.name.errors %}
+                                    <div class="field-error">{{ form.name.errors|join:", " }}</div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="email" name="email" placeholder="your@email.com" class="form-input" value="{{ form.email.value|default:'' }}">
+                                    {% if form.email.errors %}
+                                    <div class="field-error">{{ form.email.errors|join:", " }}</div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="tel" name="phone" placeholder="(000) 000-0000" pattern="[0-9]{10}" class="form-input" required value="{{ form.phone.value|default:'' }}">
+                                    {% if form.phone.errors %}
+                                    <div class="field-error">{{ form.phone.errors|join:", " }}</div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="form-group">
+                                    <textarea name="description" placeholder="Describe your roofing needs" minlength="10" class="form-input form-textarea" required>{{ form.description.value|default:'' }}</textarea>
+                                    {% if form.description.errors %}
+                                    <div class="field-error">{{ form.description.errors|join:", " }}</div>
+                                    {% endif %}
+                                </div>
+
+                                <!-- Hidden fields -->
+                                {{ form.g_recaptcha_response }}
+                                {{ form.address }}
+
+                                <button type="submit" class="form-submit-btn">
+                                    Submit for a Free Quote
+                                </button>
+                                
+                                <p class="form-disclaimer">
+                                    By submitting this form, you agree to be contacted by Tetralto Roofing regarding your roofing needs.
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Links Section -->
+        <div class="bg-gray-50 py-8 mt-12">
+            <div class="container mx-auto px-4 text-center">
+                <h3 class="text-lg font-semibold mb-4">Learn More About Our Services</h3>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="/" class="text-blue-600 hover:text-blue-800 underline">Home</a>
+                    <a href="/services/" class="text-blue-600 hover:text-blue-800 underline">Services</a>
+                    <a href="/contact/" class="text-blue-600 hover:text-blue-800 underline">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <style>
+    /* CSS Variables */
+    :root {
+        --primary-color: #E75A35;
+        --secondary-color: #F47924;
+        --highlight-color: #F9E94C;
+    }
+
+    /* Top Banner Styles */
+    .top-banner {
+        background-color: #000000;
+        color: white;
+        padding: 1rem 0;
+        text-align: center;
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+
+    .banner-text {
+        margin: 0;
+        font-weight: 400;
+    }
+
+    .banner-text strong {
+        font-weight: 700;
+        color: var(--highlight-color);
+    }
+
+    /* Hero Section Styles */
+    .hero-section {
+        background: #6b7280;
+        color: white;
+        padding: 1rem 0;
+    }
+
+    .hero-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    /* Row 1: Logo, Menu, Call CTA */
+    .hero-row-1 {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .hero-logo {
+        height: 150px;
+        width: auto;
+    }
+
+    .hero-menu {
+        display: flex;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 25px;
+        padding: 0.5rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .hero-menu a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        padding: 0.5rem 1.5rem;
+        border-radius: 20px;
+        white-space: nowrap;
+    }
+
+    .hero-menu a:hover {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+    }
+
+    .hero-call-btn {
+        background: var(--primary-color);
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+        height: auto;
+        display: flex;
+        align-items: center;
+    }
+
+    .hero-call-btn:hover {
+        background: var(--secondary-color);
+        transform: translateY(-1px);
+        color: white;
+    }
+
+    /* Row 2: Content and Form */
+    .hero-row-2 {
+        display: grid;
+        grid-template-columns: 60% 40%;
+        gap: 3rem;
+        align-items: start;
+    }
+
+    .hero-content {
+        padding-right: 2rem;
+    }
+
+    .hero-heading {
+        font-size: 64px;
+        font-weight: bold;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+    }
+
+    .hero-subtitle {
+        font-size: 24px;
+        font-weight: 500;
+        margin-bottom: 2rem;
+        line-height: 1.4;
+        opacity: 0.9;
+    }
+
+    .hero-bullets {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        font-size: 16px;
+    }
+
+    .hero-bullets li {
+        padding: 0.5rem 0;
+        position: relative;
+        padding-left: 2rem;
+    }
+
+    .hero-bullets li:before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #10b981;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    /* Form Styles */
+    .hero-form {
+        background: white;
+        border-radius: 12px;
+        padding: 0;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .form-container {
+        padding: 2rem;
+    }
+
+    .form-title {
+        color: #1f2937;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        text-align: center;
+    }
+
+    .form-subtitle {
+        color: #6b7280;
+        font-size: 14px;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 6px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+        box-sizing: border-box;
+    }
+
+    .form-input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+    }
+
+    .form-textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    .form-submit-btn {
+        width: 100%;
+        background: var(--primary-color);
+        color: white;
+        padding: 1rem;
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-bottom: 1rem;
+    }
+
+    .form-submit-btn:hover {
+        background: #1e40af;
+    }
+
+    .form-disclaimer {
+        font-size: 12px;
+        color: #6b7280;
+        text-align: center;
+        margin: 0;
+        line-height: 1.4;
+    }
+
+    .field-error {
+        color: #ef4444;
+        font-size: 14px;
+        margin-top: 0.25rem;
+    }
+
+    .form-messages {
+        margin-bottom: 1rem;
+    }
+
+    .message {
+        padding: 0.75rem;
+        border-radius: 6px;
+        font-size: 14px;
+        margin-bottom: 0.5rem;
+    }
+
+    .message-success {
+        background: #dcfce7;
+        color: #15803d;
+    }
+
+    .message-error {
+        background: #fee2e2;
+        color: #b91c1c;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 767px) {
+        .hero-section {
+            padding: 1rem 0;
+        }
+
+        .hero-row-1 {
+            flex-direction: column;
+            text-align: center;
+            margin-bottom: 2rem;
+            gap: 1rem;
+        }
+
+        .hero-menu {
+            order: 2;
+            justify-content: center;
+        }
+
+        .hero-cta {
+            order: 3;
+        }
+
+        .hero-row-2 {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .hero-content {
+            padding-right: 0;
+            text-align: center;
+        }
+
+        .hero-heading {
+            font-size: 42px;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-bullets {
+            font-size: 14px;
+            text-align: left;
+            display: inline-block;
+        }
+
+        .form-container {
+            padding: 1.5rem;
+        }
+
+        .hero-container {
+            padding: 0 20px;
+        }
+    }
+
+    /* Google Landing Page Specific Styles */
+    .call-now-btn {
+        display: inline-block;
+        background: #dc2626;
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.25rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .call-now-btn:hover {
+        background: #b91c1c;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        color: white;
+    }
+
+    .call-now-btn-secondary {
+        display: inline-block;
+        background: var(--primary-color);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .call-now-btn-secondary:hover {
+        background: #1e40af;
+        color: white;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 6px;
+        background-color: #f9fafb;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .form-input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        background-color: white;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .submit-btn {
+        background: var(--primary-color);
+        color: white;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .submit-btn:hover {
+        background: #1e40af;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Utility Classes */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    .mx-auto { margin-left: auto; margin-right: auto; }
+    .px-4 { padding-left: 1rem; padding-right: 1rem; }
+    .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+    .text-center { text-align: center; }
+    .text-4xl { font-size: 2.25rem; }
+    .text-2xl { font-size: 1.5rem; }
+    .text-xl { font-size: 1.25rem; }
+    .text-lg { font-size: 1.125rem; }
+    .text-sm { font-size: 0.875rem; }
+    .text-xs { font-size: 0.75rem; }
+    .font-bold { font-weight: 700; }
+    .font-semibold { font-weight: 600; }
+    .font-medium { font-weight: 500; }
+    .mb-4 { margin-bottom: 1rem; }
+    .mb-6 { margin-bottom: 1.5rem; }
+    .mb-8 { margin-bottom: 2rem; }
+    .mb-12 { margin-bottom: 3rem; }
+    .mt-2 { margin-top: 0.5rem; }
+    .mt-4 { margin-top: 1rem; }
+    .mt-8 { margin-top: 2rem; }
+    .mt-12 { margin-top: 3rem; }
+    .text-white { color: white; }
+    .text-gray-600 { color: #6b7280; }
+    .text-gray-700 { color: #374151; }
+    .text-red-500 { color: #ef4444; }
+    .text-green-700 { color: #15803d; }
+    .text-blue-600 { color: #2563eb; }
+    .text-blue-800 { color: #1e40af; }
+    .bg-white { background-color: white; }
+    .bg-gray-50 { background-color: #f9fafb; }
+    .bg-green-100 { background-color: #dcfce7; }
+    .bg-red-100 { background-color: #fee2e2; }
+    .bg-green-500 { background-color: #10b981; }
+    .rounded-lg { border-radius: 0.5rem; }
+    .rounded-full { border-radius: 9999px; }
+    .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+    .p-4 { padding: 1rem; }
+    .p-6 { padding: 1.5rem; }
+    .w-full { width: 100%; }
+    .w-4 { width: 1rem; }
+    .w-6 { width: 1.5rem; }
+    .h-4 { height: 1rem; }
+    .h-6 { height: 1.5rem; }
+    .max-w-3xl { max-width: 48rem; }
+    .max-w-4xl { max-width: 56rem; }
+    .opacity-90 { opacity: 0.9; }
+    .space-y-4 > * + * { margin-top: 1rem; }
+    .gap-4 { gap: 1rem; }
+    .gap-8 { gap: 2rem; }
+    .grid { display: grid; }
+    .flex { display: flex; }
+    .flex-wrap { flex-wrap: wrap; }
+    .flex-shrink-0 { flex-shrink: 0; }
+    .items-start { align-items: flex-start; }
+    .items-center { align-items: center; }
+    .justify-center { justify-content: center; }
+    .space-x-3 > * + * { margin-left: 0.75rem; }
+    .underline { text-decoration: underline; }
+    .block { display: block; }
+
+    /* Mobile Optimizations */
+    @media (max-width: 768px) {
+        .hero-section {
+            padding: 2rem 0;
+        }
+        
+        .hero-heading {
+            font-size: 2rem;
+        }
+        
+        .call-now-btn {
+            font-size: 1.1rem;
+            padding: 0.875rem 1.5rem;
+        }
+        
+        .grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .container {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        
+        .order-1 { order: 1; }
+        .order-2 { order: 2; }
+    }
+
+    @media (min-width: 768px) {
+        .md\\:grid-cols-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        
+        .md\\:order-1 { order: 1; }
+        .md\\:order-2 { order: 2; }
+    }
+
+    /* Accessibility improvements */
+    .form-group label {
+        font-weight: 500;
+    }
+
+    .text-red-500 {
+        color: #ef4444;
+    }
+
+    .bg-red-100 {
+        background-color: #fee2e2;
+    }
+
+    .text-red-700 {
+        color: #b91c1c;
+    }
+
+    .bg-green-100 {
+        background-color: #dcfce7;
+    }
+
+    .text-green-700 {
+        color: #15803d;
+    }
+    </style>
+
+    <!-- reCAPTCHA v3 for Google Landing Form -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Update reCAPTCHA token before form submission
+        const form = document.querySelector('.hero-form-element');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                grecaptcha.ready(function() {
+                    grecaptcha.execute('{{ settings.RECAPTCHA_PUBLIC_KEY }}', {action: 'google_landing_form'})
+                    .then(function(token) {
+                        document.getElementById('id_g_recaptcha_response').value = token;
+                        form.submit();
+                    });
+                });
+            });
+        }
+    });
+    </script>
+</body>
+</html> 

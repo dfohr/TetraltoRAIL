@@ -3,7 +3,7 @@ from django.db import connection
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from .models import Service, Feature, Testimonial, SocialLink, BlogPost
-from .forms import LeadForm
+from .forms import LeadForm, GoogleLandingForm
 import django
 import sys
 import os
@@ -192,4 +192,24 @@ def service_detail(request, slug):
 def thank_you(request):
     return render(request, 'thank-you.html', {
         'social_links': SocialLink.objects.filter(is_active=True).order_by('order'),
-    }) 
+    })
+
+def google_landing(request):
+    if request.method == 'POST':
+        form = GoogleLandingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('google_thank_you')
+        else:
+            # Add debug logging
+            print("Google Landing Form errors:", form.errors)
+            messages.error(request, "Please correct the errors below.")
+    else:
+        form = GoogleLandingForm()
+    
+    return render(request, 'google-landing.html', {
+        'form': form,
+    })
+
+def google_thank_you(request):
+    return render(request, 'google-thank-you.html') 

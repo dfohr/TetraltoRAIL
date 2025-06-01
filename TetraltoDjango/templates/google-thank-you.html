@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Thank You - Free Roofing Quote Request | Tetralto Roofing{% endblock %}
+
+{% block meta_description %}Thank you for requesting your free roofing quote. A Tetralto Roofing expert will contact you within 24 hours.{% endblock %}
+
+{% block extra_head %}
+<!-- Prevent search engine indexing for Google Ads thank you page -->
+<meta name="robots" content="noindex">
+{% endblock %}
+
+{% block content %}
+<main class="google-thank-you-page" style="min-height: 60vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 2rem;">
+    <div class="container">
+        <div style="max-width: 700px; margin: 0 auto; padding: 3rem; background: white; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+            <div style="margin-bottom: 2rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="var(--primary-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 1.5rem;">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+            
+            <h1 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 2.5rem; font-weight: bold;">Thank You!</h1>
+            <p style="font-size: 1.5rem; color: #333; margin-bottom: 1rem; font-weight: 500;">Your free quote request has been received.</p>
+            <p style="font-size: 1.125rem; color: #666; margin-bottom: 2.5rem; line-height: 1.6;">
+                A roofing expert from Tetralto Roofing will contact you within 24 hours to discuss your project and schedule your free estimate.
+            </p>
+            
+            <!-- Immediate Contact Option -->
+            <div style="background: #f8f9fa; padding: 2rem; border-radius: 8px; margin-bottom: 2rem;">
+                <h3 style="color: #333; margin-bottom: 1rem; font-size: 1.25rem;">Need immediate assistance?</h3>
+                <a href="tel:+12818951213" class="urgent-call-btn" style="display: inline-block; background: #dc2626; color: white; padding: 1rem 2rem; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 1.25rem; margin-bottom: 1rem;">
+                    📞 Call Now: (281) 895-1213
+                </a>
+                <p style="color: #666; font-size: 0.9rem;">Our team is standing by to help with emergency repairs and urgent roofing needs.</p>
+            </div>
+            
+            <div class="button-group" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem;">
+                <a href="/" class="button primary" style="background: var(--primary-color); color: white; padding: 0.875rem 1.75rem; border-radius: 6px; text-decoration: none; font-weight: 600;">Return Home</a>
+                <a href="/services/" class="button secondary" style="background: white; color: var(--primary-color); padding: 0.875rem 1.75rem; border-radius: 6px; text-decoration: none; font-weight: 600; border: 2px solid var(--primary-color);">View Our Services</a>
+            </div>
+            
+            <!-- What Happens Next Section -->
+            <div style="text-align: left; background: #f0f9ff; padding: 2rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+                <h3 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.25rem; text-align: center;">What Happens Next?</h3>
+                <div style="space-y: 1rem;">
+                    <div style="display: flex; align-items: start; margin-bottom: 1rem;">
+                        <div style="background: var(--primary-color); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 1rem; flex-shrink: 0; font-size: 0.875rem;">1</div>
+                        <div>
+                            <strong>Contact Within 24 Hours:</strong> Our roofing expert will call you to discuss your needs and answer any questions.
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: start; margin-bottom: 1rem;">
+                        <div style="background: var(--primary-color); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 1rem; flex-shrink: 0; font-size: 0.875rem;">2</div>
+                        <div>
+                            <strong>Free Inspection:</strong> We'll schedule a convenient time to inspect your roof and assess your needs.
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: start;">
+                        <div style="background: var(--primary-color); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 1rem; flex-shrink: 0; font-size: 0.875rem;">3</div>
+                        <div>
+                            <strong>Detailed Quote:</strong> You'll receive a comprehensive, no-obligation estimate for your roofing project.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<style>
+.urgent-call-btn:hover {
+    background: #b91c1c !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    color: white !important;
+}
+
+.button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.button.primary:hover {
+    background: #1e40af !important;
+    color: white !important;
+}
+
+.button.secondary:hover {
+    background: #f8f9fa !important;
+    color: var(--primary-color) !important;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+    .google-thank-you-page .container > div {
+        padding: 2rem 1.5rem !important;
+        margin: 1rem !important;
+    }
+    
+    .google-thank-you-page h1 {
+        font-size: 2rem !important;
+    }
+    
+    .button-group {
+        flex-direction: column !important;
+    }
+    
+    .button-group .button {
+        width: 100% !important;
+        text-align: center !important;
+    }
+    
+    .urgent-call-btn {
+        font-size: 1.1rem !important;
+        padding: 0.875rem 1.5rem !important;
+    }
+}
+</style>
+
+<!-- GTM Event for Conversion Tracking -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Fire GTM event for Google Ads conversion tracking
+    if (typeof dataLayer !== 'undefined') {
+        dataLayer.push({
+            'event': 'contact_form_thank_you_event',
+            'event_category': 'form_submission',
+            'event_label': 'google_landing_form',
+            'page_type': 'google_thank_you',
+            'conversion_value': 1
+        });
+    }
+    
+    // Also fire PostHog event if available
+    if (typeof posthog !== 'undefined') {
+        posthog.capture('Google Landing Form Submitted', {
+            'form_type': 'google_landing',
+            'page_url': window.location.href,
+            'referrer': document.referrer
+        });
+    }
+});
+</script>
+{% endblock %} 
