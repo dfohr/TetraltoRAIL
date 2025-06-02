@@ -222,15 +222,51 @@
             </div>
         </section>
 
-        <!-- Footer Links Section -->
-        <div class="bg-gray-50 py-8 mt-12">
-            <div class="container mx-auto px-4 text-center">
-                <h3 class="text-lg font-semibold mb-4">Learn More About Our Services</h3>
-                <div class="flex flex-wrap justify-center gap-4">
-                    <a href="/" class="text-blue-600 hover:text-blue-800 underline">Home</a>
-                    <a href="/services/" class="text-blue-600 hover:text-blue-800 underline">Services</a>
-                    <a href="/contact/" class="text-blue-600 hover:text-blue-800 underline">Contact Us</a>
+        <!-- Testimonials Section -->
+        <section class="testimonials-section">
+            <div class="container">
+                <h2 class="testimonials-title">What Our Customers Say</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p class="testimonial-text">'The best sales presentation, walked the roof, talked about the process and material to be used. Scheduled the job and it went flawless. The crew covered areas to protect the outside and inside of the house. I've spent over 40 years in the construction industry and would highly recommend Tetralto as a roofing contractor.'</p>
+                            <div class="testimonial-meta">
+                                <div class="customer-name">L. Mayhew</div>
+                                <div class="customer-location">Houston, TX</div>
+                                <div class="service-type">Roof Replacement</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p class="testimonial-text">'They responded quickly, and did a good job at a very fair price. I recommend them highly with no reservations.'</p>
+                            <div class="testimonial-meta">
+                                <div class="customer-name">P. Vossos</div>
+                                <div class="customer-location">Missouri City, TX</div>
+                                <div class="service-type">Roof Maintenance</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p class="testimonial-text">'David and his team did an excellent job. They gave me a reasonable quote and the scheduling was easy. The team that came out were really professional and quick. Highly recommended.'</p>
+                            <div class="testimonial-meta">
+                                <div class="customer-name">A. Carranza</div>
+                                <div class="customer-location">Rosharon, TX</div>
+                                <div class="service-type">Gutter Install</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <div class="simple-footer">
+            <div class="container">
+                <p>© 2025 Tetralto Roofing</p>
             </div>
         </div>
     </main>
@@ -241,6 +277,19 @@
         --primary-color: #E75A35;
         --secondary-color: #F47924;
         --highlight-color: #F9E94C;
+    }
+
+    /* CSS Reset - Fix for white bar at top */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Comfortaa', sans-serif;
     }
 
     /* Top Banner Styles */
@@ -271,6 +320,8 @@
         background-repeat: no-repeat;
         color: white;
         padding: 1rem 0;
+        position: relative;
+        z-index: 1;
     }
 
     .hero-container {
@@ -491,6 +542,164 @@
         color: #b91c1c;
     }
 
+    /* Testimonials Section Styles */
+    .testimonials-section {
+        background: #e5e7eb !important;
+        padding: 3rem 0;
+        position: relative;
+        z-index: 10;
+        clear: both;
+        margin-top: 0;
+    }
+
+    .testimonials-title {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: bold;
+        color: #1f2937 !important;
+        margin-bottom: 2rem;
+        position: relative;
+        z-index: 11;
+    }
+
+    .testimonials-section .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+        position: relative;
+        z-index: 11;
+        align-items: stretch;
+    }
+
+    .testimonials-section .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    .testimonials-section .testimonial-card {
+        background: white !important;
+        border-radius: 8px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        position: relative;
+        z-index: 12;
+        border: 2px solid #d1d5db !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        height: 100%;
+    }
+
+    .testimonials-section .testimonial-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    .testimonials-section .testimonial-text {
+        font-size: 16px !important;
+        line-height: 1.5;
+        color: #374151 !important;
+        margin-bottom: 1rem;
+        font-style: italic;
+        max-height: none !important;
+        overflow: visible !important;
+        height: auto !important;
+        display: block !important;
+        flex-grow: 1;
+    }
+
+    .testimonials-section .testimonial-content {
+        display: flex !important;
+        flex-direction: column;
+        height: 100%;
+        width: 100% !important;
+        overflow: visible !important;
+    }
+
+    .testimonials-section .testimonial-meta {
+        border-top: 1px solid #e5e7eb;
+        padding-top: 1rem;
+        display: block !important;
+        flex-direction: column !important;
+        gap: 0.25rem !important;
+        align-items: flex-start !important;
+        margin-top: auto;
+    }
+
+    .testimonials-section .customer-name {
+        font-weight: bold !important;
+        color: #1f2937 !important;
+        font-size: 16px;
+        margin-bottom: 0.25rem;
+    }
+
+    .testimonials-section .customer-location {
+        color: #6b7280 !important;
+        font-size: 14px;
+        margin-bottom: 0.25rem;
+    }
+
+    .testimonials-section .service-type {
+        color: var(--primary-color) !important;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+
+    .testimonials-section .review-link {
+        color: var(--primary-color) !important;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .testimonials-section .review-link:hover {
+        text-decoration: underline;
+    }
+
+    /* Mobile testimonials override */
+    @media (max-width: 767px) {
+        .testimonials-section .testimonials-grid {
+            grid-template-columns: 1fr !important;
+            gap: 1.5rem;
+        }
+        
+        .testimonials-section .testimonials-title {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: #1f2937 !important;
+        }
+
+        .testimonials-section .testimonial-card {
+            padding: 1.25rem;
+            background: white !important;
+            border: 1px solid #e5e7eb;
+        }
+
+        .testimonials-section .testimonial-text {
+            color: #374151 !important;
+        }
+
+        .testimonials-section .customer-name {
+            color: #1f2937 !important;
+        }
+
+        .testimonials-section .customer-location {
+            color: #6b7280 !important;
+        }
+
+        .testimonials-section .service-type {
+            color: var(--primary-color) !important;
+        }
+    }
+
     /* Mobile Responsiveness */
     @media (max-width: 767px) {
         .hero-section {
@@ -545,6 +754,21 @@
 
         .hero-container {
             padding: 0 20px;
+        }
+        
+        .testimonials-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            padding: 0 1rem;
+        }
+
+        .testimonials-title {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-card {
+            padding: 1.25rem;
         }
     }
 
@@ -747,6 +971,32 @@
 
     .text-green-700 {
         color: #15803d;
+    }
+
+    /* Force visibility for all testimonial elements */
+    .testimonials-section * {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    .testimonials-section .testimonial-card * {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
+    }
+
+    /* Simple Footer */
+    .simple-footer {
+        background: #f8f9fa;
+        padding: 1rem 0;
+        text-align: center;
+        border-top: 1px solid #e5e7eb;
+    }
+
+    .simple-footer p {
+        margin: 0;
+        color: #6b7280;
+        font-size: 14px;
     }
     </style>
 
