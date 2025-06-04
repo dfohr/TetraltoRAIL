@@ -153,3 +153,10 @@ TetraltoRail's architecture is built around microservices, each handling specifi
 - Regular updates
 - Dependency management
 - Technical debt reduction 
+
+
+
+We take a lot of pictures of roofs, inspections, PROJECTS etc. I currently download them and manually save them in folders that indicates the year-month and customer name.
+These pictures are included in the customer's Roof Information File, when they do a roof replacement project, along with some other documents such as invoices and the measurement file (pdf). This is currently hosted in a Notion page and shared with the customer's email, but eventually I would like to have this on our website, in a private portal section.
+I would also like to select certain pictures for marketing purposes, and from that group edit them for specific purposes, such as blog posts, web page content, google ads, google business profile, social media posts, etc. I would like to organize wich ones are ready to use and wich ones are already used.
+Also serve the images for the website directly from the CMS instead of using whitenoise.
