@@ -59,4 +59,43 @@
         </form>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle contact form submission with reCAPTCHA token regeneration
+    const form = document.querySelector('.contact-form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Track form submission attempt in PostHog
+            if (typeof posthog !== 'undefined') {
+                posthog.capture('Contact Form Submission Started', {
+                    'form_type': 'contact',
+                    'page_url': window.location.href,
+                    'referrer': document.referrer
+                });
+            }
+            
+            grecaptcha.ready(function() {
+                grecaptcha.execute('{{ settings.RECAPTCHA_PUBLIC_KEY }}', {action: 'contact_form'})
+                .then(function(token) {
+                    document.getElementById('id_g_recaptcha_response').value = token;
+                    
+                    // Track successful reCAPTCHA completion in PostHog
+                    if (typeof posthog !== 'undefined') {
+                        posthog.capture('Contact Form reCAPTCHA Completed', {
+                            'form_type': 'contact',
+                            'page_url': window.location.href,
+                            'referrer': document.referrer
+                        });
+                    }
+                    
+                    form.submit();
+                });
+            });
+        });
+    }
+});
+</script>
 {% endblock %} 
