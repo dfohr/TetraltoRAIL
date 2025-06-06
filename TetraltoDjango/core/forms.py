@@ -2,9 +2,14 @@ from django import forms
 from .models import Lead
 import requests
 from django.conf import settings
+import json
 
 class LeadForm(forms.ModelForm):
     g_recaptcha_response = forms.CharField(widget=forms.HiddenInput(), required=not settings.DEBUG)
+    
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super().__init__(*args, **kwargs)
     
     def clean_g_recaptcha_response(self):
         token = self.cleaned_data.get('g_recaptcha_response')
@@ -26,11 +31,58 @@ class LeadForm(forms.ModelForm):
         if not result.get('success'):
             raise forms.ValidationError("reCAPTCHA validation failed")
             
+        # Store the score for later use
+        self.recaptcha_score = result.get('score', 0)
+        
         # Check the score
-        if result.get('score', 0) < settings.RECAPTCHA_SCORE_THRESHOLD:
+        if self.recaptcha_score < settings.RECAPTCHA_SCORE_THRESHOLD:
             raise forms.ValidationError("reCAPTCHA score too low")
             
         return token
+    
+    def save(self, commit=True):
+        lead = super().save(commit=False)
+        
+        # Build internal notes with reCAPTCHA score and campaign data
+        notes_parts = []
+        
+        # Add reCAPTCHA score
+        if hasattr(self, 'recaptcha_score'):
+            notes_parts.append(f"reCAPTCHA: {self.recaptcha_score}")
+        
+        # Add campaign data if available
+        if self.request:
+            campaign_data = []
+            
+            # Get GCLID
+            gclid = self.request.GET.get('gclid')
+            if gclid:
+                campaign_data.append(f"GCLID: {gclid}")
+            
+            # Get Campaign ID
+            campaign_id = self.request.GET.get('gad_campaignid')
+            if campaign_id:
+                campaign_data.append(f"Campaign ID: {campaign_id}")
+            
+            # Get UTM parameters
+            utm_source = self.request.GET.get('utm_source')
+            if utm_source:
+                campaign_data.append(f"Source: {utm_source}")
+                
+            utm_campaign = self.request.GET.get('utm_campaign')
+            if utm_campaign:
+                campaign_data.append(f"Campaign: {utm_campaign}")
+            
+            if campaign_data:
+                notes_parts.append("Campaign: " + ", ".join(campaign_data))
+        
+        # Set internal notes
+        if notes_parts:
+            lead.internal_notes = " | ".join(notes_parts)
+        
+        if commit:
+            lead.save()
+        return lead
     
     class Meta:
         model = Lead
@@ -46,6 +98,15 @@ class LeadForm(forms.ModelForm):
 class GoogleLandingForm(forms.ModelForm):
     g_recaptcha_response = forms.CharField(widget=forms.HiddenInput(), required=not settings.DEBUG)
     
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super().__init__(*args, **kwargs)
+        # Make name and email optional
+        self.fields['name'].required = False
+        self.fields['email'].required = False
+        # Set address to empty string since it's not used in this form
+        self.fields['address'] = forms.CharField(widget=forms.HiddenInput(), required=False, initial='')
+    
     def clean_g_recaptcha_response(self):
         token = self.cleaned_data.get('g_recaptcha_response')
         
@@ -66,8 +127,11 @@ class GoogleLandingForm(forms.ModelForm):
         if not result.get('success'):
             raise forms.ValidationError("reCAPTCHA validation failed")
             
+        # Store the score for later use
+        self.recaptcha_score = result.get('score', 0)
+        
         # Check the score
-        if result.get('score', 0) < settings.RECAPTCHA_SCORE_THRESHOLD:
+        if self.recaptcha_score < settings.RECAPTCHA_SCORE_THRESHOLD:
             raise forms.ValidationError("reCAPTCHA score too low")
             
         return token
@@ -96,6 +160,50 @@ class GoogleLandingForm(forms.ModelForm):
         
         return description
     
+    def save(self, commit=True):
+        lead = super().save(commit=False)
+        
+        # Build internal notes with reCAPTCHA score and campaign data
+        notes_parts = []
+        
+        # Add reCAPTCHA score
+        if hasattr(self, 'recaptcha_score'):
+            notes_parts.append(f"reCAPTCHA: {self.recaptcha_score}")
+        
+        # Add campaign data if available
+        if self.request:
+            campaign_data = []
+            
+            # Get GCLID
+            gclid = self.request.GET.get('gclid')
+            if gclid:
+                campaign_data.append(f"GCLID: {gclid}")
+            
+            # Get Campaign ID
+            campaign_id = self.request.GET.get('gad_campaignid')
+            if campaign_id:
+                campaign_data.append(f"Campaign ID: {campaign_id}")
+            
+            # Get UTM parameters
+            utm_source = self.request.GET.get('utm_source')
+            if utm_source:
+                campaign_data.append(f"Source: {utm_source}")
+                
+            utm_campaign = self.request.GET.get('utm_campaign')
+            if utm_campaign:
+                campaign_data.append(f"Campaign: {utm_campaign}")
+            
+            if campaign_data:
+                notes_parts.append("Campaign: " + ", ".join(campaign_data))
+        
+        # Set internal notes
+        if notes_parts:
+            lead.internal_notes = " | ".join(notes_parts)
+        
+        if commit:
+            lead.save()
+        return lead
+    
     class Meta:
         model = Lead
         fields = ['name', 'phone', 'email', 'description']
@@ -118,12 +226,4 @@ class GoogleLandingForm(forms.ModelForm):
                 'class': 'form-input',
                 'rows': 4
             }),
-        }
-        
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        # Make name and email optional
-        self.fields['name'].required = False
-        self.fields['email'].required = False
-        # Set address to empty string since it's not used in this form
-        self.fields['address'] = forms.CharField(widget=forms.HiddenInput(), required=False, initial='') 
+        } 

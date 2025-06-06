@@ -89,7 +89,7 @@ def services_view(request):
 
 def contact(request):
     if request.method == 'POST':
-        form = LeadForm(request.POST)
+        form = LeadForm(request.POST, request=request)
         if form.is_valid():
             form.save()
             return redirect('thank_you')
@@ -98,7 +98,7 @@ def contact(request):
             print("Form errors:", form.errors)
             messages.error(request, "Please correct the errors below.")
     else:
-        form = LeadForm()
+        form = LeadForm(request=request)
     
     return render(request, 'contact.html', {
         'form': form,
@@ -196,7 +196,7 @@ def thank_you(request):
 
 def google_landing(request):
     if request.method == 'POST':
-        form = GoogleLandingForm(request.POST)
+        form = GoogleLandingForm(request.POST, request=request)
         if form.is_valid():
             form.save()
             return redirect('google_thank_you')
@@ -205,7 +205,7 @@ def google_landing(request):
             print("Google Landing Form errors:", form.errors)
             messages.error(request, "Please correct the errors below.")
     else:
-        form = GoogleLandingForm()
+        form = GoogleLandingForm(request=request)
     
     return render(request, 'google-landing.html', {
         'form': form,
