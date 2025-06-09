@@ -29,6 +29,8 @@ class LeadForm(forms.ModelForm):
         
         result = response.json()
         if not result.get('success'):
+            # Log more details about the failure
+            print(f"reCAPTCHA validation failed: {result}")
             raise forms.ValidationError("reCAPTCHA validation failed")
             
         # Store the score for later use
@@ -36,6 +38,8 @@ class LeadForm(forms.ModelForm):
         
         # Check the score
         if self.recaptcha_score < settings.RECAPTCHA_SCORE_THRESHOLD:
+            # Log the score that failed
+            print(f"reCAPTCHA score too low: {self.recaptcha_score} < {settings.RECAPTCHA_SCORE_THRESHOLD}")
             raise forms.ValidationError("reCAPTCHA score too low")
             
         return token
@@ -125,6 +129,8 @@ class GoogleLandingForm(forms.ModelForm):
         
         result = response.json()
         if not result.get('success'):
+            # Log more details about the failure
+            print(f"reCAPTCHA validation failed: {result}")
             raise forms.ValidationError("reCAPTCHA validation failed")
             
         # Store the score for later use
@@ -132,6 +138,8 @@ class GoogleLandingForm(forms.ModelForm):
         
         # Check the score
         if self.recaptcha_score < settings.RECAPTCHA_SCORE_THRESHOLD:
+            # Log the score that failed
+            print(f"reCAPTCHA score too low: {self.recaptcha_score} < {settings.RECAPTCHA_SCORE_THRESHOLD}")
             raise forms.ValidationError("reCAPTCHA score too low")
             
         return token
