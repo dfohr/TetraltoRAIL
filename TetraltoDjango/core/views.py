@@ -207,8 +207,12 @@ def google_landing(request):
     else:
         form = GoogleLandingForm(request=request)
     
+    # Get features for the "What Makes Us Great" section
+    features = Feature.objects.order_by('order')
+    
     return render(request, 'google-landing.html', {
         'form': form,
+        'features': features,
     })
 
 def google_thank_you(request):
