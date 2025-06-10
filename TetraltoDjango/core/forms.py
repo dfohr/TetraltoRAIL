@@ -105,11 +105,10 @@ class GoogleLandingForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
         super().__init__(*args, **kwargs)
-        # Make name and email optional
+        # Make name, email, and address optional
         self.fields['name'].required = False
         self.fields['email'].required = False
-        # Set address to empty string since it's not used in this form
-        self.fields['address'] = forms.CharField(widget=forms.HiddenInput(), required=False, initial='')
+        self.fields['address'].required = False
     
     def clean_g_recaptcha_response(self):
         token = self.cleaned_data.get('g_recaptcha_response')
@@ -214,7 +213,7 @@ class GoogleLandingForm(forms.ModelForm):
     
     class Meta:
         model = Lead
-        fields = ['name', 'phone', 'email', 'description']
+        fields = ['name', 'phone', 'email', 'address', 'description']
         widgets = {
             'name': forms.TextInput(attrs={
                 'placeholder': 'Your Name',
@@ -227,6 +226,10 @@ class GoogleLandingForm(forms.ModelForm):
             }),
             'email': forms.EmailInput(attrs={
                 'placeholder': 'Your Email',
+                'class': 'form-input'
+            }),
+            'address': forms.TextInput(attrs={
+                'placeholder': 'Your Address',
                 'class': 'form-input'
             }),
             'description': forms.Textarea(attrs={

@@ -195,6 +195,13 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <input type="text" name="address" placeholder="Your Address" class="form-input" value="{{ form.address.value|default:'' }}">
+                                    {% if form.address.errors %}
+                                    <div class="field-error">{{ form.address.errors|join:", " }}</div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="form-group">
                                     <input type="tel" name="phone" placeholder="(000) 000-0000" pattern="[0-9]{10}" class="form-input" required value="{{ form.phone.value|default:'' }}">
                                     {% if form.phone.errors %}
                                     <div class="field-error">{{ form.phone.errors|join:", " }}</div>
@@ -210,7 +217,6 @@
 
                                 <!-- Hidden fields -->
                                 {{ form.g_recaptcha_response }}
-                                {{ form.address }}
 
                                 <button type="submit" class="form-submit-btn">
                                     Submit for a Free Quote
