@@ -36,6 +36,12 @@ class LeadForm(forms.ModelForm):
         # Store the score for later use
         self.recaptcha_score = result.get('score', 0)
         
+        # Track score in session
+        if self.request:
+            session_scores = self.request.session.get('recaptcha_scores', [])
+            session_scores.append(str(self.recaptcha_score))
+            self.request.session['recaptcha_scores'] = session_scores
+        
         # Check the score
         if self.recaptcha_score < settings.RECAPTCHA_SCORE_THRESHOLD:
             # Log the score that failed
@@ -50,9 +56,15 @@ class LeadForm(forms.ModelForm):
         # Build internal notes with reCAPTCHA score and campaign data
         notes_parts = []
         
-        # Add reCAPTCHA score
-        if hasattr(self, 'recaptcha_score'):
-            notes_parts.append(f"reCAPTCHA: {self.recaptcha_score}")
+        # Add reCAPTCHA scores from session
+        if self.request and 'recaptcha_scores' in self.request.session:
+            scores = self.request.session['recaptcha_scores']
+            if len(scores) > 1:
+                notes_parts.append(f"reCAPTCHA: {' | '.join(scores)}")
+            else:
+                notes_parts.append(f"reCAPTCHA: {scores[0]}")
+            # Clear the session scores after successful submission
+            del self.request.session['recaptcha_scores']
         
         # Add campaign data if available
         if self.request:
@@ -135,6 +147,12 @@ class GoogleLandingForm(forms.ModelForm):
         # Store the score for later use
         self.recaptcha_score = result.get('score', 0)
         
+        # Track score in session
+        if self.request:
+            session_scores = self.request.session.get('recaptcha_scores', [])
+            session_scores.append(str(self.recaptcha_score))
+            self.request.session['recaptcha_scores'] = session_scores
+        
         # Check the score
         if self.recaptcha_score < settings.RECAPTCHA_SCORE_THRESHOLD:
             # Log the score that failed
@@ -173,9 +191,15 @@ class GoogleLandingForm(forms.ModelForm):
         # Build internal notes with reCAPTCHA score and campaign data
         notes_parts = []
         
-        # Add reCAPTCHA score
-        if hasattr(self, 'recaptcha_score'):
-            notes_parts.append(f"reCAPTCHA: {self.recaptcha_score}")
+        # Add reCAPTCHA scores from session
+        if self.request and 'recaptcha_scores' in self.request.session:
+            scores = self.request.session['recaptcha_scores']
+            if len(scores) > 1:
+                notes_parts.append(f"reCAPTCHA: {' | '.join(scores)}")
+            else:
+                notes_parts.append(f"reCAPTCHA: {scores[0]}")
+            # Clear the session scores after successful submission
+            del self.request.session['recaptcha_scores']
         
         # Add campaign data if available
         if self.request:
@@ -215,26 +239,9 @@ class GoogleLandingForm(forms.ModelForm):
         model = Lead
         fields = ['name', 'phone', 'email', 'address', 'description']
         widgets = {
-            'name': forms.TextInput(attrs={
-                'placeholder': 'Your Name',
-                'class': 'form-input'
-            }),
-            'phone': forms.TextInput(attrs={
-                'placeholder': 'Your Phone',
-                'class': 'form-input',
-                'type': 'tel'
-            }),
-            'email': forms.EmailInput(attrs={
-                'placeholder': 'Your Email',
-                'class': 'form-input'
-            }),
-            'address': forms.TextInput(attrs={
-                'placeholder': 'Your Address',
-                'class': 'form-input'
-            }),
-            'description': forms.Textarea(attrs={
-                'placeholder': 'Describe your roofing needs',
-                'class': 'form-input',
-                'rows': 4
-            }),
+            'description': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Please describe your roofing needs...'}),
+            'address': forms.Textarea(attrs={'rows': 2, 'placeholder': 'Your address...'}),
+            'name': forms.TextInput(attrs={'placeholder': 'Your name...'}),
+            'phone': forms.TextInput(attrs={'placeholder': 'Your phone number...'}),
+            'email': forms.EmailInput(attrs={'placeholder': 'Your email address...'}),
         } 
