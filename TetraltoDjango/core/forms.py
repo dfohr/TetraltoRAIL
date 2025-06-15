@@ -43,9 +43,14 @@ class LeadForm(forms.ModelForm):
             self.request.session['recaptcha_scores'] = session_scores
         
         # Check the score
-        if self.recaptcha_score < settings.RECAPTCHA_SCORE_THRESHOLD:
+        if self.recaptcha_score < 0.5:
             # Log the score that failed
-            print(f"reCAPTCHA score too low: {self.recaptcha_score} < {settings.RECAPTCHA_SCORE_THRESHOLD}")
+            print(f"reCAPTCHA score too low: {self.recaptcha_score} < 0.5")
+            raise forms.ValidationError("reCAPTCHA score too low")
+            
+        # If score is between 0.5 and 0.8, save the form but still show error
+        if 0.5 <= self.recaptcha_score < settings.RECAPTCHA_SCORE_THRESHOLD:
+            print(f"reCAPTCHA score below threshold but saving: {self.recaptcha_score} < {settings.RECAPTCHA_SCORE_THRESHOLD}")
             raise forms.ValidationError("reCAPTCHA score too low")
             
         return token
@@ -154,9 +159,14 @@ class GoogleLandingForm(forms.ModelForm):
             self.request.session['recaptcha_scores'] = session_scores
         
         # Check the score
-        if self.recaptcha_score < settings.RECAPTCHA_SCORE_THRESHOLD:
+        if self.recaptcha_score < 0.5:
             # Log the score that failed
-            print(f"reCAPTCHA score too low: {self.recaptcha_score} < {settings.RECAPTCHA_SCORE_THRESHOLD}")
+            print(f"reCAPTCHA score too low: {self.recaptcha_score} < 0.5")
+            raise forms.ValidationError("reCAPTCHA score too low")
+            
+        # If score is between 0.5 and 0.8, save the form but still show error
+        if 0.5 <= self.recaptcha_score < settings.RECAPTCHA_SCORE_THRESHOLD:
+            print(f"reCAPTCHA score below threshold but saving: {self.recaptcha_score} < {settings.RECAPTCHA_SCORE_THRESHOLD}")
             raise forms.ValidationError("reCAPTCHA score too low")
             
         return token

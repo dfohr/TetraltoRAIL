@@ -94,6 +94,9 @@ def contact(request):
             form.save()
             return redirect('thank_you')
         else:
+            # Check if we should save despite validation errors
+            if hasattr(form, 'recaptcha_score') and 0.5 <= form.recaptcha_score < settings.RECAPTCHA_SCORE_THRESHOLD:
+                form.save()
             # Add debug logging
             print("Form errors:", form.errors)
             messages.error(request, "Please correct the errors below.")
@@ -201,6 +204,9 @@ def google_landing(request):
             form.save()
             return redirect('google_thank_you')
         else:
+            # Check if we should save despite validation errors
+            if hasattr(form, 'recaptcha_score') and 0.5 <= form.recaptcha_score < settings.RECAPTCHA_SCORE_THRESHOLD:
+                form.save()
             # Add debug logging
             print("Google Landing Form errors:", form.errors)
             messages.error(request, "Please correct the errors below.")
