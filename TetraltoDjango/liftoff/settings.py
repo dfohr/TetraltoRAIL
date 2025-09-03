@@ -196,3 +196,21 @@ RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY', '6LeIxAcTAAAAAJc
 RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY', '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' if DEBUG else '')
 RECAPTCHA_DEFAULT_ACTION = 'contact_form'
 RECAPTCHA_SCORE_THRESHOLD = 0.8
+
+# SendGrid Email Configuration for Form Notifications
+SENDGRID_FORM_API_KEY = os.environ.get('SENDGRID_FORM_API_KEY', '')
+SENDGRID_FORM_FROM_EMAIL = os.environ.get('SENDGRID_FORM_FROM_EMAIL', 'noreply@tetralto.com')
+SENDGRID_FORM_TO_EMAIL = os.environ.get('SENDGRID_FORM_TO_EMAIL', '')  # Your email for lead notifications
+
+# Email backend configuration
+if SENDGRID_FORM_API_KEY:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.sendgrid.net'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    EMAIL_HOST_USER = 'apikey'  # SendGrid requires 'apikey' as username
+    EMAIL_HOST_PASSWORD = SENDGRID_FORM_API_KEY
+    DEFAULT_FROM_EMAIL = SENDGRID_FORM_FROM_EMAIL
+else:
+    # Fallback to console backend for development
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

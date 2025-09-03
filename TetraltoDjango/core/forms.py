@@ -3,6 +3,7 @@ from .models import Lead
 import requests
 from django.conf import settings
 import json
+from .email_utils import send_lead_notification
 
 class LeadForm(forms.ModelForm):
     g_recaptcha_response = forms.CharField(widget=forms.HiddenInput(), required=not settings.DEBUG)
@@ -98,6 +99,12 @@ class LeadForm(forms.ModelForm):
         
         if commit:
             lead.save()
+            # Send email notification
+            try:
+                send_lead_notification(lead)
+            except Exception as e:
+                # Log error but don't fail the form submission
+                print(f"Error sending lead notification email: {str(e)}")
         return lead
     
     class Meta:
