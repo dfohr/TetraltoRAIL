@@ -9,4 +9,5 @@ class CoreConfig(AppConfig):
         Import signals when the app is ready.
         This ensures signals are registered when Django starts.
         """
-        import core.signals 
+        import core.signals
+        print("Core app signals loaded successfully") 

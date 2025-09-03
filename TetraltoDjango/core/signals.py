@@ -25,6 +25,9 @@ def handle_new_lead_notification(sender, instance, created, **kwargs):
     Signal handler that triggers email notification only when a new lead is created.
     This prevents admin edits from triggering emails.
     """
+    # Debug logging to see if signal is being called at all
+    logger.info(f"Signal triggered: Lead ID {instance.id}, created={created}")
+    
     if created:  # Only for new records, not updates
         logger.info(f"New lead created (ID: {instance.id}), triggering async email notification")
         
