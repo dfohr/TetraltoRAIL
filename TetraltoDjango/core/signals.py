@@ -13,10 +13,16 @@ def send_email_async(lead):
     """
     Send email notification asynchronously to avoid blocking the request.
     """
+    print(f"DEBUG: Starting async email send for lead ID {lead.id}")
+    logger.info(f"Starting async email send for lead ID {lead.id}")
+    
     try:
+        print(f"DEBUG: Calling send_lead_notification for lead ID {lead.id}")
         send_lead_notification(lead)
+        print(f"DEBUG: Async email notification sent successfully for lead ID {lead.id}")
         logger.info(f"Async email notification sent successfully for lead ID {lead.id}")
     except Exception as e:
+        print(f"DEBUG: Error sending async email notification for lead ID {lead.id}: {str(e)}")
         logger.error(f"Error sending async email notification for lead ID {lead.id}: {str(e)}")
 
 @receiver(post_save, sender=Lead)
