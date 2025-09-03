@@ -14,15 +14,11 @@ def send_lead_notification(lead):
     Args:
         lead: Lead model instance
     """
-    print(f"DEBUG: send_lead_notification called for lead ID {lead.id}")
-    
     if not settings.SENDGRID_FORM_TO_EMAIL:
-        print(f"DEBUG: SENDGRID_FORM_TO_EMAIL not configured, skipping email notification for lead: {lead.name} ({lead.phone})")
         logger.warning(f"SENDGRID_FORM_TO_EMAIL not configured, skipping email notification for lead: {lead.name} ({lead.phone})")
         return False
     
     try:
-        print(f"DEBUG: Creating email content for lead ID {lead.id}")
         # Create email content
         subject = f"New Lead: {lead.name} - {lead.created_at.strftime('%Y-%m-%d %H:%M')}"
         
@@ -45,7 +41,6 @@ Internal Notes: {lead.internal_notes if lead.internal_notes else 'None'}
 This is an automated notification from your website contact form.
         """.strip()
         
-        print(f"DEBUG: About to call SendGrid REST API for lead ID {lead.id}")
         # Send the email using SendGrid REST API
         try:
             message = Mail(
@@ -58,28 +53,20 @@ This is an automated notification from your website contact form.
             sg = SendGridAPIClient(api_key=settings.SENDGRID_FORM_API_KEY)
             response = sg.send(message)
             
-            print(f"DEBUG: SendGrid API response status: {response.status_code}")
-            print(f"DEBUG: SendGrid API response body: {response.body}")
-            print(f"DEBUG: SendGrid API response headers: {response.headers}")
             success = response.status_code in [200, 201, 202]
             
         except Exception as e:
-            print(f"DEBUG: SendGrid API exception: {str(e)}")
-            print(f"DEBUG: Exception type: {type(e).__name__}")
+            logger.error(f"SendGrid API error: {str(e)}")
             success = False
         
-        print(f"DEBUG: send_mail returned: {success} for lead ID {lead.id}")
         if success:
-            print(f"DEBUG: Lead notification email sent successfully for lead ID {lead.id}")
             logger.info(f"Lead notification email sent successfully for lead ID {lead.id}")
             return True
         else:
-            print(f"DEBUG: Failed to send lead notification email for lead ID {lead.id}")
             logger.error(f"Failed to send lead notification email for lead ID {lead.id}")
             return False
             
     except Exception as e:
-        print(f"DEBUG: Exception in send_lead_notification: {str(e)}")
         logger.error(f"Error sending lead notification email: {str(e)}")
         return False
 
