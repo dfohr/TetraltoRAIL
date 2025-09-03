@@ -59,10 +59,13 @@ This is an automated notification from your website contact form.
             response = sg.send(message)
             
             print(f"DEBUG: SendGrid API response status: {response.status_code}")
+            print(f"DEBUG: SendGrid API response body: {response.body}")
+            print(f"DEBUG: SendGrid API response headers: {response.headers}")
             success = response.status_code in [200, 201, 202]
             
         except Exception as e:
             print(f"DEBUG: SendGrid API exception: {str(e)}")
+            print(f"DEBUG: Exception type: {type(e).__name__}")
             success = False
         
         print(f"DEBUG: send_mail returned: {success} for lead ID {lead.id}")
