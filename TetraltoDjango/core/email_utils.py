@@ -1,8 +1,9 @@
-from django.core.mail import send_mail
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils import timezone
 import logging
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 logger = logging.getLogger(__name__)
 
@@ -44,15 +45,25 @@ Internal Notes: {lead.internal_notes if lead.internal_notes else 'None'}
 This is an automated notification from your website contact form.
         """.strip()
         
-        print(f"DEBUG: About to call send_mail for lead ID {lead.id}")
-        # Send the email with fail_silently=True to prevent hanging
-        success = send_mail(
-            subject=subject,
-            message=email_body,
-            from_email=settings.SENDGRID_FORM_FROM_EMAIL,
-            recipient_list=[settings.SENDGRID_FORM_TO_EMAIL],
-            fail_silently=True,  # Don't raise exceptions, just return False
-        )
+        print(f"DEBUG: About to call SendGrid REST API for lead ID {lead.id}")
+        # Send the email using SendGrid REST API
+        try:
+            message = Mail(
+                from_email=settings.SENDGRID_FORM_FROM_EMAIL,
+                to_emails=settings.SENDGRID_FORM_TO_EMAIL,
+                subject=subject,
+                plain_text_content=email_body
+            )
+            
+            sg = SendGridAPIClient(api_key=settings.SENDGRID_FORM_API_KEY)
+            response = sg.send(message)
+            
+            print(f"DEBUG: SendGrid API response status: {response.status_code}")
+            success = response.status_code in [200, 201, 202]
+            
+        except Exception as e:
+            print(f"DEBUG: SendGrid API exception: {str(e)}")
+            success = False
         
         print(f"DEBUG: send_mail returned: {success} for lead ID {lead.id}")
         if success:
@@ -88,13 +99,22 @@ Environment: {'Production' if not settings.DEBUG else 'Development'}
 If you received this email, your SendGrid configuration is working correctly!
         """.strip()
         
-        success = send_mail(
-            subject=subject,
-            message=message,
-            from_email=settings.SENDGRID_FORM_FROM_EMAIL,
-            recipient_list=[settings.SENDGRID_FORM_TO_EMAIL],
-            fail_silently=False,
-        )
+        try:
+            message = Mail(
+                from_email=settings.SENDGRID_FORM_FROM_EMAIL,
+                to_emails=settings.SENDGRID_FORM_TO_EMAIL,
+                subject=subject,
+                plain_text_content=message
+            )
+            
+            sg = SendGridAPIClient(api_key=settings.SENDGRID_FORM_API_KEY)
+            response = sg.send(message)
+            
+            success = response.status_code in [200, 201, 202]
+            
+        except Exception as e:
+            logger.error(f"Error sending test email: {str(e)}")
+            success = False
         
         if success:
             logger.info("Test email sent successfully")
