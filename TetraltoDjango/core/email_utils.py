@@ -45,13 +45,13 @@ This is an automated notification from your website contact form.
         """.strip()
         
         print(f"DEBUG: About to call send_mail for lead ID {lead.id}")
-        # Send the email
+        # Send the email with fail_silently=True to prevent hanging
         success = send_mail(
             subject=subject,
             message=email_body,
             from_email=settings.SENDGRID_FORM_FROM_EMAIL,
             recipient_list=[settings.SENDGRID_FORM_TO_EMAIL],
-            fail_silently=False,
+            fail_silently=True,  # Don't raise exceptions, just return False
         )
         
         print(f"DEBUG: send_mail returned: {success} for lead ID {lead.id}")
