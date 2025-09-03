@@ -240,6 +240,12 @@ class GoogleLandingForm(forms.ModelForm):
         
         if commit:
             lead.save()
+            # Send email notification
+            try:
+                send_lead_notification(lead)
+            except Exception as e:
+                # Log error but don't fail the form submission
+                print(f"Error sending lead notification email: {str(e)}")
         return lead
     
     class Meta:

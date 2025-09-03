@@ -14,7 +14,7 @@ def send_lead_notification(lead):
         lead: Lead model instance
     """
     if not settings.SENDGRID_FORM_TO_EMAIL:
-        logger.warning("SENDGRID_FORM_TO_EMAIL not configured, skipping email notification")
+        logger.warning(f"SENDGRID_FORM_TO_EMAIL not configured, skipping email notification for lead: {lead.name} ({lead.phone})")
         return False
     
     try:
