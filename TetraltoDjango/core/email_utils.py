@@ -13,11 +13,15 @@ def send_lead_notification(lead):
     Args:
         lead: Lead model instance
     """
+    print(f"DEBUG: send_lead_notification called for lead ID {lead.id}")
+    
     if not settings.SENDGRID_FORM_TO_EMAIL:
+        print(f"DEBUG: SENDGRID_FORM_TO_EMAIL not configured, skipping email notification for lead: {lead.name} ({lead.phone})")
         logger.warning(f"SENDGRID_FORM_TO_EMAIL not configured, skipping email notification for lead: {lead.name} ({lead.phone})")
         return False
     
     try:
+        print(f"DEBUG: Creating email content for lead ID {lead.id}")
         # Create email content
         subject = f"New Lead: {lead.name} - {lead.created_at.strftime('%Y-%m-%d %H:%M')}"
         
@@ -40,6 +44,7 @@ Internal Notes: {lead.internal_notes if lead.internal_notes else 'None'}
 This is an automated notification from your website contact form.
         """.strip()
         
+        print(f"DEBUG: About to call send_mail for lead ID {lead.id}")
         # Send the email
         success = send_mail(
             subject=subject,
@@ -49,14 +54,18 @@ This is an automated notification from your website contact form.
             fail_silently=False,
         )
         
+        print(f"DEBUG: send_mail returned: {success} for lead ID {lead.id}")
         if success:
+            print(f"DEBUG: Lead notification email sent successfully for lead ID {lead.id}")
             logger.info(f"Lead notification email sent successfully for lead ID {lead.id}")
             return True
         else:
+            print(f"DEBUG: Failed to send lead notification email for lead ID {lead.id}")
             logger.error(f"Failed to send lead notification email for lead ID {lead.id}")
             return False
             
     except Exception as e:
+        print(f"DEBUG: Exception in send_lead_notification: {str(e)}")
         logger.error(f"Error sending lead notification email: {str(e)}")
         return False
 
