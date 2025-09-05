@@ -1435,3 +1435,26 @@ img {
     }
 }
 
+/* Video Section */
+.video-section {
+    padding: 2rem 0;
+    background-color: #f8f9fa;
+}
+
+.video-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.video-container iframe {
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
