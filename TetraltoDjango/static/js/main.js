@@ -18,33 +18,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Video lazy loading and click-to-play functionality
+    // Video click-to-play functionality
     const videoOverlay = document.getElementById('video-overlay');
     const youtubeVideo = document.getElementById('youtube-video');
     
     if (videoOverlay && youtubeVideo) {
-        // Lazy load video when it comes into view
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && youtubeVideo.src === 'about:blank') {
-                    youtubeVideo.src = youtubeVideo.dataset.src;
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            rootMargin: '50px 0px',
-            threshold: 0.1
-        });
-        
-        observer.observe(youtubeVideo);
-        
         // Click to play functionality
         videoOverlay.addEventListener('click', function() {
-            // Load the video if not already loaded
-            if (youtubeVideo.src === 'about:blank') {
-                youtubeVideo.src = youtubeVideo.dataset.src;
-            }
-            
             // Hide overlay and start playing
             videoOverlay.classList.add('hidden');
             
