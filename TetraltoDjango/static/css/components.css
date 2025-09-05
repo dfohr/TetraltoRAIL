@@ -1437,14 +1437,10 @@ img {
 
 /* Video Section Styles */
 .video-section {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
     padding: 2rem 0;
     background: #000;
-}
-
-.video-container {
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
     position: relative;
 }
 
@@ -1454,9 +1450,7 @@ img {
     height: 0;
     padding-bottom: 56.25%; /* 16:9 aspect ratio */
     background: #000;
-    border-radius: var(--border-radius);
     overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
 }
 
 .video-wrapper iframe {
