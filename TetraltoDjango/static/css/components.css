@@ -1500,6 +1500,11 @@ img {
     box-shadow: 0 4px 16px rgba(0,0,0,0.3);
 }
 
+.play-button svg {
+    width: 40px;
+    height: 40px;
+}
+
 .play-button:hover {
     transform: scale(1.1);
     background: var(--secondary-color);
@@ -1518,7 +1523,7 @@ img {
     }
     
     .play-button svg {
-        width: 60px;
-        height: 60px;
+        width: 30px;
+        height: 30px;
     }
 } 
