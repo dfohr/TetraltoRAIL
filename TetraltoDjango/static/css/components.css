@@ -1441,16 +1441,13 @@ img {
     background-color: #f8f9fa;
 }
 
-.video-container {
+.video-section .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
 }
 
-.video-container iframe {
+.video-section iframe {
     max-width: 100%;
     height: auto;
     aspect-ratio: 16/9;
