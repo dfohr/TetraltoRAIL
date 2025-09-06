@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from .models import Service, Feature, Testimonial, SocialLink, BlogPost
 from .forms import LeadForm
+from .blog_ref_service import BlogRefService
 import django
 import sys
 import os
@@ -161,23 +162,16 @@ def terms_and_conditions(request):
 
 def service_detail(request, slug):
     service = get_object_or_404(Service, slug=slug)
-    featured_blog = get_object_or_404(BlogPost, slug='beautiful-new-roof-in-meadows-place', is_active=True)
+    
+    # Get blog content using service layer
+    featured_blog = BlogRefService.get_featured_post('services')
+    related_posts = BlogRefService.get_related_posts('services')
     
     # Convert markdown to HTML
     service.description_html = markdown.markdown(
         service.description,
         extensions=['nl2br', 'tables', 'fenced_code']
     )
-    
-    # Fetch the specific blog posts by their slugs
-    related_posts = BlogPost.objects.filter(
-        is_active=True,
-        slug__in=[
-            'transforming-homes-with-quality-roofing-a-recent-p',
-            'roofing-elevation-bridging-aesthetics-and-function',
-            'Stunning-Pewter-Gray-Roof-in-Sienna'
-        ]
-    ).order_by('slug')  # Order by slug to maintain consistent order
     
     return render(request, f'{slug}.html', {
         'service': service,
