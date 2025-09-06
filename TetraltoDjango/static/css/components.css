@@ -1437,21 +1437,24 @@ img {
 
 /* Video Section */
 .video-section {
-    padding: 2rem 0;
-    background-color: #f8f9fa;
+    padding: 20px; /* Optional: adds spacing around the section */
 }
 
-.video-section .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* Maintains 16:9 aspect ratio (315/560 = 0.5625) */
+    height: 0;
+    overflow: hidden;
+    max-width: 560px; /* Maximum width of the video */
+    width: 100%; /* Makes it responsive to the parent container */
+    margin: 0 auto; /* Centers the video wrapper */
 }
 
-.video-section iframe {
-    max-width: 100%;
-    height: auto;
-    aspect-ratio: 16/9;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Fills the wrapper */
+    height: 100%; /* Fills the wrapper */
 }
 
