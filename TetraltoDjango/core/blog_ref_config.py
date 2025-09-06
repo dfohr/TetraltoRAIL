@@ -20,7 +20,7 @@ class BlogRefConfig:
         'services': [
             'transforming-homes-with-quality-roofing-a-recent-p',
             'roofing-elevation-bridging-aesthetics-and-function', 
-            'Stunning-Pewter-Gray-Roof-in-Sienna'
+            'roof-replacement-in-sienna'
         ],
         # Future contexts:
         # 'torch_down': [],
