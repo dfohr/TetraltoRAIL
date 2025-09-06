@@ -1442,10 +1442,10 @@ img {
 
 .video-wrapper {
     position: relative;
-    padding-bottom: 56.25%; /* Maintains 16:9 aspect ratio (315/560 = 0.5625) */
+    padding-bottom: 56.25%; /* Maintains 16:9 aspect ratio */
     height: 0;
     overflow: hidden;
-    max-width: 560px; /* Maximum width of the video */
+    max-width: 1120px; /* Maximum width of the video */
     width: 100%; /* Makes it responsive to the parent container */
     margin: 0 auto; /* Centers the video wrapper */
 }
