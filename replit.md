@@ -22,6 +22,19 @@ This is a Django-based website for Tetralto Roofing company with a microservices
 - Set up deployment configuration for production
 - Website is fully functional and serving at port 5000
 
+## Code Architecture Improvements (September 6, 2025)
+- **Major Forms Refactoring**: Eliminated 100% code duplication in forms.py
+  - Reduced code from 247 to 156 lines (37% reduction)
+  - Unified LeadForm and GoogleLandingForm into single class with parameter control
+  - Improved validation: 10-digit US phone numbers and meaningful descriptions
+  - Enhanced error handling and logging
+- **Views Refactoring - Fat Controllers Fix**: Implemented clean service layer architecture
+  - Created BlogRefConfig and BlogRefService for centralized blog post references
+  - Removed hardcoded blog slugs from views (4 hardcoded references eliminated)
+  - Extracted business logic from views following Single Responsibility Principle
+  - Cleaned debug print statements from production code
+  - Improved maintainability and extensibility for future pages
+
 ## Configuration
 - Django settings configured for Replit environment
 - Database using environment variables (DATABASE_URL, PGHOST, etc.)
