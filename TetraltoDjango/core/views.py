@@ -3,7 +3,7 @@ from django.db import connection
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from .models import Service, Feature, Testimonial, SocialLink, BlogPost
-from .forms import LeadForm, GoogleLandingForm
+from .forms import LeadForm
 import django
 import sys
 import os
@@ -94,8 +94,6 @@ def contact(request):
             form.save()
             return redirect('thank_you')
         else:
-            # Add debug logging
-            print("Form errors:", form.errors)
             messages.error(request, "Please correct the errors below.")
     else:
         form = LeadForm(request=request)
@@ -130,8 +128,6 @@ def blog_post(request, slug):
         published_at__lte=timezone.now()
     )
     
-    # Debug print
-    print(f"DEBUG setting is: {settings.DEBUG}")
     
     # Convert markdown to HTML
     md = markdown.Markdown(extensions=[
@@ -196,16 +192,14 @@ def thank_you(request):
 
 def google_landing(request):
     if request.method == 'POST':
-        form = GoogleLandingForm(request.POST, request=request)
+        form = LeadForm(request.POST, request=request, minimal_required=True)
         if form.is_valid():
             form.save()
             return redirect('google_thank_you')
         else:
-            # Add debug logging
-            print("Google Landing Form errors:", form.errors)
             messages.error(request, "Please correct the errors below.")
     else:
-        form = GoogleLandingForm(request=request)
+        form = LeadForm(request=request, minimal_required=True)
     
     # Get features for the "What Makes Us Great" section
     features = Feature.objects.order_by('order')
