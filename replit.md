@@ -36,6 +36,12 @@ This is a Django-based website for Tetralto Roofing company with a microservices
   - Cleaned debug print statements from production code
   - Improved maintainability and extensibility for future pages
 
+## CSS Architecture Notes
+- CSS is currently functional but architecturally messy (1,460-line components.css)
+- Originally written by Claude AI with scattered media queries and inconsistent patterns
+- Consider incremental cleanup approach rather than wholesale refactoring to avoid breaking the site
+- Site displays perfectly but underlying CSS could be better organized
+
 ## Configuration
 - Django settings configured for Replit environment
 - Database using environment variables (DATABASE_URL, PGHOST, etc.)
@@ -48,9 +54,13 @@ This is a Django-based website for Tetralto Roofing company with a microservices
 - **Geo Service**: Dependencies installed, available but requires MaxMind API keys to run
 - **Database**: PostgreSQL with all migrations applied and data loaded
 
-## User Preferences
-- **Project Status**: Successfully set up and ready for use
-- **Database**: All migrations completed with initial data loaded
-- **Static Assets**: Properly configured with WhiteNoise serving
-- **Website**: Fully functional in Replit environment
-- **Deployment**: Production configuration ready for autoscale deployment
+## User Preferences & Communication Guidelines
+- **Be Direct & Honest**: If I'm wrong about something, say so directly. Don't sugarcoat or avoid criticism. I value honest feedback over politeness.
+- **No Excessive Praise**: Avoid unnecessary compliments or "sucking up" behavior. Keep feedback factual and constructive.
+- **Challenge Ideas When Needed**: If an approach seems problematic, speak up and suggest better alternatives.
+
+## Project Status
+- Project successfully set up and ready for use
+- All database migrations completed
+- Static assets properly configured  
+- Website fully functional in Replit environment
