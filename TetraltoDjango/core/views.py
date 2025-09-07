@@ -85,7 +85,6 @@ def services_view(request):
     
     return render(request, 'services.html', {
         'services': services,
-        'social_links': SocialLink.objects.filter(is_active=True).order_by('order'),
     })
 
 def contact(request):
@@ -105,9 +104,7 @@ def contact(request):
     })
 
 def blog(request):
-    return render(request, 'blog.html', {
-        'social_links': SocialLink.objects.filter(is_active=True).order_by('order'),
-    })
+    return render(request, 'blog.html', {})
 
 def blog_list(request):
     posts = BlogPost.objects.filter(
@@ -117,7 +114,6 @@ def blog_list(request):
     
     context = {
         'posts': posts,
-        'social_links': SocialLink.objects.filter(is_active=True).order_by('order'),
     }
     return render(request, 'blog.html', context)
 
@@ -140,7 +136,6 @@ def blog_post(request, slug):
     
     context = {
         'post': post,
-        'social_links': SocialLink.objects.filter(is_active=True).order_by('order'),
         'debug': settings.DEBUG,
     }
     return render(request, 'blog_post.html', context)
@@ -156,9 +151,7 @@ Sitemap: {sitemap_url}"""
 
 def terms_and_conditions(request):
     """View for the Terms and Conditions page."""
-    return render(request, 'terms.html', {
-        'social_links': SocialLink.objects.filter(is_active=True).order_by('order'),
-    })
+    return render(request, 'terms.html', {})
 
 def service_detail(request, slug):
     service = get_object_or_404(Service, slug=slug)
@@ -177,13 +170,10 @@ def service_detail(request, slug):
         'service': service,
         'featured_blog': featured_blog,
         'related_posts': related_posts,
-        'social_links': SocialLink.objects.filter(is_active=True).order_by('order'),
     })
 
 def thank_you(request):
-    return render(request, 'thank-you.html', {
-        'social_links': SocialLink.objects.filter(is_active=True).order_by('order'),
-    })
+    return render(request, 'thank-you.html', {})
 
 def google_landing(request):
     if request.method == 'POST':
