@@ -1,0 +1,106 @@
+/* 
+ * Standalone Social Bar Component
+ * Reusable social icon bar with configurable styling
+ * Framework agnostic - works with any HTML structure
+ */
+
+.social-bar {
+  /* Configurable CSS variables for easy customization */
+  --social-bar-bg: #ffffff;
+  --social-bar-hover-bg: #f5f5f5;
+  --social-icon-size: 4.375rem;        /* 70px equivalent but scalable */
+  --social-icon-container: 6.25rem;    /* 100px equivalent but scalable */
+  --social-icon-gap: 0;
+  --social-icon-padding: 0.5rem;
+  --social-icon-transition: background-color 0.2s ease;
+  
+  /* Component base styles */
+  padding: 0;
+  background-color: var(--social-bar-bg);
+  border: none;
+  width: 100%;
+  overflow: hidden;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--social-icon-gap);
+  flex-wrap: nowrap;
+  margin: 0;
+  width: 100%;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--social-icon-container);
+  height: var(--social-icon-container);
+  border: none;
+  border-radius: 0;
+  background-color: var(--social-bar-bg);
+  box-shadow: none;
+  transition: var(--social-icon-transition);
+  padding: var(--social-icon-padding);
+  text-decoration: none;
+}
+
+.social-icon:hover {
+  transform: none;
+  box-shadow: none;
+  background-color: var(--social-bar-hover-bg);
+}
+
+.social-icon img {
+  width: var(--social-icon-size);
+  height: var(--social-icon-size);
+  object-fit: contain;
+  border: none;
+}
+
+/* Responsive design using modern CSS */
+@media (max-width: 1200px) {
+  .social-bar {
+    --social-icon-size: 3.75rem;     /* 60px equivalent */
+    --social-icon-container: 5.625rem; /* 90px equivalent */
+    --social-icon-padding: 0.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .social-bar {
+    --social-icon-size: clamp(2.5rem, 4vw, 3.125rem);  /* Scales between 40px-50px */
+    --social-icon-container: clamp(3.5rem, 6vw, 5rem);  /* Scales between 56px-80px */
+  }
+  
+  .social-icons {
+    flex-wrap: wrap;
+  }
+}
+
+/* Component variants for different use cases */
+
+/* Compact version */
+.social-bar.compact {
+  --social-icon-size: 2.5rem;
+  --social-icon-container: 3.5rem;
+}
+
+/* Dark theme variant */
+.social-bar.dark {
+  --social-bar-bg: #1a1a1a;
+  --social-bar-hover-bg: #333333;
+}
+
+/* Spaced variant with gaps between icons */
+.social-bar.spaced {
+  --social-icon-gap: 1rem;
+}
+
+/* Large variant for hero sections */
+.social-bar.large {
+  --social-icon-size: 5rem;
+  --social-icon-container: 7rem;
+}
