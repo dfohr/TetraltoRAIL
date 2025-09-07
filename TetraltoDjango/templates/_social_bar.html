@@ -1,0 +1,12 @@
+{% load static %}
+<section class="social-bar">
+    <div class="container">
+        <div class="social-icons">
+            {% for social in social_links %}
+                <a href="{{ social.url }}" target="_blank" title="{{ social.popupText }}" class="social-icon">
+                    <img src="{% static 'images/'|add:social.icon_filename %}" alt="{{ social.name }}" loading="lazy">
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>

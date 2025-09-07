@@ -13,7 +13,7 @@ This is a Django-based website for Tetralto Roofing company with a microservices
 - **Static Files**: Handled by WhiteNoise
 - **Production**: Configured for autoscale deployment
 
-## Recent Changes (September 6, 2025)
+## Recent Changes (September 6-7, 2025)
 - **Fresh Import Setup Complete**: Successfully imported GitHub repository to Replit
 - **Python Environment**: Installed Python 3.11 module and all project dependencies
 - **Database Setup**: Set up PostgreSQL database and ran all migrations successfully
@@ -22,6 +22,11 @@ This is a Django-based website for Tetralto Roofing company with a microservices
 - **Geo-Service**: FastAPI dependencies installed and ready (requires MaxMind API keys)
 - **Production Ready**: Deployment configuration set up for autoscale with Gunicorn
 - **Website Status**: Fully functional and serving at port 5000
+- **Social Bar Refactoring** (September 7, 2025): Converted from base template inclusion to selective reusable component
+  - Created `_social_bar.html` template partial for selective inclusion
+  - Removed from `base.html` to avoid spacing issues on pages that don't want it
+  - Pages can now include social bar with single line: `{% include '_social_bar.html' %}`
+  - No more empty spacing or context variable dependency issues
 
 ## Code Architecture Improvements (September 6, 2025)
 - **Major Forms Refactoring**: Eliminated 100% code duplication in forms.py
