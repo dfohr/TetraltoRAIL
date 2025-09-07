@@ -176,7 +176,8 @@ def service_detail(request, slug):
     return render(request, f'{slug}.html', {
         'service': service,
         'featured_blog': featured_blog,
-        'related_posts': related_posts
+        'related_posts': related_posts,
+        'social_links': SocialLink.objects.filter(is_active=True).order_by('order'),
     })
 
 def thank_you(request):
