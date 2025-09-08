@@ -1,0 +1,153 @@
+/*
+ * Reusable Blog Tile Component
+ * Container-aware responsive blog post tiles
+ */
+
+.blog-tile {
+  /* Base component variables */
+  --tile-border-radius: 8px;
+  --tile-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  --tile-shadow-hover: 0 4px 16px rgba(0,0,0,0.15);
+  --tile-transition: all 0.2s ease;
+  --tile-width: 340px;
+  
+  /* Component container setup */
+  container-type: inline-size;
+  
+  /* Clean card design */
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  border-radius: var(--tile-border-radius);
+  overflow: hidden;
+  box-shadow: var(--tile-shadow);
+  transition: var(--tile-transition);
+  width: var(--tile-width);
+  max-width: 100%;
+  vertical-align: top;
+  background: white;
+  height: auto; /* Allow height to grow with content */
+}
+
+.blog-tile:hover {
+  box-shadow: var(--tile-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.blog-tile-image {
+  position: relative;
+  height: 288px; /* Doubled image height */
+  overflow: hidden;
+}
+
+.blog-tile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--tile-transition);
+}
+
+.blog-tile:hover .blog-tile-image img {
+  transform: scale(1.05);
+}
+
+.blog-tile-meta {
+  background: white;
+  color: #666;
+  font-size: 0.875rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  text-shadow: none;
+  line-height: 1.2;
+}
+
+.blog-tile-content {
+  background: white;
+  padding: 0 1rem 1rem;
+  margin-top: -0.25rem;
+}
+
+.blog-tile-content h3 {
+  color: #333;
+  font-size: 1.125rem;
+  margin: 0;
+  line-height: 1.4;
+  text-shadow: none;
+  
+  /* Uniform 3-line height for consistent tiles */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 4.2em; /* Exactly 3 lines at 1.4 line-height */
+}
+
+
+/* Container queries for responsive behavior */
+@container (max-width: 400px) {
+  .blog-tile {
+    --tile-width: 100%;
+  }
+  
+  .blog-tile-image {
+    height: 200px; /* Smaller image for narrow containers */
+  }
+  
+  .blog-tile-meta {
+    font-size: 0.75rem;
+    padding: 0.75rem;
+  }
+  
+  .blog-tile-content {
+    padding: 1rem 0.75rem;
+  }
+  
+  .blog-tile-content h3 {
+    font-size: 1rem;
+  }
+}
+
+@container (max-width: 250px) {
+  .blog-tile {
+    --tile-width: 100%;
+    --tile-height: 150px;
+  }
+  
+  .blog-tile-meta {
+    font-size: 0.65rem;
+    padding: 0.5rem;
+  }
+  
+  .blog-tile-content {
+    padding: 0.75rem 0.5rem;
+  }
+  
+  .blog-tile-content h3 {
+    font-size: 0.875rem;
+  }
+}
+
+/* Fallback for browsers without container query support */
+@supports not (container-type: inline-size) {
+  @media (max-width: 300px) {
+    .blog-tile {
+      height: 150px;
+    }
+    
+    .blog-tile-meta {
+      font-size: 0.75rem;
+      padding: 0.75rem;
+    }
+    
+    .blog-tile-content {
+      padding: 1rem 0.75rem;
+    }
+    
+    .blog-tile-content h3 {
+      font-size: 1rem;
+    }
+  }
+}

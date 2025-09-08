@@ -60,8 +60,12 @@
   border: none;
 }
 
-/* Responsive design using modern CSS */
-@media (max-width: 1200px) {
+/* Container-based responsive design (modern CSS) */
+.social-bar {
+  container-type: inline-size;
+}
+
+@container (max-width: 1200px) {
   .social-bar {
     --social-icon-size: 3.75rem;     /* 60px equivalent */
     --social-icon-container: 5.625rem; /* 90px equivalent */
@@ -69,14 +73,36 @@
   }
 }
 
-@media (max-width: 768px) {
+@container (max-width: 768px) {
   .social-bar {
-    --social-icon-size: clamp(2.5rem, 4vw, 3.125rem);  /* Scales between 40px-50px */
-    --social-icon-container: clamp(3.5rem, 6vw, 5rem);  /* Scales between 56px-80px */
+    --social-icon-size: clamp(2.5rem, 4cqw, 3.125rem);  /* Container-relative units */
+    --social-icon-container: clamp(3.5rem, 6cqw, 5rem);  /* Container-relative units */
   }
   
   .social-icons {
     flex-wrap: wrap;
+  }
+}
+
+/* Fallback for browsers without container query support */
+@supports not (container-type: inline-size) {
+  @media (max-width: 1200px) {
+    .social-bar {
+      --social-icon-size: 3.75rem;
+      --social-icon-container: 5.625rem;
+      --social-icon-padding: 0.25rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .social-bar {
+      --social-icon-size: clamp(2.5rem, 4vw, 3.125rem);
+      --social-icon-container: clamp(3.5rem, 6vw, 5rem);
+    }
+    
+    .social-icons {
+      flex-wrap: wrap;
+    }
   }
 }
 
