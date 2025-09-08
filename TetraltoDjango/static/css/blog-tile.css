@@ -9,8 +9,8 @@
   --tile-shadow: 0 2px 8px rgba(0,0,0,0.1);
   --tile-shadow-hover: 0 4px 16px rgba(0,0,0,0.15);
   --tile-transition: all 0.2s ease;
-  --tile-width: 320px;
-  --tile-height: 200px;
+  --tile-width: 360px;
+  --tile-height: 240px;
   
   /* Overlay variant variables */
   --overlay-gradient: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.4) 60%, transparent);
