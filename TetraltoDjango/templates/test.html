@@ -6,7 +6,9 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Component Test Page - Not Indexed</title>
     {% load static %}
+    {% load blog_tags %}
     <link rel="stylesheet" href="{% static 'css/social-bar.css' %}?v=1.1">
+    <link rel="stylesheet" href="{% static 'css/blog-tile.css' %}?v=1.1">
     <style>
         body {
             margin: 0;
@@ -38,28 +40,73 @@
             margin: 2rem 0;
             color: #333;
         }
+        .component-section {
+            margin: 3rem 0;
+            padding: 2rem 0;
+            border-top: 3px solid #eee;
+        }
+        .component-title {
+            text-align: center;
+            margin: 1rem 0 2rem 0;
+            color: #555;
+            font-size: 1.5rem;
+        }
     </style>
 </head>
 <body>
     <h1>Component Test Page</h1>
     
-    <!-- Full Width Test -->
-    <div class="test-container width-full">
-        <div class="test-label">FULL WIDTH (100%)</div>
-        {% include '_social_bar.html' %}
-    </div>
+    <!-- Social Bar Component Section -->
+    <section class="component-section">
+        <h2 class="component-title">Social Bar Component</h2>
+        
+        <!-- Full Width Test -->
+        <div class="test-container width-full">
+            <div class="test-label">FULL WIDTH (100%)</div>
+            {% include '_social_bar.html' %}
+        </div>
+        
+        <!-- Medium Width Test -->
+        <div class="test-container width-medium">
+            <div class="test-label">MEDIUM WIDTH (768px)</div>
+            {% include '_social_bar.html' %}
+        </div>
+        
+        <!-- Small Width Test -->
+        <div class="test-container width-small">
+            <div class="test-label">SMALL WIDTH (375px)</div>
+            {% include '_social_bar.html' %}
+        </div>
+    </section>
     
-    <!-- Medium Width Test -->
-    <div class="test-container width-medium">
-        <div class="test-label">MEDIUM WIDTH (768px)</div>
-        {% include '_social_bar.html' %}
-    </div>
-    
-    <!-- Small Width Test -->
-    <div class="test-container width-small">
-        <div class="test-label">SMALL WIDTH (375px)</div>
-        {% include '_social_bar.html' %}
-    </div>
+    <!-- Blog Tile Component Section -->
+    <section class="component-section">
+        <h2 class="component-title">Blog Tile Component</h2>
+        
+        <!-- Full Width Test - Default Overlay Style -->
+        <div class="test-container width-full">
+            <div class="test-label">FULL WIDTH - DEFAULT OVERLAY STYLE</div>
+            {% blog_tile "roof-replacement-in-sienna" %}
+        </div>
+        
+        <!-- Medium Width Test - Card Style -->
+        <div class="test-container width-medium">
+            <div class="test-label">MEDIUM WIDTH - CARD STYLE</div>
+            {% blog_tile "beautiful-new-roof-in-meadows-place" "card" %}
+        </div>
+        
+        <!-- Small Width Test - Compact Style -->
+        <div class="test-container width-small">
+            <div class="test-label">SMALL WIDTH - COMPACT STYLE</div>
+            {% blog_tile "what-are-those-unsightly-streaks-on-my-roof" "compact" %}
+        </div>
+        
+        <!-- Extra Small Test -->
+        <div class="test-container" style="width: 250px; margin: 2rem auto;">
+            <div class="test-label">EXTRA SMALL (250px)</div>
+            {% blog_tile "rcv-vs-acv-insurance-for-your-roof" %}
+        </div>
+    </section>
     
 </body>
 </html>

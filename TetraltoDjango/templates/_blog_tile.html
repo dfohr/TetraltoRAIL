@@ -1,0 +1,14 @@
+{% load static %}
+<a href="{% url 'blog_post' post.slug %}" class="{{ css_class }}">
+    <div class="blog-tile-image">
+        <img src="{% static 'images/'|add:post.hero_image_filename %}" 
+             alt="{{ post.hero_image_alt|default:post.title }}"
+             loading="lazy">
+    </div>
+    <div class="blog-tile-meta">
+        {{ post.published_at|date:"F j, Y" }} • {{ post.author }}
+    </div>
+    <div class="blog-tile-content">
+        <h3>{{ post.title }}</h3>
+    </div>
+</a>

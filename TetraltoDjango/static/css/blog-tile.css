@@ -1,0 +1,200 @@
+/*
+ * Reusable Blog Tile Component
+ * Container-aware responsive blog post tiles
+ */
+
+.blog-tile {
+  /* Base component variables */
+  --tile-border-radius: 8px;
+  --tile-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  --tile-shadow-hover: 0 4px 16px rgba(0,0,0,0.15);
+  --tile-transition: all 0.2s ease;
+  
+  /* Overlay variant variables */
+  --overlay-gradient: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.4) 60%, transparent);
+  --overlay-text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  --overlay-text-color: white;
+  
+  /* Component container setup */
+  container-type: inline-size;
+  
+  /* Base tile styles */
+  display: block;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  border-radius: var(--tile-border-radius);
+  overflow: hidden;
+  box-shadow: var(--tile-shadow);
+  transition: var(--tile-transition);
+  height: 200px;
+}
+
+.blog-tile:hover {
+  box-shadow: var(--tile-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.blog-tile-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.blog-tile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--tile-transition);
+}
+
+.blog-tile:hover .blog-tile-image img {
+  transform: scale(1.05);
+}
+
+/* Default overlay style (like roof-replacement) */
+.blog-tile-meta {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  color: var(--overlay-text-color);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-shadow: var(--overlay-text-shadow);
+  z-index: 2;
+}
+
+.blog-tile-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem 1rem;
+  background: var(--overlay-gradient);
+  z-index: 2;
+}
+
+.blog-tile-content h3 {
+  color: var(--overlay-text-color);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.3;
+  text-shadow: var(--overlay-text-shadow);
+}
+
+/* Card variant (like blog listing) */
+.blog-tile.card {
+  height: auto;
+  background: white;
+  color: #333;
+}
+
+.blog-tile.card .blog-tile-image {
+  position: relative;
+  height: 200px;
+}
+
+.blog-tile.card .blog-tile-meta {
+  position: relative;
+  background: white;
+  color: #666;
+  text-shadow: none;
+  padding: 0.75rem 1rem 0;
+}
+
+.blog-tile.card .blog-tile-content {
+  position: relative;
+  background: white;
+  padding: 0 1rem 1rem;
+}
+
+.blog-tile.card .blog-tile-content h3 {
+  color: #333;
+  font-size: 1.125rem;
+  text-shadow: none;
+  margin-top: 0.25rem;
+}
+
+/* Compact variant for smaller spaces */
+.blog-tile.compact {
+  height: 150px;
+}
+
+.blog-tile.compact .blog-tile-meta {
+  font-size: 0.75rem;
+  padding: 0.75rem;
+}
+
+.blog-tile.compact .blog-tile-content {
+  padding: 1rem 0.75rem;
+}
+
+.blog-tile.compact .blog-tile-content h3 {
+  font-size: 1rem;
+}
+
+/* Container queries for responsive behavior */
+@container (max-width: 300px) {
+  .blog-tile {
+    height: 150px;
+  }
+  
+  .blog-tile-meta {
+    font-size: 0.75rem;
+    padding: 0.75rem;
+  }
+  
+  .blog-tile-content {
+    padding: 1rem 0.75rem;
+  }
+  
+  .blog-tile-content h3 {
+    font-size: 1rem;
+  }
+}
+
+@container (max-width: 200px) {
+  .blog-tile {
+    height: 120px;
+  }
+  
+  .blog-tile-meta {
+    font-size: 0.65rem;
+    padding: 0.5rem;
+  }
+  
+  .blog-tile-content {
+    padding: 0.75rem 0.5rem;
+  }
+  
+  .blog-tile-content h3 {
+    font-size: 0.875rem;
+  }
+}
+
+/* Fallback for browsers without container query support */
+@supports not (container-type: inline-size) {
+  @media (max-width: 300px) {
+    .blog-tile {
+      height: 150px;
+    }
+    
+    .blog-tile-meta {
+      font-size: 0.75rem;
+      padding: 0.75rem;
+    }
+    
+    .blog-tile-content {
+      padding: 1rem 0.75rem;
+    }
+    
+    .blog-tile-content h3 {
+      font-size: 1rem;
+    }
+  }
+}
