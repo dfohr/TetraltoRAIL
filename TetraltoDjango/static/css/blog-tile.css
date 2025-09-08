@@ -10,19 +10,13 @@
   --tile-shadow-hover: 0 4px 16px rgba(0,0,0,0.15);
   --tile-transition: all 0.2s ease;
   --tile-width: 340px;
-  --tile-height: 240px;
-  
-  /* Overlay variant variables */
-  --overlay-gradient: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.4) 60%, transparent);
-  --overlay-text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-  --overlay-text-color: white;
   
   /* Component container setup */
   container-type: inline-size;
   
-  /* Base tile styles */
-  display: inline-block;
-  position: relative;
+  /* Clean card design */
+  display: flex;
+  flex-direction: column;
   text-decoration: none;
   color: inherit;
   border-radius: var(--tile-border-radius);
@@ -30,24 +24,15 @@
   box-shadow: var(--tile-shadow);
   transition: var(--tile-transition);
   width: var(--tile-width);
-  height: var(--tile-height);
   max-width: 100%;
   vertical-align: top;
+  background: white;
+  height: auto; /* Allow height to grow with content */
 }
 
 .blog-tile:hover {
   box-shadow: var(--tile-shadow-hover);
   transform: translateY(-2px);
-}
-
-/* Old overlay styles removed - using clean design only */
-
-/* Clean card design - no variants needed */
-.blog-tile {
-  background: white;
-  color: #333;
-  display: flex;
-  flex-direction: column;
 }
 
 .blog-tile-image {
@@ -101,7 +86,10 @@
 @container (max-width: 400px) {
   .blog-tile {
     --tile-width: 100%;
-    --tile-height: 180px;
+  }
+  
+  .blog-tile-image {
+    height: 200px; /* Smaller image for narrow containers */
   }
   
   .blog-tile-meta {
