@@ -195,4 +195,8 @@ def google_landing(request):
     })
 
 def google_thank_you(request):
-    return render(request, 'google-thank-you.html') 
+    return render(request, 'google-thank-you.html')
+
+def test_page(request):
+    """Component test page - not indexed."""
+    return render(request, 'test.html', {}) 
