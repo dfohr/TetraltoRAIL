@@ -92,64 +92,47 @@
   text-shadow: var(--overlay-text-shadow);
 }
 
-/* Card variant (like blog listing) */
-.blog-tile.card {
+/* Clean card design - no variants needed */
+.blog-tile {
   background: white;
   color: #333;
+  display: flex;
+  flex-direction: column;
 }
 
-.blog-tile.card .blog-tile-image {
+.blog-tile-image {
   position: relative;
-  height: calc(var(--tile-height) * 0.6); /* Image takes 60% of tile height */
+  height: 144px; /* Fixed image height */
+  overflow: hidden;
 }
 
-.blog-tile.card .blog-tile-meta {
-  position: relative;
+.blog-tile-meta {
   background: white;
   color: #666;
-  text-shadow: none;
+  font-size: 0.875rem;
   padding: 0.75rem 1rem 0;
 }
 
-.blog-tile.card .blog-tile-content {
-  position: relative;
+.blog-tile-content {
   background: white;
   padding: 0 1rem 1rem;
+  flex: 1;
 }
 
-.blog-tile.card .blog-tile-content h3 {
+.blog-tile-content h3 {
   color: #333;
   font-size: 1.125rem;
-  text-shadow: none;
-  margin-top: 0.25rem;
-  line-height: 1.4;
+  margin: 0.25rem 0 0 0;
+  line-height: 1.5;
   
-  /* Clean 3-line clamping */
+  /* Perfect 3-line clamping */
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  height: 4.2em; /* Exactly 3 lines at 1.4 line-height */
+  height: 4.5em; /* Exactly 3 lines at 1.5 line-height */
 }
 
-/* Compact variant for smaller spaces */
-.blog-tile.compact {
-  --tile-width: 280px;
-  --tile-height: 150px;
-}
-
-.blog-tile.compact .blog-tile-meta {
-  font-size: 0.75rem;
-  padding: 0.75rem;
-}
-
-.blog-tile.compact .blog-tile-content {
-  padding: 1rem 0.75rem;
-}
-
-.blog-tile.compact .blog-tile-content h3 {
-  font-size: 1rem;
-}
 
 /* Container queries for responsive behavior */
 @container (max-width: 400px) {
