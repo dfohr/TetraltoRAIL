@@ -94,14 +94,13 @@
 
 /* Card variant (like blog listing) */
 .blog-tile.card {
-  height: auto;
   background: white;
   color: #333;
 }
 
 .blog-tile.card .blog-tile-image {
   position: relative;
-  height: 200px;
+  height: calc(var(--tile-height) * 0.6); /* Image takes 60% of tile height */
 }
 
 .blog-tile.card .blog-tile-meta {
