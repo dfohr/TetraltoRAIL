@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load blog_tags %}
 
 {% block title %}{{ service.title }} - Tetralto{% endblock %}
 
@@ -40,20 +41,7 @@
                          loading="lazy">
                 </div>
                 <div class="featured-blog">
-                    <a href="{% url 'blog_post' featured_blog.slug %}" class="blog-tile" style="display: block; text-decoration: none; color: inherit; position: relative; width: 100%; height: 200px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                        <div class="blog-tile-image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                            <img src="{% static 'images/'|add:featured_blog.hero_image_filename %}" 
-                                 alt="{{ featured_blog.hero_image_alt|default:featured_blog.title }}"
-                                 style="width: 100%; height: 100%; object-fit: cover;"
-                                 loading="lazy">
-                        </div>
-                        <div class="blog-tile-meta" style="position: absolute; top: 0; left: 0; right: 0; padding: 1rem; color: white; font-size: 0.875rem; font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,0.5); z-index: 2;">
-                            {{ featured_blog.published_at|date:"F j, Y" }} • {{ featured_blog.author }}
-                        </div>
-                        <div class="blog-tile-content" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem 1rem; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.4) 60%, transparent); z-index: 2;">
-                            <h3 style="color: white; font-size: 1.25rem; font-weight: 600; margin: 0; line-height: 1.3; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">{{ featured_blog.title }}</h3>
-                        </div>
-                    </a>
+                    {% blog_tile featured_blog.slug %}
                 </div>
             </div>
         </div>
@@ -110,20 +98,9 @@
                 <h2 style="text-align: center; color: var(--primary-color); font-size: 1.75rem; margin-bottom: 1.5rem;">Recent Roofing Projects</h2>
                 <div style="display: flex; gap: 1.5rem; padding: 0.5rem 0; flex-wrap: wrap;">
                     {% for post in related_posts %}
-                    <a href="{% url 'blog_post' post.slug %}" class="blog-tile" style="display: block; text-decoration: none; color: inherit; position: relative; flex: 1; min-width: 300px; height: 200px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                        <div class="blog-tile-image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                            <img src="{% static 'images/'|add:post.hero_image_filename %}" 
-                                 alt="{{ post.hero_image_alt|default:post.title }}"
-                                 style="width: 100%; height: 100%; object-fit: cover;"
-                                 loading="lazy">
-                        </div>
-                        <div class="blog-tile-meta" style="position: absolute; top: 0; left: 0; right: 0; padding: 1rem; color: white; font-size: 0.875rem; font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,0.5); z-index: 2;">
-                            {{ post.published_at|date:"F j, Y" }} • {{ post.author }}
-                        </div>
-                        <div class="blog-tile-content" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem 1rem; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.4) 60%, transparent); z-index: 2;">
-                            <h3 style="color: white; font-size: 1.25rem; font-weight: 600; margin: 0; line-height: 1.3; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">{{ post.title }}</h3>
-                        </div>
-                    </a>
+                    <div style="flex: 1; min-width: 300px;">
+                        {% blog_tile post.slug %}
+                    </div>
                     {% endfor %}
                 </div>
                 <div class="cta-section" style="text-align: center; margin-top: 3rem;">
