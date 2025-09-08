@@ -152,26 +152,6 @@
 }
 
 /* Container queries for responsive behavior */
-@container (min-width: 1200px) {
-  .blog-tile {
-    --tile-width: 380px;
-    --tile-height: 240px;
-  }
-  
-  .blog-tile-meta {
-    font-size: 1rem;
-    padding: 1rem;
-  }
-  
-  .blog-tile-content {
-    padding: 1rem 1.25rem;
-  }
-  
-  .blog-tile-content h3 {
-    font-size: 1.25rem;
-  }
-}
-
 @container (max-width: 400px) {
   .blog-tile {
     --tile-width: 100%;
