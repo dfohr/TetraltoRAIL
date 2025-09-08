@@ -58,8 +58,8 @@
   font-size: 0.875rem;
   padding-left: 1rem;
   padding-right: 1rem;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 3px;
+  padding-bottom: 3px;
   text-shadow: none;
   line-height: 1.0;
 }
