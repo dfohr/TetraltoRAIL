@@ -124,12 +124,12 @@
   margin-top: 0.25rem;
   line-height: 1.4;
   
-  /* Force exactly 3 lines with ellipsis truncation */
+  /* Clean 3-line clamping */
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  height: calc(1.5em * 3); /* 3 lines with proper spacing */
+  height: 4.2em; /* Exactly 3 lines at 1.4 line-height */
 }
 
 /* Compact variant for smaller spaces */
