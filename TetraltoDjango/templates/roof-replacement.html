@@ -33,13 +33,7 @@
                     </a>
                 </div>
             </div>
-            <div class="hero-right" style="flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 2rem;">
-                <div class="hero-image">
-                    <img src="{% static 'images/'|add:service.image_filename %}" 
-                         alt="{{ service.title }}"
-                         style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
-                         loading="lazy">
-                </div>
+            <div class="hero-right" style="flex: 1; min-width: 300px;">
                 <div class="featured-blog">
                     {% blog_tile featured_blog.slug %}
                 </div>
