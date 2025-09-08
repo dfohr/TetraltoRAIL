@@ -40,13 +40,13 @@
         .test-container {
             background: white;
             border: 2px solid #ddd;
-            overflow-x: auto; /* Allow horizontal scroll if needed */
             min-height: 300px;
+            margin: 0 auto; /* Center containers */
         }
-        /* Fixed container widths - don't change with viewport */
-        .width-full .test-container { width: 100%; min-width: 1000px; }
-        .width-medium .test-container { width: 768px; }
-        .width-small .test-container { width: 375px; }
+        /* Responsive containers with maximum test widths */
+        .width-full .test-container { width: 100%; max-width: 1000px; }
+        .width-medium .test-container { width: 100%; max-width: 768px; }
+        .width-small .test-container { width: 100%; max-width: 375px; }
         .container { max-width: none; margin: 0; padding: 0; }
         .tiles-row {
             display: flex;
