@@ -69,16 +69,15 @@
 .blog-tile-content h3 {
   color: #333;
   font-size: 1.125rem;
-  margin: 0.25rem 0 0 0;
-  line-height: 1.5;
+  margin: 0;
+  line-height: 1.4;
   text-shadow: none;
   
-  /* Perfect 3-line clamping */
+  /* Perfect 3-line clamping without fixed height */
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  height: 4.5em; /* Exactly 3 lines at 1.5 line-height */
 }
 
 
