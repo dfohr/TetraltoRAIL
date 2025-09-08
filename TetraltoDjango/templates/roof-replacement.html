@@ -12,28 +12,28 @@
 
 {% block content %}
 <main class="service-detail-page">
-    <section class="service-hero" style="background: white; padding: 4rem 0;">
-        <div class="container" style="display: flex; align-items: flex-start; gap: 4rem; flex-wrap: wrap;">
-            <div class="hero-content" style="flex: 1; min-width: 300px;">
-                <div class="service-header" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+    <section class="service-hero" style="background: white; padding: 3rem 0;">
+        <div class="container" style="display: flex; align-items: center; gap: 3rem; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+            <div class="hero-content" style="flex: 2; min-width: 400px;">
+                <div class="service-header" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
                     <img src="{% static 'images/'|add:service.icon_filename %}" 
                          alt="{{ service.title }} icon"
                          style="width: 64px; height: 64px;"
                          loading="lazy">
-                    <h1 style="margin: 0; font-size: 2.5rem; color: var(--primary-color);">{{ service.title }}</h1>
+                    <h1 style="margin: 0; font-size: 2.25rem; color: var(--primary-color); line-height: 1.2;">{{ service.title }}</h1>
                 </div>
-                <p class="service-subtitle" style="font-size: 1.25rem; color: #333; margin-bottom: 1rem;">{{ service.subtitle }}</p>
-                <div class="service-description" style="margin-bottom: 2rem;">
+                <p class="service-subtitle" style="font-size: 1.125rem; color: #333; margin-bottom: 1.5rem; line-height: 1.4;">{{ service.subtitle }}</p>
+                <div class="service-description" style="margin-bottom: 2rem; font-size: 1rem; line-height: 1.6;">
                     {{ service.description_html|safe }}
                 </div>
                 <div class="button-group" style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <a href="tel:+12818951213" class="button primary" style="background: var(--primary-color); color: white; padding: 0.75rem 1.5rem; border-radius: 4px; text-decoration: none; font-weight: 500;">Call (281) 895-1213</a>
-                    <a href="{% url 'contact' %}" class="button secondary" style="background: white; color: var(--primary-color); padding: 0.75rem 1.5rem; border-radius: 4px; text-decoration: none; font-weight: 500; border: 2px solid var(--primary-color);">
+                    <a href="tel:+12818951213" class="button primary" style="background: var(--primary-color); color: white; padding: 0.875rem 2rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 1rem;">Call (281) 895-1213</a>
+                    <a href="{% url 'contact' %}" class="button secondary" style="background: white; color: var(--primary-color); padding: 0.875rem 2rem; border-radius: 6px; text-decoration: none; font-weight: 600; border: 2px solid var(--primary-color); font-size: 1rem;">
                         Get Free Estimate
                     </a>
                 </div>
             </div>
-            <div class="hero-right" style="flex: 1; min-width: 300px;">
+            <div class="hero-right" style="flex: 1; min-width: 340px; max-width: 400px;">
                 <div class="featured-blog">
                     {% blog_tile featured_blog.slug %}
                 </div>
