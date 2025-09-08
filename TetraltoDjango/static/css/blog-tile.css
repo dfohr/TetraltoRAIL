@@ -129,7 +129,7 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  height: calc(1.4em * 3); /* 3 lines at 1.4 line-height */
+  height: calc(1.5em * 3); /* 3 lines with proper spacing */
 }
 
 /* Compact variant for smaller spaces */
