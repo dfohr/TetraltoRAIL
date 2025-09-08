@@ -7,12 +7,20 @@
     <title>Component Test Page - Not Indexed</title>
     {% load static %}
     {% load blog_tags %}
+    
+    <!-- Google Fonts - Comfortaa -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Base CSS -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}?v=1.1">
     <link rel="stylesheet" href="{% static 'css/social-bar.css' %}?v=1.1">
     <link rel="stylesheet" href="{% static 'css/blog-tile.css' %}?v=1.1">
     <style>
         body {
             margin: 0;
-            font-family: system-ui, -apple-system, sans-serif;
+            font-family: 'Comfortaa', sans-serif;
             background: #f5f5f5;
         }
         .test-container {
