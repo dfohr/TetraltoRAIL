@@ -80,11 +80,16 @@
         
         <!-- Full Width Test -->
         <div class="test-container width-full">
-            <div class="test-label">FULL WIDTH (100%) - 3 BLOG TILES + SOCIAL BAR</div>
+            <div class="test-label">FULL WIDTH (100%) - 3 BLOG TILES (CARD VARIANT) + SOCIAL BAR</div>
             <div class="tiles-row">
+                <!-- Original overlay variant (commented out, in case you change your mind):
                 {% blog_tile "roof-replacement-in-sienna" %}
                 {% blog_tile "beautiful-new-roof-in-meadows-place" %}
                 {% blog_tile "what-are-those-unsightly-streaks-on-my-roof" %}
+                -->
+                {% blog_tile "roof-replacement-in-sienna" "card" %}
+                {% blog_tile "beautiful-new-roof-in-meadows-place" "card" %}
+                {% blog_tile "what-are-those-unsightly-streaks-on-my-roof" "card" %}
             </div>
             <div style="margin-top: 2rem;">
                 {% include '_social_bar.html' %}
@@ -93,7 +98,7 @@
         
         <!-- Medium Width Test -->
         <div class="test-container width-medium">
-            <div class="test-label">MEDIUM WIDTH (768px) - 3 BLOG TILES + SOCIAL BAR</div>
+            <div class="test-label">MEDIUM WIDTH (768px) - 3 BLOG TILES (CARD VARIANT) + SOCIAL BAR</div>
             <div class="tiles-row">
                 {% blog_tile "rcv-vs-acv-insurance-for-your-roof" "card" %}
                 {% blog_tile "financing-your-roofing-project-in-missouri-city" "card" %}
@@ -106,11 +111,11 @@
         
         <!-- Small Width Test -->
         <div class="test-container width-small">
-            <div class="test-label">SMALL WIDTH (375px) - 3 BLOG TILES + SOCIAL BAR</div>
+            <div class="test-label">SMALL WIDTH (375px) - 3 BLOG TILES (CARD VARIANT) + SOCIAL BAR</div>
             <div class="tiles-row">
-                {% blog_tile "beautiful-new-roof-in-meadows-place" "compact" %}
-                {% blog_tile "what-are-those-unsightly-streaks-on-my-roof" "compact" %}
-                {% blog_tile "rcv-vs-acv-insurance-for-your-roof" "compact" %}
+                {% blog_tile "beautiful-new-roof-in-meadows-place" "card" %}
+                {% blog_tile "what-are-those-unsightly-streaks-on-my-roof" "card" %}
+                {% blog_tile "rcv-vs-acv-insurance-for-your-roof" "card" %}
             </div>
             <div style="margin-top: 2rem;">
                 {% include '_social_bar.html' %}
