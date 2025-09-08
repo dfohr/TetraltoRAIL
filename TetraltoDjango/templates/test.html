@@ -37,6 +37,14 @@
         .width-medium { width: 768px; margin: 2rem auto; }
         .width-small { width: 375px; margin: 2rem auto; }
         .container { max-width: none; margin: 0; padding: 0; }
+        .tiles-row {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 1rem;
+        }
         h1 {
             text-align: center;
             margin: 2rem 0;
@@ -64,8 +72,12 @@
         
         <!-- Full Width Test -->
         <div class="test-container width-full">
-            <div class="test-label">FULL WIDTH (100%) - BLOG TILE + SOCIAL BAR</div>
-            {% blog_tile "roof-replacement-in-sienna" %}
+            <div class="test-label">FULL WIDTH (100%) - 3 BLOG TILES + SOCIAL BAR</div>
+            <div class="tiles-row">
+                {% blog_tile "roof-replacement-in-sienna" %}
+                {% blog_tile "beautiful-new-roof-in-meadows-place" %}
+                {% blog_tile "what-are-those-unsightly-streaks-on-my-roof" %}
+            </div>
             <div style="margin-top: 2rem;">
                 {% include '_social_bar.html' %}
             </div>
@@ -73,8 +85,12 @@
         
         <!-- Medium Width Test -->
         <div class="test-container width-medium">
-            <div class="test-label">MEDIUM WIDTH (768px) - BLOG TILE + SOCIAL BAR</div>
-            {% blog_tile "beautiful-new-roof-in-meadows-place" "card" %}
+            <div class="test-label">MEDIUM WIDTH (768px) - 3 BLOG TILES + SOCIAL BAR</div>
+            <div class="tiles-row">
+                {% blog_tile "rcv-vs-acv-insurance-for-your-roof" "card" %}
+                {% blog_tile "financing-your-roofing-project-in-missouri-city" "card" %}
+                {% blog_tile "roof-replacement-in-sienna" "card" %}
+            </div>
             <div style="margin-top: 2rem;">
                 {% include '_social_bar.html' %}
             </div>
@@ -82,8 +98,12 @@
         
         <!-- Small Width Test -->
         <div class="test-container width-small">
-            <div class="test-label">SMALL WIDTH (375px) - BLOG TILE + SOCIAL BAR</div>
-            {% blog_tile "what-are-those-unsightly-streaks-on-my-roof" "compact" %}
+            <div class="test-label">SMALL WIDTH (375px) - 3 BLOG TILES + SOCIAL BAR</div>
+            <div class="tiles-row">
+                {% blog_tile "beautiful-new-roof-in-meadows-place" "compact" %}
+                {% blog_tile "what-are-those-unsightly-streaks-on-my-roof" "compact" %}
+                {% blog_tile "rcv-vs-acv-insurance-for-your-roof" "compact" %}
+            </div>
             <div style="margin-top: 2rem;">
                 {% include '_social_bar.html' %}
             </div>
