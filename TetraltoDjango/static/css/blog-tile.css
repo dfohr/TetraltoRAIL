@@ -97,10 +97,6 @@
   
   .blog-tile-meta {
     font-size: 0.75rem;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-    padding-top: 0;
-    padding-bottom: 0;
   }
   
   .blog-tile-content {
@@ -120,10 +116,6 @@
   
   .blog-tile-meta {
     font-size: 0.65rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    padding-top: 0;
-    padding-bottom: 0;
   }
   
   .blog-tile-content {
@@ -144,10 +136,6 @@
     
     .blog-tile-meta {
       font-size: 0.75rem;
-      padding-left: 0.75rem;
-      padding-right: 0.75rem;
-      padding-top: 0;
-      padding-bottom: 0;
     }
     
     .blog-tile-content {
