@@ -102,7 +102,7 @@
 
 .blog-tile-image {
   position: relative;
-  height: 144px; /* Fixed image height */
+  height: 288px; /* Doubled image height */
   overflow: hidden;
 }
 
@@ -124,6 +124,7 @@
   font-size: 1.125rem;
   margin: 0.25rem 0 0 0;
   line-height: 1.5;
+  text-shadow: none;
   
   /* Perfect 3-line clamping */
   display: -webkit-box;
