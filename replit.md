@@ -30,13 +30,14 @@ This is a Django-based website for Tetralto Roofing company with a microservices
   - **Usage**: Pages include with `{% include '_social_bar.html' %}` - no loading or data dependencies
   - **Performance**: Single database query per request, no repeated template tag loading
   - **Maintainability**: All social links logic centralized in `core/context_processors.py`
-- **Blog Tile Component System** (September 8, 2025): Built reusable, container-aware blog tiles
+- **Blog Tile Component System** (September 8, 2025): Built clean, reusable blog tiles
   - **Container Query Design**: Components respond to container width, not viewport
-  - **Multiple Variants**: Default (overlay), Card (clean), Compact (space-saving)
-  - **Progressive Sizing**: 380px (large) → 320px (medium) → 280px (small containers)
-  - **Consistent Heights**: 3-line title clamping with ellipsis for uniform card alignment
+  - **Simplified Architecture**: Eliminated messy variant system for one clean design
+  - **Optimal Sizing**: 340px × 288px images with auto-height tiles for uniform grids
+  - **Perfect Typography**: 3-line title clamping with no text shadows and tight spacing
   - **Component Test Framework**: Created comprehensive testing page with realistic container widths (1400px/768px/375px)
-  - **Production Integration**: Ready for use across website with template tag `{% blog_tile "slug" "variant" %}`
+  - **Production Integration**: Ready for use across website with template tag `{% blog_tile "slug" %}`
+  - **CSS Cleanup**: Reduced from complex variant system to clean, maintainable single design
 
 ## Code Architecture Improvements (September 6, 2025)
 - **Major Forms Refactoring**: Eliminated 100% code duplication in forms.py
