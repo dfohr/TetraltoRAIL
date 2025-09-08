@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load blog_tags %}
 
 {% block title %}Roofing Tips & Guides | Missouri City TX Experts{% endblock %}
 
@@ -17,29 +18,17 @@
     </div>
 </div>
 
-<div class="blog-posts">
-    <div class="container">
+<div class="blog-posts" style="padding: 3rem 0;">
+    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
         {% if posts %}
-            <div class="blog-tiles-container">
+            <div class="blog-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2rem; align-items: start;">
                 {% for post in posts %}
-                    <a href="{% url 'blog_post' post.slug %}" class="blog-tile">
-                        <div class="blog-tile-image">
-                            <img src="{% static 'images/'|add:post.hero_image_filename %}" 
-                                 alt="{{ post.title }}"
-                                 loading="lazy">
-                        </div>
-                        <div class="blog-tile-meta">
-                            {{ post.published_at|date:"F j, Y" }} • {{ post.author }}
-                        </div>
-                        <div class="blog-tile-content">
-                            <h3>{{ post.title }}</h3>
-                        </div>
-                    </a>
+                    {% blog_tile post.slug %}
                 {% endfor %}
             </div>
         {% else %}
-            <div class="text-center py-16">
-                <p class="text-xl text-gray-600">
+            <div style="text-align: center; padding: 4rem 0;">
+                <p style="font-size: 1.25rem; color: #666;">
                     No blog posts available yet. Check back soon for updates!
                 </p>
             </div>
