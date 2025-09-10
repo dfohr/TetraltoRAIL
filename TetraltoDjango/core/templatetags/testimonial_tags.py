@@ -1,86 +1,26 @@
 from django import template
-from django.utils.safestring import mark_safe
-from core.models import Testimonial
-import json
 
 register = template.Library()
 
 @register.inclusion_tag('testimonials/carousel.html')
-def import_testimonials(carousel_id="testimonials-carousel", is_featured=None):
+def testimonials_carousel(carousel_id="testimonials-carousel", filter_featured=None):
     """
-    Django inclusion tag for displaying testimonials carousel with SEO optimization.
+    Lightweight Django inclusion tag for displaying testimonials carousel.
+    Uses global testimonials data loaded by context processor.
     
     Usage:
         {% load testimonial_tags %}
-        {% import_testimonials carousel_id="test-carousel" is_featured=True %}
+        {% testimonials_carousel carousel_id="featured-carousel" filter_featured=True %}
+        {% testimonials_carousel carousel_id="recent-carousel" %}
     
     Args:
         carousel_id (str): Unique ID for the carousel container
-        is_featured (bool): If True, filter only featured testimonials. If None, get all active testimonials.
+        filter_featured (bool): If True, JavaScript will filter to only featured testimonials
     
     Returns:
-        dict: Context with testimonials data, Schema.org markup, and carousel configuration
+        dict: Simple context with carousel configuration
     """
-    # Base queryset - only active testimonials
-    queryset = Testimonial.objects.filter(is_active=True)
-    
-    # Apply is_featured filter if specified
-    if is_featured is not None:
-        queryset = queryset.filter(is_featured=is_featured)
-    
-    # Order by creation date (newest first for better display)
-    testimonials = queryset.order_by('-created_at')
-    
-    # Prepare Schema.org JSON-LD markup for SEO
-    schema_reviews = []
-    for testimonial in testimonials:
-        schema_review = {
-            "@type": "Review",
-            "author": {
-                "@type": "Person",
-                "name": testimonial.name,
-                "address": {
-                    "@type": "PostalAddress",
-                    "addressLocality": testimonial.city
-                }
-            },
-            "reviewBody": testimonial.text,
-            "reviewRating": {
-                "@type": "Rating",
-                "ratingValue": testimonial.rating,
-                "bestRating": 5,
-                "worstRating": 1
-            },
-            "itemReviewed": {
-                "@type": "Service",
-                "name": testimonial.service,
-                "provider": {
-                    "@type": "Organization",
-                    "name": "Tetralto Roofing"
-                }
-            },
-            "datePublished": testimonial.created_at.isoformat(),
-            "url": testimonial.url
-        }
-        schema_reviews.append(schema_review)
-    
-    # Complete Schema.org structure for the review collection
-    schema_data = {
-        "@context": "https://schema.org",
-        "@type": "ItemList",
-        "itemListElement": [
-            {
-                "@type": "ListItem",
-                "position": idx + 1,
-                "item": review
-            }
-            for idx, review in enumerate(schema_reviews)
-        ]
-    }
-    
     return {
-        'testimonials': testimonials,
         'carousel_id': carousel_id,
-        'schema_data': mark_safe(json.dumps(schema_data, indent=2)),
-        'total_count': testimonials.count(),
+        'filter_featured': filter_featured,
     }
