@@ -34,7 +34,6 @@
 
 .carousel-wrapper {
     position: relative;
-    min-height: 450px;
     overflow: hidden;
 }
 
@@ -53,20 +52,13 @@
 }
 
 .testimonial-slide {
-    position: absolute;
-    top: 0;
-    left: 0;
+    display: none;
     width: 100%;
-    opacity: 0;
-    transform: translateX(20px);
     transition: all 0.5s ease-in-out;
-    pointer-events: none;
 }
 
 .testimonial-slide.active {
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: auto;
+    display: block;
 }
 
 .testimonial-content {
