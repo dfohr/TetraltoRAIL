@@ -1,0 +1,93 @@
+I need help fixing the testimonials carousel in test.html for my Tetralto Roofing website to display customer testimonials, optimized for SEO and accessibility. The testimonials are stored in a Django model called Testimonial (with fields like id, text, author, rating, date, is_featured (boolean), location, service, and review_url (e.g., Google Maps URL)). Only testimonials where is_featured=True should be included when is_featured=True is passed, but the code should support fetching all testimonials if is_featured is not specified (for future flexibility with other flags). Check the current implementation in my Django project for exact model and field names if they differ (e.g., Review instead of Testimonial, content instead of text). The existing carousel in home.html should remain untouched.
+
+The current carousel HTML lacks a hidden SEO data block, Schema.org markup, accessibility attributes, proper rating display, and modularity. Fix these issues:
+
+
+
+
+
+Missing SEO Data Block: Add a single <div class="reviews-data" hidden> at the start of test.html containing all testimonials (filtered by is_featured=True if passed) for crawlers to index, with <article class="review" data-review-id="ID"> per testimonial.
+
+
+
+No Schema.org Markup: Include Schema.org markup (JSON-LD) for each review in the reviews-data block, with rating (handle any database value, currently 5), author, reviewBody, itemReviewed (for service), and url (for review_url).
+
+
+
+Accessibility Issues: Add ARIA attributes: role="region" aria-label="Customer testimonials" on the carousel, and aria-hidden="true/false" on each slide based on visibility.
+
+
+
+Rating Display: Include the raw rating value (e.g., <span>{{ testimonial.rating }}</span>) in both the SEO data and carousel slides, styled as stars (e.g., 5 ⭐ for rating=5) using CSS/JavaScript.
+
+
+
+Modularity and Inclusion Tag: Implement as a custom Django inclusion tag in app/templatetags/testimonial_tags.py, callable with {% load testimonial_tags %} {% import_testimonials carousel_id="test-carousel" is_featured=True %}.
+
+Key requirements:
+
+
+
+
+
+Modular Code: Create the inclusion tag in app/templatetags/testimonial_tags.py, registered with @register.inclusion_tag('testimonials/carousel.html'), where carousel.html is a partial template in app/templates/testimonials/. The tag accepts carousel_id (e.g., "test-carousel") and is_featured (boolean, default None).
+
+
+
+SEO Optimization: Output the SEO data (<div class="reviews-data" hidden>) once at the start of test.html, with Schema.org JSON-LD for each testimonial. Keep review content (text, author, rating, location, service, review_url) separate from carousel UI attributes (e.g., data-slide, aria-hidden).
+
+
+
+Carousel Structure: Output one <div class="testimonials-carousel" role="region" aria-label="Customer testimonials"> with carousel_id as its ID. Include carousel items: <div class="testimonial-slide" data-slide="X" aria-hidden="true/false"> populated with review content (text, author, rating, location, service, review_url) from reviews-data via JavaScript. Use vanilla JavaScript (in a <script> tag) to cycle slides (show one at a time, auto-rotate every 5 seconds). Support responsive widths (Wide, Medium, Small) via CSS media queries (e.g., font-size: 18px/16px/14px, using classes like testimonials-carousel--wide).
+
+
+
+Implementation Details:
+
+
+
+
+
+Query Testimonial.objects.filter(is_featured=True) if is_featured=True, else Testimonial.objects.all().
+
+
+
+Include rating as raw data and styled as stars in both SEO data and carousel.
+
+
+
+Use ARIA attributes for accessibility.
+
+
+
+Use vanilla JavaScript for carousel logic (no external libraries).
+
+
+
+Assume custom CSS for styling (e.g., .testimonial-slide { display: none; } .testimonial-slide.active { display: block; }).
+
+
+
+Keep HTML lean to minimize bloat (e.g., only include filtered testimonials).
+
+
+
+Replace the existing carousel in test.html (previously added by Replit AI).
+
+Generate the complete code for:
+
+
+
+
+
+app/templatetags/testimonial_tags.py (inclusion tag logic).
+
+
+
+app/templates/testimonials/carousel.html (partial template with carousel HTML, vanilla JavaScript, and responsive CSS for Wide/Medium/Small).
+
+
+
+Example usage in app/templates/test.html (showing the single-line tag inclusion and the reviews-data container at the page’s start).
+
+Ensure the code is Python/Django compatible, accessible, SEO-friendly, and minimizes bloat. If the model name or fields differ, note how to adjust (e.g., replace text with content).

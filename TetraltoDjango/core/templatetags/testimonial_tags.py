@@ -19,7 +19,7 @@ def import_testimonials(carousel_id="testimonials-carousel", is_featured=None):
         is_featured (bool): If True, filter only featured testimonials. If None, get all active testimonials.
     
     Returns:
-        dict: Context with testimonials data and carousel configuration
+        dict: Context with testimonials data, Schema.org markup, and carousel configuration
     """
     # Base queryset - only active testimonials
     queryset = Testimonial.objects.filter(is_active=True)
@@ -31,10 +31,10 @@ def import_testimonials(carousel_id="testimonials-carousel", is_featured=None):
     # Order by creation date (newest first for better display)
     testimonials = queryset.order_by('-created_at')
     
-    # Prepare JSON-LD schema data for SEO
-    schema_data = []
+    # Prepare Schema.org JSON-LD markup for SEO
+    schema_reviews = []
     for testimonial in testimonials:
-        schema_item = {
+        schema_review = {
             "@type": "Review",
             "author": {
                 "@type": "Person",
@@ -48,12 +48,35 @@ def import_testimonials(carousel_id="testimonials-carousel", is_featured=None):
             "reviewRating": {
                 "@type": "Rating",
                 "ratingValue": testimonial.rating,
-                "bestRating": 5
+                "bestRating": 5,
+                "worstRating": 1
+            },
+            "itemReviewed": {
+                "@type": "Service",
+                "name": testimonial.service,
+                "provider": {
+                    "@type": "Organization",
+                    "name": "Tetralto Roofing"
+                }
             },
             "datePublished": testimonial.created_at.isoformat(),
             "url": testimonial.url
         }
-        schema_data.append(schema_item)
+        schema_reviews.append(schema_review)
+    
+    # Complete Schema.org structure for the review collection
+    schema_data = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": idx + 1,
+                "item": review
+            }
+            for idx, review in enumerate(schema_reviews)
+        ]
+    }
     
     return {
         'testimonials': testimonials,
