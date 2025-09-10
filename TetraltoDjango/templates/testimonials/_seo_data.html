@@ -1,0 +1,29 @@
+<!-- Centralized Testimonials SEO Data (Include once per page) -->
+{% if testimonials_list %}
+<!-- Schema.org JSON-LD markup for SEO -->
+<script type="application/ld+json">
+{{ testimonials_schema }}
+</script>
+
+<!-- Hidden SEO data container for crawlers -->
+<div class="testimonials-seo-data" hidden>
+    {% for testimonial in testimonials_list %}
+    <article class="review" data-review-id="{{ testimonial.id }}">
+        <h3>{{ testimonial.name }}</h3>
+        <p class="review-text">{{ testimonial.text }}</p>
+        <div class="review-rating" data-rating="{{ testimonial.rating }}">
+            Rating: <span>{{ testimonial.rating }}</span>/5 stars
+        </div>
+        <div class="review-author">{{ testimonial.name }}, {{ testimonial.city }}</div>
+        <div class="review-service">{{ testimonial.service }}</div>
+        <a href="{{ testimonial.url }}" class="review-link">Read full review</a>
+        <time datetime="{{ testimonial.created_at|date:'c' }}">{{ testimonial.created_at|date:'F j, Y' }}</time>
+    </article>
+    {% endfor %}
+</div>
+
+<!-- Global JavaScript testimonials data -->
+<script>
+window.testimonialsData = {{ testimonials_json }};
+</script>
+{% endif %}
