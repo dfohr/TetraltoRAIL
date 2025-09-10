@@ -5,26 +5,16 @@ import json
 
 register = template.Library()
 
-@register.inclusion_tag('testimonials/carousel.html')
-def testimonials_carousel(carousel_id="testimonials-carousel", is_active=True, is_featured=None, **kwargs):
+@register.simple_tag(takes_context=True)
+def set_testimonial_filter(context, is_featured=True, is_active=True, **kwargs):
     """
-    Django inclusion tag for displaying filtered testimonials carousel.
-    Filtering happens at Django level, component just displays the data.
+    Set testimonial filtering for entire page. All carousels will use this filter.
     
     Usage:
         {% load testimonial_tags %}
-        {% testimonials_carousel carousel_id="featured-carousel" is_featured=True %}
-        {% testimonials_carousel carousel_id="recent-carousel" is_active=True %}
-        {% testimonials_carousel carousel_id="all-carousel" %}
-    
-    Args:
-        carousel_id (str): Unique ID for the carousel container
-        is_active (bool): Filter by active status (default: True)
-        is_featured (bool): Filter by featured status (if specified)
-        **kwargs: Future filter parameters (roof_replacement, etc.)
-    
-    Returns:
-        dict: Context with filtered testimonials data and carousel configuration
+        {% set_testimonial_filter is_featured=True %}
+        {% testimonials_carousel carousel_id="carousel1" %}
+        {% testimonials_carousel carousel_id="carousel2" %}
     """
     # Start with base queryset
     queryset = Testimonial.objects.all()
@@ -44,6 +34,32 @@ def testimonials_carousel(carousel_id="testimonials-carousel", is_active=True, i
     
     # Order by creation date (newest first)
     testimonials = queryset.order_by('-created_at')
+    
+    # Store filtered testimonials in context
+    context['filtered_testimonials'] = testimonials
+    
+    return ""  # Don't output anything
+
+@register.inclusion_tag('testimonials/carousel.html', takes_context=True)
+def testimonials_carousel(context, carousel_id="testimonials-carousel"):
+    """
+    Display testimonials carousel using pre-filtered testimonials from context.
+    Use {% set_testimonial_filter %} first to define the filtering.
+    
+    Usage:
+        {% load testimonial_tags %}
+        {% set_testimonial_filter is_featured=True %}
+        {% testimonials_carousel carousel_id="carousel1" %}
+        {% testimonials_carousel carousel_id="carousel2" %}
+    
+    Args:
+        carousel_id (str): Unique ID for the carousel container
+    
+    Returns:
+        dict: Context with filtered testimonials data and carousel configuration
+    """
+    # Get filtered testimonials from context (set by set_testimonial_filter)
+    testimonials = context.get('filtered_testimonials', Testimonial.objects.filter(is_active=True).order_by('-created_at'))
     
     # Convert to JSON for JavaScript
     testimonials_json = []

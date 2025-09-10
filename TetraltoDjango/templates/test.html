@@ -8,6 +8,7 @@
     {% load static %}
     {% load blog_tags %}
     {% load testimonial_tags %}
+    {% set_testimonial_filter is_featured=True %}
     
     
     <!-- Google Fonts - Comfortaa -->
@@ -105,9 +106,9 @@
                     {% include '_social_bar.html' %}
                 </div>
                 
-                <!-- Testimonials Carousel (Featured testimonials) -->
+                <!-- Testimonials Carousel -->
                 <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #eee;" class="width-full">
-                    {% testimonials_carousel carousel_id="full-width-carousel" is_featured=True %}
+                    {% testimonials_carousel carousel_id="full-width-carousel" %}
                 </div>
             </div>
         </div>
@@ -125,9 +126,9 @@
                     {% include '_social_bar.html' %}
                 </div>
                 
-                <!-- Testimonials Carousel (Featured testimonials) -->
+                <!-- Testimonials Carousel -->
                 <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #eee;" class="width-medium">
-                    {% testimonials_carousel carousel_id="medium-width-carousel" is_featured=True %}
+                    {% testimonials_carousel carousel_id="medium-width-carousel" %}
                 </div>
             </div>
         </div>
