@@ -125,9 +125,9 @@
                     {% include '_social_bar.html' %}
                 </div>
                 
-                <!-- Testimonials Carousel (All active testimonials) -->
+                <!-- Testimonials Carousel (Featured testimonials) -->
                 <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #eee;" class="width-medium">
-                    {% testimonials_carousel carousel_id="medium-width-carousel" is_active=True %}
+                    {% testimonials_carousel carousel_id="medium-width-carousel" is_featured=True %}
                 </div>
             </div>
         </div>
@@ -145,9 +145,9 @@
                     {% include '_social_bar.html' %}
                 </div>
                 
-                <!-- Testimonials Carousel (Non-featured testimonials) -->
+                <!-- Testimonials Carousel -->
                 <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #eee;" class="width-small">
-                    {% testimonials_carousel carousel_id="small-width-carousel" is_featured=False %}
+                    {% testimonials_carousel carousel_id="small-width-carousel" %}
                 </div>
             </div>
         </div>
