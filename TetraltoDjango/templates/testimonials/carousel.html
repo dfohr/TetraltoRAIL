@@ -1,380 +1,221 @@
 {% load static %}
 
-<!-- SIMPLE TEST: Minimal Carousel -->
-<div class="simple-testimonials" id="{{ carousel_id }}" style="border: 3px solid red; padding: 20px; background: yellow; margin: 20px;">
-    <h3 style="color: black;">TESTIMONIALS DEBUG (Count: {{ testimonials.count }})</h3>
+<!-- Working Testimonials Carousel -->
+<div class="testimonials-carousel" id="{{ carousel_id }}">
     {% if testimonials %}
-        {% for testimonial in testimonials %}
-            {% if forloop.first %}
-                <div style="background: white; padding: 15px; border: 1px solid black; margin: 10px 0;">
-                    <p style="color: black; font-weight: bold;">{{ testimonial.name }}</p>
-                    <p style="color: black;">{{ testimonial.text|slice:":100" }}...</p>
-                    <p style="color: black; font-size: 12px;">⭐⭐⭐⭐⭐ ({{ testimonial.rating }}/5)</p>
-                </div>
-            {% endif %}
-        {% endfor %}
-        
-        <div style="background: lightblue; padding: 10px; margin: 10px 0;">
-            <p style="color: black;">Navigation Dots:</p>
+        <div class="carousel-wrapper">
             {% for testimonial in testimonials %}
-                <span style="background: blue; color: white; padding: 5px; margin: 2px; border-radius: 50%; display: inline-block; width: 20px; height: 20px; text-align: center;">{{ forloop.counter }}</span>
+            <div class="testimonial-slide{% if forloop.first %} active{% endif %}" data-slide="{{ forloop.counter0 }}">
+                <div class="testimonial-content">
+                    <div class="rating-stars">
+                        {% for i in "12345" %}
+                            {% if forloop.counter <= testimonial.rating %}⭐{% endif %}
+                        {% endfor %}
+                    </div>
+                    <blockquote class="testimonial-quote">{{ testimonial.text }}</blockquote>
+                    <div class="testimonial-author">
+                        <strong>{{ testimonial.name }}</strong><br>
+                        <span class="author-location">{{ testimonial.city }}</span><br>
+                        <small class="author-service">{{ testimonial.service }}</small>
+                    </div>
+                    <a href="{{ testimonial.url }}" target="_blank" class="review-link">Read full review →</a>
+                </div>
+            </div>
             {% endfor %}
         </div>
-    {% else %}
-        <p style="color: red; font-weight: bold;">NO TESTIMONIALS FOUND!</p>
+        
+        {% if testimonials|length > 1 %}
+        <div class="carousel-navigation">
+            {% for testimonial in testimonials %}
+            <button class="nav-dot{% if forloop.first %} active{% endif %}" 
+                    data-slide="{{ forloop.counter0 }}" 
+                    aria-label="View testimonial {{ forloop.counter }}">
+            </button>
+            {% endfor %}
+        </div>
+        {% endif %}
     {% endif %}
 </div>
 
-<!-- Responsive CSS -->
+<!-- Clean Carousel CSS -->
 <style>
-/* DEBUG: Force visibility for troubleshooting */
-.carousel-item.active {
-    display: block !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    background: #f0f8ff !important; /* Light blue background for debugging */
-    border: 2px solid #ff0000 !important; /* Red border for debugging */
-    min-height: 200px !important;
-}
-.reviews-carousel {
-    position: relative;
+.testimonials-carousel {
     max-width: 100%;
-    margin: 0 auto;
-    background: #fff;
+    margin: 20px auto;
+    background: white;
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
-.carousel-container {
+.carousel-wrapper {
     position: relative;
-    min-height: 280px;
-    width: 100%;
-    overflow: visible;
+    min-height: 300px;
 }
 
-.carousel-item {
+.testimonial-slide {
     display: none;
-    width: 100%;
-    padding: 32px;
-    box-sizing: border-box;
-    position: relative;
+    padding: 40px;
+    text-align: center;
 }
 
-.carousel-item.active {
+.testimonial-slide.active {
     display: block !important;
-    opacity: 1;
-    visibility: visible;
-}
-
-.testimonial-card {
-    max-width: 100%;
 }
 
 .testimonial-content {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
-.rating {
-    display: flex;
-    gap: 4px;
-    align-items: center;
+.rating-stars {
+    font-size: 20px;
+    margin-bottom: 20px;
 }
 
-.star {
-    fill: #e5e7eb;
-    transition: fill 0.2s ease;
-}
-
-.star.filled {
-    fill: #f59e0b;
-}
-
-.testimonial-text {
-    font-size: 16px;
+.testimonial-quote {
+    font-size: 18px;
     line-height: 1.6;
     color: #374151;
-    margin: 0;
     font-style: italic;
+    margin: 0 0 25px 0;
+    quotes: "\201C" "\201D" "\2018" "\2019";
 }
 
-.testimonial-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 16px;
-}
-
-.testimonial-info {
-    flex: 1;
-}
-
-.testimonial-name {
-    font-weight: 600;
-    font-size: 16px;
-    color: #111827;
-    font-style: normal;
-}
-
-.testimonial-city, .testimonial-service {
-    font-size: 14px;
+.testimonial-quote::before {
+    content: open-quote;
+    font-size: 24px;
     color: #6b7280;
-    margin-top: 4px;
 }
 
-.testimonial-link {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+.testimonial-quote::after {
+    content: close-quote;
+    font-size: 24px;
+    color: #6b7280;
+}
+
+.testimonial-author {
+    margin: 20px 0;
+    color: #111827;
+}
+
+.testimonial-author strong {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.author-location {
+    color: #6b7280;
     font-size: 14px;
+}
+
+.author-service {
+    color: #9ca3af;
+    font-size: 12px;
+}
+
+.review-link {
+    display: inline-block;
+    margin-top: 15px;
     color: #2563eb;
     text-decoration: none;
-    white-space: nowrap;
-    transition: color 0.2s ease;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
 }
 
-.testimonial-link:hover {
+.review-link:hover {
     color: #1d4ed8;
 }
 
-.testimonial-link svg {
-    fill: currentColor;
-}
-
-.carousel-dots {
+.carousel-navigation {
     display: flex;
     justify-content: center;
-    gap: 8px;
     padding: 20px;
+    gap: 10px;
     background: #f9fafb;
 }
 
-.carousel-dot {
+.nav-dot {
     width: 12px;
     height: 12px;
     border-radius: 50%;
     border: none;
     background: #d1d5db;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s;
 }
 
-.carousel-dot[aria-selected="true"] {
+.nav-dot.active {
     background: #2563eb;
 }
 
-.carousel-dot:hover {
+.nav-dot:hover {
     background: #9ca3af;
 }
 
-.carousel-dot[aria-selected="true"]:hover {
+.nav-dot.active:hover {
     background: #1d4ed8;
 }
 
-/* Responsive Design */
-
-/* Wide screens (Desktop) */
-@media (min-width: 1024px) {
-    .reviews-carousel--wide .carousel-item {
-        padding: 40px;
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .testimonial-slide {
+        padding: 30px 20px;
     }
     
-    .reviews-carousel--wide .testimonial-text {
-        font-size: 18px;
-    }
-    
-    .reviews-carousel--wide .testimonial-name {
-        font-size: 18px;
-    }
-}
-
-/* Medium screens (Tablet) */
-@media (min-width: 768px) and (max-width: 1023px) {
-    .reviews-carousel--medium .carousel-item {
-        padding: 32px;
-    }
-    
-    .reviews-carousel--medium .testimonial-text {
+    .testimonial-quote {
         font-size: 16px;
     }
-    
-    .reviews-carousel--medium .testimonial-meta {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-    }
-}
-
-/* Small screens (Mobile) */
-@media (max-width: 767px) {
-    .reviews-carousel--small .carousel-item {
-        padding: 24px;
-    }
-    
-    .reviews-carousel--small .testimonial-text {
-        font-size: 15px;
-    }
-    
-    .reviews-carousel--small .testimonial-meta {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-    }
-    
-    .reviews-carousel--small .testimonial-link {
-        font-size: 13px;
-    }
-    
-    .reviews-carousel--small .carousel-container {
-        min-height: 320px;
-    }
-}
-
-/* Container query-like responsive behavior */
-.test-container .reviews-carousel {
-    width: 100%;
-}
-
-/* Full width containers */
-.width-full .reviews-carousel {
-    max-width: 1200px;
-}
-
-/* Medium width containers */
-.width-medium .reviews-carousel {
-    max-width: 768px;
-}
-
-.width-medium .carousel-item {
-    padding: 28px;
-}
-
-.width-medium .testimonial-meta {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-}
-
-/* Small width containers */
-.width-small .reviews-carousel {
-    max-width: 375px;
-}
-
-.width-small .carousel-item {
-    padding: 20px;
-}
-
-.width-small .testimonial-text {
-    font-size: 14px;
-}
-
-.width-small .testimonial-meta {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-}
-
-.width-small .carousel-container {
-    min-height: 300px;
 }
 </style>
 
-<!-- Vanilla JavaScript for carousel functionality -->
+<!-- JavaScript for carousel functionality -->
 <script>
-(function() {
-    const carousel = document.getElementById('{{ carousel_id }}');
-    if (!carousel) return;
+document.addEventListener('DOMContentLoaded', function() {
+    const carousels = document.querySelectorAll('.testimonials-carousel');
     
-    const items = carousel.querySelectorAll('.carousel-item');
-    const dots = carousel.querySelectorAll('.carousel-dot');
-    let currentSlide = 0;
-    let autoRotateInterval;
-    
-    // Auto-rotation every 5 seconds
-    function startAutoRotate() {
-        autoRotateInterval = setInterval(() => {
+    carousels.forEach(carousel => {
+        const slides = carousel.querySelectorAll('.testimonial-slide');
+        const dots = carousel.querySelectorAll('.nav-dot');
+        let currentSlide = 0;
+        
+        // Auto-rotate every 5 seconds
+        let autoRotate = setInterval(() => {
             nextSlide();
         }, 5000);
-    }
-    
-    function stopAutoRotate() {
-        clearInterval(autoRotateInterval);
-    }
-    
-    function showSlide(index) {
-        // Hide all items
-        items.forEach((item, i) => {
-            item.classList.remove('active');
-            item.setAttribute('aria-hidden', 'true');
+        
+        // Pause on hover
+        carousel.addEventListener('mouseenter', () => {
+            clearInterval(autoRotate);
         });
         
-        // Update dots
-        dots.forEach((dot, i) => {
-            dot.setAttribute('aria-selected', 'false');
+        carousel.addEventListener('mouseleave', () => {
+            autoRotate = setInterval(() => {
+                nextSlide();
+            }, 5000);
         });
         
-        // Show current item
-        if (items[index]) {
-            items[index].classList.add('active');
-            items[index].setAttribute('aria-hidden', 'false');
-        }
-        
-        // Update current dot
-        if (dots[index]) {
-            dots[index].setAttribute('aria-selected', 'true');
-        }
-        
-        currentSlide = index;
-    }
-    
-    function nextSlide() {
-        const nextIndex = (currentSlide + 1) % items.length;
-        showSlide(nextIndex);
-    }
-    
-    function prevSlide() {
-        const prevIndex = (currentSlide - 1 + items.length) % items.length;
-        showSlide(prevIndex);
-    }
-    
-    // Initialize carousel
-    if (items.length > 0) {
-        showSlide(0);
-        
-        // Only start auto-rotation if there are multiple slides
-        if (items.length > 1) {
-            startAutoRotate();
-            
-            // Pause on hover
-            carousel.addEventListener('mouseenter', stopAutoRotate);
-            carousel.addEventListener('mouseleave', startAutoRotate);
-            
-            // Add click handlers for dots
-            dots.forEach((dot, index) => {
-                dot.addEventListener('click', () => {
-                    showSlide(index);
-                    stopAutoRotate();
-                    setTimeout(startAutoRotate, 3000); // Resume after 3 seconds
-                });
+        // Dot navigation
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
             });
+        });
+        
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentSlide = index;
         }
-    }
-    
-    // Keyboard navigation
-    carousel.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') {
-            e.preventDefault();
-            prevSlide();
-            stopAutoRotate();
-            setTimeout(startAutoRotate, 3000);
-        } else if (e.key === 'ArrowRight') {
-            e.preventDefault();
-            nextSlide();
-            stopAutoRotate();
-            setTimeout(startAutoRotate, 3000);
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
         }
     });
-})();
+});
 </script>
