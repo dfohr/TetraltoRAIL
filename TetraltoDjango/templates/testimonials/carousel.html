@@ -1,105 +1,65 @@
 {% load static %}
 
-<!-- Schema.org JSON-LD markup for SEO -->
-{% if schema_data %}
-<script type="application/ld+json">
-{{ schema_data }}
-</script>
-{% endif %}
-
-<!-- Hidden SEO data container for crawlers -->
-<div class="reviews-data" hidden>
-    {% for testimonial in testimonials %}
-    <article class="review" data-review-id="{{ testimonial.id }}">
-        <h3>{{ testimonial.name }}</h3>
-        <p class="review-text">{{ testimonial.text }}</p>
-        <div class="review-rating" data-rating="{{ testimonial.rating }}">
-            Rating: <span>{{ testimonial.rating }}</span>/5 stars
-        </div>
-        <div class="review-author">{{ testimonial.name }}, {{ testimonial.city }}</div>
-        <div class="review-service">{{ testimonial.service }}</div>
-        <a href="{{ testimonial.url }}" class="review-link">Read full review</a>
-        <time datetime="{{ testimonial.created_at|date:'c' }}">{{ testimonial.created_at|date:'F j, Y' }}</time>
-    </article>
-    {% endfor %}
-</div>
-
-<!-- Testimonials Carousel with Accessibility -->
-<div class="testimonials-carousel" id="{{ carousel_id }}" role="region" aria-label="Customer testimonials" aria-live="polite">
-    {% if testimonials %}
-        <div class="carousel-wrapper">
-            {% for testimonial in testimonials %}
-            <div class="testimonial-slide{% if forloop.first %} active{% endif %}" 
-                 data-slide="{{ forloop.counter0 }}" 
-                 aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}"
-                 role="tabpanel"
-                 aria-labelledby="testimonial-{{ forloop.counter0 }}-tab">
-                <div class="testimonial-content">
-                    <div class="rating-stars" aria-label="{{ testimonial.rating }} out of 5 stars">
-                        {% for i in "12345" %}
-                            {% if forloop.counter <= testimonial.rating %}⭐{% endif %}
-                        {% endfor %}
-                        <span class="rating-value" aria-hidden="true">({{ testimonial.rating }}/5)</span>
-                    </div>
-                    <blockquote class="testimonial-quote">{{ testimonial.text }}</blockquote>
-                    <div class="testimonial-author">
-                        <strong>{{ testimonial.name }}</strong><br>
-                        <span class="author-location">{{ testimonial.city }}</span><br>
-                        <small class="author-service">{{ testimonial.service }}</small>
-                    </div>
-                    <a href="{{ testimonial.url }}" target="_blank" rel="noopener" class="review-link" 
-                       aria-label="Read full review by {{ testimonial.name }} on external site">
-                        Read full review →
-                    </a>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        
-        {% if testimonials|length > 1 %}
-        <div class="carousel-navigation" role="tablist" aria-label="Testimonial navigation">
-            {% for testimonial in testimonials %}
-            <button class="nav-dot{% if forloop.first %} active{% endif %}" 
-                    data-slide="{{ forloop.counter0 }}" 
-                    role="tab"
-                    id="testimonial-{{ forloop.counter0 }}-tab"
-                    aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
-                    aria-controls="testimonial-slide-{{ forloop.counter0 }}"
-                    aria-label="View testimonial {{ forloop.counter }} by {{ testimonial.name }}">
-            </button>
-            {% endfor %}
-        </div>
-        {% endif %}
-    {% endif %}
+<!-- Lightweight Testimonials Carousel - Uses window.testimonialsData -->
+<div class="testimonials-carousel" id="{{ carousel_id }}" 
+     role="region" aria-label="Customer testimonials" aria-live="polite"
+     data-filter-featured="{{ filter_featured|yesno:'true,false,null' }}">
+    
+    <!-- Carousel slides will be populated by JavaScript -->
+    <div class="carousel-wrapper"></div>
+    
+    <!-- Navigation dots will be populated by JavaScript -->
+    <div class="carousel-navigation" role="tablist" aria-label="Testimonial navigation"></div>
+    
+    <!-- Loading state -->
+    <div class="carousel-loading">Loading testimonials...</div>
 </div>
 
 <!-- Clean Carousel CSS -->
 <style>
 .testimonials-carousel {
-    max-width: 100%;
-    margin: 20px auto;
-    background: white;
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    background: #f8fafc;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .carousel-wrapper {
     position: relative;
-    min-height: 300px;
+    min-height: 350px;
+    overflow: hidden;
+}
+
+.carousel-loading {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6b7280;
+    font-style: italic;
 }
 
 .testimonial-slide {
-    display: none;
-    padding: 40px;
-    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.5s ease-in-out;
+    pointer-events: none;
 }
 
 .testimonial-slide.active {
-    display: block !important;
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
 }
 
 .testimonial-content {
+    text-align: center;
+    padding: 20px;
     max-width: 600px;
     margin: 0 auto;
 }
@@ -123,31 +83,27 @@
     font-size: 18px;
     line-height: 1.6;
     color: #374151;
+    margin-bottom: 25px;
     font-style: italic;
-    margin: 0 0 25px 0;
-    quotes: "\201C" "\201D" "\2018" "\2019";
+    quotes: """ """ "'" "'";
 }
 
 .testimonial-quote::before {
     content: open-quote;
-    font-size: 24px;
-    color: #6b7280;
 }
 
 .testimonial-quote::after {
     content: close-quote;
-    font-size: 24px;
-    color: #6b7280;
 }
 
 .testimonial-author {
-    margin: 20px 0;
-    color: #111827;
+    margin-bottom: 15px;
+    line-height: 1.4;
 }
 
 .testimonial-author strong {
+    color: #1f2937;
     font-size: 16px;
-    font-weight: 600;
 }
 
 .author-location {
@@ -157,29 +113,33 @@
 
 .author-service {
     color: #9ca3af;
-    font-size: 12px;
+    font-size: 13px;
+    font-style: italic;
 }
 
 .review-link {
     display: inline-block;
-    margin-top: 15px;
-    color: #2563eb;
+    color: #3b82f6;
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
-    transition: color 0.2s;
+    padding: 8px 16px;
+    border: 1px solid #3b82f6;
+    border-radius: 6px;
+    transition: all 0.3s ease;
 }
 
 .review-link:hover {
-    color: #1d4ed8;
+    background-color: #3b82f6;
+    color: white;
+    transform: translateY(-1px);
 }
 
 .carousel-navigation {
     display: flex;
     justify-content: center;
-    padding: 20px;
-    gap: 10px;
-    background: #f9fafb;
+    gap: 8px;
+    margin-top: 25px;
 }
 
 .nav-dot {
@@ -187,47 +147,126 @@
     height: 12px;
     border-radius: 50%;
     border: none;
-    background: #d1d5db;
+    background-color: #d1d5db;
     cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.nav-dot.active {
-    background: #2563eb;
+    transition: all 0.3s ease;
 }
 
 .nav-dot:hover {
-    background: #9ca3af;
+    background-color: #9ca3af;
+    transform: scale(1.2);
 }
 
-.nav-dot.active:hover {
-    background: #1d4ed8;
+.nav-dot.active {
+    background-color: #3b82f6;
+    transform: scale(1.3);
 }
 
-/* Responsive adjustments */
+.nav-dot:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
 @media (max-width: 768px) {
-    .testimonial-slide {
-        padding: 30px 20px;
+    .testimonials-carousel {
+        margin: 0 10px;
+        padding: 20px 15px;
     }
     
     .testimonial-quote {
         font-size: 16px;
     }
+    
+    .testimonial-content {
+        padding: 15px;
+    }
 }
 </style>
 
-<!-- Enhanced JavaScript for carousel functionality with accessibility -->
+<!-- Enhanced JavaScript for carousel functionality with shared data -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const carousels = document.querySelectorAll('.testimonials-carousel');
+    const carousel = document.getElementById('{{ carousel_id }}');
+    if (!carousel || !window.testimonialsData) return;
     
-    carousels.forEach(carousel => {
-        const slides = carousel.querySelectorAll('.testimonial-slide');
-        const dots = carousel.querySelectorAll('.nav-dot');
-        let currentSlide = 0;
-        let autoRotate;
+    const wrapper = carousel.querySelector('.carousel-wrapper');
+    const navigation = carousel.querySelector('.carousel-navigation');
+    const loading = carousel.querySelector('.carousel-loading');
+    const filterFeatured = carousel.dataset.filterFeatured;
+    
+    // Filter testimonials data
+    let testimonials = window.testimonialsData;
+    if (filterFeatured === 'true') {
+        testimonials = testimonials.filter(t => t.is_featured);
+    } else if (filterFeatured === 'false') {
+        testimonials = testimonials.filter(t => !t.is_featured);
+    }
+    
+    if (testimonials.length === 0) {
+        loading.textContent = 'No testimonials available.';
+        return;
+    }
+    
+    // Build carousel HTML
+    let slidesHTML = '';
+    let dotsHTML = '';
+    
+    testimonials.forEach((testimonial, index) => {
+        const isActive = index === 0;
+        const stars = '⭐'.repeat(testimonial.rating);
         
-        // Initialize auto-rotation
+        slidesHTML += `
+            <div class="testimonial-slide${isActive ? ' active' : ''}" 
+                 data-slide="${index}" 
+                 aria-hidden="${!isActive}"
+                 role="tabpanel"
+                 aria-labelledby="testimonial-${index}-tab">
+                <div class="testimonial-content">
+                    <div class="rating-stars" aria-label="${testimonial.rating} out of 5 stars">
+                        ${stars}
+                        <span class="rating-value" aria-hidden="true">(${testimonial.rating}/5)</span>
+                    </div>
+                    <blockquote class="testimonial-quote">${testimonial.text}</blockquote>
+                    <div class="testimonial-author">
+                        <strong>${testimonial.name}</strong><br>
+                        <span class="author-location">${testimonial.city}</span><br>
+                        <small class="author-service">${testimonial.service}</small>
+                    </div>
+                    <a href="${testimonial.url}" target="_blank" rel="noopener" class="review-link" 
+                       aria-label="Read full review by ${testimonial.name} on external site">
+                        Read full review →
+                    </a>
+                </div>
+            </div>
+        `;
+        
+        if (testimonials.length > 1) {
+            dotsHTML += `
+                <button class="nav-dot${isActive ? ' active' : ''}" 
+                        data-slide="${index}" 
+                        role="tab"
+                        id="testimonial-${index}-tab"
+                        aria-selected="${isActive}"
+                        aria-controls="testimonial-slide-${index}"
+                        aria-label="View testimonial ${index + 1} by ${testimonial.name}">
+                </button>
+            `;
+        }
+    });
+    
+    // Populate carousel
+    wrapper.innerHTML = slidesHTML;
+    navigation.innerHTML = dotsHTML;
+    loading.style.display = 'none';
+    
+    // Setup carousel functionality
+    const slides = wrapper.querySelectorAll('.testimonial-slide');
+    const dots = navigation.querySelectorAll('.nav-dot');
+    let currentSlide = 0;
+    let autoRotate;
+    
+    // Initialize auto-rotation if multiple slides
+    if (slides.length > 1) {
         function startAutoRotate() {
             autoRotate = setInterval(() => {
                 nextSlide();
@@ -238,7 +277,6 @@ document.addEventListener('DOMContentLoaded', function() {
             clearInterval(autoRotate);
         }
         
-        // Start auto-rotation
         startAutoRotate();
         
         // Pause on hover or focus
@@ -248,7 +286,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Resume on mouse leave or focus out
         carousel.addEventListener('mouseleave', startAutoRotate);
         carousel.addEventListener('focusout', (e) => {
-            // Only restart if focus is leaving the carousel entirely
             setTimeout(() => {
                 if (!carousel.contains(document.activeElement)) {
                     startAutoRotate();
@@ -283,36 +320,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
+    }
+    
+    function showSlide(index) {
+        // Update visual state
+        slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === index);
+            slide.setAttribute('aria-hidden', i === index ? 'false' : 'true');
+        });
         
-        function showSlide(index) {
-            // Update visual state
-            slides.forEach((slide, i) => {
-                slide.classList.toggle('active', i === index);
-                slide.setAttribute('aria-hidden', i === index ? 'false' : 'true');
-            });
-            
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
-                dot.setAttribute('aria-selected', i === index ? 'true' : 'false');
-            });
-            
-            currentSlide = index;
-            
-            // Announce to screen readers
-            const activeSlide = slides[index];
-            const author = activeSlide.querySelector('.testimonial-author strong').textContent;
-            carousel.setAttribute('aria-label', `Customer testimonials. Currently showing testimonial ${index + 1} of ${slides.length} by ${author}`);
-        }
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+            dot.setAttribute('aria-selected', i === index ? 'true' : 'false');
+        });
         
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-        }
+        currentSlide = index;
         
-        // Initialize first slide announcement
-        if (slides.length > 0) {
-            showSlide(0);
-        }
-    });
+        // Announce to screen readers
+        const testimonial = testimonials[index];
+        carousel.setAttribute('aria-label', `Customer testimonials. Currently showing testimonial ${index + 1} of ${slides.length} by ${testimonial.name}`);
+    }
+    
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }
+    
+    // Initialize first slide announcement
+    if (slides.length > 0) {
+        showSlide(0);
+    }
 });
 </script>
