@@ -1,18 +1,23 @@
 {% load static %}
 
-<!-- Lightweight Testimonials Carousel - Uses window.testimonialsData -->
+<!-- Testimonials Carousel - Uses Django-filtered data -->
 <div class="testimonials-carousel" id="{{ carousel_id }}" 
-     role="region" aria-label="Customer testimonials" aria-live="polite"
-     data-filter-featured="{{ filter_featured|yesno:'true,false,null' }}">
+     role="region" aria-label="Customer testimonials" aria-live="polite">
     
-    <!-- Carousel slides will be populated by JavaScript -->
-    <div class="carousel-wrapper"></div>
-    
-    <!-- Navigation dots will be populated by JavaScript -->
-    <div class="carousel-navigation" role="tablist" aria-label="Testimonial navigation"></div>
-    
-    <!-- Loading state -->
-    <div class="carousel-loading">Loading testimonials...</div>
+    {% if testimonials %}
+        <!-- Carousel slides populated by JavaScript from Django data -->
+        <div class="carousel-wrapper"></div>
+        
+        <!-- Navigation dots populated by JavaScript -->
+        <div class="carousel-navigation" role="tablist" aria-label="Testimonial navigation"></div>
+        
+        <!-- Loading state -->
+        <div class="carousel-loading" style="display: none;">Loading testimonials...</div>
+    {% else %}
+        <div class="carousel-empty">
+            <p>No testimonials available.</p>
+        </div>
+    {% endif %}
 </div>
 
 <!-- Clean Carousel CSS -->
@@ -31,6 +36,13 @@
     position: relative;
     min-height: 350px;
     overflow: hidden;
+}
+
+.carousel-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6b7280;
+    font-style: italic;
 }
 
 .carousel-loading {
@@ -183,28 +195,21 @@
 }
 </style>
 
-<!-- Enhanced JavaScript for carousel functionality with shared data -->
+<!-- Enhanced JavaScript for carousel functionality -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const carousel = document.getElementById('{{ carousel_id }}');
-    if (!carousel || !window.testimonialsData) return;
+    if (!carousel) return;
     
     const wrapper = carousel.querySelector('.carousel-wrapper');
     const navigation = carousel.querySelector('.carousel-navigation');
     const loading = carousel.querySelector('.carousel-loading');
-    const filterFeatured = carousel.dataset.filterFeatured;
     
-    // Filter testimonials data
-    let testimonials = window.testimonialsData;
-    if (filterFeatured === 'true') {
-        testimonials = testimonials.filter(t => t.is_featured);
-    } else if (filterFeatured === 'false') {
-        testimonials = testimonials.filter(t => !t.is_featured);
-    }
+    // Use Django-filtered testimonials data
+    const testimonials = {{ testimonials_json }};
     
-    if (testimonials.length === 0) {
-        loading.textContent = 'No testimonials available.';
-        return;
+    if (!testimonials || testimonials.length === 0) {
+        return; // Empty state already handled by Django template
     }
     
     // Build carousel HTML
@@ -257,7 +262,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Populate carousel
     wrapper.innerHTML = slidesHTML;
     navigation.innerHTML = dotsHTML;
-    loading.style.display = 'none';
+    if (loading) loading.style.display = 'none';
     
     // Setup carousel functionality
     const slides = wrapper.querySelectorAll('.testimonial-slide');
