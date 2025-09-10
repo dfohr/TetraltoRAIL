@@ -9,6 +9,9 @@
     {% load blog_tags %}
     {% load testimonial_tags %}
     
+    <!-- Centralized Testimonials SEO Data (once per page) -->
+    {% include 'testimonials/_seo_data.html' %}
+    
     <!-- Google Fonts - Comfortaa -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -104,9 +107,9 @@
                     {% include '_social_bar.html' %}
                 </div>
                 
-                <!-- Testimonials Carousel (Django Implementation) -->
+                <!-- Testimonials Carousel (Featured testimonials) -->
                 <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #eee;" class="width-full">
-                    {% import_testimonials carousel_id="full-width-carousel" is_featured=True %}
+                    {% testimonials_carousel carousel_id="full-width-carousel" filter_featured=True %}
                 </div>
             </div>
         </div>
@@ -124,9 +127,9 @@
                     {% include '_social_bar.html' %}
                 </div>
                 
-                <!-- Testimonials Carousel (Django Implementation) -->
+                <!-- Testimonials Carousel (All testimonials) -->
                 <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #eee;" class="width-medium">
-                    {% import_testimonials carousel_id="medium-width-carousel" is_featured=True %}
+                    {% testimonials_carousel carousel_id="medium-width-carousel" %}
                 </div>
             </div>
         </div>
@@ -144,9 +147,9 @@
                     {% include '_social_bar.html' %}
                 </div>
                 
-                <!-- Testimonials Carousel (Django Implementation) -->
+                <!-- Testimonials Carousel (Non-featured testimonials) -->
                 <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #eee;" class="width-small">
-                    {% import_testimonials carousel_id="small-width-carousel" is_featured=True %}
+                    {% testimonials_carousel carousel_id="small-width-carousel" filter_featured=False %}
                 </div>
             </div>
         </div>
