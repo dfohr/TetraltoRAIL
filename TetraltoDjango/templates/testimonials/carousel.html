@@ -24,7 +24,7 @@
 <style>
 .testimonials-carousel {
     position: relative;
-    max-width: 600px;
+    width: 100%;
     margin: 0 auto;
     padding: 30px 20px;
     background: #f8fafc;
@@ -72,7 +72,7 @@
 .testimonial-content {
     text-align: center;
     padding: 20px;
-    max-width: 600px;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -97,15 +97,12 @@
     color: #374151;
     margin-bottom: 25px;
     font-style: italic;
-    quotes: """ """ "'" "'";
-}
-
-.testimonial-quote::before {
-    content: open-quote;
-}
-
-.testimonial-quote::after {
-    content: close-quote;
+    height: calc(1.6em * 5);
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .testimonial-author {
