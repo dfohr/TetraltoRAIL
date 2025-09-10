@@ -33,7 +33,7 @@
     {% if testimonials %}
         <div class="carousel-container">
             {% for testimonial in testimonials %}
-            <div class="carousel-item" data-position="{{ forloop.counter0 }}" aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}">
+            <div class="carousel-item{% if forloop.first %} active{% endif %}" data-position="{{ forloop.counter0 }}" aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}">
                 <div class="testimonial-card">
                     <div class="testimonial-content">
                         <div class="rating">
