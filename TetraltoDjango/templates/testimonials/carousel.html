@@ -87,6 +87,15 @@
 
 <!-- Responsive CSS -->
 <style>
+/* DEBUG: Force visibility for troubleshooting */
+.carousel-item.active {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    background: #f0f8ff !important; /* Light blue background for debugging */
+    border: 2px solid #ff0000 !important; /* Red border for debugging */
+    min-height: 200px !important;
+}
 .reviews-carousel {
     position: relative;
     max-width: 100%;
@@ -100,6 +109,8 @@
 .carousel-container {
     position: relative;
     min-height: 280px;
+    width: 100%;
+    overflow: visible;
 }
 
 .carousel-item {
@@ -107,10 +118,13 @@
     width: 100%;
     padding: 32px;
     box-sizing: border-box;
+    position: relative;
 }
 
 .carousel-item.active {
-    display: block;
+    display: block !important;
+    opacity: 1;
+    visibility: visible;
 }
 
 .testimonial-card {
