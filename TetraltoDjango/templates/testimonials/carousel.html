@@ -36,6 +36,7 @@
     position: relative;
     min-height: 350px;
     overflow: hidden;
+    margin-bottom: 20px;
 }
 
 .carousel-empty {
@@ -272,7 +273,7 @@ document.addEventListener('DOMContentLoaded', function() {
         function startAutoRotate() {
             autoRotate = setInterval(() => {
                 nextSlide();
-            }, 5000);
+            }, 10000);
         }
         
         function stopAutoRotate() {
