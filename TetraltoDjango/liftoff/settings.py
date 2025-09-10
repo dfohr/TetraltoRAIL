@@ -76,7 +76,6 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'core.context_processors.settings_context',
                 'core.context_processors.social_links_context',
-                'core.context_processors.testimonials_data_context',
             ],
         },
     },
