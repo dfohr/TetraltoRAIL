@@ -1,87 +1,27 @@
 {% load static %}
 
-<!-- Schema.org JSON-LD markup for SEO -->
-{% if schema_data %}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "itemListElement": {{ schema_data }}
-}
-</script>
-{% endif %}
-
-<!-- Hidden SEO data container for crawlers -->
-<div class="reviews-data" hidden>
-    {% for testimonial in testimonials %}
-    <article class="review" data-review-id="{{ testimonial.id }}">
-        <h3>{{ testimonial.name }}</h3>
-        <p class="review-text">{{ testimonial.text }}</p>
-        <div class="review-rating" data-rating="{{ testimonial.rating }}">
-            Rating: {{ testimonial.rating }}/5 stars
-        </div>
-        <div class="review-author">{{ testimonial.name }}, {{ testimonial.city }}</div>
-        <div class="review-service">{{ testimonial.service }}</div>
-        <a href="{{ testimonial.url }}" class="review-link">Read full review</a>
-        <time datetime="{{ testimonial.created_at|date:'c' }}">{{ testimonial.created_at|date:'F j, Y' }}</time>
-    </article>
-    {% endfor %}
-</div>
-
-<!-- Responsive Testimonials Carousel -->
-<div class="reviews-carousel" id="{{ carousel_id }}" role="region" aria-label="Customer testimonials">
+<!-- SIMPLE TEST: Minimal Carousel -->
+<div class="simple-testimonials" id="{{ carousel_id }}" style="border: 3px solid red; padding: 20px; background: yellow; margin: 20px;">
+    <h3 style="color: black;">TESTIMONIALS DEBUG (Count: {{ testimonials.count }})</h3>
     {% if testimonials %}
-        <div class="carousel-container">
-            {% for testimonial in testimonials %}
-            <div class="carousel-item{% if forloop.first %} active{% endif %}" data-position="{{ forloop.counter0 }}" aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <div class="rating">
-                            {% for i in "12345" %}
-                                {% if forloop.counter <= testimonial.rating %}
-                                    <svg class="star filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-                                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                                    </svg>
-                                {% else %}
-                                    <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-                                        <path d="M22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21l6.18-3.27L18.18 21l-1.64-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"/>
-                                    </svg>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                        <blockquote class="testimonial-text">{{ testimonial.text }}</blockquote>
-                        <div class="testimonial-meta">
-                            <div class="testimonial-info">
-                                <cite class="testimonial-name">{{ testimonial.name }}</cite>
-                                <div class="testimonial-city">{{ testimonial.city }}</div>
-                                <div class="testimonial-service">{{ testimonial.service }}</div>
-                            </div>
-                            <a href="{{ testimonial.url }}" class="testimonial-link" target="_blank" rel="noopener" aria-label="Read full review by {{ testimonial.name }}">
-                                <span>Read full review</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-                                    <path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
+        {% for testimonial in testimonials %}
+            {% if forloop.first %}
+                <div style="background: white; padding: 15px; border: 1px solid black; margin: 10px 0;">
+                    <p style="color: black; font-weight: bold;">{{ testimonial.name }}</p>
+                    <p style="color: black;">{{ testimonial.text|slice:":100" }}...</p>
+                    <p style="color: black; font-size: 12px;">⭐⭐⭐⭐⭐ ({{ testimonial.rating }}/5)</p>
                 </div>
-            </div>
-            {% endfor %}
-        </div>
+            {% endif %}
+        {% endfor %}
         
-        <!-- Navigation dots -->
-        {% if testimonials|length > 1 %}
-        <div class="carousel-dots" role="tablist" aria-label="Testimonial navigation">
+        <div style="background: lightblue; padding: 10px; margin: 10px 0;">
+            <p style="color: black;">Navigation Dots:</p>
             {% for testimonial in testimonials %}
-            <button class="carousel-dot" 
-                    data-slide="{{ forloop.counter0 }}" 
-                    role="tab"
-                    aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
-                    aria-label="View testimonial {{ forloop.counter }}">
-            </button>
+                <span style="background: blue; color: white; padding: 5px; margin: 2px; border-radius: 50%; display: inline-block; width: 20px; height: 20px; text-align: center;">{{ forloop.counter }}</span>
             {% endfor %}
         </div>
-        {% endif %}
+    {% else %}
+        <p style="color: red; font-weight: bold;">NO TESTIMONIALS FOUND!</p>
     {% endif %}
 </div>
 
