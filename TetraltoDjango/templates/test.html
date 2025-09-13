@@ -115,7 +115,7 @@
                 
                 <!-- Testimonials Carousel -->
                 <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #eee;">
-                    {% testimonials_carousel carousel_id="full-width-carousel" %}
+                    {% testimonials_carousel carousel_id="testimonials-carousel" %}
                 </div>
             </div>
         </div>
@@ -135,7 +135,7 @@
                 
                 <!-- Testimonials Carousel -->
                 <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #eee;">
-                    {% testimonials_carousel carousel_id="medium-width-carousel" %}
+                    {% testimonials_carousel carousel_id="testimonials-carousel" %}
                 </div>
             </div>
         </div>
@@ -155,12 +155,14 @@
                 
                 <!-- Testimonials Carousel -->
                 <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #eee;">
-                    {% testimonials_carousel carousel_id="small-width-carousel" %}
+                    {% testimonials_carousel carousel_id="testimonials-carousel" %}
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Include testimonials carousel script once at bottom -->
+    <script src="{% static 'js/testimonials-carousel.js' %}"></script>
     
 </body>
 </html>
