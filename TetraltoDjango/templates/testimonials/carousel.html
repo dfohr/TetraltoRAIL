@@ -139,7 +139,12 @@ document.addEventListener('DOMContentLoaded', function() {
         authorDiv.appendChild(document.createElement('br'));
         authorDiv.appendChild(authorService);
         
-        // Create review link with URL validation
+        // Assemble slide (main content first)
+        contentDiv.appendChild(ratingDiv);
+        contentDiv.appendChild(quote);
+        contentDiv.appendChild(authorDiv);
+        
+        // Add review link at bottom with URL validation
         if (isValidUrl(testimonial.url)) {
             const reviewLink = createElement('a', {
                 'href': testimonial.url,
@@ -150,11 +155,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 'Read full review →');
             contentDiv.appendChild(reviewLink);
         }
-        
-        // Assemble slide
-        contentDiv.appendChild(ratingDiv);
-        contentDiv.appendChild(quote);
-        contentDiv.appendChild(authorDiv);
         slideDiv.appendChild(contentDiv);
         
         wrapper.appendChild(slideDiv);
