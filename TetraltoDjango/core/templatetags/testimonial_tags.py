@@ -40,7 +40,7 @@ def set_testimonial_filter(context, is_featured=True, is_active=True, **kwargs):
     
     return ""  # Don't output anything
 
-@register.inclusion_tag('testimonials/carousel.html', takes_context=True)
+@register.inclusion_tag('_testimonials_carousel.html', takes_context=True)
 def testimonials_carousel(context, carousel_id="testimonials-carousel"):
     """
     Display testimonials carousel using pre-filtered testimonials from context.
