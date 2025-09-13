@@ -61,19 +61,25 @@
     font-weight: 500;
 }
 
+.testimonial-quote-box {
+    display: grid;
+    place-items: center;
+    height: calc(1.6em * 5);
+    margin-bottom: 25px;
+    text-align: center;
+}
+
 .testimonial-quote {
     font-size: 18px;
     line-height: 1.6;
     color: #374151;
-    margin-bottom: 25px;
     font-style: italic;
-    height: calc(1.6em * 5);
+    margin: 0;
     display: -webkit-box;
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-align: center;
 }
 
 .testimonial-author {

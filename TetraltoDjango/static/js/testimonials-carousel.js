@@ -105,8 +105,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }, `(${testimonial.rating}/5)`);
             ratingDiv.appendChild(ratingSpan);
             
-            // Create quote
+            // Create quote with wrapper for vertical centering
+            const quoteBox = createElement('div', { 'class': 'testimonial-quote-box' });
             const quote = createElement('blockquote', { 'class': 'testimonial-quote' }, testimonial.text);
+            quoteBox.appendChild(quote);
             
             // Create author section
             const authorDiv = createElement('div', { 'class': 'testimonial-author' });
@@ -122,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Assemble slide (main content first)
             contentDiv.appendChild(ratingDiv);
-            contentDiv.appendChild(quote);
+            contentDiv.appendChild(quoteBox);
             contentDiv.appendChild(authorDiv);
             
             // Add review link at bottom with URL validation
