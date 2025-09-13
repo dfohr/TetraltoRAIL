@@ -115,52 +115,8 @@
 <!-- Testimonials Section -->
 <section class="testimonials">
     <div class="container">
-        <div class="testimonial-carousel">
-            <button class="carousel-arrow prev" aria-label="Previous testimonial">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
-                </svg>
-            </button>
-            
-            <div class="testimonial-slides">
-                {% for testimonial in testimonials %}
-                <div class="testimonial-card {% if forloop.first %}active{% endif %}">
-                    <div class="testimonial-content">
-                        <div class="rating">
-                            {% for i in "12345" %}
-                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                            </svg>
-                            {% endfor %}
-                        </div>
-                        <div class="testimonial-text">
-                            {{ testimonial.text }}
-                            <div class="testimonial-text-fade"></div>
-                        </div>
-                        <div class="testimonial-meta">
-                            <div class="testimonial-info">
-                                <div class="testimonial-name">{{ testimonial.name }}</div>
-                                <div class="testimonial-city">{{ testimonial.city }}</div>
-                                <div class="testimonial-service">{{ testimonial.service }}</div>
-                            </div>
-                            <a href="{{ testimonial.url }}" class="testimonial-link" target="_blank" rel="noopener">
-                                <span>Read the full review here</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
-                                    <path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-
-            <button class="carousel-arrow next" aria-label="Next testimonial">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
-                </svg>
-            </button>
-        </div>
+        <h2>What Our Customers Say</h2>
+        {% testimonials_carousel carousel_id="testimonials-carousel" %}
     </div>
 </section>
 

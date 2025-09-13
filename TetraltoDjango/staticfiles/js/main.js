@@ -17,4 +17,23 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Video click-to-play functionality
+    const videoOverlay = document.getElementById('video-overlay');
+    const youtubeVideo = document.getElementById('youtube-video');
+    
+    if (videoOverlay && youtubeVideo) {
+        // Click to play functionality
+        videoOverlay.addEventListener('click', function() {
+            // Hide overlay and start playing
+            videoOverlay.classList.add('hidden');
+            
+            // Add autoplay parameter to the video URL
+            const currentSrc = youtubeVideo.src;
+            if (!currentSrc.includes('autoplay=1')) {
+                const separator = currentSrc.includes('?') ? '&' : '?';
+                youtubeVideo.src = currentSrc + separator + 'autoplay=1';
+            }
+        });
+    }
 }); 
