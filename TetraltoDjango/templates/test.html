@@ -8,7 +8,6 @@
     {% load static %}
     {% load blog_tags %}
     {% load testimonial_tags %}
-    {% set_testimonial_filter is_featured=True %}
     
     
     <!-- Google Fonts - Comfortaa -->
@@ -86,7 +85,7 @@
     <!-- Hidden SEO Data Block for Featured Testimonials -->
     <div class="reviews-data" hidden>
         <script type="application/ld+json">
-{% testimonials_jsonld_seo %}
+{% testimonials_jsonld_seo is_featured=True %}
         </script>
     </div>
 

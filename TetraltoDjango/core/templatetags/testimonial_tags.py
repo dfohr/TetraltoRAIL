@@ -58,27 +58,48 @@ def testimonials_carousel(context, carousel_id="testimonials-carousel"):
     Returns:
         dict: Context with filtered testimonials data and carousel configuration
     """
-    # Get filtered testimonials from context (set by set_testimonial_filter)
-    testimonials = context.get('filtered_testimonials', Testimonial.objects.filter(is_active=True).order_by('-created_at'))
+    # Carousel displays whatever is in the JSON-LD structured data
+    # No filtering logic here - that's handled by testimonials_jsonld_seo
+    # We just need the carousel container and let JavaScript handle the rest
     
     return {
         'carousel_id': carousel_id,
-        'testimonials': testimonials,
-        'total_count': testimonials.count(),
+        'testimonials': None,  # JavaScript reads from JSON-LD instead
+        'total_count': 0,      # Not needed, JavaScript counts from JSON-LD
     }
 
 @register.simple_tag
-def testimonials_jsonld_seo():
+def testimonials_jsonld_seo(is_featured=True, is_active=True, **kwargs):
     """
-    Generate JSON-LD structured data for featured testimonials for SEO.
-    Only includes is_featured=True testimonials to avoid duplicate indexing.
+    Generate JSON-LD structured data for testimonials for SEO.
+    
+    Args:
+        is_featured (bool): Filter by featured status (default: True)
+        is_active (bool): Filter by active status (default: True) 
+        **kwargs: Additional filtering parameters
     
     Returns properly formatted JSON-LD Review objects for search engines.
     """
-    featured_testimonials = Testimonial.objects.filter(is_active=True, is_featured=True)
+    # Start with base queryset
+    queryset = Testimonial.objects.all()
+    
+    # Apply is_active filter
+    if is_active is not None:
+        queryset = queryset.filter(is_active=is_active)
+    
+    # Apply is_featured filter if specified
+    if is_featured is not None:
+        queryset = queryset.filter(is_featured=is_featured)
+    
+    # Apply any additional future filters from kwargs
+    for field, value in kwargs.items():
+        if hasattr(Testimonial, field) and value is not None:
+            queryset = queryset.filter(**{field: value})
+    
+    testimonials = queryset.order_by('-created_at')
     
     reviews_data = []
-    for testimonial in featured_testimonials:
+    for testimonial in testimonials:
         review_data = {
             "@type": "Review",
             "author": {
