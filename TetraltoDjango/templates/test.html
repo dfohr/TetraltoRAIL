@@ -83,6 +83,13 @@
     </style>
 </head>
 <body>
+    <!-- Hidden SEO Data Block for Featured Testimonials -->
+    <div class="reviews-data" hidden>
+        <script type="application/ld+json">
+{% testimonials_jsonld_seo %}
+        </script>
+    </div>
+
     <h1>Component Test Page</h1>
     
     <!-- Component Tests (Consistent 3 Widths) -->
