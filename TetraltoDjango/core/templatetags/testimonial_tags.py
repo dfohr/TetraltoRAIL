@@ -61,25 +61,9 @@ def testimonials_carousel(context, carousel_id="testimonials-carousel"):
     # Get filtered testimonials from context (set by set_testimonial_filter)
     testimonials = context.get('filtered_testimonials', Testimonial.objects.filter(is_active=True).order_by('-created_at'))
     
-    # Convert to JSON for JavaScript
-    testimonials_json = []
-    for testimonial in testimonials:
-        testimonials_json.append({
-            'id': testimonial.id,
-            'name': testimonial.name,
-            'text': testimonial.text,
-            'city': testimonial.city,
-            'service': testimonial.service,
-            'rating': testimonial.rating,
-            'url': testimonial.url,
-            'created_at': testimonial.created_at.isoformat(),
-            'is_featured': testimonial.is_featured
-        })
-    
     return {
         'carousel_id': carousel_id,
         'testimonials': testimonials,
-        'testimonials_json': mark_safe(json.dumps(testimonials_json)),
         'total_count': testimonials.count(),
     }
 
