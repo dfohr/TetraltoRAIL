@@ -31,8 +31,35 @@ document.addEventListener('DOMContentLoaded', function() {
     const navigation = carousel.querySelector('.carousel-navigation');
     const loading = carousel.querySelector('.carousel-loading');
     
-    // Use Django-filtered testimonials data
-    const testimonials = {{ testimonials_json }};
+    // Get testimonials from structured data (single source of truth)
+    const structuredDataScript = document.querySelector('script[type="application/ld+json"]');
+    let testimonials = [];
+    
+    if (structuredDataScript) {
+        try {
+            const structuredData = JSON.parse(structuredDataScript.textContent);
+            
+            // Parse JSON-LD ItemList format into carousel format
+            if (structuredData.itemListElement && Array.isArray(structuredData.itemListElement)) {
+                testimonials = structuredData.itemListElement.map(item => {
+                    const review = item.item;
+                    return {
+                        id: item.position, // Use position as ID
+                        name: review.author?.name || 'Anonymous',
+                        text: review.reviewBody || '',
+                        city: review.author?.address?.addressLocality || '',
+                        service: 'Roofing Services', // Default service since not in JSON-LD
+                        rating: review.reviewRating?.ratingValue || 5,
+                        url: review.url || '',
+                        created_at: review.datePublished || '',
+                        is_featured: true // All structured data testimonials are featured
+                    };
+                });
+            }
+        } catch (error) {
+            console.warn('Failed to parse testimonials structured data:', error);
+        }
+    }
     
     if (!testimonials || testimonials.length === 0) {
         return; // Empty state already handled by Django template
