@@ -67,12 +67,13 @@
     color: #374151;
     margin-bottom: 25px;
     font-style: italic;
-    min-height: calc(1.6em * 5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    height: calc(1.6em * 5);
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
     overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
 }
 
 .testimonial-author {
