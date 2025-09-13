@@ -82,3 +82,67 @@ def testimonials_carousel(context, carousel_id="testimonials-carousel"):
         'testimonials_json': mark_safe(json.dumps(testimonials_json)),
         'total_count': testimonials.count(),
     }
+
+@register.simple_tag
+def testimonials_jsonld_seo():
+    """
+    Generate JSON-LD structured data for featured testimonials for SEO.
+    Only includes is_featured=True testimonials to avoid duplicate indexing.
+    
+    Returns properly formatted JSON-LD Review objects for search engines.
+    """
+    featured_testimonials = Testimonial.objects.filter(is_active=True, is_featured=True)
+    
+    reviews_data = []
+    for testimonial in featured_testimonials:
+        review_data = {
+            "@type": "Review",
+            "author": {
+                "@type": "Person",
+                "name": testimonial.name,
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": testimonial.city
+                }
+            },
+            "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": testimonial.rating,
+                "bestRating": 5,
+                "worstRating": 1
+            },
+            "reviewBody": testimonial.text,
+            "itemReviewed": {
+                "@type": "LocalBusiness",
+                "name": "Tetralto Roofing",
+                "@id": "https://tetralto.com",
+                "url": "https://tetralto.com",
+                "telephone": "281-895-1213",
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "Missouri City",
+                    "addressLocality": "Missouri City",
+                    "addressRegion": "TX",
+                    "addressCountry": "US"
+                }
+            },
+            "url": testimonial.url,
+            "datePublished": testimonial.created_at.isoformat()
+        }
+        reviews_data.append(review_data)
+    
+    # Wrap in structured data format
+    structured_data = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "itemListElement": []
+    }
+    
+    for index, review in enumerate(reviews_data):
+        structured_data["itemListElement"].append({
+            "@type": "ListItem",
+            "position": index + 1,
+            "item": review
+        })
+    
+    return mark_safe(json.dumps(structured_data, indent=2))
