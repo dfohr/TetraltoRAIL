@@ -129,4 +129,8 @@ def testimonials_jsonld_seo():
             "item": review
         })
     
-    return mark_safe(json.dumps(structured_data, indent=2))
+    # Safely escape JSON to prevent script breakout XSS attacks
+    json_string = json.dumps(structured_data, indent=2)
+    # Escape </script sequences that could break out of script tags
+    json_string = json_string.replace('</', '<\\/')
+    return mark_safe(json_string)

@@ -65,61 +65,118 @@ document.addEventListener('DOMContentLoaded', function() {
         return; // Empty state already handled by Django template
     }
     
-    // Build carousel HTML
-    let slidesHTML = '';
-    let dotsHTML = '';
+    // Helper function to validate URL scheme for security
+    function isValidUrl(url) {
+        if (!url) return false;
+        try {
+            const urlObj = new URL(url);
+            return urlObj.protocol === 'http:' || urlObj.protocol === 'https:';
+        } catch {
+            return false;
+        }
+    }
+    
+    // Helper function to safely create DOM elements with text content (prevents XSS)
+    function createElement(tag, attributes = {}, textContent = '') {
+        const element = document.createElement(tag);
+        for (const [key, value] of Object.entries(attributes)) {
+            element.setAttribute(key, value);
+        }
+        if (textContent) {
+            element.textContent = textContent;
+        }
+        return element;
+    }
+    
+    // Build carousel using secure DOM creation (prevents innerHTML XSS)
+    const slides = [];
+    const dots = [];
     
     testimonials.forEach((testimonial, index) => {
         const isActive = index === 0;
-        const stars = '⭐'.repeat(testimonial.rating);
+        const stars = '⭐'.repeat(Math.max(0, Math.min(5, parseInt(testimonial.rating) || 5)));
         
-        slidesHTML += `
-            <div class="testimonial-slide${isActive ? ' active' : ''}" 
-                 data-slide="${index}" 
-                 aria-hidden="${!isActive}"
-                 role="tabpanel"
-                 aria-labelledby="testimonial-${index}-tab">
-                <div class="testimonial-content">
-                    <div class="rating-stars" aria-label="${testimonial.rating} out of 5 stars">
-                        ${stars}
-                        <span class="rating-value" aria-hidden="true">(${testimonial.rating}/5)</span>
-                    </div>
-                    <blockquote class="testimonial-quote">${testimonial.text}</blockquote>
-                    <div class="testimonial-author">
-                        <strong>${testimonial.name}</strong><br>
-                        <span class="author-location">${testimonial.city}</span><br>
-                        <small class="author-service">${testimonial.service}</small>
-                    </div>
-                    <a href="${testimonial.url}" target="_blank" rel="noopener" class="review-link" 
-                       aria-label="Read full review by ${testimonial.name} on external site">
-                        Read full review →
-                    </a>
-                </div>
-            </div>
-        `;
+        // Create slide container
+        const slideDiv = createElement('div', {
+            'class': `testimonial-slide${isActive ? ' active' : ''}`,
+            'data-slide': index,
+            'aria-hidden': !isActive,
+            'role': 'tabpanel',
+            'aria-labelledby': `testimonial-${index}-tab`
+        });
         
+        // Create content container
+        const contentDiv = createElement('div', { 'class': 'testimonial-content' });
+        
+        // Create rating stars
+        const ratingDiv = createElement('div', {
+            'class': 'rating-stars',
+            'aria-label': `${testimonial.rating} out of 5 stars`
+        });
+        ratingDiv.textContent = stars;
+        
+        const ratingSpan = createElement('span', {
+            'class': 'rating-value',
+            'aria-hidden': 'true'
+        }, `(${testimonial.rating}/5)`);
+        ratingDiv.appendChild(ratingSpan);
+        
+        // Create quote
+        const quote = createElement('blockquote', { 'class': 'testimonial-quote' }, testimonial.text);
+        
+        // Create author section
+        const authorDiv = createElement('div', { 'class': 'testimonial-author' });
+        const authorStrong = createElement('strong', {}, testimonial.name);
+        const authorLocation = createElement('span', { 'class': 'author-location' }, testimonial.city);
+        const authorService = createElement('small', { 'class': 'author-service' }, testimonial.service);
+        
+        authorDiv.appendChild(authorStrong);
+        authorDiv.appendChild(document.createElement('br'));
+        authorDiv.appendChild(authorLocation);
+        authorDiv.appendChild(document.createElement('br'));
+        authorDiv.appendChild(authorService);
+        
+        // Create review link with URL validation
+        if (isValidUrl(testimonial.url)) {
+            const reviewLink = createElement('a', {
+                'href': testimonial.url,
+                'target': '_blank',
+                'rel': 'noopener',
+                'class': 'review-link',
+                'aria-label': `Read full review by ${testimonial.name} on external site`
+            }, 'Read full review →');
+            contentDiv.appendChild(reviewLink);
+        }
+        
+        // Assemble slide
+        contentDiv.appendChild(ratingDiv);
+        contentDiv.appendChild(quote);
+        contentDiv.appendChild(authorDiv);
+        slideDiv.appendChild(contentDiv);
+        
+        wrapper.appendChild(slideDiv);
+        slides.push(slideDiv);
+        
+        // Create navigation dot
         if (testimonials.length > 1) {
-            dotsHTML += `
-                <button class="nav-dot${isActive ? ' active' : ''}" 
-                        data-slide="${index}" 
-                        role="tab"
-                        id="testimonial-${index}-tab"
-                        aria-selected="${isActive}"
-                        aria-controls="testimonial-slide-${index}"
-                        aria-label="View testimonial ${index + 1} by ${testimonial.name}">
-                </button>
-            `;
+            const dotButton = createElement('button', {
+                'class': `nav-dot${isActive ? ' active' : ''}`,
+                'data-slide': index,
+                'role': 'tab',
+                'id': `testimonial-${index}-tab`,
+                'aria-selected': isActive,
+                'aria-controls': `testimonial-slide-${index}`,
+                'aria-label': `View testimonial ${index + 1} by ${testimonial.name}`
+            });
+            
+            navigation.appendChild(dotButton);
+            dots.push(dotButton);
         }
     });
-    
-    // Populate carousel
-    wrapper.innerHTML = slidesHTML;
-    navigation.innerHTML = dotsHTML;
     if (loading) loading.style.display = 'none';
     
-    // Setup carousel functionality
-    const slides = wrapper.querySelectorAll('.testimonial-slide');
-    const dots = navigation.querySelectorAll('.nav-dot');
+    // Setup carousel functionality (use the slides/dots arrays we already created)
+    const dotsElements = navigation.querySelectorAll('.nav-dot');
     let currentSlide = 0;
     let autoRotate;
     
