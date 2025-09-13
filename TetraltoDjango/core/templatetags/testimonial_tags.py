@@ -117,6 +117,7 @@ def testimonials_jsonld_seo(is_featured=True, is_active=True, **kwargs):
                 "worstRating": 1
             },
             "reviewBody": testimonial.text,
+            "serviceType": testimonial.service,
             "itemReviewed": {
                 "@type": "LocalBusiness",
                 "name": "Tetralto Roofing",

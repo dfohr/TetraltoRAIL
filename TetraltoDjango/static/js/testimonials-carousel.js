@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             name: review.author?.name || 'Anonymous',
                             text: review.reviewBody || '',
                             city: review.author?.address?.addressLocality || '',
-                            service: 'Roofing Services', // Default service since not in JSON-LD
+                            service: review.serviceType || 'Roofing Services',
                             rating: review.reviewRating?.ratingValue || 5,
                             url: review.url || '',
                             created_at: review.datePublished || '',
