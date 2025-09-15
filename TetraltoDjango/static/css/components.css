@@ -75,9 +75,6 @@
 /* Add more component styles as needed */
 
 /* Header */
-:root {
-    --header-height: 80px;
-}
 
 body {
     margin: 0;
