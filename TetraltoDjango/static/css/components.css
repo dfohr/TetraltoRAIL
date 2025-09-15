@@ -211,7 +211,7 @@ body {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: var(--spacing-sm) var(--spacing-md);
+    padding: var(--spacing-xs) var(--spacing-md);
     min-height: var(--header-height);
 }
 
@@ -229,6 +229,7 @@ body {
 .logo img {
     width: 200px;
     height: auto;
+    max-height: var(--header-height);
     display: block;
 }
 
@@ -311,20 +312,37 @@ body {
     color: white;
 }
 
+/* Clean, Standard Hamburger Menu */
 .hamburger {
     display: none;
+    flex-direction: column;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: var(--border-radius-sm);
+    transition: all 0.3s ease;
+}
+
+.hamburger:hover {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .hamburger span {
     display: block;
-    width: 28px;
+    width: 24px;
     height: 2px;
     background: var(--text-color);
-    transition: 0.3s;
+    margin: 3px 0;
+    transition: all 0.3s ease;
+    border-radius: 1px;
 }
 
 .hamburger.active span:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
+    transform: rotate(45deg) translate(5px, 5px);
 }
 
 .hamburger.active span:nth-child(2) {
@@ -332,12 +350,7 @@ body {
 }
 
 .hamburger.active span:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
-}
-
-.hamburger:hover {
-    background-color: var(--background-dark);
-    border-radius: var(--border-radius-sm);
+    transform: rotate(-45deg) translate(7px, -6px);
 }
 
 @media (max-width: 768px) {
@@ -353,7 +366,7 @@ body {
     }
 
     body {
-        padding-top: 120px;  /* Increased padding to account for header + phone number */
+        padding-top: calc(var(--header-height) + 20px);  /* Dynamic padding based on actual header height */
     }
 
     .header-container {
@@ -367,7 +380,7 @@ body {
         justify-content: space-between;
         box-sizing: border-box;
         width: 100%;
-        padding: var(--spacing-sm) var(--spacing-md);
+        padding: var(--spacing-xs) var(--spacing-md);
     }
 
     .logo {
@@ -385,10 +398,6 @@ body {
 
     .hamburger {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 3px;
-        padding: 8px;
         cursor: pointer;
         margin-right: -8px;
     }
