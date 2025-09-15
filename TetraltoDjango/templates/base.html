@@ -1,4 +1,5 @@
 {% load static %}
+{% load cta_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -163,7 +164,7 @@
                 <a href="/contact/" {% if "/contact/" in request.path %}class="active"{% endif %}>Contact Us</a>
                 <a href="/blog/" {% if "/blog/" in request.path %}class="active"{% endif %}>Blog</a>
             </nav>
-            <a href="tel:+12818951213" class="cta-phone">Call <span>(281) 895-1213</span></a>
+            {% cta_call css_class="cta-phone" %}
         </div>
     </header>
     {% endif %}
