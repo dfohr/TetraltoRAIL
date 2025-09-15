@@ -158,10 +158,10 @@
                 </div>
             </div>
             <nav class="nav-links">
-                <a href="/">Home</a>
-                <a href="/services/">Services</a>
-                <a href="/contact/">Contact Us</a>
-                <a href="/blog/">Blog</a>
+                <a href="/" {% if request.path == "/" %}class="active"{% endif %}>Home</a>
+                <a href="/services/" {% if "/services/" in request.path %}class="active"{% endif %}>Services</a>
+                <a href="/contact/" {% if "/contact/" in request.path %}class="active"{% endif %}>Contact Us</a>
+                <a href="/blog/" {% if "/blog/" in request.path %}class="active"{% endif %}>Blog</a>
             </nav>
             <a href="tel:+12818951213" class="cta-phone">Call <span>(281) 895-1213</span></a>
         </div>
