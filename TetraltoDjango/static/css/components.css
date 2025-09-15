@@ -227,9 +227,10 @@ body {
 }
 
 .logo img {
-    width: 200px;
-    height: auto;
-    max-height: var(--header-height);
+    height: var(--header-height);
+    width: auto;
+    max-width: 200px;
+    object-fit: contain;
     display: block;
 }
 
@@ -388,7 +389,7 @@ body {
     }
 
     .logo {
-        height: 52px;
+        height: 48px;
         display: flex;
         align-items: center;
         padding: 0;
@@ -397,6 +398,7 @@ body {
     .logo img {
         height: 100%;
         width: auto;
+        max-width: 180px;
         object-fit: contain;
     }
 
