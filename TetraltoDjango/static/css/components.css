@@ -366,7 +366,7 @@ body {
     }
 
     body {
-        padding-top: calc(var(--header-height) + 20px);  /* Dynamic padding based on actual header height */
+        padding-top: calc(var(--header-height) + 60px);  /* Account for two-line mobile header: header-top + CTA button */
     }
 
     .header-container {
