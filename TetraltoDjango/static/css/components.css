@@ -416,12 +416,18 @@ body {
     }
 
     .nav-links a {
-        padding: var(--spacing-md);
+        padding: 12px var(--spacing-md);
         width: 100%;
         text-align: center;
         border-bottom: 1px solid var(--border-light);
         font-weight: 700;
         font-size: var(--fs-lg);
+        transition: background-color 0.2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+        background-color: rgba(0, 0, 0, 0.05);
     }
 
     .cta-phone {
