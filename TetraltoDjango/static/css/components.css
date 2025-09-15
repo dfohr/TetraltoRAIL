@@ -365,7 +365,7 @@ body {
 }
 
 .footer-links a:hover {
-    color: var(--primary);
+    color: var(--primary-color);
     text-decoration: underline;
 }
 
