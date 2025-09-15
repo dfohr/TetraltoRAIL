@@ -332,6 +332,11 @@ body {
     transition: all 0.3s ease;
 }
 
+.hamburger:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
 .hamburger:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
@@ -430,6 +435,11 @@ body {
         display: flex;
         cursor: pointer;
         margin-right: -8px;
+    }
+
+    .hamburger:focus {
+        outline: 2px solid var(--primary-color);
+        outline-offset: 2px;
     }
 
     .nav-links {
@@ -1033,8 +1043,6 @@ textarea {
     .features-grid {
         grid-template-columns: 1fr;
     }
-}
-
     
     .blog-post-content .prose {
         font-size: 1rem;
