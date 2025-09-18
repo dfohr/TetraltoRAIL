@@ -1,0 +1,2188 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KV9JR7G');</script>
+    <!-- End Google Tag Manager -->
+    
+    
+    <!-- reCAPTCHA v3 -->
+    <script src="https://www.google.com/recaptcha/api.js?render=6LdJfyIrAAAAAB9e6uDjhrolB0vHpSaGsoe9XrOD"></script>
+    
+    
+    <!-- PostHog Analytics -->
+    <script>
+        try {
+            !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+            posthog.init('phc_f3HAHhPnb5cwzthu8nWGipwdYvB6z6h62y063UHi4pz', {
+                api_host: 'https://e.tetralto.com',
+                person_profiles: 'identified_only',
+                capture_pageview: true,
+                capture_pageleave: true,
+                autocapture: true,
+                persistence: 'localStorage',
+                loaded: function(posthog) {
+                    // Capture UTM parameters and campaign data
+                    var urlParams = new URLSearchParams(window.location.search);
+                    var utmParams = {};
+                    
+                    // Standard UTM parameters
+                    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(function(param) {
+                        if (urlParams.has(param)) {
+                            utmParams[param] = urlParams.get(param);
+                        }
+                    });
+                    
+                    // Google Ads specific parameters
+                    if (urlParams.has('gclid')) {
+                        utmParams.gclid = urlParams.get('gclid');
+                    }
+                    if (urlParams.has('gad_source')) {
+                        utmParams.gad_source = urlParams.get('gad_source');
+                    }
+                    if (urlParams.has('gad_campaignid')) {
+                        utmParams.gad_campaignid = urlParams.get('gad_campaignid');
+                    }
+                    
+                    // Capture full URL information
+                    utmParams.landing_page = window.location.href;
+                    utmParams.path = window.location.pathname;
+                    utmParams.referrer = document.referrer;
+                    
+                    // Set properties if we have any UTM data
+                    if (Object.keys(utmParams).length > 0) {
+                        posthog.people.set(utmParams);
+                        // Log campaign data for debugging
+                        console.log('Campaign Data:', utmParams);
+                    }
+                }
+            });
+        } catch (error) {
+            console.error('PostHog initialization failed:', error);
+            // Create a stub posthog object to prevent errors in the rest of the application
+            window.posthog = {
+                capture: function() {},
+                identify: function() {},
+                reset: function() {},
+                // Add other commonly used methods as needed
+            };
+        }
+    </script>
+    <!-- End PostHog Analytics -->
+    
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Tetralto Roofing">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="geo.region" content="US-TX">
+    <meta name="geo.placename" content="Missouri City">
+    
+    <link rel="canonical" href="https://tetralto.com/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tetralto.com/">
+    <meta property="og:title" content="Roofing Contractors Missouri City TX | Tetralto Roofing">
+    <meta property="og:description" content="Missouri City TX roofing contractors offering expert roof repair, replacement & gutter services. Get a free estimate from Tetralto's trusted team. Call 281-895-1213 today!">
+    <meta property="og:image" content="https://tetralto.com/static/images/tetralto-roofing-logo.avif">
+    <meta property="og:image:alt" content="Tetralto Roofing Logo">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://tetralto.com/">
+    <meta name="twitter:title" content="Roofing Contractors Missouri City TX | Tetralto Roofing">
+    <meta name="twitter:description" content="Missouri City TX roofing contractors offering expert roof repair, replacement & gutter services. Get a free estimate from Tetralto's trusted team. Call 281-895-1213 today!">
+    <meta name="twitter:image" content="https://tetralto.com/static/images/tetralto-roofing-logo.avif">
+    <meta name="twitter:image:alt" content="Tetralto Roofing Logo">
+
+    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon">
+    <title>Missouri City TX Roofing Contractors | Expert Roof Repair & Replacement</title>
+    <meta name="description" content="Missouri City TX roofing contractors offering expert roof repair, replacement & gutter services. Get a free estimate from Tetralto's trusted team. Call 281-895-1213 today!">
+    <meta name="keywords" content="roofing contractors Missouri City TX, roofing contractor, roof replacement, roof repair, gutter services, Missouri City roofer, Sugar Land roofing, Houston roofing company, professional roofers">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Our CSS -->
+    <link rel="stylesheet" href="/static/css/base.css?v=1.1">
+    <link rel="stylesheet" href="/static/css/components.css?v=1.1">
+    <link rel="stylesheet" href="/static/css/layout.css?v=1.1">
+    <link rel="stylesheet" href="/static/css/social-bar.css?v=1.1">
+    <link rel="stylesheet" href="/static/css/testimonials-carousel.css?v=1.1">
+    <link rel="stylesheet" href="/static/css/blog-tile.css?v=1.1">
+
+    <!-- Preload critical assets -->
+    <link rel="preload" as="image" href="/static/images/tetralto-roofing-logo.avif" type="image/avif">
+    <link rel="preload" as="font" href="https://fonts.gstatic.com/s/comfortaa/v45/1Pt_g8LJRfWJmhDAuUsSQamb1W0lwk4S4WjMPrQ.ttf" type="font/ttf" crossorigin>
+    
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+
+    
+</head>
+<body>
+    
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KV9JR7G"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
+    
+    
+    <header class="site-header">
+        <div class="header-container">
+            <div class="header-top">
+                <a href="/" class="logo">
+                    <img src="/static/images/tetralto-roofing-logo.avif" 
+                         alt="Tetralto Roofing Logo"
+                         fetchpriority="high">
+                </a>
+                <div class="mobile-actions">
+                    <a href="tel:+12818951213" class="mobile-phone-icon" aria-label="Call (281) 895-1213">
+                        <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122L9.98 10.72a.678.678 0 0 1-.725-.332A10.76 10.76 0 0 1 5.745 6.878a.678.678 0 0 1-.332-.725l.29-1.804a.678.678 0 0 0-.122-.58L3.654 1.328z"/>
+                        </svg>
+                    </a>
+                    <button type="button" class="hamburger" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+            <nav class="nav-links" id="primary-nav">
+                <a href="/" class="active">Home</a>
+                <a href="/services/" >Services</a>
+                <a href="/contact/" >Contact Us</a>
+                <a href="/blog/" >Blog</a>
+            </nav>
+            <a href="tel:+12818951213" class="cta-call cta-phone">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122L9.98 10.72a.678.678 0 0 1-.725-.332A10.76 10.76 0 0 1 5.745 6.878a.678.678 0 0 1-.332-.725l.29-1.804a.678.678 0 0 0-.122-.58L3.654 1.328z"/>
+                </svg>
+                Call (281) 895-1213
+            </a>
+        </div>
+    </header>
+    
+    
+    <main>
+        
+
+        
+<!-- Hidden SEO Data Block for Featured Testimonials -->
+<div class="reviews-data" hidden>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "H Bird",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City, TX (Sienna)"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "Tetralto did a great job repairing our roof in Mo City, Tx. They were very responsive and professional. We highly recommend them.",
+        "serviceType": "Roof Repair",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/JAdVjQj8M5k5V1e76",
+        "datePublished": "2025-05-23T17:42:42.891000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "A Carranza",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Rosharon, TX"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "David and his team did an excellent job. They gave me a reasonable quote and the scheduling was easy. The team that came out were really professional and quick. Highly recommended.",
+        "serviceType": "Gutter Install",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/KMNBniueFqAp7pPd7",
+        "datePublished": "2025-05-23T17:41:07.782000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "D Meza",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Meadows Place, TX"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "We recently had our roof replaced by Tetralto Roofing and had the BEST experience using this company. They were extremely efficient, reliable and quality of work was exceptional. From the start of the project to final completion we could not be more pleased with how they managed the entire process. David the owner is knowledgeable and provides great customer service. You will definitely be satisfied using Tetralto for your roofing needs.",
+        "serviceType": "Roof Replacement",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/KAepfZ2Yp5ZLkMmh8",
+        "datePublished": "2025-05-23T17:40:00.865000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "E Shipley",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City, TX (Sienna)"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "David is very hands on during the roofing process and takes to the time to walk you through every step in order to make sure you get what\u2019s best.",
+        "serviceType": "Roof Replacement",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/nTuJkMrfPa3hHuLV9",
+        "datePublished": "2025-05-23T17:37:38.912000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Christiana H",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Houston"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "Professional, efficient, and clear communication! They work fast!",
+        "serviceType": "Roof Replacement",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/bRrx2bZbSnFLgiuu6",
+        "datePublished": "2025-05-23T17:36:52.351000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "L Carruth",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City, TX"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "Such a great experience! Honest, straightforward, fair pricing and work was done quickly. 10/10 Highly recommend!",
+        "serviceType": "Roof Tune-up",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/tuBhVdEwEXzyk6bg6",
+        "datePublished": "2025-05-23T17:36:02.082000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 7,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "P Watty",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City, TX (Sienna)"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "Needed an emergency roof repair in Missouri City, TX. Reached out to Tetralto and received same day quality service.",
+        "serviceType": "Roof Repair",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/LAkxSUdHy3RSvFnX8",
+        "datePublished": "2025-05-23T17:34:42.804000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 8,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "B Dickinson",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City, TX (Sienna)"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "Had a few shingles missing after Beryl - they were quick, friendly, and did a great job matching the shingles and with the repair overall.",
+        "serviceType": "Roof Repair",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/EiYexZ2TU1wznttc7",
+        "datePublished": "2025-05-23T17:34:00.223000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 9,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "CJ Pilar",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City, TX"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "David was always available for any questions I had from the very beginning when I first made contact to the end of a whole roof replacement process. His team worked quickly and efficiently. I would recommend their services to anyone and am thankful for all the work everyone did to complete the repairs and making my home safe again.",
+        "serviceType": "Roof Replacement",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/KMPyDXR2XUCww4rQ6",
+        "datePublished": "2025-05-23T17:32:42.641000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 10,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "S Marashi",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City, TX"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "I recently had my gutters installed by David from Tetralto Roofing in Missouri City, and I couldn't be happier with the results! David was professional, attentive, and incredibly easy to work with. The installation process was seamless, and the quality of the work exceeded my expectations.\r\n\r\nNot only was the service excellent, but David\u2019s pricing was also very affordable, making it an incredible value for the level of quality and care he provided. His expertise and attention to detail were evident, and he made sure everything was done perfectly. The new gutters look fantastic and function flawlessly.\r\n\r\nI highly recommend Tetralto Roofing (and David in particular) for anyone needing gutter services in Missouri City or the surrounding area. Affordable, reliable, and high-quality\u2014David truly delivers!\r\n\r\nThank you, David, for an outstanding job! I\u2019ll definitely be recommending your services to others.",
+        "serviceType": "Gutter Install",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/VNZGwGAWs3qJY8bW7",
+        "datePublished": "2025-05-23T17:30:35.736000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 11,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "J Stevens",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Fresno, TX"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "Tetralto Roofing replaced my roof in April.  Hurricane Beryl a couple months later was a good test and our new roof passed with flying colors.  Prior to selecting a contractor, I got at least 5 or 6 bids.  Of these, the selection came down to two I felt comfortable with as contractors who could be trusted.  A competitive price is always a factor when selecting a contractor, but material quality, workmanship, and supervision must also be considered.  As a retired industrial construction engineer, I dealt with many contractors over the years, both good and bad.  Without reservation, I can say that David and his crew performed above even my expectations.",
+        "serviceType": "Roof Replacement",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/bZ72xu6Hi4VcrPyr7",
+        "datePublished": "2025-05-23T17:28:29.953000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 12,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "L Mayhew",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Houston"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "The best sales presentation, walked the roof , talked about the process and material to be used. Scheduled the job and it went flawless. The crew covered areas to protect the outside and inside of the house. I\u2019ve spent over 40 years in the construction industry and would highly recommend Tetralto as a roofing contractor.",
+        "serviceType": "Roof Replacement",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/HKzzVZqGGYLZiMsr5",
+        "datePublished": "2025-05-23T17:25:17.886000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 13,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Brigid H.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City, TX (Sienna)"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "Got someone to the house to look at a job and sent quote in very short turnaround time. Work done well at reasonable price!",
+        "serviceType": "Roof Repair, Gutter Repair",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/Xm5WnhyJjLmAtRYF6",
+        "datePublished": "2025-01-04T21:11:32.101000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 14,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "J. Stevens",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Fresno, TX"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "Tetralto Roofing replaced my roof in April.  Hurricane Beryl a couple months later was a good test and our new roof passed with flying colors.  Prior to selecting a contractor, I got at least 5 or 6 bids.  Of these, the selection came down to two I felt comfortable with as contractors who could be trusted.  A competitive Price is always a factor when selecting a contractor, but material quality, workmanship, and supervision must also be considered.  As a retired industrial construction engineer, I dealt with many contractors over the years, both good and bad.  Without reservation, I can say that David and his crew performed above even my expectations.",
+        "serviceType": "Roof Replacement",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/E7byBXquU1Jf353q8",
+        "datePublished": "2025-01-04T21:11:32.097000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 15,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Aqueel A.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Richmond, TX"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "Good job as promised.",
+        "serviceType": "Roof Repair",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/AUJHYPujJBV3Fxh4A",
+        "datePublished": "2025-01-04T21:11:32.093000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 16,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "C. Garret",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Houston, TX"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "I love my roof",
+        "serviceType": "Roof Replacement",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/MGiY49x9GW7vgY2L9",
+        "datePublished": "2025-01-04T21:11:32.091000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 17,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Hui Z.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Sugar Land, TX (Riverstone)"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "Quick response and able to work and complete so soon and takes our worries of rain",
+        "serviceType": "Roof Repair",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/zLHd8FpypXKo6vF38",
+        "datePublished": "2025-01-04T21:11:32.088000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 18,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "F. Khan",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City, TX"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "They have done a great job",
+        "serviceType": "Roof Replacement",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/q5w1HDFJQDeRvbC59",
+        "datePublished": "2025-01-04T21:11:32.085000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 19,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "A. Thomas",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City, TX"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "Awesome to deal with! Extremely Professional, Knowledgeable & Timely!! Thank you David!",
+        "serviceType": "Roof Repair",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/QzF3Et9SRN3uh4Ls8",
+        "datePublished": "2025-01-04T21:11:32.082000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 20,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Rita N.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City, TX (Sienna)"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "I highly recommend this company. Prompt, professional and provided complete details of work before and after.",
+        "serviceType": "Roof Repair",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/qXb1HkWpuQ7qvRNf6",
+        "datePublished": "2025-01-04T21:11:32.078000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 21,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "A. Wagner",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Sugar Land, TX"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "Great, professional work.",
+        "serviceType": "Roof Replacement",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/uwPHFg31ZqS2J95V6",
+        "datePublished": "2025-01-04T21:11:32.073000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 22,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Jubin M.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City, TX (Sienna)"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "David and crew is really professional and fixed my roof issue on time! Reasonable pricing too! Positive Responsiveness, Punctuality, Quality, Professionalism, Value",
+        "serviceType": "Roof Repair",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/EmFAdaEZgCcAVv9o6",
+        "datePublished": "2025-01-04T21:11:32.057000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 23,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Hao L.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Sugar Land, TX (Riverstone)"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "David and his crew reinstalled my missing ridge vent before the rain came the next day. His price was reasonable too. Positive Responsiveness, Punctuality, Quality, Professionalism, Value",
+        "serviceType": "Roof Repair",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/RZrrEQn47MkoKpTc8",
+        "datePublished": "2025-01-04T21:11:32.045000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 24,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Ravikanth G.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Sugar Land, TX (Riverstone)"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "David and his team at Tetralto did an amazing job for a complete roof replacement project.",
+        "serviceType": "Roof Replacement",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/uLEQynzwwuVWVekY7",
+        "datePublished": "2025-01-04T21:11:32.035000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 25,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "P. Vossos",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City, TX"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "They responded quickly, did a good job at a very fair price. I recommend them highly with no reservations.",
+        "serviceType": "Roof Maintenance",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/rXcTNXHa5rPWXJvVA",
+        "datePublished": "2025-01-04T21:11:31.910000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 26,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "D. Tran",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City, TX"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "Great communication by these guys. Quick response via text/messenger. Had these guys come out to do a roof maintenance(reseal/inspect/etc). Clear work description of the job and explained thoroughly of what was done and needed. Also emailed me a post service report explaining exactly what was found and done. Also great pricing for their service. I definitely recommend these guys for their work. And I will use them again for any future roofing needs.",
+        "serviceType": "Roof Maintenance",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/rTv2v6PjzsC1hy5T6",
+        "datePublished": "2025-01-04T21:11:31.907000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 27,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Sobia B.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City, TX (Sienna)"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "David and his team are exceptional! I would highly recommend them for roofing ( Missouri City/Sienna)",
+        "serviceType": "Roof Repair",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/Z4FGgcQTNqdQinnV6",
+        "datePublished": "2025-01-04T21:11:31.902000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 28,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Lessly F.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City, TX (Sienna)"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "David takes great pride in his work and very informative and collaborative throughout the process. From the initial quote all the way to completion, David kept in touch frequently, updating progress and answering questions. He put down a great roof on my parents home at a reasonable price. I would definitely recommend Tetralto Roofing to anyone looking to repair or replace!",
+        "serviceType": "Roof Replacement",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/aHNwcrUWgtdHxBsQA",
+        "datePublished": "2025-01-04T21:11:31.898000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 29,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Anton G.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Sugar Land, TX"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "I called them out to fix a big hole in the chimney. The owner answered and scheduled to come look at the damage, got me a quote the same evening that was super reasonable and had his crew out the very next morning to fix the damage. Even blew the leaves out of the gutter. Would highly recommend them.",
+        "serviceType": "Roof Repair",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/Rwg5J7qAZnqnHSQ29",
+        "datePublished": "2025-01-04T21:11:31.894000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 30,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "CS George",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City, TX"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "I live in Missouri City and I had an emergency roofing issue. I had rain dripping into my living room with more rain to come. I selected Tetralto Roofing to come repair my leaking roof. David and his team came on time, diagnosed the cause of the problem, secured the needed materials and went to work. David kept me informed throughout the repair process. More rain was expected for the next day so they worked extra long to get the job finished. I am so grateful for their work ethic, knowledge and skills. I highly recommend Tetralto Roofing! I will plan to use them again when needed. Thanks, David.",
+        "serviceType": "Roof Repair",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/dUsA4W7XaaEQPref9",
+        "datePublished": "2025-01-04T21:11:31.891000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 31,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "B. Grace",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City, TX"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "I live in  Missouri City TX and one of my best experiences I've had Dealing with a contractor was with Tetralto roofing. And Here's why.From the initial contact to the very end, David was part of every step. During the first visit to my home he shows up with a presentation already put together presenting his company, measurements,  material and service he had to offer with a good price and options. This left me with ease and helped me to make a good and final decision. I had several roofers visit me but none of them compared to Tetralto in covering deals and a plan to get it all done.  He was very patient with me getting color choice, finance and HOA approval. They did an excellent job in removing. Installing and cleaning up afterwards.  There wasn't any hidden cost or surprises.  Everything was spelled out in the beginning.  Thank for your service and professionalism during my install.  I made the best decision.",
+        "serviceType": "Roof Replacement",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/nq5QHj1NY67dTAdG8",
+        "datePublished": "2025-01-04T21:11:31.888000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 32,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Adam S.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City, TX (Sienna)"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "Very attentive and professional, great roof for a great price. Would definitely recommend Tetralto Roofing.",
+        "serviceType": "Roof Replacement",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/i4ZKqU93jXSYW7fR8",
+        "datePublished": "2025-01-04T21:11:31.884000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 33,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "M. Garrett",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Sugar Land, TX"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "Tetralto Roofing replaced my roof and gutters at my home in Sugar Land Texas this year. All works was well coordinated and inspected once completed. I would recommend this contractor for anyone seeking to have a new or repaired roof.",
+        "serviceType": "Roof Replacement & Gutter Installation",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/WBSuCvTLzxwqypTi9",
+        "datePublished": "2025-01-04T21:11:31.881000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 34,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "D. Anderson",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City, TX"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "Highly recommend David and Tetralto Roofing! I had a small, but very unexpected roofing issue and David was able to come out immediately to check out the situation, provided a quote the same day, and started work quickly. His team arrives when expected, is considerate, and leaves the property as they find it. Excellent experience!",
+        "serviceType": "Roof Repair",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/vWDwU1VxCqqX3EsR8",
+        "datePublished": "2025-01-04T21:11:31.879000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 35,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "E. Wong",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Sugar Land, TX"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "From the beginning, David was very thorough explaining each step his crew will take from removing old roof, tarping the bushes/grass, repair damaged decking, installing new drip edge, installing underlayment (different ones for valleys and penetration), installing hip and ridge shingles (absolutely necessary for Houston weather), installing Bullet Boot Pipe flashings on all pipe penetrations, painting all metal flashings, etc. \r\n\r\nDave was quite impressive with the all details and good knowledge with what's required (as opposed to those who cut corners) to make a good roof job. The crew started working early in the morning and finished by the evening.  Dave was in and out to make sure the work followed exactly the process that was laid out (which was spelled out in the contract).   Finally,  the crew thoroughly cleaned up the debris and even advised that if any debris had blown over to the neighbors, they would come back and clean up.   Overall, the job was efficient, thorough, and very professional. Compared to many roofers who tried to sell me their services, Tetralto Roofing absolutely stands out in terms of cost & quality.   I would highly recommend them to anyone who's looking for a professional well managed roofing company!",
+        "serviceType": "Roof Replacement",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/kbcNnqWD6GA6LtXD9",
+        "datePublished": "2025-01-04T21:11:31.877000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 36,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Lesley G.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Sugar Land, TX"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "High quality work by a  professional team.  They were quick to repair our roof from damage caused by a fallen tree limb.  Friendly crew and reasonable pricing.",
+        "serviceType": "Roof Replacement",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/AKBmShoLbCacEiTLA",
+        "datePublished": "2025-01-04T21:11:31.875000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 37,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Anthony B.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City, TX (Sienna)"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "Hurricane Beryl victims in Missouri City, Tx. Tetralto Roofing did a great job re-tarping my roof after the first tarp became damaged and no longer providing shielding from our roof leaks. Thank you, David Fohr.",
+        "serviceType": "Emergency Tarping",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/HfE1zzwzYeXbrKzz7",
+        "datePublished": "2025-01-04T21:11:31.873000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 38,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Rob D.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City, TX (Sienna)"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "We needed our gutters cleaned and repaired. Excellent work and fair price. Would definitely recommend.",
+        "serviceType": "Gutter Cleaning, Gutter Repair",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/fsT6soiufJVbhRyF6",
+        "datePublished": "2025-01-04T21:11:31.872000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 39,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "S. Gupta",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Riverstone, TX"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "David and his team with Tetralto Roofing replaced the roof and Skylight of my house. Work was done in a professional manner and as per schedule. I would recommend Tetralto roofing for Roofing needs.",
+        "serviceType": "Roof Replacement, Skylight Installation",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/qPrbzXRmZFEELM1U8",
+        "datePublished": "2025-01-04T21:11:31.870000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 40,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Dana C.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Pearland, Houston"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "David and the crew did a great job and were very affordable. New roof and patio cover were completed as promised. Would highly recommended them are if you are looking for a roofing contractor..",
+        "serviceType": "Roof Replacement, Patio Cover Construction",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/PvMtCbAJD1RizKQi6",
+        "datePublished": "2025-01-04T21:11:31.868000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 41,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Marilyn C.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Houston, TX"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "Highly Recommended! We've used the Tetralto company a few times for major repairs on our home. Aesthetics of their quality work is seen from the street. Professionals - they cleaned up and removed items replaced or repaired as they stated.  5\u2606 and a bag of Pita Chips with Texas Hot Sauce! Thank You, Tetralto! \ud83d\udc4d\ud83c\udffd.",
+        "serviceType": "Gutter Installation, Gutter Guards, Fascia & Soffit Repair",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/PamkyPR5Wxk9nDbD7",
+        "datePublished": "2025-01-04T21:11:31.864000+00:00"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 42,
+      "item": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Ryan D.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City, TX"
+          }
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": 5,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": "Got our roof done in Missouri City, TX, after Hurricane Beryl in 2024. David and his roofing team are just awesome. Great presentation of options and materials, prompt replies to post-estimate questions. Best price on the new roof. Thorough communication. He was on-site for most of the 2-day process. Excellent follow-up. When I struggled just getting so-called top-rated roofing companies to show for an estimate, I really appreciated David's service, concise selling (no BS), no gimmicks like call these satisfied customers for $100 off. His crew was great and respectful too. Had a roofing friend check the roof a couple weeks after and he said it was all first-class work and materials.",
+        "serviceType": "Roof Replacement",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Tetralto Roofing",
+          "@id": "https://tetralto.com",
+          "url": "https://tetralto.com",
+          "telephone": "281-895-1213",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Missouri City",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          }
+        },
+        "url": "https://maps.app.goo.gl/aPH9RpjtUSTuugcE6",
+        "datePublished": "2025-01-04T21:11:31.857000+00:00"
+      }
+    }
+  ]
+}
+    </script>
+</div>
+
+<div class="hero">
+    <div class="container">
+        <h1>Trusted Roofing Experts.</h1>
+        <div class="hero-grid">
+            <div class="hero-content">
+                <h2>High-quality, great-value roofing.</h2>
+                <p class="description">Tetralto Roofing delivers state-of-the-art roofing services including roof repair, roof replacement, and gutter installation.</p>
+                <div class="button-group">
+                    <a href="/contact/" class="button primary">Get Free Estimate</a>
+                    <a href="#services" class="button secondary">Our Services</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="/static/images/roof-components.avif" alt="Roof Components">
+            </div>
+        </div>
+    </div>
+</div>
+
+<section id="services" class="services">
+    <div class="container">
+        <h2>Our Services</h2>
+        <p class="section-subtitle">Professional roofing solutions tailored to your needs.</p>
+        
+        <div class="services-grid">
+            
+            <div class="service-card">
+                <div class="service-header">
+                    <div class="service-icon">
+                        <img src="/static/images/serv_roof_replacement_icon.avif" alt="Roof Replacement Icon">
+                    </div>
+                    <div class="service-title">
+                        <h3>Roof Replacement</h3>
+                    </div>
+                </div>
+                <p class="service-subtitle">If your roof is beyond repair, a roof replacement may be required. Call us for a free estimate!.&quot;</p>
+                
+                <a href="/services/roof-replacement/" class="more-about-link" style="color: var(--primary-color); text-decoration: none; display: inline-block; margin-top: 0.5rem;">
+                    More about Roof Replacement →
+                </a>
+                
+            </div>
+            
+            <div class="service-card">
+                <div class="service-header">
+                    <div class="service-icon">
+                        <img src="/static/images/serv_roof_repair_icon.avif" alt="Roof Repair Icon">
+                    </div>
+                    <div class="service-title">
+                        <h3>Roof Repair</h3>
+                    </div>
+                </div>
+                <p class="service-subtitle">Extend the life of your roof with timely repairs.</p>
+                
+            </div>
+            
+            <div class="service-card">
+                <div class="service-header">
+                    <div class="service-icon">
+                        <img src="/static/images/serv_gutter_icon.avif" alt="Gutter Services Icon">
+                    </div>
+                    <div class="service-title">
+                        <h3>Gutter Services</h3>
+                    </div>
+                </div>
+                <p class="service-subtitle">Are you in need of new gutters or repairs? Call us for an assessment now!</p>
+                
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+<!-- Video Section -->
+<section class="video-section">
+    <div class="container">
+        <div class="video-wrapper">
+            <iframe
+                src="https://www.youtube.com/embed/xFFKumtpqTo?si=NJAETxeb3Vr74OX0"
+                title="YouTube video player"
+                width="1120"
+                height="630"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features">
+    <div class="container">
+        <h2>The Things That Make Us Great!</h2>
+        <p class="subtitle">What sets us apart from other roofing companies? Here are the reasons why homeowners choose Tetralto Roofing.</p>
+        
+        <div class="features-grid">
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="/static/images/feat_expert_teams_icon.avif" alt="Expert Install Teams icon">
+                </div>
+                <h3>Expert Install Teams</h3>
+                <p>Each project lead has a minimum of 10 years of experience, and the entire team is trained in procedures, quality, and safety. We do it the right way, fuss over details, and clean up the mess.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="/static/images/feat_quality_systems_icon.avif" alt="Highest Quality Roofing Systems icon">
+                </div>
+                <h3>Highest Quality Roofing Systems</h3>
+                <p>We use the best roofing systems available and adhere to all guidelines from the manufacturer and construction codes.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="/static/images/feat_roofing_science_icon.avif" alt="Roofing Science icon">
+                </div>
+                <h3>Roofing Science</h3>
+                <p>We complement experience with science - through training, studying the manufacturer&#x27;s documentation, and investigating the current state of the art of roofing products.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="/static/images/feat_honest_assessments_icon.avif" alt="Honest Assessments icon">
+                </div>
+                <h3>Honest Assessments</h3>
+                <p>We don&#x27;t push for roof projects that aren&#x27;t needed. If your roof is still functional, that is what we will report. Likewise if it only needs repairs.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="/static/images/feat_warranty_icon.avif" alt="Great Warranty icon">
+                </div>
+                <h3>Great Warranty</h3>
+                <p>We provide a 2-year warranty on workmanship and adhere to guidelines from the manufacturer to maximize the warranty you get from them.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="/static/images/feat_checkups_icon.avif" alt="Free Yearly Checkups icon">
+                </div>
+                <h3>Free Yearly Checkups</h3>
+                <p>For all roof replacements and major repairs, you get a free checkup for your roof every year. This allows us to detect and fix any potential problems early on and extend the life of your roof.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="/static/images/feat_info_file_icon.avif" alt="Perpetual Roof Information File icon">
+                </div>
+                <h3>Perpetual Roof Information File</h3>
+                <p>We keep a secure file about your roof, including pictures, invoices, and materials installed - and give you free access to it.</p>
+            </div>
+            
+        </div>
+
+        <div class="features-cta">
+            <h2>Ready to Experience the Tetralto Difference?</h2>
+            <div class="button-group">
+                <a href="tel:+12818951213" class="button primary">Call (281) 895-1213</a>
+                <a href="/contact/" class="button secondary">Get Free Estimate</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials">
+    <div class="container">
+        <h2>What Our Customers Say</h2>
+        
+
+<!-- Testimonials Carousel - Uses JSON-LD structured data -->
+<div class="testimonials-carousel" id="testimonials-carousel" 
+     role="region" aria-label="Customer testimonials" aria-live="polite">
+    
+    <!-- Carousel slides populated by JavaScript from JSON-LD structured data -->
+    <div class="carousel-wrapper"></div>
+    
+    <!-- Navigation dots populated by JavaScript -->
+    <div class="carousel-navigation" role="tablist" aria-label="Testimonial navigation"></div>
+    
+    <!-- Loading state -->
+    <div class="carousel-loading">Loading testimonials...</div>
+    
+    <!-- Empty state (shown by JavaScript if no data found) -->
+    <div class="carousel-empty">
+        <p>No testimonials available.</p>
+    </div>
+</div>
+
+
+<!-- Script removed - included once at page bottom via testimonials-carousel.js -->
+    </div>
+</section>
+
+
+<section class="social-bar">
+    <div class="container">
+        <div class="social-icons">
+            
+                <a href="https://facebook.com/tetraltoroofing" target="_blank" title="Click here to visit our Facebook page!" class="social-icon">
+                    <img src="/static/images/social_facebook_icon.avif" alt="Facebook" loading="lazy">
+                </a>
+            
+                <a href="https://x.com/tetraltoroof" target="_blank" title="Follow us on X!" class="social-icon">
+                    <img src="/static/images/social_x_icon.avif" alt="X" loading="lazy">
+                </a>
+            
+                <a href="https://www.gaf.com/en-us/roofing-contractors/residential/usa/tx/missouri-city/tetralto-roofing-1142902" target="_blank" title="We are GAF Certified - validate with GAF here!" class="social-icon">
+                    <img src="/static/images/social_gaf_certified_icon.webp" alt="GAF Certified" loading="lazy">
+                </a>
+            
+                <a href="https://www.malarkeyroofing.com/" target="_blank" title="One of our favorite roofing systems, click to visit their site" class="social-icon">
+                    <img src="/static/images/social_malarkey_icon.jpeg" alt="Malarkey" loading="lazy">
+                </a>
+            
+                <a href="https://www.yelp.com/biz/tetralto-roofing-missouri-city" target="_blank" title="Check us out on Yelp!" class="social-icon">
+                    <img src="/static/images/social_yelp_icon.webp" alt="Yelp" loading="lazy">
+                </a>
+            
+                <a href="https://www.homeadvisor.com/rated.TetraltoRoofing.129714649.html" target="_blank" title="Our Home Advisor profile" class="social-icon">
+                    <img src="/static/images/social_home_advisor_icon.webp" alt="Home Advisor" loading="lazy">
+                </a>
+            
+                <a href="https://maps.app.goo.gl/4nAWTR3dyjuvewrC6" target="_blank" title="Check out our Google Business Profile!" class="social-icon">
+                    <img src="/static/images/social_google_maps_icon.jpeg" alt="Google Maps" loading="lazy">
+                </a>
+            
+                <a href="https://www.instagram.com/tetraltoroof/" target="_blank" title="Tetralto Roofing on Instagram." class="social-icon">
+                    <img src="/static/images/social_instagram_icon.jpeg" alt="Instagram" loading="lazy">
+                </a>
+            
+                <a href="https://www.networx.com/c.tetralto-roofing5" target="_blank" title="Tetralto Roofing on Networx." class="social-icon">
+                    <img src="/static/images/social_networx_icon.jpeg" alt="Networx" loading="lazy">
+                </a>
+            
+                <a href="https://www.tamko.com/locate-a-contractor" target="_blank" title="We are Tamko Certified! Look us up here!" class="social-icon">
+                    <img src="/static/images/social_tamko_icon.jpeg" alt="Tamko" loading="lazy">
+                </a>
+            
+                <a href="https://www.lomanco.com/" target="_blank" title="We are certified attic ventilation consultants by Lomanco!" class="social-icon">
+                    <img src="/static/images/social_lomanco_icon.png" alt="Lomanco" loading="lazy">
+                </a>
+            
+        </div>
+    </div>
+</section>
+
+
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <a href="/" class="footer-logo">
+                <img src="/static/images/tetralto-roofing-logo.avif" alt="Tetralto Roofing Logo">
+            </a>
+            <div class="footer-links">
+                <a href="/terms-and-conditions/">Terms and Conditions</a>
+            </div>
+            <div class="copyright">
+                © 2025 Tetralto Roofing
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/testimonials-carousel.js"></script>
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "RoofingContractor",
+        "@id": "https://tetralto.com/#organization",
+        "name": "Tetralto Roofing",
+        "url": "https://tetralto.com",
+        "logo": "https://tetralto.com/static/images/tetralto-roofing-logo.avif",
+        "image": "https://tetralto.com/static/images/tetralto-roofing-logo.avif",
+        "telephone": "+12818951213",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Missouri City",
+            "addressRegion": "TX",
+            "addressCountry": "US",
+            "postalCode": "77459"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "29.5277892",
+            "longitude": "-95.5625783"
+        },
+        "areaServed": [
+            {
+                "@type": "City",
+                "name": "Missouri City"
+            },
+            {
+                "@type": "City",
+                "name": "Sugar Land"
+            },
+            {
+                "@type": "City",
+                "name": "Houston"
+            }
+        ],
+        "sameAs": [
+            
+            "https://facebook.com/tetraltoroofing",
+            
+            "https://x.com/tetraltoroof",
+            
+            "https://www.gaf.com/en-us/roofing-contractors/residential/usa/tx/missouri-city/tetralto-roofing-1142902",
+            
+            "https://www.malarkeyroofing.com/",
+            
+            "https://www.yelp.com/biz/tetralto-roofing-missouri-city",
+            
+            "https://www.homeadvisor.com/rated.TetraltoRoofing.129714649.html",
+            
+            "https://maps.app.goo.gl/4nAWTR3dyjuvewrC6",
+            
+            "https://www.instagram.com/tetraltoroof/",
+            
+            "https://www.networx.com/c.tetralto-roofing5",
+            
+            "https://www.tamko.com/locate-a-contractor",
+            
+            "https://www.lomanco.com/"
+            
+        ]
+    }
+    </script>
+
+    <!-- Website Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": "https://tetralto.com/#website",
+        "url": "https://tetralto.com",
+        "name": "Tetralto Roofing",
+        "description": "Professional roofing services in Missouri City, Sugar Land, and Houston areas",
+        "publisher": {
+            "@id": "https://tetralto.com/#organization"
+        }
+    }
+    </script>
+</body>
+</html> 
