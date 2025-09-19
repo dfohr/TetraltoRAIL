@@ -35,6 +35,120 @@
     color: white;
 }
 
+/* ============================================
+   CENTRALIZED CTA BUTTONS
+   ============================================
+   
+   Three standardized CTA buttons for the site:
+   
+   1. CALL BUTTON:
+   <a href="tel:+12818951213" class="cta-call">
+       <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+           <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122L9.98 10.72a.678.678 0 0 1-.725-.332A10.76 10.76 0 0 1 5.745 6.878a.678.678 0 0 1-.332-.725l.29-1.804a.678.678 0 0 0-.122-.58L3.654 1.328z"/>
+       </svg>
+       Call (281) 895-1213
+   </a>
+   
+   2. ESTIMATE BUTTON:
+   <a href="/contact/" class="cta-estimate">
+       <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+           <path d="M8.5 2.687c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+       </svg>
+       Get a Free Estimate
+   </a>
+   
+   3. SERVICES BUTTON:
+   <a href="/services/" class="cta-services">
+       <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+           <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5 8.186 1.113zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.629 13.09a1 1 0 0 1-.629-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
+       </svg>
+       Our Services
+   </a>
+   
+   ============================================ */
+
+/* CTA Call Button */
+.cta-call {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: var(--fs-sm);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.cta-call:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.cta-call svg {
+    flex-shrink: 0;
+}
+
+/* CTA Estimate Button */
+.cta-estimate {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-md) var(--spacing-xl);
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: var(--fs-md);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.cta-estimate:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-large);
+}
+
+.cta-estimate svg {
+    flex-shrink: 0;
+}
+
+/* CTA Services Button */
+.cta-services {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: var(--fs-sm);
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.cta-services:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.cta-services svg {
+    flex-shrink: 0;
+}
+
 .service-card {
     background: white;
     padding: 2rem;
@@ -75,9 +189,6 @@
 /* Add more component styles as needed */
 
 /* Header */
-:root {
-    --header-height: 80px;
-}
 
 body {
     margin: 0;
@@ -90,7 +201,7 @@ body {
     z-index: 1000;
     background-color: white;
     width: 100%;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid var(--border-light);
 }
 
 .header-container {
@@ -100,7 +211,8 @@ body {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 var(--spacing-md);
+    padding: var(--spacing-xs) var(--spacing-md);
+    min-height: var(--header-height);
 }
 
 .header-top {
@@ -115,8 +227,10 @@ body {
 }
 
 .logo img {
-    width: 200px;
-    height: auto;
+    height: var(--header-height);
+    width: auto;
+    max-width: 200px;
+    object-fit: contain;
     display: block;
 }
 
@@ -127,16 +241,18 @@ body {
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 2rem;
-    margin: 0 2rem;
+    gap: var(--spacing-xl);
+    margin: 0 var(--spacing-lg);
 }
 
 .nav-links a {
     text-decoration: none;
     color: var(--text-color);
-    font-weight: 500;
+    font-weight: 700;
+    font-size: var(--fs-lg);
     position: relative;
-    padding: 0.5rem 0;
+    padding: var(--spacing-sm) 0;
+    transition: color 0.3s ease;
 }
 
 .nav-links a::after {
@@ -156,47 +272,87 @@ body {
     color: var(--primary-color);
 }
 
-.nav-links a:hover::after {
+.nav-links a:hover::after,
+.nav-links a.active::after {
     transform: scaleX(1);
     transform-origin: left;
 }
 
+.nav-links a.active {
+    color: var(--primary-color);
+}
+
 .cta-phone {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 1rem;
-    padding: 0.15rem 0;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: var(--fs-sm);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    transition: all 0.3s ease;
     white-space: nowrap;
 }
 
 .cta-phone span {
-    color: var(--primary-color);
+    color: white;
     font-weight: 700;
 }
 
 .cta-phone:hover {
-    transform: translateY(-1px);
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
 }
 
 .cta-phone:hover span {
-    color: var(--secondary-color);
+    color: white;
+}
+
+/* Clean, Standard Hamburger Menu */
+.hamburger,
+.mobile-actions {
+    display: none;
 }
 
 .hamburger {
-    display: none;
+    flex-direction: column;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: var(--border-radius-sm);
+    transition: all 0.3s ease;
+}
+
+.hamburger:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.hamburger:hover {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .hamburger span {
     display: block;
-    width: 28px;
+    width: 24px;
     height: 2px;
     background: var(--text-color);
-    transition: 0.3s;
+    margin: 3px 0;
+    transition: all 0.3s ease;
+    border-radius: 1px;
 }
 
 .hamburger.active span:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
+    transform: rotate(45deg) translate(5px, 5px);
 }
 
 .hamburger.active span:nth-child(2) {
@@ -204,11 +360,7 @@ body {
 }
 
 .hamburger.active span:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
-}
-
-.hamburger:hover {
-    background-color: rgba(0,0,0,0.05);
+    transform: rotate(-45deg) translate(7px, -6px);
 }
 
 @media (max-width: 768px) {
@@ -224,7 +376,7 @@ body {
     }
 
     body {
-        padding-top: 120px;  /* Increased padding to account for header + phone number */
+        padding-top: calc(var(--header-height) + 20px);  /* Single-line mobile header with phone icon */
     }
 
     .header-container {
@@ -238,11 +390,11 @@ body {
         justify-content: space-between;
         box-sizing: border-box;
         width: 100%;
-        padding: 0.75rem 1rem;
+        padding: var(--spacing-xs) var(--spacing-md);
     }
 
     .logo {
-        height: 52px;
+        height: 48px;
         display: flex;
         align-items: center;
         padding: 0;
@@ -251,17 +403,43 @@ body {
     .logo img {
         height: 100%;
         width: auto;
+        max-width: 180px;
         object-fit: contain;
+    }
+
+    .mobile-actions {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-md);
+    }
+
+    .mobile-phone-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-color);
+        text-decoration: none;
+        padding: var(--spacing-xs);
+        border-radius: var(--border-radius-sm);
+        transition: all 0.2s ease;
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .mobile-phone-icon:hover {
+        background-color: rgba(231, 90, 53, 0.1);
+        transform: scale(1.05);
     }
 
     .hamburger {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 3px;
-        padding: 8px;
         cursor: pointer;
         margin-right: -8px;
+    }
+
+    .hamburger:focus {
+        outline: 2px solid var(--primary-color);
+        outline-offset: 2px;
     }
 
     .nav-links {
@@ -270,7 +448,9 @@ body {
         flex-direction: column;
         background: white;
         margin: 0;
-        border-top: 1px solid rgba(0,0,0,0.1);
+        border-top: 1px solid var(--border-light);
+        gap: 0;
+        align-items: stretch;
     }
 
     .nav-links.active {
@@ -278,22 +458,25 @@ body {
     }
 
     .nav-links a {
-        padding: 1rem;
+        display: block;
+        padding: 10px var(--spacing-md);
         width: 100%;
         text-align: center;
-        border-bottom: 1px solid rgba(0,0,0,0.1);
+        border-bottom: 1px solid var(--border-light);
+        font-weight: 700;
+        font-size: var(--fs-lg);
+        transition: background-color 0.2s ease;
+        margin: 0;
+        line-height: 1.4;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+        background-color: rgba(0, 0, 0, 0.05);
     }
 
     .cta-phone {
-        display: flex;
-        width: 100%;
-        justify-content: center;
-        padding: 1rem;
-        background: var(--primary-color);
-        color: white;
-        text-decoration: none;
-        font-weight: 600;
-        border-top: 1px solid rgba(0,0,0,0.1);
+        display: none; /* Hidden on mobile - replaced by header phone icon */
     }
 
     .cta-phone span {
@@ -303,20 +486,16 @@ body {
     .cta-phone:hover,
     .cta-phone:active,
     .cta-phone:visited {
-        background: var(--primary-color);
+        background: var(--secondary-color);
         color: white;
         text-decoration: none;
+        transform: none;
     }
 
     .cta-phone:hover span,
     .cta-phone:active span,
     .cta-phone:visited span {
         color: white;
-    }
-
-    .cta-phone:hover {
-        background: var(--secondary-color);
-        transform: none;
     }
 }
 
@@ -365,7 +544,7 @@ body {
 }
 
 .footer-links a:hover {
-    color: var(--primary);
+    color: var(--primary-color);
     text-decoration: underline;
 }
 
@@ -864,8 +1043,6 @@ textarea {
     .features-grid {
         grid-template-columns: 1fr;
     }
-}
-
     
     .blog-post-content .prose {
         font-size: 1rem;
