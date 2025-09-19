@@ -403,7 +403,7 @@ body {
     .logo img {
         height: 100%;
         width: auto;
-        max-width: 180px;
+        max-width: 216px;
         object-fit: contain;
     }
 
