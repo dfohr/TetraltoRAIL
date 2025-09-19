@@ -14,7 +14,7 @@ from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
 from datetime import datetime
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 
 def home(request):
     services = Service.objects.order_by('order')
@@ -28,6 +28,15 @@ def home(request):
         'testimonials': testimonials,
         'social_links': social_links,
     })
+
+def api_health(request):
+    """
+    Simple API health check endpoint for infrastructure monitoring.
+    Returns 200 OK for HEAD/GET requests without database calls.
+    """
+    if request.method == 'HEAD':
+        return HttpResponse(status=200)
+    return JsonResponse({"status": "ok"})
 
 def health(request):
     # Database info

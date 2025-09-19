@@ -15,9 +15,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from core.views import (
-    home, health, services_view, contact, 
+    home, health, api_health, services_view, contact, 
     blog_list, blog_post, robots_txt, terms_and_conditions,
     service_detail, thank_you, google_landing, google_thank_you, test_page
 )
@@ -36,6 +36,7 @@ urlpatterns = [
     path('', home, name='home'),
     path('admin/', admin.site.urls),
     path('health/', health, name='health'),
+    re_path(r'^api/?$', api_health, name='api_health'),
     path('services/', services_view, name='services'),
     path('services/<slug:slug>/', service_detail, name='service_detail'),
     path('contact/', contact, name='contact'),
