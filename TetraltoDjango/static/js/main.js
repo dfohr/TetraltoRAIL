@@ -1,7 +1,8 @@
-// Mobile menu functionality
+// Responsive header management for clean breakpoints
 document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
+    const siteHeader = document.querySelector('.site-header');
 
     if (hamburger && navLinks) {
         hamburger.addEventListener('click', function() {
@@ -34,6 +35,26 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Responsive header breakpoint management
+    // Ensures hamburger menu appears at 1024px to prevent navigation wrapping
+    function handleResponsiveHeader() {
+        if (window.innerWidth <= 1023) {
+            if (siteHeader) siteHeader.classList.add('mobile-active');
+        } else {
+            if (siteHeader) siteHeader.classList.remove('mobile-active');
+            // Close mobile menu when switching to desktop
+            if (navLinks) navLinks.classList.remove('active');
+            if (hamburger) {
+                hamburger.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            }
+        }
+    }
+
+    // Run on load and resize
+    handleResponsiveHeader();
+    window.addEventListener('resize', handleResponsiveHeader);
 
     // Video click-to-play functionality
     const videoOverlay = document.getElementById('video-overlay');
