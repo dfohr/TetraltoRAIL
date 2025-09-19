@@ -203,6 +203,37 @@ SENDGRID_FORM_API_KEY = os.environ.get('SENDGRID_FORM_API_KEY', '')
 SENDGRID_FORM_FROM_EMAIL = os.environ.get('SENDGRID_FORM_FROM_EMAIL', 'noreply@tetralto.com')
 SENDGRID_FORM_TO_EMAIL = os.environ.get('SENDGRID_FORM_TO_EMAIL', '')  # Your email for lead notifications
 
+# Custom logging filter to suppress /api monitoring noise
+class ApiHealthFilter:
+    def filter(self, record):
+        # Suppress /api HEAD requests from Replit monitoring
+        return not (hasattr(record, 'getMessage') and 
+                   'HEAD /api' in record.getMessage())
+
+# Logging configuration
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'suppress_api_health': {
+            '()': ApiHealthFilter,
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'filters': ['suppress_api_health'],
+        },
+    },
+    'loggers': {
+        'django.server': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}
+
 # Email backend configuration
 if SENDGRID_FORM_API_KEY:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
