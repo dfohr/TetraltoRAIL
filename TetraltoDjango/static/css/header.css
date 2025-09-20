@@ -40,6 +40,8 @@
 .header-top {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
 
 /* Logo - Fixed sizing independent of layout */
