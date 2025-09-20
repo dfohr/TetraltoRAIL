@@ -182,29 +182,9 @@
     display: none;
 }
 
-/* ===== TABLET HEADER (769px - 1023px) ===== */
-@media (min-width: 769px) and (max-width: 1023px) {
-    .header-container {
-        padding: 0 var(--spacing-md);
-    }
-    
-    /* Tablet logo height - drives header height */
-    .logo img {
-        height: 100px;
-    }
-    
-    /* Tighter navigation spacing */
-    .nav-links {
-        gap: 1.5rem;
-    }
-    
-    .nav-links a {
-        font-size: 0.95rem;
-    }
-}
 
-/* ===== MOBILE HEADER (≤768px) ===== */
-@media (max-width: 768px) {
+/* ===== MOBILE HEADER (≤1023px) ===== */
+@media (max-width: 1023px) {
     .site-header {
         position: fixed;
         top: 0;
@@ -221,7 +201,7 @@
     }
 
     body {
-        padding-top: 80px; /* Approximate mobile header height */
+        padding-top: 120px; /* Approximate header height with 100px logo */
     }
 
     .logo {
@@ -239,7 +219,7 @@
     /* Mobile navigation */
     .nav-links {
         position: fixed;
-        top: 80px; /* Below mobile header */
+        top: 120px; /* Below header */
         left: 0;
         right: 0;
         background: rgba(255, 255, 255, 0.98);
@@ -296,7 +276,7 @@
     .site-header.mobile-active .nav-links {
         display: none;
         position: fixed;
-        top: 80px; /* Below header regardless of breakpoint */
+        top: 120px; /* Below header regardless of breakpoint */
         left: 0;
         right: 0;
         background: rgba(255, 255, 255, 0.98);
