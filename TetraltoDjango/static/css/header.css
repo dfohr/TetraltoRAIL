@@ -56,7 +56,6 @@
 .logo img {
     height: 64px;  /* Desktop logo height - drives header height */
     width: auto;
-    max-width: 280px;
     object-fit: contain;
     display: block;
 }
@@ -192,7 +191,6 @@
     /* Tablet logo height - drives header height */
     .logo img {
         height: 56px;
-        max-width: 240px;
     }
     
     /* Tighter navigation spacing */
@@ -235,7 +233,6 @@
     /* Mobile logo height - drives header height */
     .logo img {
         height: 48px;
-        max-width: 200px;
         object-fit: contain;
     }
 
