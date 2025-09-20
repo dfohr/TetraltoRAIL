@@ -294,47 +294,52 @@
 @media (max-width: 549px) {
     /* Smaller logo for very small screens */
     .logo img {
-        height: 75px;
+        height: 50px;
         object-fit: contain;
     }
 
     /* Smaller hamburger for small screens */
     .hamburger {
-        width: 75px;
-        height: 75px;
-        padding: var(--spacing-md);
+        width: 50px;
+        height: 50px;
+        padding: var(--spacing-xs);
     }
 
+    /* Reset hamburger lines to be more visible */
     .hamburger span {
-        width: 28px;
-        height: 3px;
-        margin: 4px 0;
+        width: 20px;
+        height: 2px;
+        margin: 2px 0;
+        background: var(--text-color);
+        display: block;
+        transition: all 0.3s ease;
+        border-radius: 1px;
     }
 
     /* Smaller phone icon for small screens */
     .mobile-phone-icon {
-        width: 75px;
-        height: 75px;
-        padding: var(--spacing-md);
+        width: 50px;
+        height: 50px;
+        padding: var(--spacing-xs);
     }
 
     .mobile-phone-icon .phone-svg {
-        width: 36px;
-        height: 36px;
+        width: 24px;
+        height: 24px;
     }
 
     /* Adjust body padding for smaller header */
     body {
-        padding-top: 95px; /* Smaller header height */
+        padding-top: 70px; /* Smaller header height */
     }
 
     /* Adjust mobile navigation position */
     .nav-links {
-        top: 95px;
+        top: 70px;
     }
 
     .site-header.mobile-active .nav-links {
-        top: 95px;
+        top: 70px;
     }
 }
 
