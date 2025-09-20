@@ -140,9 +140,9 @@
     background: none;
     border: none;
     cursor: pointer;
-    width: 48px;
-    height: 48px;
-    padding: var(--spacing-xs);
+    width: 100px;
+    height: 100px;
+    padding: var(--spacing-lg);
     border-radius: var(--border-radius-sm);
     transition: all 0.2s ease;
 }
@@ -158,12 +158,12 @@
 
 .hamburger span {
     display: block;
-    width: 24px;
-    height: 2px;
+    width: 36px;
+    height: 4px;
     background: var(--text-color);
-    margin: 3px 0;
+    margin: 5px 0;
     transition: all 0.3s ease;
-    border-radius: 1px;
+    border-radius: 2px;
 }
 
 .hamburger.active span:nth-child(1) {
@@ -261,7 +261,27 @@
     .mobile-actions {
         display: flex;
         align-items: center;
-        gap: 1rem;
+        gap: 2rem;
+    }
+
+    .mobile-phone-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100px;
+        height: 100px;
+        padding: var(--spacing-lg);
+        background: none;
+        border: none;
+        color: var(--primary-color);
+        text-decoration: none;
+        border-radius: var(--border-radius-sm);
+        transition: all 0.2s ease;
+    }
+
+    .mobile-phone-icon:hover {
+        background-color: rgba(231, 90, 53, 0.1);
+        transform: scale(1.05);
     }
 
     /* Hide CTA button on mobile, replaced by phone icon */
