@@ -4,6 +4,8 @@
  * Decoupled logo sizing from navigation layout changes
  */
 
+/* Logo-driven header height - logo size determines header size */
+
 /* TEMPORARY DEBUG BORDERS - Remove after layout verification */
 .site-header { border: 2px solid red !important; }
 .header-container { border: 2px solid blue !important; }
@@ -32,14 +34,12 @@
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 var(--spacing-md);
-    height: var(--header-height);
+    padding: 1rem var(--spacing-md);
 }
 
 .header-top {
     display: flex;
     align-items: center;
-    height: 100%;
 }
 
 /* Logo - Fixed sizing independent of layout */
@@ -52,9 +52,9 @@
 }
 
 .logo img {
-    height: 60px;  /* Fixed height - not tied to header-height variable */
+    height: 64px;  /* Desktop logo height - drives header height */
     width: auto;
-    max-width: 240px;  /* 20% larger than original 200px */
+    max-width: 280px;
     object-fit: contain;
     display: block;
 }
@@ -183,14 +183,14 @@
 
 /* ===== TABLET HEADER (769px - 1023px) ===== */
 @media (min-width: 769px) and (max-width: 1023px) {
-    .site-header {
-        padding: 0 1rem;
+    .header-container {
+        padding: 0.75rem var(--spacing-md);
     }
     
-    /* Slightly smaller logo for tablet */
+    /* Tablet logo height - drives header height */
     .logo img {
         height: 56px;
-        max-width: 224px;  /* Proportionally smaller but still 20% larger than original */
+        max-width: 240px;
     }
     
     /* Tighter navigation spacing */
@@ -214,12 +214,14 @@
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
         z-index: 1000;
-        padding: 0.75rem 1rem;
-        height: var(--header-height);
+    }
+
+    .header-container {
+        padding: 0.5rem 1rem;
     }
 
     body {
-        padding-top: calc(var(--header-height) + 20px);
+        padding-top: 80px; /* Approximate mobile header height */
     }
 
     .logo {
@@ -228,9 +230,9 @@
         padding: 0;
     }
 
-    /* Mobile logo sizing - proportionally smaller but consistent */
+    /* Mobile logo height - drives header height */
     .logo img {
-        height: 50px;  /* Fixed height for mobile */
+        height: 48px;
         max-width: 200px;
         object-fit: contain;
     }
@@ -238,7 +240,7 @@
     /* Mobile navigation */
     .nav-links {
         position: fixed;
-        top: var(--header-height);
+        top: 80px; /* Below mobile header */
         left: 0;
         right: 0;
         background: rgba(255, 255, 255, 0.98);
@@ -295,7 +297,7 @@
     .site-header.mobile-active .nav-links {
         display: none;
         position: fixed;
-        top: var(--header-height);
+        top: 80px; /* Below header regardless of breakpoint */
         left: 0;
         right: 0;
         background: rgba(255, 255, 255, 0.98);
