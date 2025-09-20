@@ -32,7 +32,7 @@
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: var(--spacing-xs) var(--spacing-md);
+    padding: 0 var(--spacing-md);
     min-height: var(--header-height);
 }
 

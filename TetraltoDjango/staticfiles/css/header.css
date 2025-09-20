@@ -4,6 +4,16 @@
  * Decoupled logo sizing from navigation layout changes
  */
 
+/* TEMPORARY DEBUG BORDERS - Remove after layout verification */
+.site-header { border: 2px solid red !important; }
+.header-container { border: 2px solid blue !important; }
+.header-top { border: 2px solid green !important; }
+.logo { border: 2px solid orange !important; }
+.nav-links { border: 2px solid purple !important; }
+.cta-phone { border: 2px solid cyan !important; }
+.mobile-actions { border: 2px solid yellow !important; }
+.hamburger { border: 2px solid pink !important; }
+
 /* ===== DESKTOP HEADER (≥1024px) ===== */
 .site-header {
     position: relative;
@@ -22,7 +32,7 @@
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: var(--spacing-xs) var(--spacing-md);
+    padding: 0 var(--spacing-md);
     min-height: var(--header-height);
 }
 
