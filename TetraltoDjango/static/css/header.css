@@ -290,6 +290,54 @@
     }
 }
 
+/* ===== SMALL MOBILE (≤549px) ===== */
+@media (max-width: 549px) {
+    /* Smaller logo for very small screens */
+    .logo img {
+        height: 75px;
+        object-fit: contain;
+    }
+
+    /* Smaller hamburger for small screens */
+    .hamburger {
+        width: 75px;
+        height: 75px;
+        padding: var(--spacing-md);
+    }
+
+    .hamburger span {
+        width: 28px;
+        height: 3px;
+        margin: 4px 0;
+    }
+
+    /* Smaller phone icon for small screens */
+    .mobile-phone-icon {
+        width: 75px;
+        height: 75px;
+        padding: var(--spacing-md);
+    }
+
+    .mobile-phone-icon .phone-svg {
+        width: 36px;
+        height: 36px;
+    }
+
+    /* Adjust body padding for smaller header */
+    body {
+        padding-top: 95px; /* Smaller header height */
+    }
+
+    /* Adjust mobile navigation position */
+    .nav-links {
+        top: 95px;
+    }
+
+    .site-header.mobile-active .nav-links {
+        top: 95px;
+    }
+}
+
 /* ===== TABLET/MOBILE BREAKPOINT (≤1023px) ===== */
 /* This triggers hamburger menu earlier to prevent navigation wrapping */
 @media (max-width: 1023px) {
