@@ -271,6 +271,11 @@
         align-items: center;
         gap: 1rem;
     }
+
+    /* Hide CTA button on mobile, replaced by phone icon */
+    .cta-phone {
+        display: none;
+    }
 }
 
 /* ===== TABLET/MOBILE BREAKPOINT (≤1023px) ===== */
@@ -318,6 +323,11 @@
     
     .site-header.mobile-active .hamburger {
         display: flex;
+    }
+
+    /* Hide CTA button when hamburger is active (tablet/mobile) */
+    .site-header.mobile-active .cta-phone {
+        display: none;
     }
 }
 
