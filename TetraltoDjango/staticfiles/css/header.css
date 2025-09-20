@@ -34,12 +34,14 @@
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0.25rem var(--spacing-md);
+    padding: 0 var(--spacing-md);
 }
 
 .header-top {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
 
 /* Logo - Fixed sizing independent of layout */
@@ -184,7 +186,7 @@
 /* ===== TABLET HEADER (769px - 1023px) ===== */
 @media (min-width: 769px) and (max-width: 1023px) {
     .header-container {
-        padding: 0.25rem var(--spacing-md);
+        padding: 0 var(--spacing-md);
     }
     
     /* Tablet logo height - drives header height */
@@ -217,7 +219,7 @@
     }
 
     .header-container {
-        padding: 0.25rem 1rem;
+        padding: 0 1rem;
     }
 
     body {
