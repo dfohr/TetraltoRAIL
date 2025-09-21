@@ -159,6 +159,21 @@ CSRF_COOKIE_SECURE = os.environ.get('DJANGO_CSRF_COOKIE_SECURE', 'False') == 'Tr
 SESSION_COOKIE_SECURE = os.environ.get('DJANGO_SESSION_COOKIE_SECURE', 'False') == 'True'
 SECURE_SSL_REDIRECT = os.environ.get('DJANGO_SECURE_SSL_REDIRECT', 'False') == 'True'
 
+# CSRF trusted origins for Replit
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.replit.dev',
+    'https://*.replit.co',
+]
+
+# Add the specific Replit domain from environment
+if os.environ.get('REPLIT_DEV_DOMAIN'):
+    replit_domain = os.environ['REPLIT_DEV_DOMAIN']
+    CSRF_TRUSTED_ORIGINS.append(f'https://{replit_domain}')
+    
+if os.environ.get('REPLIT_DOMAINS'):
+    for domain in os.environ['REPLIT_DOMAINS'].split(','):
+        CSRF_TRUSTED_ORIGINS.append(f'https://{domain.strip()}')
+
 # Handle SSL Header from proxy
 if os.environ.get('DJANGO_SECURE_PROXY_SSL_HEADER'):
     header_name, header_value = os.environ['DJANGO_SECURE_PROXY_SSL_HEADER'].split(',')
