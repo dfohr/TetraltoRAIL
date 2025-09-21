@@ -9,8 +9,6 @@
     background-size: auto auto;
     background-attachment: fixed;
     position: relative;
-    /* DEBUG BORDER */
-    border: 3px solid red !important;
 }
 
 /* Blue box - screen width and defined height */
@@ -21,8 +19,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* DEBUG BORDER */
-    border: 3px solid blue !important;
 }
 
 /* Green box - centered in blue box, max-width 1400px or device width, height = content */
@@ -33,14 +29,10 @@
     width: 100%;
     max-width: 1400px;
     padding: 2rem;
-    /* DEBUG BORDER */
-    border: 3px solid green !important;
 }
 
 /* Yellow box - 2/3 of green box, height = content */
 .hero-text {
-    /* DEBUG BORDER */
-    border: 2px solid yellow !important;
 }
 
 .hero-text .hero-intro {
@@ -65,8 +57,6 @@
     margin-bottom: 1rem;
     display: flex;
     align-items: center;
-    /* DEBUG BORDER */
-    border: 2px solid orange !important;
 }
 
 .hero-title-text {
@@ -124,8 +114,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* DEBUG BORDER */
-    border: 2px solid purple !important;
 }
 
 .hero-form {
@@ -146,8 +134,6 @@
     background-origin: initial !important;
     background-clip: initial !important;
     background-blend-mode: normal !important;
-    /* DEBUG BORDER */
-    border: 2px solid cyan !important;
 }
 
 .hero-form .form-container {
@@ -816,7 +802,8 @@ textarea {
 
 /* Form styles */
 .contact-form {
-    margin-bottom: 2rem;
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 .contact-form .button {
