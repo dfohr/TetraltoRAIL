@@ -10,6 +10,8 @@
     position: relative;
     display: flex;
     align-items: center;
+    z-index: 1; /* Below header */
+    overflow: visible; /* Ensure content can be seen */
     /* DEBUG BORDER */
     border: 3px solid red !important;
 }
@@ -23,7 +25,7 @@
     background: rgba(0, 0, 0, 0.5); /* Dark overlay for text readability */
     display: flex;
     align-items: center;
-    z-index: 1;
+    z-index: 10; /* Below header but above background */
     /* DEBUG BORDER */
     border: 3px solid blue !important;
 }
@@ -36,6 +38,9 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
+    position: relative;
+    z-index: 20; /* Ensure content stays above overlay */
+    width: 100%;
     /* DEBUG BORDER */
     border: 3px solid green !important;
 }
@@ -227,11 +232,21 @@
         gap: 2rem;
         text-align: center;
         padding: 2rem;
+        position: relative;
+        z-index: 20;
+        max-width: 100%;
+        margin: 0 auto;
     }
     
     .hero-form {
         max-width: 500px;
         margin: 0 auto;
+    }
+    
+    .hero-image-section {
+        position: relative;
+        z-index: 1;
+        overflow: visible;
     }
 }
 
