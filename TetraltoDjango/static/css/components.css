@@ -215,6 +215,11 @@
 
 /* Responsive Design */
 @media (max-width: 1023px) {
+    .hero-image-section {
+        height: auto;
+        min-height: 800px;
+    }
+    
     .hero-content-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -223,6 +228,11 @@
 }
 
 @media (max-width: 549px) {
+    .hero-image-section {
+        height: auto;
+        min-height: 600px;
+    }
+    
     .hero-content-grid {
         padding: 1.5rem;
         gap: 1.5rem;
