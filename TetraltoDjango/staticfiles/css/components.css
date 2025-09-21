@@ -52,9 +52,37 @@
     margin-bottom: 1rem;
 }
 
+/* Responsive font sizing for mobile */
+@media (max-width: 1023px) {
+    .hero-text .highlight {
+        font-size: clamp(2rem, 10vw, 4rem);
+    }
+}
+
+@media (max-width: 549px) {
+    .hero-text .highlight {
+        font-size: clamp(1.5rem, 12vw, 3rem);
+    }
+}
+
 .hero-text .highlight {
     color: var(--primary-color);
+    background: white;
     display: block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 8px;
+    display: inline-block;
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    white-space: nowrap;
+    line-height: 1.1;
+}
+
+.hero-text .highlight-orange {
+    color: white;
+    background: var(--primary-color);
+    padding: 0.1rem 0.4rem;
+    border-radius: 6px;
+    display: inline;
 }
 
 .hero-text .hero-location {
