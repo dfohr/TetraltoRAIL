@@ -22,11 +22,24 @@ def home(request):
     testimonials = Testimonial.objects.filter(is_active=True, is_featured=True).order_by('?')
     social_links = SocialLink.objects.filter(is_active=True).order_by('order')
     
+    # Handle form submission
+    if request.method == 'POST':
+        form = LeadForm(request.POST, request=request)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Thank you! We've received your request and will contact you soon.")
+            return redirect('home')  # Redirect to prevent resubmission
+        else:
+            messages.error(request, "Please correct the errors below.")
+    else:
+        form = LeadForm(request=request)
+    
     return render(request, 'home.html', {
         'services': services,
         'features': features,
         'testimonials': testimonials,
         'social_links': social_links,
+        'form': form,
     })
 
 def api_health(request):

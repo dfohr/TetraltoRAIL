@@ -30,7 +30,7 @@
                         <span class="hero-title-text">Trusted Roofing Experts.</span>
                     </div>
                     
-                    <p class="hero-location">in Missouri City, Sienna, Sugar Land and surrounding areas</p>
+                    <p class="hero-location">in Missouri City, Sienna, Sugar Land and surrounding areas.</p>
                     
                     <p class="hero-description">We use <span class="highlight-orange">Science and Advanced Tools</span> to inspect your roof, share clear, honest results - and guide you thorough tailored solutions.</p>
                 </div>
@@ -40,28 +40,31 @@
                     <div class="hero-form">
                         <div class="form-container">
                             <h3>Get Your Free Roof Inspection</h3>
-                            <form method="post" action="{% url 'google_landing' %}" class="contact-form">
+                            <form method="post" class="contact-form">
                                 {% csrf_token %}
                                 
                                 <div class="form-group">
-                                    <input type="text" id="name" name="name" placeholder="Full Name *" required>
+                                    {{ form.name }}
                                 </div>
                                 
                                 <div class="form-group">
-                                    <input type="email" id="email" name="email" placeholder="Email Address *" required>
+                                    {{ form.email }}
                                 </div>
                                 
                                 <div class="form-group">
-                                    <input type="tel" id="phone" name="phone" placeholder="Phone Number *" required>
+                                    {{ form.phone }}
                                 </div>
                                 
                                 <div class="form-group">
-                                    <input type="text" id="address" name="address" placeholder="Property Address *" required>
+                                    {{ form.address }}
                                 </div>
                                 
                                 <div class="form-group">
-                                    <textarea id="description" name="description" rows="4" placeholder="What roofing services do you need? *" required></textarea>
+                                    {{ form.description }}
                                 </div>
+                                
+                                <!-- Hidden reCAPTCHA field -->
+                                {{ form.g_recaptcha_response }}
                                 
                                 <button type="submit" class="cta-estimate">
                                     Send
