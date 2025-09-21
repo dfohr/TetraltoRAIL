@@ -40,6 +40,27 @@
                     <div class="hero-form">
                         <div class="form-container">
                             <h3>Get Your Free Roof Inspection</h3>
+                            
+                            <!-- Display Django messages -->
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-{{ message.tags }}">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            
+                            <!-- Display form errors -->
+                            {% if form.errors %}
+                                <div class="alert alert-error">
+                                    <strong>Please correct the following errors:</strong>
+                                    {% for field, errors in form.errors.items %}
+                                        {% for error in errors %}
+                                            <div>{{ field|title }}: {{ error }}</div>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                             <form method="post" class="contact-form">
                                 {% csrf_token %}
                                 
