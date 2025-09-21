@@ -52,28 +52,39 @@
     margin-bottom: 1rem;
 }
 
-/* Responsive font sizing for mobile */
+/* Dedicated container for title text */
+.hero-title-container {
+    width: 100%;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.hero-title-text {
+    color: var(--primary-color);
+    background: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 8px;
+    font-weight: 700;
+    line-height: 1.1;
+    white-space: nowrap;
+    font-size: clamp(1.8rem, 4.5vw, 3.5rem);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+/* Responsive font sizing */
 @media (max-width: 1023px) {
-    .hero-text .highlight {
-        font-size: clamp(2rem, 8cqw, 3.5rem);
+    .hero-title-text {
+        font-size: clamp(1.5rem, 5.5vw, 2.8rem);
     }
 }
 
 @media (max-width: 549px) {
-    .hero-text .highlight {
-        font-size: clamp(1.5rem, 10cqw, 2.5rem);
+    .hero-title-text {
+        font-size: clamp(1.2rem, 7vw, 2.2rem);
     }
-}
-
-.hero-text .highlight {
-    color: var(--primary-color);
-    background: white;
-    display: block;
-    padding: 0.2rem 0.5rem;
-    border-radius: 8px;
-    display: inline-block;
-    font-size: clamp(2.5rem, 6cqw, 4.5rem);
-    line-height: 1.1;
 }
 
 .hero-text .highlight-orange {
