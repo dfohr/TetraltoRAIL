@@ -151,7 +151,7 @@
 }
 
 .hero-form .form-container {
-    padding: 1.5rem 1.5rem 0.75rem 1.5rem; /* Reduced bottom padding */
+    padding: 1.5rem 1.5rem 1rem 1.5rem; /* Consistent spacing all around */
     background: transparent !important; /* Force transparent background */
 }
 
@@ -167,6 +167,10 @@
 
 .hero-form .form-group {
     margin-bottom: 1rem;
+}
+
+.hero-form .form-group:last-of-type {
+    margin-bottom: 1rem; /* Keep consistent spacing to button */
 }
 
 .hero-form .form-group input,
@@ -198,8 +202,8 @@
 .hero-form .cta-estimate {
     width: 100%;
     justify-content: center;
-    margin-top: 0.75rem; /* Same as spacing between fields */
-    margin-bottom: 0.75rem; /* Single spacing after button */
+    margin-top: 0; /* No extra margin - relies on form-group margin-bottom */
+    margin-bottom: 0; /* No margin bottom - relies on container padding */
     background: var(--primary-color);
     color: white;
     padding: 0.7rem 1.5rem;
