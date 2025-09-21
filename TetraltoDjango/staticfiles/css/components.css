@@ -1,51 +1,43 @@
 /* ===== HERO IMAGE SECTION ===== */
+/* Pink box - screen width and defined height */
 .hero-image-section {
-    width: 100%;
+    width: 100vw;
     height: 800px;
     background-image: url('../images/beautiful-roof.jpg');
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: auto auto; /* Don't resize - show image full size */
+    background-size: auto auto;
     background-attachment: fixed;
     position: relative;
-    display: flex;
-    align-items: center;
-    z-index: 1; /* Below header */
-    overflow: visible; /* Ensure content can be seen */
     /* DEBUG BORDER */
     border: 3px solid red !important;
 }
 
+/* Blue box - screen width and defined height */
 .hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5); /* Dark overlay for text readability */
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
-    z-index: 10; /* Below header but above background */
+    justify-content: center;
     /* DEBUG BORDER */
     border: 3px solid blue !important;
 }
 
+/* Green box - centered in blue box, max-width 1400px or device width, height = content */
 .hero-content-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 4rem;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    position: relative;
-    z-index: 20; /* Ensure content stays above overlay */
+    gap: 2rem;
     width: 100%;
+    max-width: 1400px;
+    padding: 2rem;
     /* DEBUG BORDER */
     border: 3px solid green !important;
 }
 
-/* Left Column - Text Content */
+/* Yellow box - 2/3 of green box, height = content */
 .hero-text {
     /* DEBUG BORDER */
     border: 2px solid yellow !important;
@@ -127,12 +119,8 @@
     opacity: 0.9;
 }
 
-/* Right Column - Contact Form */
+/* Purple box - 1/3 of green box, height = content */
 .hero-form-column {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
     /* DEBUG BORDER */
     border: 2px solid purple !important;
 }
@@ -230,23 +218,7 @@
     .hero-content-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
-        text-align: center;
         padding: 2rem;
-        position: relative;
-        z-index: 20;
-        max-width: 100%;
-        margin: 0 auto;
-    }
-    
-    .hero-form {
-        max-width: 500px;
-        margin: 0 auto;
-    }
-    
-    .hero-image-section {
-        position: relative;
-        z-index: 1;
-        overflow: visible;
     }
 }
 
@@ -254,10 +226,6 @@
     .hero-content-grid {
         padding: 1.5rem;
         gap: 1.5rem;
-    }
-    
-    .hero-text .hero-description {
-        font-size: 1.1rem;
     }
 }
 
