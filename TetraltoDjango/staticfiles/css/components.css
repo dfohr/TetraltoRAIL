@@ -81,23 +81,28 @@
 }
 
 .hero-form {
-    background: rgba(255, 255, 255, 0.08); /* Uniform transparency */
+    background: rgba(0, 0, 0, 0.1) !important; /* Try dark transparent instead */
     border-radius: 16px;
     padding: 0;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     width: auto;
     min-width: 320px;
     max-width: 400px;
     font-family: 'Comfortaa', sans-serif;
-    /* Ensure no gradients */
-    background-image: none;
+    /* Override any inherited backgrounds */
+    background-image: none !important;
+    background-attachment: initial !important;
+    background-origin: initial !important;
+    background-clip: initial !important;
+    background-blend-mode: normal !important;
 }
 
 .hero-form .form-container {
     padding: 1.5rem;
+    background: transparent !important; /* Force transparent background */
 }
 
 .hero-form h3 {
@@ -107,6 +112,7 @@
     margin-bottom: 1.25rem;
     text-align: center;
     font-family: 'Comfortaa', sans-serif;
+    background: transparent !important; /* Force transparent background */
 }
 
 .hero-form .form-group {
