@@ -32,70 +32,9 @@
         </div>
         {% endif %}
 
-        <form method="post" class="space-y-6 contact-form">
-            {% csrf_token %}
-            {% for field in form %}
-            {% if field.name != 'g_recaptcha_response' %}
-            <div class="space-y-2">
-                <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700">
-                    {{ field.label }}
-                </label>
-                {{ field }}
-                {% if field.errors %}
-                <div class="text-red-500 text-sm">
-                    {{ field.errors|join:", " }}
-                </div>
-                {% endif %}
-            </div>
-            {% else %}
-            {{ field }}
-            {% endif %}
-            {% endfor %}
-            <div>
-                <button type="submit" class="button primary w-full">
-                    Send Message
-                </button>
-            </div>
-        </form>
+        <!-- Use reusable form component -->
+        {% include '_lead_form.html' with form=form variant='contact' submit_text='Send Message' recaptcha_action='contact_form' show_disclaimer=False extra_classes='space-y-6' %}
     </div>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Handle contact form submission with reCAPTCHA token regeneration
-    const form = document.querySelector('.contact-form');
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Track form submission attempt in PostHog
-            if (typeof posthog !== 'undefined') {
-                posthog.capture('Contact Form Submission Started', {
-                    'form_type': 'contact',
-                    'page_url': window.location.href,
-                    'referrer': document.referrer
-                });
-            }
-            
-            grecaptcha.ready(function() {
-                grecaptcha.execute('{{ settings.RECAPTCHA_PUBLIC_KEY }}', {action: 'contact_form'})
-                .then(function(token) {
-                    document.getElementById('id_g_recaptcha_response').value = token;
-                    
-                    // Track successful reCAPTCHA completion in PostHog
-                    if (typeof posthog !== 'undefined') {
-                        posthog.capture('Contact Form reCAPTCHA Completed', {
-                            'form_type': 'contact',
-                            'page_url': window.location.href,
-                            'referrer': document.referrer
-                        });
-                    }
-                    
-                    form.submit();
-                });
-            });
-        });
-    }
-});
-</script>
 {% endblock %} 
