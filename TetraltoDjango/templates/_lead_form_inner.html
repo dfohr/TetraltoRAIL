@@ -1,5 +1,5 @@
 {# Inner form template - handles actual form rendering #}
-<form method="post" class="{{ form_class }} {{ additional_classes }}" data-variant="{{ form_variant }}" data-recaptcha-action="{{ action_name }}">
+<form method="post" action="{{ action_url|default:'' }}" class="{{ form_class }} {{ additional_classes }}" data-variant="{{ form_variant }}" data-recaptcha-action="{{ action_name }}">
     {% csrf_token %}
     
     {# Form field rendering based on variant #}

@@ -105,7 +105,7 @@
     <!-- reCAPTCHA v3 (global) -->
     <script src="https://www.google.com/recaptcha/api.js?render={{ settings.RECAPTCHA_PUBLIC_KEY }}"></script>
 </head>
-<body>
+<body data-recaptcha-key="{{ settings.RECAPTCHA_PUBLIC_KEY }}">
     {% if settings.GTM_CONTAINER_ID %}
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ settings.GTM_CONTAINER_ID }}"
