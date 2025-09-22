@@ -10,9 +10,6 @@
 
 {% block twitter_description %}Top-rated roofing Missouri City TX. Tetralto offers roof replacement, repair & gutter services. Free estimates! Call 281-895-1213 today.{% endblock %}
 
-{% block extra_head %}
-<!-- reCAPTCHA v3 -->
-<script src="https://www.google.com/recaptcha/api.js?render={{ settings.RECAPTCHA_PUBLIC_KEY }}"></script>
 {% endblock %}
 
 {% block content %}
@@ -66,36 +63,9 @@
                                     {% endfor %}
                                 </div>
                             {% endif %}
-                            <form method="post" class="contact-form">
-                                {% csrf_token %}
-                                
-                                <div class="form-group">
-                                    {{ form.name }}
-                                </div>
-                                
-                                <div class="form-group">
-                                    {{ form.email }}
-                                </div>
-                                
-                                <div class="form-group">
-                                    {{ form.phone }}
-                                </div>
-                                
-                                <div class="form-group">
-                                    {{ form.address }}
-                                </div>
-                                
-                                <div class="form-group">
-                                    {{ form.description }}
-                                </div>
-                                
-                                <!-- Hidden reCAPTCHA field -->
-                                {{ form.g_recaptcha_response }}
-                                
-                                <button type="submit" class="cta-estimate">
-                                    Send
-                                </button>
-                            </form>
+                            
+                            <!-- Use reusable form component -->
+                            {% include '_lead_form.html' with form=form variant='contact' submit_text='Send' recaptcha_action='contact_form' show_disclaimer=False %}
                         </div>
                     </div>
                 </div>

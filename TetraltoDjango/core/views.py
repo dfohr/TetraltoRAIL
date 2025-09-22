@@ -24,7 +24,7 @@ def home(request):
     
     # Handle form submission
     if request.method == 'POST':
-        form = LeadForm(request.POST, request=request)
+        form = LeadForm(request.POST, request=request, variant='contact')
         if form.is_valid():
             form.save()
             messages.success(request, "Thank you! We've received your request and will contact you soon.")
@@ -32,7 +32,7 @@ def home(request):
         else:
             messages.error(request, "Please correct the errors below.")
     else:
-        form = LeadForm(request=request)
+        form = LeadForm(request=request, variant='contact')
     
     return render(request, 'home.html', {
         'services': services,

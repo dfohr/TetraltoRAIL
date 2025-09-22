@@ -1,0 +1,31 @@
+{# Inner form template - handles actual form rendering #}
+<form method="post" class="{{ form_class }} {{ additional_classes }}" data-variant="{{ form_variant }}" data-recaptcha-action="{{ action_name }}">
+    {% csrf_token %}
+    
+    {# Form field rendering based on variant #}
+    {% for field in form.visible_fields %}
+        {% if field.name in fields_to_show %}
+            <div class="{{ group_class }}">
+                {{ field }}
+                {% if field.errors %}
+                    <div class="field-error">{{ field.errors|join:", " }}</div>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endfor %}
+    
+    {# Hidden campaign tracking and reCAPTCHA fields #}
+    {% for field in form.hidden_fields %}
+        {{ field }}
+    {% endfor %}
+    
+    <button type="submit" class="{{ button_class }}">
+        {{ button_text }}
+    </button>
+    
+    {% if display_disclaimer and form_variant == "hero" %}
+        <p class="form-disclaimer">
+            By submitting this form, you agree to be contacted by Tetralto Roofing regarding your roofing needs.
+        </p>
+    {% endif %}
+</form>

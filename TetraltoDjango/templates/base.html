@@ -12,7 +12,7 @@
     <!-- End Google Tag Manager -->
     {% endif %}
     
-    <!-- reCAPTCHA v3 -->
+    <!-- reCAPTCHA v3 (global) -->
     <script src="https://www.google.com/recaptcha/api.js?render={{ settings.RECAPTCHA_PUBLIC_KEY }}"></script>
     
     {% if settings.POSTHOG_API_KEY %}
@@ -122,6 +122,7 @@
     <link rel="stylesheet" href="{% static 'css/social-bar.css' %}?v=1.1">
     <link rel="stylesheet" href="{% static 'css/testimonials-carousel.css' %}?v=1.1">
     <link rel="stylesheet" href="{% static 'css/blog-tile.css' %}?v=1.1">
+    <link rel="stylesheet" href="{% static 'css/lead-form.css' %}?v=1.1">
 
     <!-- Preload critical assets -->
     <link rel="preload" as="image" href="{% static 'images/tetralto-roofing-logo.avif' %}" type="image/avif">
@@ -133,7 +134,7 @@
 
     {% block extra_head %}{% endblock %}
 </head>
-<body>
+<body data-recaptcha-key="{{ settings.RECAPTCHA_PUBLIC_KEY }}">
     {% if settings.GTM_CONTAINER_ID %}
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ settings.GTM_CONTAINER_ID }}"
@@ -206,6 +207,7 @@
 
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/testimonials-carousel.js' %}"></script>
+    <script src="{% static 'js/lead-form.js' %}"></script>
 
     <!-- Schema.org Structured Data -->
     <script type="application/ld+json">

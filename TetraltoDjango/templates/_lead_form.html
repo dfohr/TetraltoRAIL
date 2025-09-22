@@ -1,0 +1,29 @@
+{% load static %}
+{# Reusable Lead Form Component #}
+{# Parameters: form, variant, submit_text, recaptcha_action, show_disclaimer, extra_classes #}
+
+{# Set defaults for parameters #}
+{% firstof variant "full" as form_variant %}
+{% firstof submit_text "Submit" as button_text %}
+{% firstof recaptcha_action "contact_form" as action_name %}
+{% firstof show_disclaimer True as display_disclaimer %}
+{% firstof extra_classes "" as additional_classes %}
+
+{# Determine CSS classes and field set based on variant #}
+{% if form_variant == "hero" %}
+    {% with form_class="hero-form-element" group_class="form-group" input_class="form-input" button_class="form-submit-btn" fields_to_show="name,email,phone,address,description" %}
+        {% include "_lead_form_inner.html" %}
+    {% endwith %}
+{% elif form_variant == "contact" %}
+    {% with form_class="contact-form" group_class="form-group" input_class="form-field" button_class="cta-estimate" fields_to_show="name,email,phone,address,description" %}
+        {% include "_lead_form_inner.html" %}
+    {% endwith %}
+{% elif form_variant == "minimal" %}
+    {% with form_class="minimal-form" group_class="form-group" input_class="form-input" button_class="form-submit-btn" fields_to_show="phone,description" %}
+        {% include "_lead_form_inner.html" %}
+    {% endwith %}
+{% else %}
+    {% with form_class="lead-form" group_class="form-group" input_class="form-field" button_class="cta-estimate" fields_to_show="name,email,phone,address,description" %}
+        {% include "_lead_form_inner.html" %}
+    {% endwith %}
+{% endif %}

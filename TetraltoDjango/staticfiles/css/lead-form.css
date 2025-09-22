@@ -1,0 +1,188 @@
+/* Lead Form Component CSS - Variants for different pages */
+
+/* Base form styles */
+.lead-form, .hero-form-element, .contact-form, .minimal-form {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Form group spacing */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+/* Field error styling */
+.field-error {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+/* Hero variant (google-landing style) */
+.hero-form-element .form-group {
+    margin-bottom: 1rem;
+}
+
+.hero-form-element .form-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.hero-form-element .form-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.hero-form-element .form-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.hero-form-element .form-submit-btn {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.hero-form-element .form-submit-btn:hover {
+    background-color: #0056b3;
+}
+
+.hero-form-element .form-disclaimer {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 0.75rem;
+    text-align: center;
+    line-height: 1.4;
+}
+
+/* Contact variant (existing contact page style) */
+.contact-form .form-group {
+    margin-bottom: 1rem;
+}
+
+.contact-form .form-field {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+
+.contact-form .form-field:focus {
+    outline: none;
+    border-color: #ff6b35;
+    box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.25);
+}
+
+.contact-form textarea.form-field {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.contact-form .cta-estimate {
+    background-color: #ff6b35;
+    color: white;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: auto;
+    display: inline-block;
+}
+
+.contact-form .cta-estimate:hover {
+    background-color: #e55a2b;
+}
+
+/* Minimal variant */
+.minimal-form .form-group {
+    margin-bottom: 0.75rem;
+}
+
+.minimal-form .form-input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.minimal-form .form-input:focus {
+    outline: none;
+    border-color: #28a745;
+    box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.25);
+}
+
+.minimal-form .form-submit-btn {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.minimal-form .form-submit-btn:hover {
+    background-color: #218838;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-form-element .form-input,
+    .contact-form .form-field,
+    .minimal-form .form-input {
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+    
+    .hero-form-element .form-submit-btn,
+    .contact-form .cta-estimate,
+    .minimal-form .form-submit-btn {
+        padding: 0.875rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+/* Loading state for form submission */
+.lead-form[data-submitting="true"] .form-submit-btn,
+.hero-form-element[data-submitting="true"] .form-submit-btn,
+.contact-form[data-submitting="true"] .cta-estimate,
+.minimal-form[data-submitting="true"] .form-submit-btn {
+    opacity: 0.7;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.lead-form[data-submitting="true"] .form-submit-btn::after,
+.hero-form-element[data-submitting="true"] .form-submit-btn::after,
+.contact-form[data-submitting="true"] .cta-estimate::after,
+.minimal-form[data-submitting="true"] .form-submit-btn::after {
+    content: " ...";
+}
