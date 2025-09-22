@@ -81,8 +81,6 @@
     <!-- End PostHog Analytics -->
     {% endif %}
     
-    <!-- reCAPTCHA v3 -->
-    <script src="https://www.google.com/recaptcha/api.js?render={{ settings.RECAPTCHA_PUBLIC_KEY }}"></script>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -102,6 +100,10 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}?v=1.1">
     <link rel="stylesheet" href="{% static 'css/components.css' %}?v=1.1">
     <link rel="stylesheet" href="{% static 'css/layout.css' %}?v=1.1">
+    <link rel="stylesheet" href="{% static 'css/lead-form.css' %}?v=1.1">
+    
+    <!-- reCAPTCHA v3 (global) -->
+    <script src="https://www.google.com/recaptcha/api.js?render={{ settings.RECAPTCHA_PUBLIC_KEY }}"></script>
 </head>
 <body>
     {% if settings.GTM_CONTAINER_ID %}
@@ -177,55 +179,8 @@
                             </div>
                             {% endif %}
 
-                            <form method="post" class="hero-form-element">
-                                {% csrf_token %}
-                                
-                                <div class="form-group">
-                                    <input type="text" name="name" placeholder="Full Name" class="form-input" value="{{ form.name.value|default:'' }}">
-                                    {% if form.name.errors %}
-                                    <div class="field-error">{{ form.name.errors|join:", " }}</div>
-                                    {% endif %}
-                                </div>
-
-                                <div class="form-group">
-                                    <input type="email" name="email" placeholder="your@email.com" class="form-input" value="{{ form.email.value|default:'' }}">
-                                    {% if form.email.errors %}
-                                    <div class="field-error">{{ form.email.errors|join:", " }}</div>
-                                    {% endif %}
-                                </div>
-
-                                <div class="form-group">
-                                    <input type="text" name="address" placeholder="Your Address" class="form-input" value="{{ form.address.value|default:'' }}">
-                                    {% if form.address.errors %}
-                                    <div class="field-error">{{ form.address.errors|join:", " }}</div>
-                                    {% endif %}
-                                </div>
-
-                                <div class="form-group">
-                                    <input type="tel" name="phone" placeholder="(000) 000-0000" pattern="[0-9]{10}" class="form-input" required value="{{ form.phone.value|default:'' }}">
-                                    {% if form.phone.errors %}
-                                    <div class="field-error">{{ form.phone.errors|join:", " }}</div>
-                                    {% endif %}
-                                </div>
-
-                                <div class="form-group">
-                                    <textarea name="description" placeholder="Describe your roofing needs" minlength="10" class="form-input form-textarea" required>{{ form.description.value|default:'' }}</textarea>
-                                    {% if form.description.errors %}
-                                    <div class="field-error">{{ form.description.errors|join:", " }}</div>
-                                    {% endif %}
-                                </div>
-
-                                <!-- Hidden fields -->
-                                {{ form.g_recaptcha_response }}
-
-                                <button type="submit" class="form-submit-btn">
-                                    Submit for a Free Quote
-                                </button>
-                                
-                                <p class="form-disclaimer">
-                                    By submitting this form, you agree to be contacted by Tetralto Roofing regarding your roofing needs.
-                                </p>
-                            </form>
+                            <!-- Use reusable form component -->
+                            {% include '_lead_form.html' with form=form variant='hero' submit_text='Submit for a Free Quote' recaptcha_action='google_landing' show_disclaimer=True %}
                         </div>
                     </div>
                 </div>
@@ -339,6 +294,9 @@
             </div>
         </div>
     </main>
+
+    <!-- Lead Form JavaScript -->
+    <script src="{% static 'js/lead-form.js' %}"></script>
 
     <style>
     /* CSS Variables */
@@ -1306,43 +1264,5 @@
     </style>
 
     <!-- reCAPTCHA v3 for Google Landing Form -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Update reCAPTCHA token before form submission
-        const form = document.querySelector('.hero-form-element');
-        if (form) {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Track form submission attempt in PostHog
-                if (typeof posthog !== 'undefined') {
-                    posthog.capture('Google Landing Form Submission Started', {
-                        'form_type': 'google_landing',
-                        'page_url': window.location.href,
-                        'referrer': document.referrer
-                    });
-                }
-                
-                grecaptcha.ready(function() {
-                    grecaptcha.execute('{{ settings.RECAPTCHA_PUBLIC_KEY }}', {action: 'google_landing_form'})
-                    .then(function(token) {
-                        document.getElementById('id_g_recaptcha_response').value = token;
-                        
-                        // Track successful reCAPTCHA completion in PostHog
-                        if (typeof posthog !== 'undefined') {
-                            posthog.capture('Google Landing Form reCAPTCHA Completed', {
-                                'form_type': 'google_landing',
-                                'page_url': window.location.href,
-                                'referrer': document.referrer
-                            });
-                        }
-                        
-                        form.submit();
-                    });
-                });
-            });
-        }
-    });
-    </script>
 </body>
 </html> 
