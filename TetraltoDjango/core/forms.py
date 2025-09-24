@@ -205,7 +205,7 @@ class LeadForm(forms.ModelForm):
         
         # Set internal notes
         if notes_parts:
-            lead.internal_notes = " | ".join(notes_parts)
+            lead.internal_notes = "\n".join(notes_parts)
         
         if commit:
             lead.save()
