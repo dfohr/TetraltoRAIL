@@ -1164,7 +1164,7 @@ textarea {
     }
     
     body, html {
-        max-width: 100vw;
+        max-width: 100%;
         overflow-x: hidden;
     }
     
