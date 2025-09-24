@@ -140,10 +140,9 @@ class LeadForm(forms.ModelForm):
             # Clear the session scores after successful submission
             del self.request.session['recaptcha_scores']
         
-        # Add reCAPTCHA action
-        recaptcha_action = self.cleaned_data.get('recaptcha_action')
-        if recaptcha_action:
-            notes_parts.append(f"reCAPTCHA Action: {recaptcha_action}")
+        # Add current reCAPTCHA score
+        if hasattr(self, 'recaptcha_score') and self.recaptcha_score is not None:
+            notes_parts.append(f"reCAPTCHA Score: {self.recaptcha_score}")
         
         # Add source and referral data
         submission_source = self.cleaned_data.get('submission_source')
