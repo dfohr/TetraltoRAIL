@@ -84,14 +84,14 @@ class LeadForm(forms.ModelForm):
         """Validate reCAPTCHA token"""
         token = self.cleaned_data.get('g_recaptcha_response')
         
-        # Skip validation in development
-        if settings.DEBUG:
-            return token
-            
         if not token:
+            if settings.DEBUG:
+                # In development, set a mock score and continue
+                self.recaptcha_score = 0.9
+                return token
             raise forms.ValidationError("reCAPTCHA validation failed")
             
-        # Verify the token with Google
+        # Verify the token with Google (even in development to get score)
         try:
             response = requests.post('https://www.google.com/recaptcha/api/siteverify', {
                 'secret': settings.RECAPTCHA_PRIVATE_KEY,
@@ -99,10 +99,7 @@ class LeadForm(forms.ModelForm):
             })
             
             result = response.json()
-            if not result.get('success'):
-                logger.warning(f"reCAPTCHA validation failed: {result}")
-                raise forms.ValidationError("reCAPTCHA validation failed")
-                
+            
             # Store the score for later use
             self.recaptcha_score = result.get('score', 0)
             
@@ -112,14 +109,25 @@ class LeadForm(forms.ModelForm):
                 session_scores.append(str(self.recaptcha_score))
                 self.request.session['recaptcha_scores'] = session_scores
             
-            # Check the score
-            if self.recaptcha_score < settings.RECAPTCHA_SCORE_THRESHOLD:
-                logger.warning(f"reCAPTCHA score too low: {self.recaptcha_score} < {settings.RECAPTCHA_SCORE_THRESHOLD}")
-                raise forms.ValidationError("reCAPTCHA score too low")
+            # Only fail validation in production
+            if not settings.DEBUG:
+                if not result.get('success'):
+                    logger.warning(f"reCAPTCHA validation failed: {result}")
+                    raise forms.ValidationError("reCAPTCHA validation failed")
+                
+                # Check the score in production
+                if self.recaptcha_score < settings.RECAPTCHA_SCORE_THRESHOLD:
+                    logger.warning(f"reCAPTCHA score too low: {self.recaptcha_score} < {settings.RECAPTCHA_SCORE_THRESHOLD}")
+                    raise forms.ValidationError("reCAPTCHA score too low")
                 
         except requests.RequestException as e:
-            logger.error(f"reCAPTCHA verification error: {e}")
-            raise forms.ValidationError("reCAPTCHA verification failed")
+            if settings.DEBUG:
+                # In development, use mock score if API fails
+                logger.warning(f"reCAPTCHA API error in development: {e}")
+                self.recaptcha_score = 0.8
+            else:
+                logger.error(f"reCAPTCHA verification error: {e}")
+                raise forms.ValidationError("reCAPTCHA verification failed")
             
         return token
     
