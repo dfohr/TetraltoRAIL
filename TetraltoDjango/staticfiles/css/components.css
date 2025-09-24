@@ -6,8 +6,8 @@
     background-image: url('../images/beautiful-roof.jpg');
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: auto auto;
-    background-attachment: fixed;
+    background-size: cover;
+    background-attachment: scroll;
     position: relative;
 }
 
