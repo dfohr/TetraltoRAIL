@@ -58,6 +58,11 @@ This is a Django-based website for Tetralto Roofing company with a microservices
 - Consider incremental cleanup approach rather than wholesale refactoring to avoid breaking the site
 - Site displays perfectly but underlying CSS could be better organized
 
+## Deployment Process
+- **Content Deployment**: Use `python manage.py dumpdata core > data.json` to export current dev database
+- **Production Import**: Production environment has script that imports data.json to sync content
+- **Data Flow**: Development → data.json export → Production import script
+
 ## Configuration
 - Django settings configured for Replit environment
 - Database using environment variables (DATABASE_URL, PGHOST, etc.)
