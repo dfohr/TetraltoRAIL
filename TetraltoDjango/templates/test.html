@@ -8,6 +8,7 @@
     {% load static %}
     {% load blog_tags %}
     {% load testimonial_tags %}
+    {% load service_tags %}
     
     
     <!-- Google Fonts - Comfortaa -->
@@ -19,6 +20,7 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}?v=1.1">
     <link rel="stylesheet" href="{% static 'css/social-bar.css' %}?v=1.1">
     <link rel="stylesheet" href="{% static 'css/blog-tile.css' %}?v=1.1">
+    <link rel="stylesheet" href="{% static 'css/service-tile.css' %}?v=1.1">
     <link rel="stylesheet" href="{% static 'css/testimonials-carousel.css' %}?v=1.1">
     <style>
         body {
@@ -79,6 +81,34 @@
             color: #555;
             font-size: 1.5rem;
         }
+        
+        /* Service tiles section styles */
+        .service-tiles-section {
+            background: rgba(249, 233, 76, 0.6); /* Darkened yellow */
+            padding: 3rem 1rem;
+        }
+        
+        .service-tiles-grid {
+            display: grid;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* 3 columns for large screens */
+        .width-full .service-tiles-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        /* 3 columns for medium screens */
+        .width-medium .service-tiles-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        /* 1 column for small screens */
+        .width-small .service-tiles-grid {
+            grid-template-columns: 1fr;
+        }
     </style>
 </head>
 <body>
@@ -91,9 +121,56 @@
 
     <h1>Component Test Page</h1>
     
-    <!-- Component Tests (Consistent 3 Widths) -->
+    <!-- Service Tiles Tests -->
     <section class="component-section">
-        <h2 class="component-title">Component Responsive Tests</h2>
+        <h2 class="component-title">Service Tiles - Responsive Tests</h2>
+        
+        <!-- Full Width Test -->
+        <div class="test-section width-full">
+            <div class="test-header">FULL WIDTH (1400px max) - 3 SERVICE TILES</div>
+            <div class="test-container">
+                <div class="service-tiles-section">
+                    <div class="service-tiles-grid">
+                        {% service_tile 1 %}
+                        {% service_tile 2 %}
+                        {% service_tile 3 %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Medium Width Test -->
+        <div class="test-section width-medium">
+            <div class="test-header">MEDIUM WIDTH (768px) - 3 SERVICE TILES</div>
+            <div class="test-container">
+                <div class="service-tiles-section">
+                    <div class="service-tiles-grid">
+                        {% service_tile 1 %}
+                        {% service_tile 2 %}
+                        {% service_tile 3 %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Small Width Test -->
+        <div class="test-section width-small">
+            <div class="test-header">SMALL WIDTH (375px) - 1 SERVICE TILE PER ROW</div>
+            <div class="test-container">
+                <div class="service-tiles-section">
+                    <div class="service-tiles-grid">
+                        {% service_tile 1 %}
+                        {% service_tile 2 %}
+                        {% service_tile 3 %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Blog Tiles Tests -->
+    <section class="component-section">
+        <h2 class="component-title">Blog Tiles - Responsive Tests</h2>
         
         <!-- Full Width Test -->
         <div class="test-section width-full">
