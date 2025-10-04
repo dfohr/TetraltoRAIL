@@ -1,6 +1,6 @@
 /* Service Tile Component */
 .service-tile {
-    background: rgba(249, 233, 76, 0.3); /* Lighter yellow */
+    background: rgba(249, 233, 76, 0.5); /* Darker yellow */
     border-radius: var(--border-radius);
     overflow: hidden;
     display: flex;
