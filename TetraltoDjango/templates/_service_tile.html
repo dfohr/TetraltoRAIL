@@ -3,8 +3,8 @@
     <div class="service-tile__image">
         <img src="{% static 'images/' %}{{ service.image_filename }}" alt="{{ service.title }}">
     </div>
+    <h3 class="service-tile__title">{{ service.title }}</h3>
     <div class="service-tile__content">
-        <h3 class="service-tile__title">{{ service.title }}</h3>
         <p class="service-tile__subtitle">{{ service.subtitle }}</p>
     </div>
 </div>
