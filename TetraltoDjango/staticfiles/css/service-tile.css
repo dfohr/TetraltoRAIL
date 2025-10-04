@@ -1,6 +1,6 @@
 /* Service Tile Component */
 .service-tile {
-    background: rgba(249, 233, 76, 0.5); /* Darker yellow */
+    background: rgba(249, 233, 76, 1);
     border-radius: var(--border-radius);
     overflow: hidden;
     display: flex;
@@ -42,9 +42,12 @@
 .service-tile__title {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--text-color);
+    color: white;
+    background: var(--primary-color);
+    padding: 0.4rem 0.4rem 0.2rem 0.4rem;
     margin: 0;
     line-height: var(--lh-tight);
+    display: block;
 }
 
 .service-tile__subtitle {

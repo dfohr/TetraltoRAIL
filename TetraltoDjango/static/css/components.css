@@ -1413,3 +1413,31 @@ img {
     height: 100% !important; /* Fills the wrapper */
 }
 
+
+/* Service Tiles Section */
+.service-tiles-section {
+    background: #a8a068;
+    padding: 3rem 0;
+}
+
+.service-tiles-grid {
+    display: grid;
+    gap: 0.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* Medium screens */
+@media (max-width: 900px) {
+    .service-tiles-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Small screens - stack vertically */
+@media (max-width: 768px) {
+    .service-tiles-grid {
+        grid-template-columns: 1fr;
+    }
+}
