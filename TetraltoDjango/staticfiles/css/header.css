@@ -7,8 +7,15 @@
 /* Logo-driven header height - logo size determines header size */
 
 /* ===== DESKTOP HEADER (≥1024px) ===== */
+body {
+    padding-top: 120px; /* Approximate header height with 100px logo */
+}
+
 .site-header {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -175,21 +182,6 @@
 
 /* ===== MOBILE HEADER (≤1023px) ===== */
 @media (max-width: 1023px) {
-    .site-header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background: rgba(255, 255, 255, 0.98);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        z-index: 1000;
-    }
-
-    body {
-        padding-top: 120px; /* Approximate header height with 100px logo */
-    }
-
     .logo {
         flex-shrink: 0;
         align-items: center;
