@@ -1429,8 +1429,8 @@ img {
 }
 
 .service-tiles-section .container {
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 
 .service-tiles-section .highlight-orange {
