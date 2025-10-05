@@ -184,7 +184,7 @@ header *,
 }
 
 .hero-form .form-container {
-    padding: 1.5rem 1.5rem 1rem 1.5rem; /* Consistent spacing all around */
+    padding: 1rem 0 0.75rem 0; /* Zero side padding - fields resize to available space */
     background: transparent !important; /* Force transparent background */
 }
 
@@ -265,17 +265,6 @@ header *,
         grid-template-columns: 1fr;
         gap: 2rem;
         padding: 2rem;
-    }
-}
-
-/* Collapse form padding before outer padding at narrow widths */
-@media (max-width: 549px) {
-    .hero-form .form-container {
-        padding: 1rem 0 0.75rem 0;
-    }
-    
-    .hero-form {
-        min-width: 280px;
     }
 }
 
