@@ -1425,7 +1425,12 @@ img {
 /* Service Tiles Section */
 .service-tiles-section {
     background: white;
-    padding: 3rem 0;
+    padding: 3rem 2rem;
+}
+
+.service-tiles-section .container {
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .service-tiles-section .highlight-orange {
