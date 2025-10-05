@@ -70,7 +70,7 @@
     color: var(--primary-color);
     background: white;
     padding: 0.4rem 0.5rem 0.2rem 0.5rem;
-    border-radius: 8px;
+    border-radius: 0;
     font-weight: 700;
     line-height: 1.1;
     white-space: nowrap;
@@ -1418,6 +1418,14 @@ img {
 .service-tiles-section {
     background: white;
     padding: 3rem 0;
+}
+
+.service-tiles-section .highlight-orange {
+    color: white;
+    background: var(--primary-color);
+    padding: 0.4rem 0.4rem 0.2rem 0.4rem;
+    border-radius: 0;
+    display: inline;
 }
 
 .service-tiles-grid {
