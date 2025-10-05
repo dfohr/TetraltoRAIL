@@ -270,6 +270,11 @@ body {
 
 /* ===== SMALL MOBILE (≤549px) ===== */
 @media (max-width: 549px) {
+    /* Match hero content padding at this breakpoint */
+    .header-container {
+        padding: 0 1.5rem;
+    }
+
     /* Smaller logo for very small screens */
     .logo img {
         height: 50px;
