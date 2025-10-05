@@ -1439,7 +1439,7 @@ img {
 .service-tiles-grid {
     display: grid;
     gap: 0.5rem;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     grid-template-columns: repeat(3, 1fr);
 }
