@@ -271,7 +271,7 @@ header *,
 /* Collapse form padding before outer padding at narrow widths */
 @media (max-width: 549px) {
     .hero-form .form-container {
-        padding: 1rem 1rem 0.75rem 1rem;
+        padding: 1rem 0 0.75rem 0;
     }
     
     .hero-form {
