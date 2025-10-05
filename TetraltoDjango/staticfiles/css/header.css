@@ -186,10 +186,6 @@
         z-index: 1000;
     }
 
-    .header-container {
-        padding: 0 1rem;
-    }
-
     body {
         padding-top: 120px; /* Approximate header height with 100px logo */
     }
