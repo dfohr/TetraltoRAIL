@@ -1428,11 +1428,6 @@ img {
     padding: 3rem 2rem;
 }
 
-.service-tiles-section .container {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-}
-
 .service-tiles-section .highlight-orange {
     color: white;
     background: var(--primary-color);
