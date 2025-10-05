@@ -1425,12 +1425,13 @@ img {
 /* Service Tiles Section */
 .service-tiles-section {
     background: white;
-    padding: 3rem 2rem;
+    padding: 3rem 0;
 }
 
 .service-tiles-content {
     max-width: 1400px;
     margin: 0 auto;
+    padding: 0 2rem;
 }
 
 .service-tiles-section .highlight-orange {
