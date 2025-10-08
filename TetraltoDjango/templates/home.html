@@ -98,11 +98,12 @@
 
 
 <!-- Video Section -->
-<section class="video-section">
+<section class="video-section" id="video-section">
     <div class="container">
         <div class="video-wrapper">
             <iframe
-                src="https://www.youtube.com/embed/xFFKumtpqTo?si=NJAETxeb3Vr74OX0"
+                id="youtube-video"
+                src="https://www.youtube.com/embed/xFFKumtpqTo?enablejsapi=1&mute=1"
                 title="YouTube video player"
                 width="1120"
                 height="630"
@@ -114,6 +115,37 @@
         </div>
     </div>
 </section>
+
+<script>
+// Autoplay video when scrolled into view (plays only once)
+(function() {
+    const videoSection = document.getElementById('video-section');
+    const videoIframe = document.getElementById('youtube-video');
+    let hasPlayed = false;
+
+    const observerOptions = {
+        root: null, // Use viewport
+        rootMargin: '0px',
+        threshold: 0.5 // 50% of video must be visible
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !hasPlayed) {
+                // Video is in view for the first time - trigger autoplay
+                const currentSrc = videoIframe.src;
+                // Add autoplay=1 to the URL
+                if (!currentSrc.includes('autoplay=1')) {
+                    videoIframe.src = currentSrc + '&autoplay=1';
+                    hasPlayed = true;
+                }
+            }
+        });
+    }, observerOptions);
+
+    observer.observe(videoSection);
+})();
+</script>
 
 <!-- Features Section -->
 <section class="features">
