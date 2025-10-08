@@ -7,10 +7,6 @@
 /* Logo-driven header height - logo size determines header size */
 
 /* ===== DESKTOP HEADER (≥1024px) ===== */
-body {
-    padding-top: 120px; /* Approximate header height with 100px logo */
-}
-
 .site-header {
     position: fixed;
     top: 0;

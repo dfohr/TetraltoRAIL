@@ -18,6 +18,7 @@ header *,
     background-size: cover;
     background-attachment: scroll;
     position: relative;
+    margin-top: 120px; /* Offset for fixed header */
 }
 
 /* Blue box - screen width and defined height */
