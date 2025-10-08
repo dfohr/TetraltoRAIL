@@ -1411,7 +1411,14 @@ img {
 
 /* Video Section */
 .video-section {
-    padding: 20px; /* Optional: adds spacing around the section */
+    background: white;
+    padding: 3rem 0; /* Match services section - vertical padding only */
+}
+
+.video-section .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem; /* Match services section - horizontal padding */
 }
 
 .video-wrapper {
@@ -1430,6 +1437,13 @@ img {
     left: 0 !important;
     width: 100% !important; /* Fills the wrapper */
     height: 100% !important; /* Fills the wrapper */
+}
+
+/* Video section responsive padding - match services section */
+@media (max-width: 549px) {
+    .video-section .container {
+        padding: 0 1.5rem;
+    }
 }
 
 
