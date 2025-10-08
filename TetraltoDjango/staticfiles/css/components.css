@@ -1426,7 +1426,6 @@ img {
     padding-bottom: 56.25%; /* Maintains 16:9 aspect ratio */
     height: 0;
     overflow: hidden;
-    max-width: 1120px; /* Maximum width of the video */
     width: 100%; /* Makes it responsive to the parent container */
     margin: 0 auto; /* Centers the video wrapper */
 }
@@ -1457,6 +1456,13 @@ img {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 2rem;
+}
+
+/* Services section responsive padding */
+@media (max-width: 549px) {
+    .service-tiles-content {
+        padding: 0 1.5rem;
+    }
 }
 
 .service-tiles-section .highlight-orange {
