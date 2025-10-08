@@ -1412,7 +1412,7 @@ img {
 /* Video Section */
 .video-section {
     background: white;
-    padding: 3rem 0; /* Match services section - vertical padding only */
+    padding: 0 0 3rem 0; /* Remove top padding to reduce spacing with services section */
 }
 
 .video-section .container {
