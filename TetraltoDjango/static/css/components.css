@@ -161,6 +161,8 @@ header *,
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%; /* Ensure column takes full width */
+    min-width: 0; /* Remove any inherited min-width */
 }
 
 .hero-form {
