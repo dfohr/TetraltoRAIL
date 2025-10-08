@@ -18,7 +18,7 @@ header *,
     background-size: cover;
     background-attachment: scroll;
     position: relative;
-    margin-top: 100px; /* Offset for fixed header - matches logo height */
+    margin-top: var(--header-height); /* Dynamically matches actual header height */
 }
 
 /* Blue box - screen width and defined height */

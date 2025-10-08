@@ -5,6 +5,9 @@
  */
 
 /* Logo-driven header height - logo size determines header size */
+:root {
+    --header-height: 100px; /* Desktop: matches 100px logo height */
+}
 
 /* ===== DESKTOP HEADER (≥1024px) ===== */
 .site-header {
@@ -266,6 +269,10 @@
 
 /* ===== SMALL MOBILE (≤549px) ===== */
 @media (max-width: 549px) {
+    :root {
+        --header-height: 50px; /* Small mobile: matches 50px logo height */
+    }
+
     /* Match hero content padding at this breakpoint */
     .header-container {
         padding: 0 1.5rem;
@@ -307,14 +314,9 @@
         height: 24px;
     }
 
-    /* Adjust body padding for smaller header */
-    body {
-        padding-top: 70px; /* Smaller header height */
-    }
-
-    /* Adjust mobile navigation position */
+    /* Mobile navigation position now uses the CSS variable */
     .nav-links {
-        top: 70px;
+        top: var(--header-height);
     }
 
     .site-header.mobile-active .nav-links {
