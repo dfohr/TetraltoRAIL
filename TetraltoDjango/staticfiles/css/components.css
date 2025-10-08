@@ -47,6 +47,8 @@ header *,
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%; /* Ensure text area respects container width */
+    min-width: 0; /* Allow shrinking below content size */
 }
 
 .hero-text .hero-intro {
@@ -82,10 +84,8 @@ header *,
     border-radius: 0;
     font-weight: 700;
     line-height: 1.1;
-    white-space: nowrap;
+    white-space: normal; /* Allow wrapping on small screens */
     font-size: clamp(1.8rem, 4.5vw, 3.5rem);
-    overflow: hidden;
-    text-overflow: ellipsis;
     max-width: 100%;
 }
 
