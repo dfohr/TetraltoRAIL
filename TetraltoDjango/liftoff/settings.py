@@ -207,6 +207,9 @@ GTM_CONTAINER_ID = os.environ.get('GTM_CONTAINER_ID', '')  # GTM-XXXXXXXXX forma
 # PostHog
 POSTHOG_API_KEY = os.environ.get('POSTHOG_API_KEY', '')  # phc_XXXXXXXXX format
 
+# Facebook Pixel
+FACEBOOK_PIXEL_ID = os.environ.get('FACEBOOK_PIXEL_ID', '')
+
 # reCAPTCHA settings
 RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY', '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' if DEBUG else '')
 RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY', '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' if DEBUG else '')
