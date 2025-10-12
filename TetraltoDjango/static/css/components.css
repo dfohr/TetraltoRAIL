@@ -1545,6 +1545,7 @@ img {
     height: 480px;
     border: 0;
     border-radius: 8px;
+    pointer-events: none; /* Prevent accidental zooming/scrolling */
 }
 
 /* Service areas responsive padding */
