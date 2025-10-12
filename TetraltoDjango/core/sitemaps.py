@@ -87,8 +87,8 @@ class ServiceSitemap(Sitemap):
     protocol = 'https'
 
     def items(self):
-        # Only include services with slugs
-        return Service.objects.filter(slug__isnull=False)
+        # Only include services with slugs (exclude NULL and empty strings)
+        return Service.objects.exclude(slug__isnull=True).exclude(slug='')
 
     def lastmod(self, obj):
         return obj.updated_at or obj.created_at
