@@ -1439,7 +1439,7 @@ img {
 
 /* Service Tiles Section */
 .service-tiles-section {
-    background: white;
+    background: var(--background-light);
     padding: 3rem 0;
 }
 
@@ -1488,7 +1488,7 @@ img {
 
 /* Service Areas Section */
 .service-areas-section {
-    background: white;
+    background: var(--accent-color);
     padding: 0 0 3rem 0; /* No top padding to reduce spacing with services section */
 }
 
