@@ -1402,7 +1402,7 @@ img {
 
 /* Video Section */
 .video-section {
-    background: white;
+    background: var(--background-light);
     padding: 0 0 3rem 0; /* Remove top padding to reduce spacing with services section */
 }
 
