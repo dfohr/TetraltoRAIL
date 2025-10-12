@@ -1403,7 +1403,7 @@ img {
 /* Video Section */
 .video-section {
     background: var(--secondary-color);
-    padding: 0 0 3rem 0; /* Remove top padding to reduce spacing with services section */
+    padding: 3rem 0;
 }
 
 .video-section .container {
@@ -1489,7 +1489,7 @@ img {
 /* Service Areas Section */
 .service-areas-section {
     background: var(--accent-color);
-    padding: 0 0 3rem 0; /* No top padding to reduce spacing with services section */
+    padding: 3rem 0;
 }
 
 .service-areas-content {
