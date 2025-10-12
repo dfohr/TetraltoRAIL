@@ -1344,6 +1344,7 @@ img {
 
 .page-content {
     padding: 2rem 0;
+    margin-top: var(--header-height);
     color: var(--text-color);
     font-size: 1.125rem;
     line-height: 1.8;
