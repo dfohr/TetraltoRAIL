@@ -1485,3 +1485,88 @@ img {
         grid-template-columns: 1fr;
     }
 }
+
+/* Service Areas Section */
+.service-areas-section {
+    background: white;
+    padding: 0 0 3rem 0; /* No top padding to reduce spacing with services section */
+}
+
+.service-areas-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.service-areas-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.service-areas-text h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.service-areas-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.service-areas-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.service-areas-list li {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    padding: 0.5rem 0;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.service-areas-list li::before {
+    content: "•";
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 1.5rem;
+    position: absolute;
+    left: 0;
+}
+
+.service-areas-map {
+    width: 100%;
+}
+
+.service-areas-map iframe {
+    width: 100%;
+    height: 480px;
+    border: 0;
+    border-radius: 8px;
+}
+
+/* Service areas responsive padding */
+@media (max-width: 549px) {
+    .service-areas-content {
+        padding: 0 1.5rem;
+    }
+}
+
+/* Stack on tablet and mobile */
+@media (max-width: 900px) {
+    .service-areas-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .service-areas-map iframe {
+        height: 400px;
+    }
+}
