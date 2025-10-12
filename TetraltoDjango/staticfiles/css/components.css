@@ -1502,20 +1502,15 @@ img {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
-    align-items: center;
+    align-items: start; /* Align to top */
 }
 
-.service-areas-text h2 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: var(--text-primary);
-}
-
-.service-areas-subtitle {
-    font-size: 1.1rem;
-    color: var(--text-secondary);
-    margin-bottom: 1.5rem;
+.service-areas-section .highlight-orange {
+    color: white;
+    background: var(--primary-color);
+    padding: 0.4rem 0.4rem 0.2rem 0.4rem;
+    border-radius: 0;
+    display: inline;
 }
 
 .service-areas-list {
