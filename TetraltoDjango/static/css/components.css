@@ -604,6 +604,7 @@ body {
     color: var(--text-color);
     padding: 2rem 0;
     text-align: center;
+    margin-top: var(--header-height);
     margin-bottom: 4rem;
 }
 
@@ -815,6 +816,7 @@ textarea {
     color: var(--text-color);
     padding: 2rem 0;
     text-align: center;
+    margin-top: var(--header-height);
     margin-bottom: 4rem;
 }
 
@@ -864,6 +866,7 @@ textarea {
     color: var(--text-color);
     padding: 2rem 0;
     text-align: center;
+    margin-top: var(--header-height);
     margin-bottom: 4rem;
 }
 
