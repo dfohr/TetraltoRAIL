@@ -181,32 +181,40 @@ document.addEventListener('DOMContentLoaded', function() {
         let autoRotate;
         const MAX_VISIBLE_DOTS = 5;
         
-        // Update which dots are visible (max 5 at a time, always centered)
+        // Update which dots are visible (max 5 at a time, always centered as a ring)
         function updateDotsVisibility(direction = null) {
             if (dots.length <= MAX_VISIBLE_DOTS) {
-                // Show all dots if 5 or fewer
-                dots.forEach(dot => dot.style.display = 'block');
+                // Show all dots if 5 or fewer, assign positions
+                let visiblePosition = 0;
+                dots.forEach(dot => {
+                    dot.style.display = 'block';
+                    dot.classList.remove('dot-pos-1', 'dot-pos-2', 'dot-pos-3', 'dot-pos-4', 'dot-pos-5');
+                    dot.classList.add(`dot-pos-${visiblePosition + 1}`);
+                    visiblePosition++;
+                });
                 return;
             }
             
-            // Always center the window on the current slide
-            let startIndex = Math.max(0, currentSlide - Math.floor(MAX_VISIBLE_DOTS / 2));
-            let endIndex = Math.min(dots.length, startIndex + MAX_VISIBLE_DOTS);
+            // Treat as a circular list - always center on currentSlide
+            // Calculate which 5 dots to show (current slide at position 3)
+            const halfWindow = Math.floor(MAX_VISIBLE_DOTS / 2);
+            const visibleIndices = [];
             
-            // Adjust if we're near the end
-            if (endIndex - startIndex < MAX_VISIBLE_DOTS) {
-                startIndex = Math.max(0, endIndex - MAX_VISIBLE_DOTS);
+            for (let i = -halfWindow; i <= halfWindow; i++) {
+                let index = (currentSlide + i + dots.length) % dots.length;
+                visibleIndices.push(index);
             }
             
-            // Show/hide dots based on range and add position classes for scaling
+            // Show/hide dots and assign position classes
             let visiblePosition = 0;
             dots.forEach((dot, index) => {
-                if (index >= startIndex && index < endIndex) {
+                if (visibleIndices.includes(index)) {
                     dot.style.display = 'block';
                     // Remove all position classes
                     dot.classList.remove('dot-pos-1', 'dot-pos-2', 'dot-pos-3', 'dot-pos-4', 'dot-pos-5');
-                    // Add position class (1-5)
-                    dot.classList.add(`dot-pos-${visiblePosition + 1}`);
+                    // Add position class based on where it appears in the window
+                    const positionInWindow = visibleIndices.indexOf(index) + 1;
+                    dot.classList.add(`dot-pos-${positionInWindow}`);
                     visiblePosition++;
                 } else {
                     dot.style.display = 'none';
