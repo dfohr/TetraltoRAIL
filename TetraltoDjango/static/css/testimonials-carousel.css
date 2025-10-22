@@ -446,6 +446,10 @@
         padding: var(--spacing-md) 0;
     }
     
+    .carousel-slides-container {
+        gap: 0;
+    }
+    
     .testimonial-quote {
         font-size: var(--fs-body);
     }
