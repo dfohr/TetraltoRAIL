@@ -181,6 +181,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-wrap: balance;
 }
 
 .testimonial-author {
