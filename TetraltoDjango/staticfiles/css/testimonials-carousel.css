@@ -1,8 +1,21 @@
+/* Testimonials section content wrapper - matches other sections */
+.testimonials-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+@media (max-width: 549px) {
+    .testimonials-content {
+        padding: 0 1.5rem;
+    }
+}
+
 .testimonials-carousel {
     position: relative;
     width: 100%;
     margin: 0 auto;
-    padding: var(--spacing-lg) var(--spacing-sm);
+    padding: var(--spacing-lg) 0;
     background: var(--background-dark);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-medium);
@@ -430,9 +443,7 @@
 
 @media (max-width: 768px) {
     .testimonials-carousel {
-        margin: 0 var(--spacing-xs);
-        padding: var(--spacing-sm) var(--spacing-xs);
-        gap: var(--spacing-xs);
+        padding: var(--spacing-md) 0;
     }
     
     .testimonial-quote {
