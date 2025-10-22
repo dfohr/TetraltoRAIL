@@ -242,15 +242,53 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         function showSlide(index, direction = null) {
-            // Update visual state
-            slides.forEach((slide, i) => {
-                slide.classList.toggle('active', i === index);
-                slide.setAttribute('aria-hidden', i === index ? 'false' : 'true');
-            });
+            const previousSlide = currentSlide;
+            
+            // Apply exit animation to current slide
+            if (direction && previousSlide !== index) {
+                const oldSlide = slides[previousSlide];
+                const newSlide = slides[index];
+                
+                // Remove any existing animation classes
+                slides.forEach(slide => {
+                    slide.classList.remove('slide-in-left', 'slide-in-right', 'slide-out-left', 'slide-out-right');
+                });
+                
+                // Set up exit animation for old slide
+                if (direction === 'next') {
+                    oldSlide.classList.add('slide-out-left');
+                    newSlide.classList.add('slide-in-right');
+                } else {
+                    oldSlide.classList.add('slide-out-right');
+                    newSlide.classList.add('slide-in-left');
+                }
+                
+                // Make new slide visible immediately (positioned absolutely during animation)
+                newSlide.style.display = 'block';
+                
+                // After animation completes, update active states
+                setTimeout(() => {
+                    slides.forEach((slide, i) => {
+                        slide.classList.toggle('active', i === index);
+                        slide.setAttribute('aria-hidden', i === index ? 'false' : 'true');
+                        slide.classList.remove('slide-in-left', 'slide-in-right', 'slide-out-left', 'slide-out-right');
+                        // Reset display for non-active slides
+                        if (i !== index) {
+                            slide.style.display = '';
+                        }
+                    });
+                }, 500);
+            } else {
+                // No animation, just toggle
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === index);
+                    slide.setAttribute('aria-hidden', i === index ? 'false' : 'true');
+                });
+            }
             
             currentSlide = index;
             
-            // Rotate dots and add slide animation
+            // Rotate dots and add dot slide animation
             if (direction && dots.length > 0) {
                 // Rotate dot positions
                 if (direction === 'next') {
@@ -277,13 +315,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide, 'next');
+            const nextIndex = (currentSlide + 1) % slides.length;
+            showSlide(nextIndex, 'next');
         }
         
         function prevSlide() {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            showSlide(currentSlide, 'prev');
+            const prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(prevIndex, 'prev');
         }
         
         // Arrow button handlers
