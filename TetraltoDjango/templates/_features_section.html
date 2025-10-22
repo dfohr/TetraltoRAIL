@@ -1,0 +1,22 @@
+{% load static %}
+<!-- Features Section -->
+<section class="features">
+    <div class="container">
+        <h2>The Things That Make Us Great!</h2>
+        <p class="subtitle">What sets us apart from other roofing companies? Here are the reasons why homeowners choose Tetralto Roofing.</p>
+        
+        <div class="features-grid">
+            {% for feature in features %}
+                {% include '_feature_card.html' with feature=feature %}
+            {% endfor %}
+        </div>
+
+        <div class="features-cta">
+            <h2>Ready to Experience the Tetralto Difference?</h2>
+            <div class="button-group">
+                <a href="tel:+12818951213" class="button primary">Call (281) 895-1213</a>
+                <a href="{% url 'contact' %}" class="button secondary">Get Free Estimate</a>
+            </div>
+        </div>
+    </div>
+</section>

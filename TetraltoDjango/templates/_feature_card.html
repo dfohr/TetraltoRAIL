@@ -1,0 +1,8 @@
+{% load static %}
+<div class="feature-card">
+    <div class="feature-icon">
+        <img src="{% static 'images/'|add:feature.icon_filename %}" alt="{{ feature.title }} icon">
+    </div>
+    <h3>{{ feature.title }}</h3>
+    <p>{{ feature.description }}</p>
+</div>

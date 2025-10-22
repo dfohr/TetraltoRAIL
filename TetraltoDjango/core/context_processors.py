@@ -1,5 +1,5 @@
 from django.conf import settings
-from .models import SocialLink
+from .models import SocialLink, Feature
 
 def settings_context(request):
     """
@@ -12,4 +12,10 @@ def social_links_context(request):
     """Make social links available to all templates automatically."""
     return {
         'social_links': SocialLink.objects.filter(is_active=True).order_by('order')
+    }
+
+def features_context(request):
+    """Make features available to all templates automatically."""
+    return {
+        'features': Feature.objects.order_by('order')
     }

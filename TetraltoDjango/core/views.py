@@ -18,7 +18,6 @@ from django.http import JsonResponse, HttpResponse
 
 def home(request):
     services = Service.objects.order_by('order')
-    features = Feature.objects.order_by('order')
     testimonials = Testimonial.objects.filter(is_active=True, is_featured=True).order_by('?')
     social_links = SocialLink.objects.filter(is_active=True).order_by('order')
     
@@ -36,7 +35,6 @@ def home(request):
     
     return render(request, 'home.html', {
         'services': services,
-        'features': features,
         'testimonials': testimonials,
         'social_links': social_links,
         'form': form,
@@ -208,12 +206,8 @@ def google_landing(request):
     else:
         form = LeadForm(request=request, minimal_required=True)
     
-    # Get features for the "What Makes Us Great" section
-    features = Feature.objects.order_by('order')
-    
     return render(request, 'google-landing.html', {
         'form': form,
-        'features': features,
     })
 
 def google_thank_you(request):
