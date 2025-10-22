@@ -198,10 +198,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 startIndex = Math.max(0, endIndex - MAX_VISIBLE_DOTS);
             }
             
-            // Show/hide dots based on range
+            // Show/hide dots based on range and add position classes for scaling
+            let visiblePosition = 0;
             dots.forEach((dot, index) => {
                 if (index >= startIndex && index < endIndex) {
                     dot.style.display = 'block';
+                    // Remove all position classes
+                    dot.classList.remove('dot-pos-1', 'dot-pos-2', 'dot-pos-3', 'dot-pos-4', 'dot-pos-5');
+                    // Add position class (1-5)
+                    dot.classList.add(`dot-pos-${visiblePosition + 1}`);
+                    visiblePosition++;
                 } else {
                     dot.style.display = 'none';
                 }
