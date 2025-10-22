@@ -182,6 +182,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     text-wrap: balance;
+    padding: 0 2px;
 }
 
 .testimonial-author {
