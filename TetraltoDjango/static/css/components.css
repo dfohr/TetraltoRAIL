@@ -1130,6 +1130,7 @@ textarea {
     width: 64px;
     height: 64px;
     object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(42%) sepia(78%) saturate(2234%) hue-rotate(346deg) brightness(97%) contrast(90%);
 }
 
 .feature-card h3 {
