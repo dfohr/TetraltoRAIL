@@ -1058,6 +1058,24 @@ textarea {
     padding: var(--spacing-xxl) 0;
 }
 
+.features-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+@media (max-width: 549px) {
+    .features-content {
+        padding: 0 1.5rem;
+    }
+}
+
+.features .highlight-orange {
+    color: white;
+    background: var(--primary-color);
+    padding: 0.4rem 0.4rem 0.2rem 0.4rem;
+}
+
 .features h2 {
     text-align: center;
     margin-bottom: var(--spacing-sm);
@@ -1075,9 +1093,9 @@ textarea {
 .features-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: var(--spacing-xl);
-    margin-bottom: var(--spacing-xxl);
-    padding: 0 var(--spacing-md);
+    gap: 0.5rem;
+    max-width: 1400px;
+    margin: 0 auto var(--spacing-xxl);
 }
 
 .feature-card {
