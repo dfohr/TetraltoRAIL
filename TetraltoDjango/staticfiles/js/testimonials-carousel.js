@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const wrapper = carousel.querySelector('.carousel-wrapper');
         const navigation = carousel.querySelector('.carousel-navigation');
         const loading = carousel.querySelector('.carousel-loading');
+        const prevArrow = carousel.querySelector('.carousel-arrow-prev');
+        const nextArrow = carousel.querySelector('.carousel-arrow-next');
         
         // Get testimonials from structured data (single source of truth)
         const structuredDataScript = document.querySelector('script[type="application/ld+json"]');
@@ -92,18 +94,12 @@ document.addEventListener('DOMContentLoaded', function() {
             // Create content container
             const contentDiv = createElement('div', { 'class': 'testimonial-content' });
             
-            // Create rating stars
+            // Create rating stars (no rating text)
             const ratingDiv = createElement('div', {
                 'class': 'rating-stars',
                 'aria-label': `${testimonial.rating} out of 5 stars`
             });
             ratingDiv.textContent = stars;
-            
-            const ratingSpan = createElement('span', {
-                'class': 'rating-value',
-                'aria-hidden': 'true'
-            }, `(${testimonial.rating}/5)`);
-            ratingDiv.appendChild(ratingSpan);
             
             // Create quote with wrapper for vertical centering
             const quoteBox = createElement('div', { 'class': 'testimonial-quote-box' });
@@ -127,23 +123,40 @@ document.addEventListener('DOMContentLoaded', function() {
             contentDiv.appendChild(quoteBox);
             contentDiv.appendChild(authorDiv);
             
-            // Add review link at bottom with URL validation
+            // Add review link at bottom with URL validation and Google logo
             if (isValidUrl(testimonial.url)) {
+                const isGoogleReview = testimonial.url.includes('goo.gl') || testimonial.url.includes('google.com');
+                
+                const reviewLinkContainer = createElement('div', { 'class': 'review-link-container' });
+                
+                if (isGoogleReview) {
+                    const googleLogo = createElement('img', {
+                        'src': 'https://www.google.com/favicon.ico',
+                        'alt': 'Google',
+                        'class': 'google-logo',
+                        'width': '16',
+                        'height': '16'
+                    });
+                    reviewLinkContainer.appendChild(googleLogo);
+                }
+                
                 const reviewLink = createElement('a', {
                     'href': testimonial.url,
                     'target': '_blank',
                     'rel': 'noopener',
-                    'class': 'review-link',
+                    'class': 'review-link-text',
                     'aria-label': `Read full review by ${testimonial.name} on external site`
-                }, 'Read full review →');
-                contentDiv.appendChild(reviewLink);
+                }, 'Read the full review here');
+                
+                reviewLinkContainer.appendChild(reviewLink);
+                contentDiv.appendChild(reviewLinkContainer);
             }
             slideDiv.appendChild(contentDiv);
             
             wrapper.appendChild(slideDiv);
             slides.push(slideDiv);
             
-            // Create navigation dot
+            // Create navigation dot (always create, will control visibility later)
             if (testimonials.length > 1) {
                 const dotButton = createElement('button', {
                     'class': `nav-dot${isActive ? ' active' : ''}`,
@@ -152,7 +165,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     'id': `testimonial-${index}-tab`,
                     'aria-selected': isActive,
                     'aria-controls': `testimonial-slide-${index}`,
-                    'aria-label': `View testimonial ${index + 1} by ${testimonial.name}`
+                    'aria-label': `View testimonial ${index + 1} by ${testimonial.name}`,
+                    'style': 'display: none;' // Initially hidden, will show in updateDots
                 });
                 
                 navigation.appendChild(dotButton);
@@ -165,9 +179,43 @@ document.addEventListener('DOMContentLoaded', function() {
         const dotsElements = navigation.querySelectorAll('.nav-dot');
         let currentSlide = 0;
         let autoRotate;
+        const MAX_VISIBLE_DOTS = 5;
+        
+        // Update which dots are visible (max 5 at a time, sliding window)
+        function updateDotsVisibility() {
+            if (dots.length <= MAX_VISIBLE_DOTS) {
+                // Show all dots if 5 or fewer
+                dots.forEach(dot => dot.style.display = 'block');
+                return;
+            }
+            
+            // Calculate visible range centered on current slide
+            let startIndex = Math.max(0, currentSlide - Math.floor(MAX_VISIBLE_DOTS / 2));
+            let endIndex = Math.min(dots.length, startIndex + MAX_VISIBLE_DOTS);
+            
+            // Adjust if we're near the end
+            if (endIndex - startIndex < MAX_VISIBLE_DOTS) {
+                startIndex = Math.max(0, endIndex - MAX_VISIBLE_DOTS);
+            }
+            
+            // Show/hide dots based on range
+            dots.forEach((dot, index) => {
+                if (index >= startIndex && index < endIndex) {
+                    dot.style.display = 'block';
+                } else {
+                    dot.style.display = 'none';
+                }
+            });
+        }
         
         // Initialize auto-rotation if multiple slides
         if (slides.length > 1) {
+            // Show/hide arrows
+            if (prevArrow) prevArrow.style.display = 'flex';
+            if (nextArrow) nextArrow.style.display = 'flex';
+            
+            // Update initial dots visibility
+            updateDotsVisibility();
             function startAutoRotate() {
                 autoRotate = setInterval(() => {
                     nextSlide();
@@ -237,6 +285,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             currentSlide = index;
             
+            // Update dots visibility for sliding window effect
+            updateDotsVisibility();
+            
             // Announce to screen readers
             const testimonial = testimonials[index];
             carousel.setAttribute('aria-label', `Customer testimonials. Currently showing testimonial ${index + 1} of ${slides.length} by ${testimonial.name}`);
@@ -245,6 +296,24 @@ document.addEventListener('DOMContentLoaded', function() {
         function nextSlide() {
             currentSlide = (currentSlide + 1) % slides.length;
             showSlide(currentSlide);
+        }
+        
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        }
+        
+        // Arrow button handlers
+        if (prevArrow && slides.length > 1) {
+            prevArrow.addEventListener('click', () => {
+                prevSlide();
+            });
+        }
+        
+        if (nextArrow && slides.length > 1) {
+            nextArrow.addEventListener('click', () => {
+                nextSlide();
+            });
         }
         
         // Initialize first slide announcement

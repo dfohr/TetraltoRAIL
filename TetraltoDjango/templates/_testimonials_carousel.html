@@ -4,8 +4,25 @@
 <div class="testimonials-carousel" id="{{ carousel_id }}" 
      role="region" aria-label="Customer testimonials" aria-live="polite">
     
-    <!-- Carousel slides populated by JavaScript from JSON-LD structured data -->
-    <div class="carousel-wrapper"></div>
+    <!-- Slides container with arrows -->
+    <div class="carousel-slides-container">
+        <!-- Previous arrow -->
+        <button class="carousel-arrow carousel-arrow-prev" aria-label="Previous testimonial">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+        
+        <!-- Carousel slides populated by JavaScript from JSON-LD structured data -->
+        <div class="carousel-wrapper"></div>
+        
+        <!-- Next arrow -->
+        <button class="carousel-arrow carousel-arrow-next" aria-label="Next testimonial">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
+    </div>
     
     <!-- Navigation dots populated by JavaScript -->
     <div class="carousel-navigation" role="tablist" aria-label="Testimonial navigation"></div>

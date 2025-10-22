@@ -8,9 +8,46 @@
     box-shadow: var(--shadow-medium);
 }
 
+.carousel-slides-container {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
 .carousel-wrapper {
     position: relative;
     overflow: hidden;
+    flex: 1;
+}
+
+.carousel-arrow {
+    display: none;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--border-light);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text-color);
+}
+
+.carousel-arrow:hover {
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transform: scale(1.1);
+}
+
+.carousel-arrow:active {
+    transform: scale(0.95);
+}
+
+.carousel-arrow svg {
+    width: 24px;
+    height: 24px;
 }
 
 .carousel-empty {
@@ -55,11 +92,6 @@
     gap: var(--spacing-xs);
 }
 
-.rating-value {
-    font-size: 14px;
-    color: var(--text-muted);
-    font-weight: 500;
-}
 
 .testimonial-quote-box {
     display: grid;
@@ -103,49 +135,59 @@
     font-style: italic;
 }
 
-.review-link {
-    display: inline-block;
-    color: var(--link-color);
-    text-decoration: none;
-    font-size: var(--fs-sm);
-    font-weight: 500;
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border: 1px solid var(--link-color);
-    border-radius: var(--border-radius-sm);
-    transition: all 0.3s ease;
+.review-link-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: var(--spacing-xs);
 }
 
-.review-link:hover {
-    background-color: var(--link-color);
-    color: white;
-    transform: translateY(-1px);
+.google-logo {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.review-link-text {
+    color: #0066c0;
+    text-decoration: none;
+    font-size: var(--fs-sm);
+    transition: color 0.2s ease;
+}
+
+.review-link-text:hover {
+    color: #004d99;
+    text-decoration: underline;
 }
 
 .carousel-navigation {
     display: flex;
     justify-content: center;
-    gap: var(--spacing-xs);
+    align-items: center;
+    gap: 8px;
     margin-top: var(--spacing-md);
+    width: 100%;
 }
 
 .nav-dot {
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     border: none;
-    background-color: var(--text-tertiary);
+    background-color: #d1d5db;
     cursor: pointer;
     transition: all 0.3s ease;
+    padding: 0;
 }
 
 .nav-dot:hover {
-    background-color: var(--text-muted);
+    background-color: #9ca3af;
     transform: scale(1.2);
 }
 
 .nav-dot.active {
-    background-color: var(--link-color);
-    transform: scale(1.3);
+    background-color: #3b82f6;
+    transform: scale(1.2);
 }
 
 .nav-dot:focus {
@@ -156,7 +198,8 @@
 @media (max-width: 768px) {
     .testimonials-carousel {
         margin: 0 var(--spacing-xs);
-        padding: var(--spacing-sm) var(--spacing-sm);
+        padding: var(--spacing-sm) var(--spacing-xs);
+        gap: var(--spacing-xs);
     }
     
     .testimonial-quote {
@@ -165,5 +208,15 @@
     
     .testimonial-content {
         padding: var(--spacing-sm);
+    }
+    
+    .carousel-arrow {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .carousel-arrow svg {
+        width: 20px;
+        height: 20px;
     }
 }
