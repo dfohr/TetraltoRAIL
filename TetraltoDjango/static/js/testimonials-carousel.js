@@ -180,6 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let currentSlide = 0;
         let autoRotate;
         const MAX_VISIBLE_DOTS = 5;
+        let windowStartIndex = 0; // Track the start of the visible window
         
         // Update which dots are visible (max 5 at a time, sliding window)
         function updateDotsVisibility() {
@@ -189,18 +190,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Calculate visible range centered on current slide
-            let startIndex = Math.max(0, currentSlide - Math.floor(MAX_VISIBLE_DOTS / 2));
-            let endIndex = Math.min(dots.length, startIndex + MAX_VISIBLE_DOTS);
+            // Slide the window only when the active dot reaches the edges
+            // This creates a smooth sliding effect in the direction of navigation
             
-            // Adjust if we're near the end
-            if (endIndex - startIndex < MAX_VISIBLE_DOTS) {
-                startIndex = Math.max(0, endIndex - MAX_VISIBLE_DOTS);
+            // If current slide is before the visible window, slide window left
+            if (currentSlide < windowStartIndex) {
+                windowStartIndex = currentSlide;
             }
+            // If current slide is after the visible window, slide window right
+            else if (currentSlide >= windowStartIndex + MAX_VISIBLE_DOTS) {
+                windowStartIndex = currentSlide - MAX_VISIBLE_DOTS + 1;
+            }
+            
+            // Ensure window doesn't exceed bounds
+            windowStartIndex = Math.max(0, Math.min(windowStartIndex, dots.length - MAX_VISIBLE_DOTS));
+            
+            const endIndex = windowStartIndex + MAX_VISIBLE_DOTS;
             
             // Show/hide dots based on range
             dots.forEach((dot, index) => {
-                if (index >= startIndex && index < endIndex) {
+                if (index >= windowStartIndex && index < endIndex) {
                     dot.style.display = 'block';
                 } else {
                     dot.style.display = 'none';
