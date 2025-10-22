@@ -181,36 +181,60 @@
 }
 
 /* Scale dots based on position - center largest, edges smallest */
-.nav-dot.dot-pos-1,
-.nav-dot.dot-pos-5 {
+.nav-dot.dot-pos-1 {
     transform: scale(0.25);
+    order: 1;
 }
 
-.nav-dot.dot-pos-2,
-.nav-dot.dot-pos-4 {
+.nav-dot.dot-pos-2 {
     transform: scale(0.5);
+    order: 2;
 }
 
 .nav-dot.dot-pos-3 {
     transform: scale(1);
+    order: 3;
+}
+
+.nav-dot.dot-pos-4 {
+    transform: scale(0.5);
+    order: 4;
+}
+
+.nav-dot.dot-pos-5 {
+    transform: scale(0.25);
+    order: 5;
 }
 
 /* Active state overrides for each position */
-.nav-dot.active.dot-pos-1,
-.nav-dot.active.dot-pos-5 {
+.nav-dot.active.dot-pos-1 {
     background-color: #3b82f6;
     transform: scale(0.3);
+    order: 1;
 }
 
-.nav-dot.active.dot-pos-2,
-.nav-dot.active.dot-pos-4 {
+.nav-dot.active.dot-pos-2 {
     background-color: #3b82f6;
     transform: scale(0.6);
+    order: 2;
 }
 
 .nav-dot.active.dot-pos-3 {
     background-color: #3b82f6;
     transform: scale(1.2);
+    order: 3;
+}
+
+.nav-dot.active.dot-pos-4 {
+    background-color: #3b82f6;
+    transform: scale(0.6);
+    order: 4;
+}
+
+.nav-dot.active.dot-pos-5 {
+    background-color: #3b82f6;
+    transform: scale(0.3);
+    order: 5;
 }
 
 .nav-dot:hover {

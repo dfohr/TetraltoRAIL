@@ -76,7 +76,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Build carousel using secure DOM creation (prevents innerHTML XSS)
         const slides = [];
-        const dots = [];
         
         testimonials.forEach((testimonial, index) => {
             const isActive = index === 0;
@@ -155,71 +154,54 @@ document.addEventListener('DOMContentLoaded', function() {
             
             wrapper.appendChild(slideDiv);
             slides.push(slideDiv);
-            
-            // Create navigation dot (always create, will control visibility later)
-            if (testimonials.length > 1) {
-                const dotButton = createElement('button', {
-                    'class': `nav-dot${isActive ? ' active' : ''}`,
-                    'data-slide': index,
-                    'role': 'tab',
-                    'id': `testimonial-${index}-tab`,
-                    'aria-selected': isActive,
-                    'aria-controls': `testimonial-slide-${index}`,
-                    'aria-label': `View testimonial ${index + 1} by ${testimonial.name}`,
-                    'style': 'display: none;' // Initially hidden, will show in updateDots
-                });
-                
-                navigation.appendChild(dotButton);
-                dots.push(dotButton);
-            }
         });
         if (loading) loading.style.display = 'none';
         
-        // Setup carousel functionality (use the slides/dots arrays we already created)
-        const dotsElements = navigation.querySelectorAll('.nav-dot');
+        // Create exactly 5 static decorative dots (if more than 1 slide)
+        const dots = [];
+        const dotPositions = [0, 1, 2, 3, 4]; // Tracks which dot is in which visual position
+        if (testimonials.length > 1) {
+            for (let i = 0; i < 5; i++) {
+                const dot = createElement('span', {
+                    'class': 'nav-dot',
+                    'aria-hidden': 'true' // Purely decorative
+                });
+                navigation.appendChild(dot);
+                dots.push(dot);
+            }
+        }
+        
+        // Setup carousel functionality
         let currentSlide = 0;
         let autoRotate;
-        const MAX_VISIBLE_DOTS = 5;
         
-        // Update which dots are visible (max 5 at a time, always centered as a ring)
-        function updateDotsVisibility(direction = null) {
-            if (dots.length <= MAX_VISIBLE_DOTS) {
-                // Show all dots if 5 or fewer, assign positions
-                let visiblePosition = 0;
-                dots.forEach(dot => {
-                    dot.style.display = 'block';
-                    dot.classList.remove('dot-pos-1', 'dot-pos-2', 'dot-pos-3', 'dot-pos-4', 'dot-pos-5');
-                    dot.classList.add(`dot-pos-${visiblePosition + 1}`);
-                    visiblePosition++;
-                });
-                return;
-            }
-            
-            // Treat as a circular list - always center on currentSlide
-            // Calculate which 5 dots to show (current slide at position 3)
-            const halfWindow = Math.floor(MAX_VISIBLE_DOTS / 2);
-            const visibleIndices = [];
-            
-            for (let i = -halfWindow; i <= halfWindow; i++) {
-                let index = (currentSlide + i + dots.length) % dots.length;
-                visibleIndices.push(index);
-            }
-            
-            // Show/hide dots and assign position classes
-            let visiblePosition = 0;
+        // Update dot positions (just visual positions, not tied to testimonials)
+        function updateDotPositions() {
             dots.forEach((dot, index) => {
-                if (visibleIndices.includes(index)) {
-                    dot.style.display = 'block';
-                    // Remove all position classes
-                    dot.classList.remove('dot-pos-1', 'dot-pos-2', 'dot-pos-3', 'dot-pos-4', 'dot-pos-5');
-                    // Add position class based on where it appears in the window
-                    const positionInWindow = visibleIndices.indexOf(index) + 1;
-                    dot.classList.add(`dot-pos-${positionInWindow}`);
-                    visiblePosition++;
-                } else {
-                    dot.style.display = 'none';
+                const position = dotPositions[index];
+                // Remove all classes
+                dot.classList.remove('dot-pos-1', 'dot-pos-2', 'dot-pos-3', 'dot-pos-4', 'dot-pos-5', 'active');
+                // Add position class (1-5)
+                dot.classList.add(`dot-pos-${position + 1}`);
+                // Middle position (2, which is pos-3) is always active
+                if (position === 2) {
+                    dot.classList.add('active');
                 }
             });
+        }
+        
+        // Rotate dot positions left (for right arrow / next)
+        function rotateDotsLeft() {
+            const last = dotPositions.pop();
+            dotPositions.unshift(last);
+            updateDotPositions();
+        }
+        
+        // Rotate dot positions right (for left arrow / prev)
+        function rotateDotsRight() {
+            const first = dotPositions.shift();
+            dotPositions.push(first);
+            updateDotPositions();
         }
         
         // Initialize auto-rotation if multiple slides
@@ -228,8 +210,10 @@ document.addEventListener('DOMContentLoaded', function() {
             if (prevArrow) prevArrow.style.display = 'flex';
             if (nextArrow) nextArrow.style.display = 'flex';
             
-            // Update initial dots visibility
-            updateDotsVisibility();
+            // Initialize dots
+            if (dots.length > 0) {
+                updateDotPositions();
+            }
             function startAutoRotate() {
                 autoRotate = setInterval(() => {
                     nextSlide();
@@ -255,34 +239,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }, 100);
             });
-            
-            // Dot navigation with keyboard support
-            dots.forEach((dot, index) => {
-                dot.addEventListener('click', () => {
-                    showSlide(index);
-                });
-                
-                dot.addEventListener('keydown', (e) => {
-                    switch(e.key) {
-                        case 'ArrowLeft':
-                            e.preventDefault();
-                            showSlide(index > 0 ? index - 1 : slides.length - 1);
-                            break;
-                        case 'ArrowRight':
-                            e.preventDefault();
-                            showSlide(index < slides.length - 1 ? index + 1 : 0);
-                            break;
-                        case 'Home':
-                            e.preventDefault();
-                            showSlide(0);
-                            break;
-                        case 'End':
-                            e.preventDefault();
-                            showSlide(slides.length - 1);
-                            break;
-                    }
-                });
-            });
         }
         
         function showSlide(index, direction = null) {
@@ -292,22 +248,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 slide.setAttribute('aria-hidden', i === index ? 'false' : 'true');
             });
             
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
-                dot.setAttribute('aria-selected', i === index ? 'true' : 'false');
-            });
-            
             currentSlide = index;
             
-            // Update dots visibility (always centered)
-            updateDotsVisibility();
-            
-            // Add slide animation
-            if (direction) {
+            // Rotate dots and add slide animation
+            if (direction && dots.length > 0) {
+                // Rotate dot positions
+                if (direction === 'next') {
+                    rotateDotsLeft();
+                } else {
+                    rotateDotsRight();
+                }
+                
+                // Add slide animation class
                 navigation.classList.remove('slide-left', 'slide-right');
                 // Force reflow to restart animation
                 void navigation.offsetWidth;
-                navigation.classList.add(direction === 'next' ? 'slide-right' : 'slide-left');
+                navigation.classList.add(direction === 'next' ? 'slide-left' : 'slide-right');
                 
                 // Remove animation class after it completes
                 setTimeout(() => {
