@@ -1112,7 +1112,6 @@ textarea {
 }
 
 .feature-icon {
-    background-color: var(--accent-color);
     width: 100%;
     padding: 0;
     border-radius: var(--border-radius);
