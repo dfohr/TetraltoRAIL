@@ -176,7 +176,7 @@
     border: none;
     background-color: #d1d5db;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.15s ease-out;
     padding: 0;
 }
 
@@ -188,6 +188,40 @@
 .nav-dot.active {
     background-color: #3b82f6;
     transform: scale(1.2);
+    transition: all 0.15s ease-out;
+}
+
+/* Sliding animation for dots */
+.carousel-navigation {
+    position: relative;
+}
+
+.carousel-navigation.slide-left .nav-dot {
+    animation: slideLeft 0.3s ease-in-out;
+}
+
+.carousel-navigation.slide-right .nav-dot {
+    animation: slideRight 0.3s ease-in-out;
+}
+
+@keyframes slideLeft {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(15px); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes slideRight {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(-15px); }
+    100% { transform: translateX(0); }
+}
+
+.nav-dot.active.slide-left {
+    animation: slideLeft 0.3s ease-in-out;
+}
+
+.nav-dot.active.slide-right {
+    animation: slideRight 0.3s ease-in-out;
 }
 
 .nav-dot:focus {
