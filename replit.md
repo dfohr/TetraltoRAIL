@@ -58,6 +58,14 @@ This is a Django-based website for Tetralto Roofing company with a microservices
     - Large title: "The Reasons <span class="highlight-orange">We Are The Best!</span>" (2rem, bold)
   - **Performance**: Single database query per request via context processor
   - **Architecture**: Hybrid approach combining context processor (like Social Links) and components (like Services)
+- **Testimonials Carousel Simplification** (October 22, 2025): Streamlined navigation dots from complex to decorative
+  - **Removed Complexity**: Eliminated all testimonial-to-dot mapping, modulus logic, and tracking code
+  - **5 Static Dots**: Created exactly 5 decorative `<span>` elements (aria-hidden) instead of 1 per testimonial
+  - **Visual-Only Rotation**: Dots rotate positions using `dotPositions` array [0,1,2,3,4] and CSS flexbox `order` property
+  - **Center Highlight**: Middle dot (position 3) always highlighted and largest with perspective scaling
+  - **Arrow-Driven**: Right arrow slides dots left, left arrow slides dots right - no click handlers on dots
+  - **Clean Animations**: Each position maintains scale during slide animations (pos-1/5: 25%, pos-2/4: 50%, pos-3: 100%/120% active)
+  - **Result**: Reduced complexity while maintaining smooth visual feedback for carousel navigation
 
 ## Code Architecture Improvements (September 6, 2025)
 - **Major Forms Refactoring**: Eliminated 100% code duplication in forms.py
