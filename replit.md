@@ -64,8 +64,16 @@ This is a Django-based website for Tetralto Roofing company with a microservices
   - **Visual-Only Rotation**: Dots rotate positions using `dotPositions` array [0,1,2,3,4] and CSS flexbox `order` property
   - **Center Highlight**: Middle dot (position 3) always highlighted and largest with perspective scaling
   - **Arrow-Driven**: Right arrow slides dots left, left arrow slides dots right - no click handlers on dots
-  - **Clean Animations**: Each position maintains scale during slide animations (pos-1/5: 25%, pos-2/4: 50%, pos-3: 100%/120% active)
+  - **Subtle Scaling**: Adjusted dot sizes (edges: 60%, mid: 80%, center: 100%/120% active) for balanced appearance
   - **Result**: Reduced complexity while maintaining smooth visual feedback for carousel navigation
+- **Testimonials Carousel Slide Animations** (October 22, 2025): Added bordered boxes and directional slide transitions
+  - **Box Styling**: White background, 2px border, rounded corners, and shadow around each testimonial
+  - **Slide Animations**: Full testimonials slide in/out when arrows clicked (500ms smooth transitions)
+  - **Direction-Aware**: Right arrow → old exits left, new enters from right; Left arrow → reverse
+  - **Overlapping Transitions**: Both slides visible during animation using absolute positioning
+  - **State Management**: Fixed state flow bug - `nextSlide`/`prevSlide` now calculate indices without mutating `currentSlide` prematurely
+  - **Animation Cleanup**: Automatic cleanup of animation classes and display styles after 500ms
+  - **Result**: Professional carousel experience with clear visual transitions matching user expectations
 
 ## Code Architecture Improvements (September 6, 2025)
 - **Major Forms Refactoring**: Eliminated 100% code duplication in forms.py
