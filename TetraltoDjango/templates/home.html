@@ -81,7 +81,7 @@
 </section>
 
 
-<section id="services" class="service-tiles-section">
+<section id="services" class="service-tiles-section clickable-section">
     <div class="service-tiles-content">
         <p style="font-size: 1rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Our Services</p>
         <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 2rem;">
@@ -95,6 +95,18 @@
         </div>
     </div>
 </section>
+
+<script>
+// Make services section clickable
+document.addEventListener('DOMContentLoaded', function() {
+    const servicesSection = document.getElementById('services');
+    if (servicesSection) {
+        servicesSection.addEventListener('click', function() {
+            window.location.href = '/services/';
+        });
+    }
+});
+</script>
 
 
 <!-- Video Section -->

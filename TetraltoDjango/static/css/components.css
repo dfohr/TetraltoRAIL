@@ -1587,6 +1587,15 @@ img {
     padding: 3rem 0;
 }
 
+.clickable-section {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.clickable-section:hover {
+    background: #e8dfc8;
+}
+
 .service-tiles-content {
     max-width: 1400px;
     margin: 0 auto;
