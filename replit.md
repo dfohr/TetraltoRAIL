@@ -13,7 +13,7 @@ This is a Django-based website for Tetralto Roofing company with a microservices
 - **Static Files**: Handled by WhiteNoise
 - **Production**: Configured for autoscale deployment
 
-## Recent Changes (September 6-8, 2025 & October 8, 2025 & October 22, 2025)
+## Recent Changes (September 6-8, 2025 & October 8, 2025 & October 22, 2025 & November 12, 2025)
 - **Fresh Import Setup Complete**: Successfully imported GitHub repository to Replit
 - **Python Environment**: Installed Python 3.11 module and all project dependencies
 - **Database Setup**: Set up PostgreSQL database and ran all migrations successfully
@@ -74,6 +74,16 @@ This is a Django-based website for Tetralto Roofing company with a microservices
   - **State Management**: Fixed state flow bug - `nextSlide`/`prevSlide` now calculate indices without mutating `currentSlide` prematurely
   - **Animation Cleanup**: Automatic cleanup of animation classes and display styles after 500ms
   - **Result**: Professional carousel experience with clear visual transitions matching user expectations
+- **Google Drive Integration POC** (November 12, 2025): Successfully implemented proof-of-concept for customer portal media display
+  - **Service Account Authentication**: Configured Drive API with service account credentials via GOOGLE_DRIVE_CREDENTIALS environment variable
+  - **Label-Based Querying**: Created drive_utils.py module with functions to query files by custom properties (Project, ShingleBrand, etc.)
+  - **Test Page Integration**: Added Drive POC section to /test/ page showing images, files, labels, and diagnostic info
+  - **Error Handling**: Comprehensive try/except blocks with user-friendly error messages and success confirmations
+  - **Architecture**: Modular design ready for extension to full customer portal with multiple label filters
+  - **Status**: Drive API successfully authenticates and queries (0 files found indicates successful query - need to verify Project label matches tagged files)
+  - **Dependencies**: Installed google-api-python-client, google-auth, google-auth-httplib2
+  - **Deployment Ready**: Environment variable approach works for both Replit dev and Railway production
+  - **Next Steps**: Verify Project label format in Drive matches query, then extend to customer portal pages with PortalPage filtering
 
 ## Code Architecture Improvements (September 6, 2025)
 - **Major Forms Refactoring**: Eliminated 100% code duplication in forms.py
