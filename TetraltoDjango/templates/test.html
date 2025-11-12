@@ -243,6 +243,52 @@
                     <div style="background: #e8f5e9; border: 2px solid #4caf50; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
                         <h3 style="color: #2e7d32; margin-top: 0;">✓ Drive API Connected</h3>
                         <p style="color: #666; margin: 0;">{{ drive_success_msg }}</p>
+                        {% if not drive_images and not drive_files %}
+                            <p style="color: #666; margin: 1rem 0 0 0; font-size: 0.9rem;">
+                                💡 No files found? Try <a href="?debug=true" style="color: #E75A35; font-weight: bold;">debug mode</a> to see what files the service account can access.
+                            </p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                
+                <!-- Debug Mode Section -->
+                {% if debug_mode %}
+                    <div style="background: #fff3e0; border: 2px solid #ff9800; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
+                        <h3 style="color: #e65100; margin-top: 0;">🔍 Debug Mode: All Accessible Files</h3>
+                        <p style="color: #666; margin: 0 0 1rem 0;">
+                            Showing up to 20 files the service account can access. Check their custom properties:
+                        </p>
+                        {% if debug_files %}
+                            <div style="max-height: 400px; overflow-y: auto; background: white; border-radius: 4px; padding: 1rem;">
+                                {% for file in debug_files %}
+                                    <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #eee;">
+                                        <strong style="color: #333;">{{ file.name }}</strong>
+                                        <br>
+                                        <span style="color: #999; font-size: 0.8rem;">{{ file.mimeType }}</span>
+                                        <br>
+                                        {% if file.properties %}
+                                            <div style="margin-top: 0.5rem; background: #f5f5f5; padding: 0.5rem; border-radius: 3px;">
+                                                <strong style="font-size: 0.8rem; color: #555;">Custom Properties:</strong>
+                                                {% for key, value in file.properties.items %}
+                                                    <div style="margin-left: 1rem; font-size: 0.75rem; color: #666;">
+                                                        <code>{{ key }}</code>: <code style="color: #E75A35;">{{ value }}</code>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        {% else %}
+                                            <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #999; font-style: italic;">
+                                                No custom properties set
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p style="color: #999; font-style: italic;">No files accessible to service account.</p>
+                        {% endif %}
+                        <p style="margin-top: 1rem;">
+                            <a href="?" style="color: #E75A35; font-weight: bold;">← Exit Debug Mode</a>
+                        </p>
                     </div>
                 {% endif %}
                 

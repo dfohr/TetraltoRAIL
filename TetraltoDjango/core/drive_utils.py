@@ -200,3 +200,41 @@ def query_files_by_labels(project_tag: str, additional_filters: Optional[Dict[st
     except Exception as e:
         logger.error(f"Error querying Drive files with labels: {e}")
         raise
+
+
+def list_all_accessible_files(max_results: int = 10) -> List[Dict]:
+    """
+    List all files the service account can access (for debugging).
+    
+    Args:
+        max_results: Maximum number of files to return (default: 10)
+        
+    Returns:
+        List of file dictionaries with all metadata including properties
+    """
+    try:
+        service = get_drive_service()
+        
+        # Query all non-trashed files
+        query = "trashed=false"
+        
+        logger.info("Listing all accessible files for debugging")
+        
+        results = service.files().list(
+            q=query,
+            fields="files(id, name, mimeType, thumbnailLink, webViewLink, webContentLink, properties)",
+            pageSize=max_results,
+            orderBy='modifiedTime desc'
+        ).execute()
+        
+        files = results.get('files', [])
+        logger.info(f"Service account can access {len(files)} files")
+        
+        return files
+        
+    except HttpError as e:
+        logger.error(f"Google Drive API error: {e}")
+        raise
+    except Exception as e:
+        logger.error(f"Error listing accessible files: {e}")
+        raise

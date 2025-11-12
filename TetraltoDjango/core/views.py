@@ -215,10 +215,23 @@ def google_thank_you(request):
 
 def test_page(request):
     """Component test page - not indexed."""
-    from .drive_utils import query_files_by_project, get_images_from_files, get_non_image_files
+    from .drive_utils import query_files_by_project, get_images_from_files, get_non_image_files, list_all_accessible_files
     import logging
     
     logger = logging.getLogger(__name__)
+    
+    # Debug mode: List all accessible files to check properties
+    debug_mode = request.GET.get('debug', '') == 'true'
+    debug_files = []
+    
+    if debug_mode:
+        try:
+            debug_files = list_all_accessible_files(max_results=20)
+            print(f"[Drive DEBUG] Found {len(debug_files)} accessible files")
+            for f in debug_files[:5]:  # Print first 5 files
+                print(f"  - {f.get('name')}: properties = {f.get('properties')}")
+        except Exception as e:
+            print(f"[Drive DEBUG ERROR] {e}")
     
     # Google Drive POC - Query project files
     project_tag = request.GET.get('project', '2025-10-Sherrene-Kibbe')  # Allow testing different projects
@@ -245,4 +258,6 @@ def test_page(request):
         'drive_files': drive_files,
         'drive_error': drive_error,
         'drive_success_msg': drive_success_msg,
+        'debug_mode': debug_mode,
+        'debug_files': debug_files,
     }) 
