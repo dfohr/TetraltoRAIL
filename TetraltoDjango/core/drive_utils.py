@@ -219,6 +219,10 @@ def list_all_accessible_files(max_results: int = 10) -> List[Dict]:
         query = "trashed=false"
         
         logger.info("Listing all accessible files for debugging")
+        print(f"\n{'='*80}")
+        print("DRIVE API - LISTING ALL ACCESSIBLE FILES")
+        print(f"Query: {query}")
+        print(f"Max results: {max_results}")
         
         results = service.files().list(
             q=query,
@@ -227,14 +231,33 @@ def list_all_accessible_files(max_results: int = 10) -> List[Dict]:
             orderBy='modifiedTime desc'
         ).execute()
         
+        print(f"\nComplete API Response:")
+        print(json.dumps(results, indent=2, default=str))
+        print(f"{'='*80}\n")
+        
         files = results.get('files', [])
         logger.info(f"Service account can access {len(files)} files")
+        print(f"Found {len(files)} total accessible files")
+        
+        if len(files) == 0:
+            print("⚠️  WARNING: Service account cannot see ANY files!")
+            print("This means either:")
+            print("  1. No files are shared with the service account")
+            print("  2. Files are shared but not with proper permissions")
+            print("  3. Service account email might be incorrect")
         
         return files
         
     except HttpError as e:
         logger.error(f"Google Drive API error: {e}")
+        print(f"\n❌ HTTP Error from Drive API:")
+        print(f"Status: {e.resp.status}")
+        print(f"Reason: {e.resp.reason}")
+        print(f"Details: {e.content}")
         raise
     except Exception as e:
         logger.error(f"Error listing accessible files: {e}")
+        print(f"\n❌ Exception: {e}")
+        import traceback
+        traceback.print_exc()
         raise
