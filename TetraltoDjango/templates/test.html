@@ -224,10 +224,14 @@
         
         <div class="test-section width-full">
             <div class="test-header">
-                PROJECT: {{ project_tag }} 
-                <span style="font-size: 0.9rem; font-weight: normal; margin-left: 1rem;">
-                    (Change with ?project=your-project-name)
-                </span>
+                {% if no_filter %}
+                    SHOWING ALL ACCESSIBLE FILES (NO FILTER)
+                {% else %}
+                    PROJECT: {{ project_tag }} 
+                    <span style="font-size: 0.9rem; font-weight: normal; margin-left: 1rem;">
+                        (Change with ?project=your-project-name)
+                    </span>
+                {% endif %}
             </div>
             <div class="test-container" style="padding: 2rem;">
                 
@@ -245,7 +249,15 @@
                         <p style="color: #666; margin: 0;">{{ drive_success_msg }}</p>
                         {% if not drive_images and not drive_files %}
                             <p style="color: #666; margin: 1rem 0 0 0; font-size: 0.9rem;">
-                                💡 No files found? Try <a href="?debug=true" style="color: #E75A35; font-weight: bold;">debug mode</a> to see what files the service account can access.
+                                💡 No files found? Try:
+                                {% if not no_filter %}
+                                    <a href="?nofilter=true" style="color: #E75A35; font-weight: bold;">Remove Project filter</a> to see ALL files, or
+                                {% endif %}
+                                <a href="?debug=true" style="color: #E75A35; font-weight: bold;">Debug mode</a> to inspect properties.
+                            </p>
+                        {% elif no_filter %}
+                            <p style="color: #666; margin: 1rem 0 0 0; font-size: 0.9rem;">
+                                <a href="?" style="color: #E75A35; font-weight: bold;">← Back to Project filter mode</a>
                             </p>
                         {% endif %}
                     </div>

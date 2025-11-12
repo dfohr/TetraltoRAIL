@@ -235,16 +235,24 @@ def test_page(request):
     
     # Google Drive POC - Query project files
     project_tag = request.GET.get('project', '2025-10-Sherrene-Kibbe')  # Allow testing different projects
+    no_filter = request.GET.get('nofilter', '') == 'true'  # Show ALL files without Project filter
     drive_images = []
     drive_files = []
     drive_error = None
     drive_success_msg = None
     
     try:
-        all_files = query_files_by_project(project_tag, max_results=50)
+        if no_filter:
+            # Query ALL accessible files without Project filter
+            all_files = list_all_accessible_files(max_results=100)
+            drive_success_msg = f"Successfully queried Drive API (NO FILTER). Found {len(all_files)} total accessible files"
+        else:
+            # Query with Project filter
+            all_files = query_files_by_project(project_tag, max_results=50)
+            drive_success_msg = f"Successfully queried Drive API. Found {len(all_files)} total files matching Project='{project_tag}'"
+        
         drive_images = get_images_from_files(all_files, limit=3)
         drive_files = get_non_image_files(all_files, skip_count=len(drive_images))
-        drive_success_msg = f"Successfully queried Drive API. Found {len(all_files)} total files matching Project='{project_tag}'"
         print(f"[Drive POC] {drive_success_msg}")
     except Exception as e:
         drive_error = str(e)
@@ -260,4 +268,5 @@ def test_page(request):
         'drive_success_msg': drive_success_msg,
         'debug_mode': debug_mode,
         'debug_files': debug_files,
+        'no_filter': no_filter,
     }) 
