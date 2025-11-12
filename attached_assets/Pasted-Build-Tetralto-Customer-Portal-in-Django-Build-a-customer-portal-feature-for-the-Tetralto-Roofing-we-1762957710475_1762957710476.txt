@@ -1,0 +1,39 @@
+Build Tetralto Customer Portal in Django
+Build a customer portal feature for the Tetralto Roofing website using our existing Django 5.2/Python 3.11 stack (with Postgres via Neon, Gunicorn, WhiteNoise for statics, SendGrid for emails, and vanilla JS frontend). The portal is for roof replacement customers to view their project details, tagged media/invoices from Google Drive, and a review CTA. Use the existing graphic design guidelines currently in use on tetralto.com (Comfortaa font, #E75A35 primary orange, etc.).
+Part 1: Functional Requirements
+
+Model: Add a Portal model in models.py:
+Fields: customer_name (CharField), project_tag (CharField, unique, e.g., "2025-10-Sherrene-Kibbe" for Drive filtering), emails (ArrayField of EmailField, for access list), project_date (DateField), shingle_brand (CharField), shingle_color (CharField), has_left_review (BooleanField, default False, manual update via admin), drive_folder_id (CharField, optional for scoping Drive queries).
+Register in admin for easy editing.
+
+Login Flow: Simple email-based auth (defer to email security).
+Page: /portal/login/ with form for email input.
+On submit: Query portals where emails contains the input email. If none, show error. Generate a 6-digit access code (random int), cache it (with email/portals list) for 15 minutes, send code via SendGrid (e.g., "Your access code: 123456 – expires in 15 min").
+Add code entry form on same/next page. On code submit: Validate code, set session auth (portal_auth with email/portals, expires after 5 days). If multiple portals, show selection list (cards with project names); user picks one to view.
+
+Portal Detail Page: Dynamic render at /portal/<project_tag>/ (created on the fly—no pre-generation).
+Header: H1 with project name (e.g., "Roof Replacement at 7007 Verado Way" – derive from model or pattern).
+Info Section: Display customer_name, project_date, shingle_brand, shingle_color in a card.
+Media Grid: Lazy-load/query Google Drive on page load for files in drive_folder_id matching project_tag and custom properties (e.g., PortalPage in ['1-Before', '2-Project', '3-Results']). Group by unique PortalPage values, render as square cards with media icon (🖼️) and label. Add fixed "Invoices and Files" card (filter PDFs/docs via mimeType).
+Review Section: Conditional on has_left_review.
+If true: "Thank you...!" with links to /lead-form/ (request inspection) and /share-page/ (social tools – stub for now).
+If false: "Activate... Leave a Google Review..." with grayed-out/disabled inspection link.
+
+Clicking cards: Open modal/gallery (vanilla JS) with proxied Drive images/PDFs (secure endpoint /api/proxy/<file_id>/ to stream content—lazy-loaded).
+
+Logout: Link/button on portal page; clears session and redirects to home page (/).
+Security/Edge Cases: Session auth check on detail page, rate limit email/code sends (e.g., 3/hour per email), HTTPS only, log accesses. Expire codes/sessions after specified times. Add meta tags/robots.txt rules to prevent Google SEO indexing of portal pages (e.g., noindex meta, disallow /portal/ in robots.txt), but ensure Posthog tracking works (e.g., include Posthog JS snippet on portal pages).
+Other: For users with multiple portals, allow selection after code verification (one session unlocks viewing any, but load one at a time via URL).
+
+Part 2: Technical Requirements
+
+Integrations:
+Google Drive API: Use google-api-python-client for lazy queries (readonly scope) on portal view.
+Cache: Use Django cache (LocMem for dev, Redis on Railway) for session data if needed (no pre-fetch; lazy on view).
+Email: SendGrid for access codes.
+Posthog: Include existing snippet on portal templates for analytics (don't block on noindex).
+
+Frontend: Vanilla JS/CSS matching existing guidelines. Add JS for code form validation, modals (dialog element), and lazy-load images (e.g., IntersectionObserver).
+URLs/Views: Add to urls.py/views.py. Use function-based views.
+Templates: In templates/portal/: login.html (email/code forms), select_portal.html (list if multiple), detail.html (main page with sections).
+Deployment: Test in Replit, commit to Git for Railway push. Use env vars for secrets (Drive key, SendGrid API). Add robots.txt and meta noindex for portals.
