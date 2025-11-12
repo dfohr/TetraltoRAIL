@@ -234,7 +234,7 @@ def test_page(request):
             print(f"[Drive DEBUG ERROR] {e}")
     
     # Google Drive POC - Query project files
-    project_tag = request.GET.get('project', '2025-10-Sherrene-Kibbe')  # Allow testing different projects
+    project_tag = request.GET.get('project', '2025-10 Sherrene Kibbe')  # Allow testing different projects
     no_filter = request.GET.get('nofilter', '') == 'true'  # Show ALL files without Project filter
     drive_images = []
     drive_files = []
