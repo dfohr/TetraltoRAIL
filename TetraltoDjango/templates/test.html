@@ -218,6 +218,135 @@
         </div>
     </section>
 
+    <!-- Google Drive Integration POC Section -->
+    <section class="component-section">
+        <h2 class="component-title">Google Drive Integration POC</h2>
+        
+        <div class="test-section width-full">
+            <div class="test-header">
+                PROJECT: {{ project_tag }} 
+                <span style="font-size: 0.9rem; font-weight: normal; margin-left: 1rem;">
+                    (Change with ?project=your-project-name)
+                </span>
+            </div>
+            <div class="test-container" style="padding: 2rem;">
+                
+                {% if drive_error %}
+                    <div style="background: #ffebee; border: 2px solid #c62828; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
+                        <h3 style="color: #c62828; margin-top: 0;">Drive API Error</h3>
+                        <p style="color: #666; margin: 0;">{{ drive_error }}</p>
+                        <p style="color: #999; font-size: 0.9rem; margin: 1rem 0 0 0;">
+                            Check that GOOGLE_DRIVE_CREDENTIALS is set and files are shared with service account.
+                        </p>
+                    </div>
+                {% elif drive_success_msg %}
+                    <div style="background: #e8f5e9; border: 2px solid #4caf50; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
+                        <h3 style="color: #2e7d32; margin-top: 0;">✓ Drive API Connected</h3>
+                        <p style="color: #666; margin: 0;">{{ drive_success_msg }}</p>
+                    </div>
+                {% endif %}
+                
+                <!-- First 3 Images -->
+                <h3 style="margin-top: 0;">Images (First 3)</h3>
+                {% if drive_images %}
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+                        {% for img in drive_images %}
+                        <div style="border: 2px solid #ddd; border-radius: 8px; padding: 1rem; background: white;">
+                            {% if img.thumbnailLink %}
+                                <img src="{{ img.thumbnailLink }}" 
+                                     alt="{{ img.name }}" 
+                                     loading="lazy"
+                                     style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px;">
+                            {% else %}
+                                <div style="width: 100%; height: 200px; background: #f5f5f5; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #999;">
+                                    No thumbnail
+                                </div>
+                            {% endif %}
+                            <p style="font-size: 0.85rem; margin: 0.75rem 0 0 0; color: #333; font-weight: 500;">
+                                {{ img.name }}
+                            </p>
+                            <p style="font-size: 0.75rem; margin: 0.25rem 0 0 0; color: #999;">
+                                {{ img.mimeType }}
+                            </p>
+                            {% if img.properties %}
+                                <div style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #eee;">
+                                    <p style="font-size: 0.75rem; color: #666; margin: 0;">
+                                        <strong>Labels:</strong>
+                                    </p>
+                                    {% for key, value in img.properties.items %}
+                                        <p style="font-size: 0.7rem; color: #888; margin: 0.25rem 0 0 0;">
+                                            {{ key }}: {{ value }}
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            {% if img.webViewLink %}
+                                <a href="{{ img.webViewLink }}" 
+                                   target="_blank" 
+                                   style="display: inline-block; margin-top: 0.75rem; padding: 0.5rem 1rem; background: #E75A35; color: white; text-decoration: none; border-radius: 4px; font-size: 0.85rem;">
+                                    View in Drive
+                                </a>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p style="color: #999; font-style: italic;">No images found for this project.</p>
+                {% endif %}
+                
+                <!-- Remaining Files List -->
+                <h3 style="margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #eee;">
+                    Other Files ({{ drive_files|length }})
+                </h3>
+                {% if drive_files %}
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        {% for file in drive_files %}
+                        <li style="padding: 1rem; margin-bottom: 0.5rem; background: #f9f9f9; border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+                            <div style="flex: 1;">
+                                <strong style="color: #333;">{{ file.name }}</strong>
+                                <br>
+                                <span style="color: #999; font-size: 0.8rem;">{{ file.mimeType }}</span>
+                                {% if file.properties %}
+                                    <div style="margin-top: 0.5rem;">
+                                        {% for key, value in file.properties.items %}
+                                            <span style="display: inline-block; background: #e0e0e0; padding: 0.25rem 0.5rem; border-radius: 3px; font-size: 0.7rem; margin-right: 0.5rem; color: #555;">
+                                                {{ key }}: {{ value }}
+                                            </span>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            {% if file.webViewLink %}
+                                <a href="{{ file.webViewLink }}" 
+                                   target="_blank"
+                                   style="margin-left: 1rem; padding: 0.5rem 1rem; background: #E75A35; color: white; text-decoration: none; border-radius: 4px; font-size: 0.85rem; white-space: nowrap;">
+                                    View
+                                </a>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p style="color: #999; font-style: italic;">No additional files found.</p>
+                {% endif %}
+                
+                <!-- Summary Stats -->
+                <div style="margin-top: 2rem; padding: 1.5rem; background: #f5f5f5; border-radius: 8px;">
+                    <h4 style="margin: 0 0 0.5rem 0; color: #333;">POC Summary</h4>
+                    <p style="margin: 0.25rem 0; color: #666;">
+                        <strong>Images displayed:</strong> {{ drive_images|length }}
+                    </p>
+                    <p style="margin: 0.25rem 0; color: #666;">
+                        <strong>Other files listed:</strong> {{ drive_files|length }}
+                    </p>
+                    <p style="margin: 0.25rem 0; color: #666;">
+                        <strong>Total files:</strong> {{ drive_images|length|add:drive_files|length }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Include testimonials carousel script once at bottom -->
     <script src="{% static 'js/testimonials-carousel.js' %}"></script>
     

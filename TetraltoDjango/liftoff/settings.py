@@ -222,6 +222,9 @@ SENDGRID_FORM_API_KEY = os.environ.get('SENDGRID_FORM_API_KEY', '')
 SENDGRID_FORM_FROM_EMAIL = os.environ.get('SENDGRID_FORM_FROM_EMAIL', 'noreply@tetralto.com')
 SENDGRID_FORM_TO_EMAIL = os.environ.get('SENDGRID_FORM_TO_EMAIL', '')  # Your email for lead notifications
 
+# Google Drive API Configuration
+GOOGLE_DRIVE_CREDENTIALS = os.environ.get('GOOGLE_DRIVE_CREDENTIALS', '')
+
 # Custom logging filter to suppress /api monitoring noise
 class ApiHealthFilter:
     def filter(self, record):
