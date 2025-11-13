@@ -62,13 +62,14 @@ def get_drive_service():
         raise
 
 
-def query_files_by_project(project_tag: str, max_results: int = 50) -> List[Dict]:
+def query_files_by_project(project_tag: str, max_results: int = 500) -> List[Dict]:
     """
     Query Google Drive files with custom property 'Project' matching project_tag.
+    Handles pagination to retrieve all matching files up to max_results.
     
     Args:
         project_tag: Value of the 'Project' custom property to filter by
-        max_results: Maximum number of files to return (default: 50)
+        max_results: Maximum total number of files to return (default: 500)
         
     Returns:
         List of dictionaries containing file metadata:
@@ -87,23 +88,42 @@ def query_files_by_project(project_tag: str, max_results: int = 50) -> List[Dict
         service = get_drive_service()
         
         # Build query for files with Project custom property
-        # Note: Custom properties are searchable with 'properties has' syntax
         query = f"properties has {{ key='Project' and value='{project_tag}' }} and trashed=false"
         
         logger.info(f"Querying Drive with: {query}")
         
-        # Execute search
-        results = service.files().list(
-            q=query,
-            fields="files(id, name, mimeType, thumbnailLink, webViewLink, webContentLink, properties)",
-            pageSize=max_results,
-            orderBy='createdTime desc'
-        ).execute()
+        # Paginate through results
+        all_files = []
+        page_token = None
+        page_size = 200  # Increased from 50
         
-        files = results.get('files', [])
-        logger.info(f"Found {len(files)} files for project '{project_tag}'")
+        while True:
+            # Execute search
+            results = service.files().list(
+                q=query,
+                fields="nextPageToken, files(id, name, mimeType, thumbnailLink, webViewLink, webContentLink, properties)",
+                pageSize=page_size,
+                pageToken=page_token,
+                orderBy='createdTime desc'
+            ).execute()
+            
+            files = results.get('files', [])
+            all_files.extend(files)
+            
+            # Check if we've hit the limit
+            if len(all_files) >= max_results:
+                all_files = all_files[:max_results]
+                logger.warning(f"Reached max_results limit ({max_results}) for project '{project_tag}'")
+                break
+            
+            # Check for next page
+            page_token = results.get('nextPageToken')
+            if not page_token:
+                break
         
-        return files
+        logger.info(f"Found {len(all_files)} files for project '{project_tag}'")
+        
+        return all_files
         
     except HttpError as e:
         logger.error(f"Google Drive API error: {e}")
@@ -143,16 +163,15 @@ def get_non_image_files(files: List[Dict], skip_count: int = 0) -> List[Dict]:
 
 
 def query_files_by_labels(project_tag: str, additional_filters: Optional[Dict[str, str]] = None, 
-                          max_results: int = 50) -> List[Dict]:
+                          max_results: int = 500) -> List[Dict]:
     """
     Query Google Drive files with Project tag and optional additional custom property filters.
-    
-    This is for future use when filtering by multiple labels like PortalPage, Stage, etc.
+    Handles pagination to retrieve all matching files up to max_results.
     
     Args:
         project_tag: Value of the 'Project' custom property
         additional_filters: Dict of additional property filters (e.g., {'PortalPage': '1-Before'})
-        max_results: Maximum number of files to return
+        max_results: Maximum total number of files to return (default: 500)
         
     Returns:
         List of file dictionaries matching all filters
@@ -161,7 +180,7 @@ def query_files_by_labels(project_tag: str, additional_filters: Optional[Dict[st
         files = query_files_by_labels(
             '2025-10-Sherrene-Kibbe',
             {'PortalPage': '1-Before', 'Stage': 'Completed'},
-            max_results=20
+            max_results=500
         )
     """
     try:
@@ -183,18 +202,40 @@ def query_files_by_labels(project_tag: str, additional_filters: Optional[Dict[st
         
         logger.info(f"Querying Drive with multiple filters: {query}")
         
-        # Execute search
-        results = service.files().list(
-            q=query,
-            fields="files(id, name, mimeType, thumbnailLink, webViewLink, webContentLink, properties)",
-            pageSize=max_results,
-            orderBy='createdTime desc'
-        ).execute()
+        # Paginate through results
+        all_files = []
+        page_token = None
+        page_size = 200  # Fetch 200 items per page
         
-        files = results.get('files', [])
-        logger.info(f"Found {len(files)} files matching filters")
+        while True:
+            # Execute search
+            results = service.files().list(
+                q=query,
+                fields="nextPageToken, files(id, name, mimeType, thumbnailLink, webViewLink, webContentLink, properties)",
+                pageSize=page_size,
+                pageToken=page_token,
+                orderBy='createdTime desc'
+            ).execute()
+            
+            files = results.get('files', [])
+            all_files.extend(files)
+            
+            # Check if we've hit the limit
+            if len(all_files) >= max_results:
+                all_files = all_files[:max_results]
+                filter_desc = f"project='{project_tag}'" + (f" with filters {additional_filters}" if additional_filters else "")
+                logger.warning(f"Reached max_results limit ({max_results}) for {filter_desc}")
+                print(f"⚠️  WARNING: Hit {max_results} file limit for {filter_desc}. Some files may not be shown.")
+                break
+            
+            # Check for next page
+            page_token = results.get('nextPageToken')
+            if not page_token:
+                break
         
-        return files
+        logger.info(f"Found {len(all_files)} files matching filters")
+        
+        return all_files
         
     except HttpError as e:
         logger.error(f"Google Drive API error: {e}")
