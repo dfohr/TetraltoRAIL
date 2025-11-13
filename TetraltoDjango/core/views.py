@@ -282,12 +282,7 @@ def portal_login(request):
     # If already authenticated, redirect to portal selection
     session_data = get_portal_session(request)
     if session_data:
-        portal_ids = session_data.get('portal_ids', [])
-        if len(portal_ids) == 1:
-            portal = Portal.objects.get(id=portal_ids[0])
-            return redirect('portal_detail', project_tag=portal.project_tag)
-        elif len(portal_ids) > 1:
-            return redirect('portal_select')
+        return redirect('portal_select')
     
     if request.method == 'POST':
         step = request.POST.get('step', 'email')
