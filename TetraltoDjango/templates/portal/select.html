@@ -59,6 +59,16 @@
             border-radius: 16px;
             padding: 2rem;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .portal-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
         }
         
         .portal-card h2 {
@@ -110,7 +120,7 @@
         
         <div class="portal-grid">
             {% for portal in portals %}
-                <div class="portal-card">
+                <a href="{% url 'portal_detail' project_tag=portal.project_tag %}" class="portal-card">
                     <h2>{{ portal.customer_name }}</h2>
                     <div class="portal-info">
                         <p><strong>Project:</strong> {{ portal.project_tag }}</p>
@@ -119,10 +129,7 @@
                     <div class="portal-date">
                         Project Date: {{ portal.project_date|date:"F d, Y" }}
                     </div>
-                    <p style="color: #999; font-size: 0.85rem; margin-top: 1rem; font-style: italic;">
-                        Portal detail page coming soon...
-                    </p>
-                </div>
+                </a>
             {% endfor %}
         </div>
         
