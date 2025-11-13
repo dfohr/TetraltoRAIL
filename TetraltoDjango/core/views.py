@@ -419,6 +419,9 @@ def portal_detail(request, project_tag):
         import traceback
         traceback.print_exc()
     
+    # Sort files section by name, descending (Z to A)
+    files_section.sort(key=lambda x: x.get('name', ''), reverse=True)
+    
     return render(request, 'portal/detail.html', {
         'portal': portal,
         'portal_pages': portal_pages,
