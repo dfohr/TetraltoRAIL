@@ -427,6 +427,61 @@ def portal_detail(request, project_tag):
         'email': session_data.get('email')
     })
 
+def portal_gallery(request, project_tag, page_name):
+    """Gallery page showing all photos for a specific PortalPage category."""
+    session_data = get_portal_session(request)
+    
+    if not session_data:
+        return redirect('portal_login')
+    
+    # Get the portal and verify access
+    try:
+        portal = Portal.objects.get(project_tag=project_tag)
+    except Portal.DoesNotExist:
+        messages.error(request, "Portal not found.")
+        return redirect('portal_select')
+    
+    # Verify user has access to this portal
+    portal_ids = session_data.get('portal_ids', [])
+    if portal.id not in portal_ids:
+        messages.error(request, "You do not have access to this portal.")
+        return redirect('portal_select')
+    
+    # Query Google Drive for files in this PortalPage category
+    images = []
+    error_message = None
+    
+    try:
+        all_files = query_files_by_project(project_tag, max_results=200)
+        
+        # Filter files for this specific PortalPage
+        for file_data in all_files:
+            properties = file_data.get('properties', {})
+            portal_page = properties.get('PortalPage')
+            
+            if portal_page == page_name:
+                # Only include image files
+                if file_data.get('mimeType', '').startswith('image/'):
+                    # Normalize keys for template
+                    file_data['thumbnail_link'] = file_data.get('thumbnailLink')
+                    file_data['web_view_link'] = file_data.get('webViewLink')
+                    file_data['web_content_link'] = file_data.get('webContentLink')
+                    images.append(file_data)
+        
+    except Exception as e:
+        error_message = f"Error loading images: {str(e)}"
+        print(f"[Portal Gallery Error] {e}")
+        import traceback
+        traceback.print_exc()
+    
+    return render(request, 'portal/gallery.html', {
+        'portal': portal,
+        'page_name': page_name,
+        'images': images,
+        'error_message': error_message,
+        'email': session_data.get('email')
+    })
+
 def portal_logout(request):
     """Logout from portal and redirect to home."""
     clear_portal_session(request)
