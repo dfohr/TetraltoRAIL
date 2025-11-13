@@ -51,11 +51,11 @@ urlpatterns = [
     path('test/', test_page, name='test_page'),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     
-    # Customer Portal URLs
+    # Customer Portal URLs (static routes before dynamic to avoid shadowing)
     path('portal/login/', portal_login, name='portal_login'),
+    path('portal/logout/', portal_logout, name='portal_logout'),
     path('portal/select/', portal_select, name='portal_select'),
     path('portal/image/<str:file_id>/', portal_proxy_image, name='portal_proxy_image'),
     path('portal/<str:project_tag>/', portal_detail, name='portal_detail'),
     path('portal/<str:project_tag>/<str:page_name>/', portal_gallery, name='portal_gallery'),
-    path('portal/logout/', portal_logout, name='portal_logout'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
