@@ -232,7 +232,7 @@
         {% if portal_pages %}
         <h2 class="section-title">Project Photos</h2>
         <div class="portal-pages-grid">
-            {% for page_name, files in portal_pages.items %}
+            {% for page_name, files in portal_pages.items|dictsort:0 %}
             <a href="#" class="page-tile">
                 {% if files.0.thumbnail_link %}
                 <img src="{{ files.0.thumbnail_link }}" alt="{{ page_name }}" class="page-tile-image">
