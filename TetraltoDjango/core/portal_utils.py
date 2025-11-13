@@ -131,3 +131,6 @@ def clear_portal_session(request):
     """Clear portal session data (logout)."""
     if 'portal_auth' in request.session:
         del request.session['portal_auth']
+        request.session.modified = True  # Ensure session is saved
+    # Also flush the entire session to be sure
+    request.session.flush()
