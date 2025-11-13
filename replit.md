@@ -83,11 +83,13 @@ This is a Django-based website for Tetralto Roofing company with a microservices
   - **Dependencies**: Installed google-api-python-client, google-auth, google-auth-httplib2
   - **Deployment Ready**: Environment variable approach works for both Replit dev and Railway production
 - **Customer Portal Gallery System** (November 13, 2025): Built complete gallery with secure image proxy
-  - **Secure Image Proxy**: Django streams Drive files through portal_proxy_image view with authorization checks
+  - **Secure Image Proxy**: Django streams Drive images through portal_proxy_image view with authorization checks
+  - **Secure File Downloads**: Django proxies all file downloads through portal_download_file with same security model
   - **Authorization Model**: Verifies file's Project property matches user's authorized portals before streaming
   - **Gallery Pages**: Click PortalPage tiles → thumbnail grid → modal lightbox with full-size images
+  - **Files Section**: Secure downloads without requiring Drive access, no caching for security
   - **UI Features**: Responsive grid, keyboard navigation (arrows/ESC), native browser controls (save/share)
-  - **Security**: Cross-portal IDOR prevention, no file existence enumeration (all errors return 403)
+  - **Security**: Cross-portal IDOR prevention, no file existence enumeration (all errors return 403), no HTTP caching
   - **Trust Model**: Drive custom properties are source of truth (requires proper Drive permissions)
   - **URL Ordering**: Fixed logout shadowing by ordering static routes before dynamic project_tag routes
 - **Drive API Pagination Fix** (November 13, 2025): Fixed critical bug where >50 files were silently lost
