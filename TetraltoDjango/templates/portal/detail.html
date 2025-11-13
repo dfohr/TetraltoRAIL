@@ -211,7 +211,7 @@
         .action-tile {
             background: white;
             border-radius: 16px;
-            padding: 2.5rem 2rem;
+            overflow: hidden;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             text-decoration: none;
             display: block;
@@ -226,33 +226,40 @@
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
         }
         
-        .review-tile {
+        .tile-header {
+            padding: 2.5rem 2rem 1.5rem;
+            text-align: center;
+        }
+        
+        .review-tile .tile-header {
             background: #E75A35;
         }
         
-        .inspection-tile {
+        .inspection-tile .tile-header {
             background: #F47924;
         }
         
         .tile-content {
+            background: white;
+            padding: 1.5rem 2rem 2rem;
             text-align: center;
         }
         
         .action-tile h3 {
             color: white;
             font-size: 1.5rem;
-            margin-bottom: 1.5rem;
+            margin: 0;
             font-weight: 600;
         }
         
         .tile-button {
-            background: #E75A35;
-            color: white;
+            background: #e5e7eb;
+            color: #1f2937;
             padding: 0.75rem 1.5rem;
             border-radius: 8px;
             font-weight: 600;
             font-size: 1rem;
-            border: 2px solid #E75A35;
+            border: none;
             cursor: pointer;
             display: inline-block;
             margin-bottom: 1rem;
@@ -262,20 +269,16 @@
         }
         
         .tile-button:hover {
-            background: #F47924;
-            border-color: #F47924;
+            background: #d1d5db;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
         
         .tile-footer {
-            background: #e5e7eb;
+            background: white;
             color: #4b5563;
             font-size: 0.9rem;
-            margin-top: 1rem;
-            padding: 1rem;
-            border-radius: 8px;
-            line-height: 1.5;
+            line-height: 1.6;
         }
         
         @media (max-width: 768px) {
@@ -373,8 +376,10 @@
                 {% if not portal.has_left_review %}
                 <!-- Google Review Tile -->
                 <div class="action-tile review-tile">
-                    <div class="tile-content">
+                    <div class="tile-header">
                         <h3>Please submit a 5-star Review!</h3>
+                    </div>
+                    <div class="tile-content">
                         <a href="https://g.page/r/CcdU1D8L-5y3EAE/review" target="_blank" class="tile-button">Press here to get started</a>
                         <p class="tile-footer">Reviews are essential for us to get more projects! If your project was awesome, please leave a 5-star review here. If there was ANY issue that would impact a 5-star rating please call the owner (David) at 281-895-1213 and we will make it right.</p>
                     </div>
@@ -383,8 +388,10 @@
                 
                 <!-- Request Inspection Tile -->
                 <div class="action-tile inspection-tile">
-                    <div class="tile-content">
+                    <div class="tile-header">
                         <h3>Request a free inspection here!</h3>
+                    </div>
+                    <div class="tile-content">
                         <a href="{% url 'contact' %}" class="tile-button">Open our contact form here</a>
                         <p class="tile-footer">Tetralto Roofing grants free yearly inspections for the roofs we install. This helps maintain your roof in excellent condition and prolong its life expectancy!{% if not portal.has_left_review %} We kindly request that you leave us a review before requesting a free inspection (but it's not mandatory).{% endif %}</p>
                     </div>
