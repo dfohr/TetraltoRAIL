@@ -210,6 +210,13 @@
 </head>
 <body>
     <div class="container">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h1 style="color: #E75A35; font-size: 2.5rem; margin-bottom: 1rem;">Perpetual Project Information File</h1>
+            <p style="color: #666; font-size: 0.9rem; max-width: 800px; margin: 0 auto; line-height: 1.6;">
+                This is your Perpetual Project Information File, that contains pictures, invoices and other documents related to your project. There is also a place to request inspections and tools to help you share about Tetralto Roofing with your friends and family!
+            </p>
+        </div>
+        
         <div class="header">
             <h1>{{ portal.customer_name }}</h1>
             <div class="project-info">
@@ -228,13 +235,6 @@
             {{ error_message }}
         </div>
         {% endif %}
-        
-        <div style="text-align: center; margin-bottom: 3rem;">
-            <h1 style="color: #E75A35; font-size: 2rem; margin-bottom: 1rem;">Perpetual Project Information File</h1>
-            <p style="color: #666; font-size: 0.9rem; max-width: 800px; margin: 0 auto; line-height: 1.6;">
-                This is your Perpetual Project Information File, that contains pictures, invoices and other documents related to your project. There is also a place to request inspections and tools to help you share about Tetralto Roofing with your friends and family!
-            </p>
-        </div>
         
         {% if portal_pages %}
         <h2 class="section-title">Project Photos</h2>
