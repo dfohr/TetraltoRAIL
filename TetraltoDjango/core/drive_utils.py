@@ -11,7 +11,9 @@ from typing import List, Dict, Optional
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+from googleapiclient.http import MediaIoBaseDownload
 from django.conf import settings
+import io
 
 logger = logging.getLogger(__name__)
 
@@ -260,4 +262,45 @@ def list_all_accessible_files(max_results: int = 10) -> List[Dict]:
         print(f"\n❌ Exception: {e}")
         import traceback
         traceback.print_exc()
+        raise
+
+
+def download_file_content(file_id: str) -> tuple:
+    """
+    Download file content from Google Drive.
+    
+    Args:
+        file_id: Google Drive file ID
+        
+    Returns:
+        tuple: (file_content: bytes, mime_type: str)
+        
+    Raises:
+        Exception: If file download fails
+    """
+    try:
+        service = get_drive_service()
+        
+        # Get file metadata for MIME type
+        file_metadata = service.files().get(fileId=file_id, fields='mimeType').execute()
+        mime_type = file_metadata.get('mimeType', 'application/octet-stream')
+        
+        # Download file content
+        request = service.files().get_media(fileId=file_id)
+        file_buffer = io.BytesIO()
+        downloader = MediaIoBaseDownload(file_buffer, request)
+        
+        done = False
+        while not done:
+            status, done = downloader.next_chunk()
+        
+        # Return file content and MIME type
+        file_buffer.seek(0)
+        return file_buffer.read(), mime_type
+        
+    except HttpError as e:
+        logger.error(f"Google Drive API error downloading file {file_id}: {e}")
+        raise
+    except Exception as e:
+        logger.error(f"Error downloading file {file_id}: {e}")
         raise

@@ -9,7 +9,7 @@ from .portal_utils import (
     generate_access_code, send_access_code_email, cache_access_code,
     verify_access_code, set_portal_session, get_portal_session, clear_portal_session
 )
-from .drive_utils import query_files_by_project
+from .drive_utils import query_files_by_project, download_file_content
 import django
 import sys
 import os
@@ -481,6 +481,29 @@ def portal_gallery(request, project_tag, page_name):
         'error_message': error_message,
         'email': session_data.get('email')
     })
+
+def portal_proxy_image(request, file_id):
+    """
+    Proxy Google Drive images for authenticated portal users.
+    Downloads file from Drive using service account and streams to user.
+    """
+    session_data = get_portal_session(request)
+    
+    if not session_data:
+        return HttpResponse("Unauthorized", status=401)
+    
+    try:
+        # Download file content from Drive
+        file_content, mime_type = download_file_content(file_id)
+        
+        # Return file as HTTP response
+        response = HttpResponse(file_content, content_type=mime_type)
+        response['Cache-Control'] = 'public, max-age=86400'  # Cache for 1 day
+        return response
+        
+    except Exception as e:
+        print(f"[Portal Proxy Error] Failed to fetch file {file_id}: {e}")
+        return HttpResponse("File not found", status=404)
 
 def portal_logout(request):
     """Logout from portal and redirect to home."""

@@ -233,9 +233,9 @@
         <h2 class="section-title">Project Photos</h2>
         <div class="portal-pages-grid">
             {% for page_name, files in portal_pages.items|dictsort:0 %}
-            <a href="#" class="page-tile">
-                {% if files.0.thumbnail_link %}
-                <img src="{{ files.0.thumbnail_link }}" alt="{{ page_name }}" class="page-tile-image">
+            <a href="{% url 'portal_gallery' project_tag=portal.project_tag page_name=page_name %}" class="page-tile">
+                {% if files.0.id %}
+                <img src="{% url 'portal_proxy_image' file_id=files.0.id %}" alt="{{ page_name }}" class="page-tile-image">
                 {% else %}
                 <div class="page-tile-image"></div>
                 {% endif %}

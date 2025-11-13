@@ -20,7 +20,7 @@ from core.views import (
     home, health, api_health, services_view, contact, 
     blog_list, blog_post, robots_txt, terms_and_conditions,
     service_detail, thank_you, google_landing, google_thank_you, test_page,
-    portal_login, portal_select, portal_detail, portal_logout
+    portal_login, portal_select, portal_detail, portal_gallery, portal_proxy_image, portal_logout
 )
 from django.conf import settings
 from django.conf.urls.static import static
@@ -54,6 +54,8 @@ urlpatterns = [
     # Customer Portal URLs
     path('portal/login/', portal_login, name='portal_login'),
     path('portal/select/', portal_select, name='portal_select'),
+    path('portal/image/<str:file_id>/', portal_proxy_image, name='portal_proxy_image'),
     path('portal/<str:project_tag>/', portal_detail, name='portal_detail'),
+    path('portal/<str:project_tag>/<str:page_name>/', portal_gallery, name='portal_gallery'),
     path('portal/logout/', portal_logout, name='portal_logout'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
