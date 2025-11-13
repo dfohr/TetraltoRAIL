@@ -345,12 +345,8 @@ def portal_login(request):
             # Set session
             set_portal_session(request, email, portal_ids)
             
-            # Redirect based on number of portals
-            if len(portal_ids) == 1:
-                portal = Portal.objects.get(id=portal_ids[0])
-                return redirect('portal_detail', project_tag=portal.project_tag)
-            else:
-                return redirect('portal_select')
+            # Redirect to portal selection page
+            return redirect('portal_select')
     
     return render(request, 'portal/login.html', {})
 
@@ -363,9 +359,6 @@ def portal_select(request):
     
     portal_ids = session_data.get('portal_ids', [])
     portals = Portal.objects.filter(id__in=portal_ids).order_by('-project_date')
-    
-    if len(portals) == 1:
-        return redirect('portal_detail', project_tag=portals[0].project_tag)
     
     return render(request, 'portal/select.html', {
         'portals': portals,
