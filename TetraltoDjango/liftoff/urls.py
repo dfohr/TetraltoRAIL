@@ -20,7 +20,7 @@ from core.views import (
     home, health, api_health, services_view, contact, 
     blog_list, blog_post, robots_txt, terms_and_conditions,
     service_detail, thank_you, google_landing, google_thank_you, test_page,
-    portal_login, portal_select, portal_detail, portal_gallery, portal_proxy_image, portal_download_file, portal_logout
+    portal_login, portal_select, portal_detail, portal_gallery, portal_proxy_image, portal_download_file, portal_request_inspection, portal_logout
 )
 from django.conf import settings
 from django.conf.urls.static import static
@@ -57,6 +57,7 @@ urlpatterns = [
     path('portal/select/', portal_select, name='portal_select'),
     path('portal/image/<str:file_id>/', portal_proxy_image, name='portal_proxy_image'),
     path('portal/download/<str:file_id>/', portal_download_file, name='portal_download_file'),
+    path('portal/<str:project_tag>/request-inspection/', portal_request_inspection, name='portal_request_inspection'),
     path('portal/<str:project_tag>/', portal_detail, name='portal_detail'),
     path('portal/<str:project_tag>/<str:page_name>/', portal_gallery, name='portal_gallery'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

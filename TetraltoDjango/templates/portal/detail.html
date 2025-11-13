@@ -197,12 +197,90 @@
             color: #999;
         }
         
+        .action-tiles-section {
+            margin-top: 3rem;
+        }
+        
+        .action-tiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .action-tile {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            display: block;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+        }
+        
+        .action-tile:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .review-tile {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        }
+        
+        .inspection-tile {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        
+        .tile-content {
+            text-align: center;
+        }
+        
+        .action-tile h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .tile-button {
+            background: white;
+            color: #333;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+            margin-bottom: 1rem;
+            transition: background 0.2s;
+            font-family: 'Comfortaa', sans-serif;
+        }
+        
+        .tile-button:hover {
+            background: #f5f5f5;
+        }
+        
+        .tile-footer {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            line-height: 1.5;
+        }
+        
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 1.5rem;
             }
             
             .portal-pages-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-tiles-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -280,6 +358,35 @@
             <p style="margin-top: 0.5rem; font-size: 0.9rem;">Files will appear here once they are uploaded to Google Drive.</p>
         </div>
         {% endif %}
+        
+        <!-- Action Tiles Section -->
+        <div class="action-tiles-section">
+            <h2 class="section-title">What's Next?</h2>
+            <div class="action-tiles-grid">
+                {% if not portal.has_left_review %}
+                <!-- Google Review Tile -->
+                <a href="https://g.page/r/CcdU1D8L-5y3EAE/review" target="_blank" class="action-tile review-tile">
+                    <div class="tile-content">
+                        <h3>Please request a Google Review</h3>
+                        <div class="tile-button">Link to Google Review URL</div>
+                        <p class="tile-footer">If you leave a review, you get a free inspection.</p>
+                    </div>
+                </a>
+                {% endif %}
+                
+                <!-- Request Inspection Tile -->
+                <form method="POST" action="{% url 'portal_request_inspection' project_tag=portal.project_tag %}" class="action-tile inspection-tile">
+                    {% csrf_token %}
+                    <div class="tile-content">
+                        <h3>Request a free inspection</h3>
+                        <button type="submit" class="tile-button">Send Email to Tetralto</button>
+                        {% if not portal.has_left_review %}
+                        <p class="tile-footer">We kindly ask for you to leave a review before requesting a free inspection.</p>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </body>
 </html>

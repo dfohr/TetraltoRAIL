@@ -586,6 +586,82 @@ def portal_download_file(request, file_id):
         print(f"[Portal Download Error] Unexpected error for file {file_id}: {e}")
         return HttpResponse("Forbidden", status=403)
 
+def portal_request_inspection(request, project_tag):
+    """Handle inspection request form submission and send email to Tetralto."""
+    if request.method != 'POST':
+        return redirect('portal_detail', project_tag=project_tag)
+    
+    session_data = get_portal_session(request)
+    
+    if not session_data:
+        messages.error(request, "You must be logged in to request an inspection.")
+        return redirect('portal_login')
+    
+    # Get the portal and verify access
+    try:
+        portal = Portal.objects.get(project_tag=project_tag)
+    except Portal.DoesNotExist:
+        messages.error(request, "Portal not found.")
+        return redirect('portal_select')
+    
+    # Verify user has access to this portal
+    portal_ids = session_data.get('portal_ids', [])
+    if portal.id not in portal_ids:
+        messages.error(request, "You do not have access to this portal.")
+        return redirect('portal_select')
+    
+    # Send email to david@tetralto.com
+    try:
+        from sendgrid import SendGridAPIClient
+        from sendgrid.helpers.mail import Mail
+        
+        requester_email = session_data.get('email', 'Unknown')
+        
+        message = Mail(
+            from_email=settings.SENDGRID_FORM_FROM_EMAIL,
+            to_emails='david@tetralto.com',
+            subject=f'Inspection Request - {portal.customer_name}',
+            html_content=f"""
+            <div style="font-family: 'Comfortaa', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+                <h2 style="color: #E75A35;">New Inspection Request</h2>
+                <p>A customer has requested a free roof inspection from the customer portal.</p>
+                
+                <div style="background: #F5F5F5; border-left: 4px solid #E75A35; padding: 20px; margin: 20px 0;">
+                    <h3 style="margin: 0 0 15px 0; color: #333;">Customer Information</h3>
+                    <p style="margin: 5px 0;"><strong>Customer Name:</strong> {portal.customer_name}</p>
+                    <p style="margin: 5px 0;"><strong>Project Tag:</strong> {portal.project_tag}</p>
+                    <p style="margin: 5px 0;"><strong>Project Date:</strong> {portal.project_date.strftime("%B %d, %Y")}</p>
+                    <p style="margin: 5px 0;"><strong>Shingles:</strong> {portal.shingle_brand} - {portal.shingle_color}</p>
+                    <p style="margin: 5px 0;"><strong>Requested By:</strong> {requester_email}</p>
+                    <p style="margin: 5px 0;"><strong>Portal Emails:</strong> {', '.join(portal.emails)}</p>
+                    <p style="margin: 5px 0;"><strong>Has Left Review:</strong> {'Yes' if portal.has_left_review else 'No'}</p>
+                </div>
+                
+                <p>Please follow up with this customer to schedule the inspection.</p>
+                
+                <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
+                <p style="font-size: 12px; color: #999;">
+                    Sent from Tetralto Customer Portal<br>
+                    Portal: <a href="https://{settings.SITE_DOMAIN}/portal/{portal.project_tag}/">{settings.SITE_DOMAIN}/portal/{portal.project_tag}/</a>
+                </p>
+            </div>
+            """
+        )
+        
+        sg = SendGridAPIClient(api_key=settings.SENDGRID_FORM_API_KEY)
+        response = sg.send(message)
+        
+        if response.status_code in [200, 201, 202]:
+            messages.success(request, "Your inspection request has been sent! Tetralto Roofing will contact you soon.")
+        else:
+            messages.warning(request, "Your request was submitted, but there may have been an issue. Please call us at (281) 895-1213 if you don't hear back soon.")
+            
+    except Exception as e:
+        print(f"Failed to send inspection request email: {e}")
+        messages.error(request, "There was an error submitting your request. Please call us directly at (281) 895-1213.")
+    
+    return redirect('portal_detail', project_tag=project_tag)
+
 def portal_logout(request):
     """Logout from portal and redirect to home."""
     clear_portal_session(request)
