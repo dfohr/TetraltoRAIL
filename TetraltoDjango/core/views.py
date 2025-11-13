@@ -617,6 +617,10 @@ def portal_request_inspection(request, project_tag):
         
         requester_email = session_data.get('email', 'Unknown')
         
+        # Null-safe formatting
+        project_date_str = portal.project_date.strftime("%B %d, %Y") if portal.project_date else "Not specified"
+        portal_emails_str = ', '.join(portal.emails) if portal.emails else "None"
+        
         message = Mail(
             from_email=settings.SENDGRID_FORM_FROM_EMAIL,
             to_emails='david@tetralto.com',
@@ -630,10 +634,10 @@ def portal_request_inspection(request, project_tag):
                     <h3 style="margin: 0 0 15px 0; color: #333;">Customer Information</h3>
                     <p style="margin: 5px 0;"><strong>Customer Name:</strong> {portal.customer_name}</p>
                     <p style="margin: 5px 0;"><strong>Project Tag:</strong> {portal.project_tag}</p>
-                    <p style="margin: 5px 0;"><strong>Project Date:</strong> {portal.project_date.strftime("%B %d, %Y")}</p>
+                    <p style="margin: 5px 0;"><strong>Project Date:</strong> {project_date_str}</p>
                     <p style="margin: 5px 0;"><strong>Shingles:</strong> {portal.shingle_brand} - {portal.shingle_color}</p>
                     <p style="margin: 5px 0;"><strong>Requested By:</strong> {requester_email}</p>
-                    <p style="margin: 5px 0;"><strong>Portal Emails:</strong> {', '.join(portal.emails)}</p>
+                    <p style="margin: 5px 0;"><strong>Portal Emails:</strong> {portal_emails_str}</p>
                     <p style="margin: 5px 0;"><strong>Has Left Review:</strong> {'Yes' if portal.has_left_review else 'No'}</p>
                 </div>
                 
