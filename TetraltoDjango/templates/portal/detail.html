@@ -253,7 +253,7 @@
             <h2 class="section-title">Project Files</h2>
             <div class="files-list">
                 {% for file in files_section %}
-                <a href="{{ file.web_view_link }}" target="_blank" class="file-item">
+                <a href="{% url 'portal_download_file' file_id=file.id %}" class="file-item">
                     <div class="file-icon">
                         {{ file.name|slice:":3"|upper }}
                     </div>

@@ -534,6 +534,60 @@ def portal_proxy_image(request, file_id):
         print(f"[Portal Proxy Error] Unexpected error for file {file_id}: {e}")
         return HttpResponse("Forbidden", status=403)
 
+def portal_download_file(request, file_id):
+    """
+    Proxy Google Drive file downloads for authenticated portal users.
+    Verifies file belongs to an authorized portal before streaming download.
+    """
+    session_data = get_portal_session(request)
+    
+    if not session_data:
+        return HttpResponse("Unauthorized", status=401)
+    
+    try:
+        # Get user's authorized portals
+        portal_ids = session_data.get('portal_ids', [])
+        authorized_projects = list(Portal.objects.filter(id__in=portal_ids).values_list('project_tag', flat=True))
+        
+        if not authorized_projects:
+            return HttpResponse("Forbidden", status=403)
+        
+        # Get file metadata from Drive to check Project property and get filename
+        from .drive_utils import get_drive_service
+        from googleapiclient.errors import HttpError
+        
+        service = get_drive_service()
+        
+        try:
+            file_metadata = service.files().get(fileId=file_id, fields='properties,name,mimeType').execute()
+        except HttpError as drive_error:
+            # File doesn't exist or inaccessible - return 403 to avoid leaking file existence
+            print(f"[Portal Download] Drive API error for file {file_id}: {drive_error}")
+            return HttpResponse("Forbidden", status=403)
+        
+        # Verify file belongs to one of user's authorized projects
+        file_properties = file_metadata.get('properties', {})
+        file_project = file_properties.get('Project')
+        
+        # Files without Project property or wrong Project are forbidden
+        if not file_project or file_project not in authorized_projects:
+            print(f"[Portal Download] Unauthorized: file Project='{file_project}', authorized={authorized_projects}")
+            return HttpResponse("Forbidden", status=403)
+        
+        # Download and stream file content
+        file_content, mime_type = download_file_content(file_id)
+        filename = file_metadata.get('name', 'download')
+        
+        response = HttpResponse(file_content, content_type=mime_type)
+        response['Content-Disposition'] = f'attachment; filename="{filename}"'
+        response['Cache-Control'] = 'no-cache, no-store, must-revalidate'  # No caching for security
+        return response
+        
+    except Exception as e:
+        # General errors return 403 to avoid leaking information
+        print(f"[Portal Download Error] Unexpected error for file {file_id}: {e}")
+        return HttpResponse("Forbidden", status=403)
+
 def portal_logout(request):
     """Logout from portal and redirect to home."""
     clear_portal_session(request)
