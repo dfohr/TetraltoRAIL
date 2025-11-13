@@ -188,11 +188,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Get the site domain from Railway first, then fallback to SITE_DOMAIN env var, then localhost
 SITE_DOMAIN = os.environ.get('RAILWAY_PUBLIC_DOMAIN') or os.environ.get('SITE_DOMAIN', 'localhost:8000')
 
-# Cache settings
+# Cache settings - Database cache for multi-worker support
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'unique-snowflake',
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'portal_cache_table',
     }
 }
 
