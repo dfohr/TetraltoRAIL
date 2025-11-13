@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.contrib.postgres.fields import ArrayField
 import markdown
 
 class Service(models.Model):
@@ -145,9 +146,10 @@ class Portal(models.Model):
         unique=True,
         help_text="Unique project identifier for Drive filtering (e.g., '2025-10 Sherrene Kibbe')"
     )
-    emails = models.JSONField(
+    emails = ArrayField(
+        models.EmailField(max_length=254),
         default=list,
-        help_text="List of email addresses with access to this portal (e.g., ['customer@email.com', 'david@tetralto.com'])"
+        help_text="List of email addresses with access to this portal"
     )
     project_date = models.DateField(help_text="Date of the roofing project")
     shingle_brand = models.CharField(max_length=100, help_text="Brand of shingles used")

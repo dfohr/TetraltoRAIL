@@ -60,15 +60,32 @@ class BlogPostAdmin(admin.ModelAdmin):
         })
     )
 
+from django import forms
+from django.contrib.postgres.forms import SimpleArrayField
+
+class PortalAdminForm(forms.ModelForm):
+    emails = SimpleArrayField(
+        forms.EmailField(),
+        delimiter=',',
+        help_text='Enter email addresses separated by commas (e.g., customer@email.com, david@tetralto.com)',
+        initial=lambda: ['david@tetralto.com']
+    )
+    
+    class Meta:
+        model = Portal
+        fields = '__all__'
+
 @admin.register(Portal)
 class PortalAdmin(admin.ModelAdmin):
+    form = PortalAdminForm
     list_display = ['customer_name', 'project_tag', 'project_date', 'has_left_review', 'created_at']
     list_filter = ['has_left_review', 'project_date', 'created_at']
     search_fields = ['customer_name', 'project_tag', 'shingle_brand', 'shingle_color']
     readonly_fields = ('created_at', 'updated_at')
     fieldsets = (
         ('Customer Information', {
-            'fields': ('customer_name', 'project_tag', 'emails')
+            'fields': ('customer_name', 'project_tag', 'emails'),
+            'description': 'Enter email addresses separated by commas in the Emails field.'
         }),
         ('Project Details', {
             'fields': ('project_date', 'shingle_brand', 'shingle_color')
