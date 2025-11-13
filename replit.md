@@ -13,7 +13,7 @@ This is a Django-based website for Tetralto Roofing company with a microservices
 - **Static Files**: Handled by WhiteNoise
 - **Production**: Configured for autoscale deployment
 
-## Recent Changes (September 6-8, 2025 & October 8, 2025 & October 22, 2025 & November 12, 2025)
+## Recent Changes (September 6-8, 2025 & October 8, 2025 & October 22, 2025 & November 12-13, 2025)
 - **Fresh Import Setup Complete**: Successfully imported GitHub repository to Replit
 - **Python Environment**: Installed Python 3.11 module and all project dependencies
 - **Database Setup**: Set up PostgreSQL database and ran all migrations successfully
@@ -80,10 +80,22 @@ This is a Django-based website for Tetralto Roofing company with a microservices
   - **Test Page Integration**: Added Drive POC section to /test/ page showing images, files, labels, and diagnostic info
   - **Error Handling**: Comprehensive try/except blocks with user-friendly error messages and success confirmations
   - **Architecture**: Modular design ready for extension to full customer portal with multiple label filters
-  - **Status**: Drive API successfully authenticates and queries (0 files found indicates successful query - need to verify Project label matches tagged files)
   - **Dependencies**: Installed google-api-python-client, google-auth, google-auth-httplib2
   - **Deployment Ready**: Environment variable approach works for both Replit dev and Railway production
-  - **Next Steps**: Verify Project label format in Drive matches query, then extend to customer portal pages with PortalPage filtering
+- **Customer Portal Gallery System** (November 13, 2025): Built complete gallery with secure image proxy
+  - **Secure Image Proxy**: Django streams Drive files through portal_proxy_image view with authorization checks
+  - **Authorization Model**: Verifies file's Project property matches user's authorized portals before streaming
+  - **Gallery Pages**: Click PortalPage tiles → thumbnail grid → modal lightbox with full-size images
+  - **UI Features**: Responsive grid, keyboard navigation (arrows/ESC), native browser controls (save/share)
+  - **Security**: Cross-portal IDOR prevention, no file existence enumeration (all errors return 403)
+  - **Trust Model**: Drive custom properties are source of truth (requires proper Drive permissions)
+  - **URL Ordering**: Fixed logout shadowing by ordering static routes before dynamic project_tag routes
+- **Drive API Pagination Fix** (November 13, 2025): Fixed critical bug where >50 files were silently lost
+  - **Bug**: query_files_by_project and query_files_by_labels capped at 50 results without pagination
+  - **Fix**: Implemented nextPageToken loops to fetch all pages up to configurable max_results (500)
+  - **Performance**: Increased page_size from 50 to 200 per API call for efficiency
+  - **Monitoring**: Added warnings when max_results limit reached to detect unusually large projects
+  - **Impact**: Portal galleries and Files sections now display all content without silent truncation
 
 ## Code Architecture Improvements (September 6, 2025)
 - **Major Forms Refactoring**: Eliminated 100% code duplication in forms.py
