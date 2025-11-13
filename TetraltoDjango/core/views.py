@@ -576,10 +576,8 @@ def portal_download_file(request, file_id):
         
         # Download and stream file content
         file_content, mime_type = download_file_content(file_id)
-        filename = file_metadata.get('name', 'download')
         
         response = HttpResponse(file_content, content_type=mime_type)
-        response['Content-Disposition'] = f'attachment; filename="{filename}"'
         response['Cache-Control'] = 'no-cache, no-store, must-revalidate'  # No caching for security
         return response
         
