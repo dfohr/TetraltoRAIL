@@ -98,15 +98,14 @@ This is a Django-based website for Tetralto Roofing company with a microservices
   - **Performance**: Increased page_size from 50 to 200 per API call for efficiency
   - **Monitoring**: Added warnings when max_results limit reached to detect unusually large projects
   - **Impact**: Portal galleries and Files sections now display all content without silent truncation
-- **Portal Action Tiles & Inspection Requests** (November 13, 2025): Added customer engagement features at bottom of portal detail page
-  - **Google Review Tile**: Blue gradient tile linking to Google review URL, only shows when has_left_review=False
-  - **Request Inspection Tile**: Green gradient tile with email form to request free inspection
-  - **Conditional Legend**: "We kindly ask for you to leave a review..." shown only when has_left_review=False
-  - **Email Integration**: SendGrid email to david@tetralto.com with comprehensive portal metadata (customer, project, shingles, requester, review status)
-  - **Security**: Full session authentication and portal authorization checks, CSRF protection, POST-only endpoint
-  - **Null Safety**: Defensive coding for project_date and emails fields to prevent runtime errors
-  - **User Experience**: Success/error messaging via Django messages, POST-redirect-GET pattern
-  - **URL Route**: /portal/<project_tag>/request-inspection/ for inspection requests
+- **Portal Action Tiles** (November 13, 2025): Added customer engagement features at bottom of portal detail page
+  - **Google Review Tile**: Tetralto primary color (#E75A35) tile with link to Google review page, conditional display when has_left_review=False
+  - **Request Inspection Tile**: Tetralto secondary color (#F47924) tile linking to /contact page, always visible
+  - **Official Branding**: Uses official Tetralto color palette (primary #E75A35, secondary #F47924)
+  - **CTA Button Styling**: Buttons match homepage CTA styling with hover effects (primary → secondary color transition)
+  - **Grey Message Boxes**: Bottom text messages use grey background (#e5e7eb) with darker text (#4b5563)
+  - **Conditional Messaging**: Review request messaging and conditional inspection text based on has_left_review flag
+  - **Professional Copy**: Clear calls-to-action with phone number (281-895-1213) and detailed explanations
   - **Navigation**: Added "Customer Login" link to main website menu pointing to /portal/login/
   - **Cache Fix**: Changed from LocMemCache to DatabaseCache to support multi-worker environments (Railway production)
 
