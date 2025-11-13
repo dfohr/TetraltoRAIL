@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Select Project - Tetralto Customer Portal</title>
+    
+    <!-- Google Fonts - Comfortaa -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Comfortaa', sans-serif;
+            background: #EFE6D7;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header h1 {
+            color: #E75A35;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            color: #666;
+        }
+        
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .portal-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .portal-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .portal-card h2 {
+            color: #E75A35;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .portal-info {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .portal-info strong {
+            color: #333;
+        }
+        
+        .portal-date {
+            color: #999;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .logout-link {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .logout-link a {
+            color: #E75A35;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .logout-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Select Your Project</h1>
+            <p>Logged in as: <strong>{{ email }}</strong></p>
+        </div>
+        
+        <div class="portal-grid">
+            {% for portal in portals %}
+                <a href="{% url 'portal_detail' project_tag=portal.project_tag %}" class="portal-card">
+                    <h2>{{ portal.customer_name }}</h2>
+                    <div class="portal-info">
+                        <p><strong>Project:</strong> {{ portal.project_tag }}</p>
+                        <p><strong>Shingles:</strong> {{ portal.shingle_brand }} - {{ portal.shingle_color }}</p>
+                    </div>
+                    <div class="portal-date">
+                        Project Date: {{ portal.project_date|date:"F d, Y" }}
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+        
+        <div class="logout-link">
+            <a href="{% url 'portal_logout' %}">Logout</a>
+        </div>
+    </div>
+</body>
+</html>

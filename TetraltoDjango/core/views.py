@@ -2,9 +2,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.db import connection
 from django.contrib import messages
 from django.contrib.auth import get_user_model
-from .models import Service, Feature, Testimonial, SocialLink, BlogPost
+from .models import Service, Feature, Testimonial, SocialLink, BlogPost, Portal
 from .forms import LeadForm
 from .blog_ref_service import BlogRefService
+from .portal_utils import (
+    generate_access_code, send_access_code_email, cache_access_code,
+    verify_access_code, set_portal_session, get_portal_session, clear_portal_session
+)
 import django
 import sys
 import os
@@ -269,4 +273,107 @@ def test_page(request):
         'debug_mode': debug_mode,
         'debug_files': debug_files,
         'no_filter': no_filter,
-    }) 
+    })
+
+# Portal Views
+
+def portal_login(request):
+    """Email-based login for customer portal access."""
+    # If already authenticated, redirect to portal selection
+    session_data = get_portal_session(request)
+    if session_data:
+        portal_ids = session_data.get('portal_ids', [])
+        if len(portal_ids) == 1:
+            portal = Portal.objects.get(id=portal_ids[0])
+            return redirect('portal_detail', project_tag=portal.project_tag)
+        elif len(portal_ids) > 1:
+            return redirect('portal_select')
+    
+    if request.method == 'POST':
+        step = request.POST.get('step', 'email')
+        
+        if step == 'email':
+            # Step 1: Email submission - generate and send code
+            email = request.POST.get('email', '').strip().lower()
+            
+            if not email:
+                messages.error(request, "Please enter your email address.")
+                return render(request, 'portal/login.html', {})
+            
+            # Find portals accessible by this email
+            portals = Portal.objects.filter(emails__contains=[email])
+            
+            if not portals.exists():
+                messages.error(request, "No portal access found for this email address. Please contact Tetralto Roofing.")
+                return render(request, 'portal/login.html', {})
+            
+            # Generate and cache access code
+            code = generate_access_code()
+            portal_ids = list(portals.values_list('id', flat=True))
+            cache_access_code(email, code, portal_ids)
+            
+            # Send email
+            if send_access_code_email(email, code):
+                return render(request, 'portal/login.html', {
+                    'step': 'code',
+                    'email': email,
+                    'portal_count': len(portal_ids)
+                })
+            else:
+                messages.error(request, "Failed to send access code. Please try again or contact support.")
+                return render(request, 'portal/login.html', {})
+        
+        elif step == 'code':
+            # Step 2: Code verification
+            email = request.POST.get('email', '').strip().lower()
+            code = request.POST.get('code', '').strip()
+            
+            if not email or not code:
+                messages.error(request, "Please enter your access code.")
+                return render(request, 'portal/login.html', {
+                    'step': 'code',
+                    'email': email
+                })
+            
+            # Verify code
+            success, portal_ids = verify_access_code(email, code)
+            
+            if not success:
+                messages.error(request, "Invalid or expired access code. Please request a new one.")
+                return render(request, 'portal/login.html', {})
+            
+            # Set session
+            set_portal_session(request, email, portal_ids)
+            
+            # Redirect based on number of portals
+            if len(portal_ids) == 1:
+                portal = Portal.objects.get(id=portal_ids[0])
+                return redirect('portal_detail', project_tag=portal.project_tag)
+            else:
+                return redirect('portal_select')
+    
+    return render(request, 'portal/login.html', {})
+
+def portal_select(request):
+    """Portal selection page for users with access to multiple portals."""
+    session_data = get_portal_session(request)
+    
+    if not session_data:
+        return redirect('portal_login')
+    
+    portal_ids = session_data.get('portal_ids', [])
+    portals = Portal.objects.filter(id__in=portal_ids).order_by('-project_date')
+    
+    if len(portals) == 1:
+        return redirect('portal_detail', project_tag=portals[0].project_tag)
+    
+    return render(request, 'portal/select.html', {
+        'portals': portals,
+        'email': session_data.get('email')
+    })
+
+def portal_logout(request):
+    """Logout from portal and redirect to home."""
+    clear_portal_session(request)
+    messages.success(request, "You have been logged out of the customer portal.")
+    return redirect('home') 

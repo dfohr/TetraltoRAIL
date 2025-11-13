@@ -19,7 +19,8 @@ from django.urls import path, re_path
 from core.views import (
     home, health, api_health, services_view, contact, 
     blog_list, blog_post, robots_txt, terms_and_conditions,
-    service_detail, thank_you, google_landing, google_thank_you, test_page
+    service_detail, thank_you, google_landing, google_thank_you, test_page,
+    portal_login, portal_select, portal_logout
 )
 from django.conf import settings
 from django.conf.urls.static import static
@@ -49,4 +50,9 @@ urlpatterns = [
     path('terms-and-conditions/', terms_and_conditions, name='terms_and_conditions'),
     path('test/', test_page, name='test_page'),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    
+    # Customer Portal URLs
+    path('portal/login/', portal_login, name='portal_login'),
+    path('portal/select/', portal_select, name='portal_select'),
+    path('portal/logout/', portal_logout, name='portal_logout'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
