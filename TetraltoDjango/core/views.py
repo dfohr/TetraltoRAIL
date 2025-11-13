@@ -9,6 +9,7 @@ from .portal_utils import (
     generate_access_code, send_access_code_email, cache_access_code,
     verify_access_code, set_portal_session, get_portal_session, clear_portal_session
 )
+from .drive_utils import query_files_by_project
 import django
 import sys
 import os
@@ -390,7 +391,15 @@ def portal_detail(request, project_tag):
         
         # Group files by PortalPage custom property
         for file_data in all_files:
-            portal_page = file_data.get('portal_page', 'Files')
+            # Extract PortalPage from properties dict
+            properties = file_data.get('properties', {})
+            portal_page = properties.get('PortalPage', 'Files')
+            
+            # Add convenient keys to file_data for template use
+            file_data['portal_page'] = portal_page
+            file_data['thumbnail_link'] = file_data.get('thumbnailLink')
+            file_data['web_view_link'] = file_data.get('webViewLink')
+            file_data['mime_type'] = file_data.get('mimeType')
             
             # Separate "Files" section from PortalPage tiles
             if portal_page == 'Files':
