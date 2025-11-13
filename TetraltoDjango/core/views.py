@@ -360,6 +360,60 @@ def portal_select(request):
         'email': session_data.get('email')
     })
 
+def portal_detail(request, project_tag):
+    """Portal detail page showing Drive media grouped by PortalPage."""
+    session_data = get_portal_session(request)
+    
+    if not session_data:
+        return redirect('portal_login')
+    
+    # Get the portal and verify access
+    try:
+        portal = Portal.objects.get(project_tag=project_tag)
+    except Portal.DoesNotExist:
+        messages.error(request, "Portal not found.")
+        return redirect('portal_select')
+    
+    # Verify user has access to this portal
+    portal_ids = session_data.get('portal_ids', [])
+    if portal.id not in portal_ids:
+        messages.error(request, "You do not have access to this portal.")
+        return redirect('portal_select')
+    
+    # Query Google Drive for files
+    portal_pages = {}
+    files_section = []
+    error_message = None
+    
+    try:
+        all_files = query_files_by_project(project_tag, max_results=200)
+        
+        # Group files by PortalPage custom property
+        for file_data in all_files:
+            portal_page = file_data.get('portal_page', 'Files')
+            
+            # Separate "Files" section from PortalPage tiles
+            if portal_page == 'Files':
+                files_section.append(file_data)
+            else:
+                if portal_page not in portal_pages:
+                    portal_pages[portal_page] = []
+                portal_pages[portal_page].append(file_data)
+        
+    except Exception as e:
+        error_message = f"Error loading media: {str(e)}"
+        print(f"[Portal Detail Error] {e}")
+        import traceback
+        traceback.print_exc()
+    
+    return render(request, 'portal/detail.html', {
+        'portal': portal,
+        'portal_pages': portal_pages,
+        'files_section': files_section,
+        'error_message': error_message,
+        'email': session_data.get('email')
+    })
+
 def portal_logout(request):
     """Logout from portal and redirect to home."""
     clear_portal_session(request)
