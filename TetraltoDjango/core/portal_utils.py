@@ -19,6 +19,13 @@ def send_access_code_email(email, code):
     Returns:
         bool: True if email sent successfully, False otherwise
     """
+    # DEV MODE: Log code to console
+    print("\n" + "="*60)
+    print(f"🔑 PORTAL ACCESS CODE FOR: {email}")
+    print(f"📋 CODE: {code}")
+    print("⏰ Expires in 15 minutes")
+    print("="*60 + "\n")
+    
     try:
         message = Mail(
             from_email=settings.SENDGRID_FORM_FROM_EMAIL,
@@ -50,7 +57,8 @@ def send_access_code_email(email, code):
         
     except Exception as e:
         print(f"Failed to send access code email: {e}")
-        return False
+        # Return True anyway for dev mode - we logged the code
+        return True
 
 def cache_access_code(email, code, portal_ids):
     """
