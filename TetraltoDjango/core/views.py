@@ -393,7 +393,11 @@ def portal_detail(request, project_tag):
         for file_data in all_files:
             # Extract PortalPage from properties dict
             properties = file_data.get('properties', {})
-            portal_page = properties.get('PortalPage', 'Files')
+            portal_page = properties.get('PortalPage')
+            
+            # Skip files without PortalPage property
+            if not portal_page:
+                continue
             
             # Add convenient keys to file_data for template use
             file_data['portal_page'] = portal_page
