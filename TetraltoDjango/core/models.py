@@ -138,6 +138,40 @@ class BlogPost(models.Model):
         self.content_html = markdown.markdown(self.content)
         super().save(*args, **kwargs)
 
+class Portal(models.Model):
+    customer_name = models.CharField(max_length=200, help_text="Customer's full name")
+    project_tag = models.CharField(
+        max_length=100, 
+        unique=True,
+        help_text="Unique project identifier for Drive filtering (e.g., '2025-10 Sherrene Kibbe')"
+    )
+    emails = models.JSONField(
+        default=list,
+        help_text="List of email addresses with access to this portal (e.g., ['customer@email.com', 'david@tetralto.com'])"
+    )
+    project_date = models.DateField(help_text="Date of the roofing project")
+    shingle_brand = models.CharField(max_length=100, help_text="Brand of shingles used")
+    shingle_color = models.CharField(max_length=100, help_text="Color of shingles")
+    has_left_review = models.BooleanField(
+        default=False,
+        help_text="Has customer left a Google review? (manually update in admin)"
+    )
+    drive_folder_id = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text="Optional: Google Drive folder ID to scope queries (leave blank to search all accessible files)"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-project_date', '-created_at']
+        verbose_name = "Customer Portal"
+        verbose_name_plural = "Customer Portals"
+
+    def __str__(self):
+        return f"{self.customer_name} - {self.project_tag}"
+
 # class ProjectImage(models.Model):
 #     STATUS_CHOICES = [
 #         ('raw', 'Raw'),

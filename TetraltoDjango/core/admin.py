@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Service, Feature, Testimonial, SocialLink, Lead, BlogPost
+from .models import Service, Feature, Testimonial, SocialLink, Lead, BlogPost, Portal
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
@@ -53,6 +53,32 @@ class BlogPostAdmin(admin.ModelAdmin):
         }),
         ('Publication', {
             'fields': ('is_active', 'published_at')
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        })
+    )
+
+@admin.register(Portal)
+class PortalAdmin(admin.ModelAdmin):
+    list_display = ['customer_name', 'project_tag', 'project_date', 'has_left_review', 'created_at']
+    list_filter = ['has_left_review', 'project_date', 'created_at']
+    search_fields = ['customer_name', 'project_tag', 'shingle_brand', 'shingle_color']
+    readonly_fields = ('created_at', 'updated_at')
+    fieldsets = (
+        ('Customer Information', {
+            'fields': ('customer_name', 'project_tag', 'emails')
+        }),
+        ('Project Details', {
+            'fields': ('project_date', 'shingle_brand', 'shingle_color')
+        }),
+        ('Google Drive', {
+            'fields': ('drive_folder_id',),
+            'description': 'Optional: Specify a folder ID to scope Drive queries'
+        }),
+        ('Review Status', {
+            'fields': ('has_left_review',)
         }),
         ('Timestamps', {
             'fields': ('created_at', 'updated_at'),
