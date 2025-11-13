@@ -67,6 +67,7 @@ class PortalAdminForm(forms.ModelForm):
     emails = SimpleArrayField(
         forms.EmailField(),
         delimiter=',',
+        widget=forms.TextInput(attrs={'size': '100', 'style': 'width: 100%;'}),
         help_text='Enter email addresses separated by commas (e.g., customer@email.com, david@tetralto.com)',
         initial=lambda: ['david@tetralto.com']
     )
