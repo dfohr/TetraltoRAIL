@@ -46,6 +46,10 @@ externalPort = 3001
 localPort = 39887
 externalPort = 3002
 
+[[ports]]
+localPort = 44121
+externalPort = 3003
+
 [deployment]
 deploymentTarget = "autoscale"
 run = ["bash", "-c", "cd TetraltoDjango && gunicorn --bind=0.0.0.0:5000 --reuse-port liftoff.wsgi:application"]

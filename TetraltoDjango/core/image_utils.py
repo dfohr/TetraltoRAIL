@@ -39,6 +39,9 @@ def convert_heic_to_jpeg(heic_bytes: bytes, quality: int = 90) -> Tuple[bytes, s
     """
     Convert HEIC image bytes to JPEG format.
     
+    Applies EXIF orientation before stripping metadata to ensure portrait photos
+    render correctly even after EXIF removal.
+    
     Args:
         heic_bytes: Raw HEIC image data
         quality: JPEG quality (1-100, default 90 for high quality)
@@ -50,8 +53,14 @@ def convert_heic_to_jpeg(heic_bytes: bytes, quality: int = 90) -> Tuple[bytes, s
         Exception: If conversion fails
     """
     try:
+        from PIL import ImageOps
+        
         # Load HEIC image
         heic_image = Image.open(io.BytesIO(heic_bytes))
+        
+        # Apply EXIF orientation BEFORE stripping metadata
+        # This ensures portrait photos render correctly even without EXIF
+        heic_image = ImageOps.exif_transpose(heic_image)
         
         # Convert to RGB if necessary (HEIC can have various color modes)
         if heic_image.mode not in ('RGB', 'L'):
