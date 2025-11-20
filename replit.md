@@ -1,157 +1,35 @@
 # Tetralto Roofing Website - Replit Setup
 
-## Project Overview
-This is a Django-based website for Tetralto Roofing company with a microservices architecture. The project includes:
-- Main Django application (frontend) serving the roofing company website
-- FastAPI geo-service for IP geolocation using MaxMind
+## Overview
+This project is a Django-based website for Tetralto Roofing, designed with a microservices architecture. It features a main Django application for the company website and a FastAPI geo-service for IP geolocation. The primary goal is to provide a robust, scalable, and visually appealing online presence for Tetralto Roofing, including a customer portal with integrated Google Drive media management.
 
-## Project Architecture
-- **Main Application**: Django 5.2 with PostgreSQL database
-- **Frontend**: Located in `TetraltoDjango/` directory
-- **Geo Service**: FastAPI microservice in `geo-service/` directory
-- **Database**: PostgreSQL (Replit built-in database)
-- **Static Files**: Handled by WhiteNoise
-- **Production**: Configured for autoscale deployment
-
-## Recent Changes (September 6-8, 2025 & October 8, 2025 & October 22, 2025 & November 12-13, 2025)
-- **Fresh Import Setup Complete**: Successfully imported GitHub repository to Replit
-- **Python Environment**: Installed Python 3.11 module and all project dependencies
-- **Database Setup**: Set up PostgreSQL database and ran all migrations successfully
-- **Data Loading**: Loaded initial data (86 objects) from `data.json` fixture
-- **Django Frontend**: Configured and running on port 5000 with all static files served correctly
-- **Geo-Service**: FastAPI dependencies installed and ready (requires MaxMind API keys)
-- **Production Ready**: Deployment configuration set up for autoscale with Gunicorn
-- **Website Status**: Fully functional and serving at port 5000
-- **Social Bar Architecture Overhaul** (September 7, 2025): Evolved through multiple iterations to optimal design
-  - **Phase 1**: Converted from base template to selective reusable `_social_bar.html` component
-  - **Phase 2**: Implemented template tags with self-contained data logic
-  - **Phase 3**: **Final Solution** - Context processor for global availability and performance
-  - **Current Implementation**: Social links loaded once per request via context processor
-  - **Usage**: Pages include with `{% include '_social_bar.html' %}` - no loading or data dependencies
-  - **Performance**: Single database query per request, no repeated template tag loading
-  - **Maintainability**: All social links logic centralized in `core/context_processors.py`
-- **Blog Tile Component System** (September 8, 2025): Built clean, reusable blog tiles
-  - **Container Query Design**: Components respond to container width, not viewport
-  - **Simplified Architecture**: Eliminated messy variant system for one clean design
-  - **Optimal Sizing**: 340px × 288px images with auto-height tiles for uniform grids
-  - **Perfect Typography**: 3-line title clamping with no text shadows and tight spacing
-  - **Component Test Framework**: Created comprehensive testing page with realistic container widths (1400px/768px/375px)
-  - **Production Integration**: Ready for use across website with template tag `{% blog_tile "slug" %}`
-  - **CSS Cleanup**: Reduced from complex variant system to clean, maintainable single design
-- **Homepage Responsive Layout Overhaul** (October 8, 2025): Achieved consistent responsive behavior
-  - **Dynamic Header System**: Implemented CSS custom property `--header-height` (100px default, 50px at ≤549px)
-  - **Sticky Header**: Fixed position header at all screen sizes
-  - **Hero Section Spacing**: Dynamic margin-top using `var(--header-height)` to eliminate gaps
-  - **Unified Padding Standard**: All sections use 2rem horizontal padding (1.5rem at ≤549px breakpoint)
-  - **Section Architecture**: Sections have vertical padding only; inner containers handle horizontal padding and max-width (1400px)
-  - **Form Responsiveness**: Removed min-width constraints to allow natural resizing
-  - **Video Section Enhancements**: Added autoplay on scroll (muted), continuous loop, and matched layout to other sections
-  - **Spacing Optimization**: Reduced video section top padding to match spacing between other sections
-  - **Clean Codebase**: Removed all debug borders and temporary styling
-- **Features Section Component Refactoring** (October 22, 2025): Achieved clean, reusable architecture
-  - **Context Processor**: Added `features_context` for global feature availability (matches social_links pattern)
-  - **Reusable Components**: Created `_feature_card.html` and `_features_section.html` templates
-  - **CSS Consolidation**: Moved all features CSS from base.css to components.css (eliminated 127 lines of duplication)
-  - **View Cleanup**: Removed features queries from home and google_landing views (data now via context processor)
-  - **Consistent Formatting**: Updated section titles to match Services section style
-    - Small title: "Distinguishing Features" (1rem, secondary color)
-    - Large title: "The Reasons <span class="highlight-orange">We Are The Best!</span>" (2rem, bold)
-  - **Performance**: Single database query per request via context processor
-  - **Architecture**: Hybrid approach combining context processor (like Social Links) and components (like Services)
-- **Testimonials Carousel Simplification** (October 22, 2025): Streamlined navigation dots from complex to decorative
-  - **Removed Complexity**: Eliminated all testimonial-to-dot mapping, modulus logic, and tracking code
-  - **5 Static Dots**: Created exactly 5 decorative `<span>` elements (aria-hidden) instead of 1 per testimonial
-  - **Visual-Only Rotation**: Dots rotate positions using `dotPositions` array [0,1,2,3,4] and CSS flexbox `order` property
-  - **Center Highlight**: Middle dot (position 3) always highlighted and largest with perspective scaling
-  - **Arrow-Driven**: Right arrow slides dots left, left arrow slides dots right - no click handlers on dots
-  - **Subtle Scaling**: Adjusted dot sizes (edges: 60%, mid: 80%, center: 100%/120% active) for balanced appearance
-  - **Result**: Reduced complexity while maintaining smooth visual feedback for carousel navigation
-- **Testimonials Carousel Slide Animations** (October 22, 2025): Added bordered boxes and directional slide transitions
-  - **Box Styling**: White background, 2px border, rounded corners, and shadow around each testimonial
-  - **Slide Animations**: Full testimonials slide in/out when arrows clicked (500ms smooth transitions)
-  - **Direction-Aware**: Right arrow → old exits left, new enters from right; Left arrow → reverse
-  - **Overlapping Transitions**: Both slides visible during animation using absolute positioning
-  - **State Management**: Fixed state flow bug - `nextSlide`/`prevSlide` now calculate indices without mutating `currentSlide` prematurely
-  - **Animation Cleanup**: Automatic cleanup of animation classes and display styles after 500ms
-  - **Result**: Professional carousel experience with clear visual transitions matching user expectations
-- **Google Drive Integration POC** (November 12, 2025): Successfully implemented proof-of-concept for customer portal media display
-  - **Service Account Authentication**: Configured Drive API with service account credentials via GOOGLE_DRIVE_CREDENTIALS environment variable
-  - **Label-Based Querying**: Created drive_utils.py module with functions to query files by custom properties (Project, ShingleBrand, etc.)
-  - **Test Page Integration**: Added Drive POC section to /test/ page showing images, files, labels, and diagnostic info
-  - **Error Handling**: Comprehensive try/except blocks with user-friendly error messages and success confirmations
-  - **Architecture**: Modular design ready for extension to full customer portal with multiple label filters
-  - **Dependencies**: Installed google-api-python-client, google-auth, google-auth-httplib2
-  - **Deployment Ready**: Environment variable approach works for both Replit dev and Railway production
-- **Customer Portal Gallery System** (November 13, 2025): Built complete gallery with secure image proxy
-  - **Secure Image Proxy**: Django streams Drive images through portal_proxy_image view with authorization checks
-  - **Secure File Downloads**: Django proxies all file downloads through portal_download_file with same security model
-  - **Authorization Model**: Verifies file's Project property matches user's authorized portals before streaming
-  - **Gallery Pages**: Click PortalPage tiles → thumbnail grid → modal lightbox with full-size images
-  - **Files Section**: Secure downloads without requiring Drive access, no caching for security
-  - **UI Features**: Responsive grid, keyboard navigation (arrows/ESC), native browser controls (save/share)
-  - **Security**: Cross-portal IDOR prevention, no file existence enumeration (all errors return 403), no HTTP caching
-  - **Trust Model**: Drive custom properties are source of truth (requires proper Drive permissions)
-  - **URL Ordering**: Fixed logout shadowing by ordering static routes before dynamic project_tag routes
-- **Drive API Pagination Fix** (November 13, 2025): Fixed critical bug where >50 files were silently lost
-  - **Bug**: query_files_by_project and query_files_by_labels capped at 50 results without pagination
-  - **Fix**: Implemented nextPageToken loops to fetch all pages up to configurable max_results (500)
-  - **Performance**: Increased page_size from 50 to 200 per API call for efficiency
-  - **Monitoring**: Added warnings when max_results limit reached to detect unusually large projects
-  - **Impact**: Portal galleries and Files sections now display all content without silent truncation
-- **Portal Action Tiles** (November 13, 2025): Added customer engagement features at bottom of portal detail page
-  - **Google Review Tile**: Tetralto primary color (#E75A35) tile with link to Google review page, conditional display when has_left_review=False
-  - **Request Inspection Tile**: Tetralto secondary color (#F47924) tile linking to /contact page, always visible
-  - **Official Branding**: Uses official Tetralto color palette (primary #E75A35, secondary #F47924)
-  - **CTA Button Styling**: Buttons match homepage CTA styling with hover effects (primary → secondary color transition)
-  - **Grey Message Boxes**: Bottom text messages use grey background (#e5e7eb) with darker text (#4b5563)
-  - **Conditional Messaging**: Review request messaging and conditional inspection text based on has_left_review flag
-  - **Professional Copy**: Clear calls-to-action with phone number (281-895-1213) and detailed explanations
-  - **Navigation**: Added "Customer Login" link to main website menu pointing to /portal/login/
-  - **Cache Fix**: Changed from LocMemCache to DatabaseCache to support multi-worker environments (Railway production)
-
-## Code Architecture Improvements (September 6, 2025)
-- **Major Forms Refactoring**: Eliminated 100% code duplication in forms.py
-  - Reduced code from 247 to 156 lines (37% reduction)
-  - Unified LeadForm and GoogleLandingForm into single class with parameter control
-  - Improved validation: 10-digit US phone numbers and meaningful descriptions
-  - Enhanced error handling and logging
-- **Views Refactoring - Fat Controllers Fix**: Implemented clean service layer architecture
-  - Created BlogRefConfig and BlogRefService for centralized blog post references
-  - Removed hardcoded blog slugs from views (4 hardcoded references eliminated)
-  - Extracted business logic from views following Single Responsibility Principle
-  - Cleaned debug print statements from production code
-  - Improved maintainability and extensibility for future pages
-
-## CSS Architecture Notes
-- CSS is currently functional but architecturally messy (1,460-line components.css)
-- Originally written by Claude AI with scattered media queries and inconsistent patterns
-- Consider incremental cleanup approach rather than wholesale refactoring to avoid breaking the site
-- Site displays perfectly but underlying CSS could be better organized
-
-## Deployment Process
-- **Content Deployment**: Use `python manage.py dumpdata core > data.json` to export current dev database
-- **Production Import**: Production environment has script that imports data.json to sync content
-- **Data Flow**: Development → data.json export → Production import script
-
-## Configuration
-- Django settings configured for Replit environment
-- Database using environment variables (DATABASE_URL, PGHOST, etc.)
-- Static files collected and served via WhiteNoise
-- Cache control middleware configured for proper asset delivery
-- ALLOWED_HOSTS set to accept all hosts for proxy compatibility
-
-## Services
-- **Main Website**: Running on port 5000 (Django frontend)
-- **Geo Service**: Dependencies installed, available but requires MaxMind API keys to run
-- **Database**: PostgreSQL with all migrations applied and data loaded
-
-## User Preferences & Communication Guidelines
+## User Preferences
 - **Be Direct & Honest**: If I'm wrong about something, say so directly. Don't sugarcoat or avoid criticism. I value honest feedback over politeness.
 - **No Excessive Praise**: Avoid unnecessary compliments or "sucking up" behavior. Keep feedback factual and constructive.
 - **Challenge Ideas When Needed**: If an approach seems problematic, speak up and suggest better alternatives.
 
-## Project Status
-- Project successfully set up and ready for use
-- All database migrations completed
-- Static assets properly configured  
-- Website fully functional in Replit environment
+## System Architecture
+The project utilizes a microservices architecture with a Django 5.2 application (`TetraltoDjango/`) as the frontend and a FastAPI geo-service (`geo-service/`) for IP geolocation. PostgreSQL is used as the database.
+
+**UI/UX Decisions:**
+- **Responsive Design**: Homepage features a dynamic header system with CSS custom properties and unified padding for consistent responsiveness across devices.
+- **Component-Based UI**: Reusable components are heavily utilized, such as the `_social_bar.html` (via context processor), `_blog_tile.html`, and `_feature_card.html` (via context processor).
+- **Testimonials Carousel**: Features 5 decorative dots, directional slide animations, and professional box styling.
+- **Customer Portal**: Designed with gallery pages, secure image/file proxying, and action tiles for Google reviews and inspection requests, adhering to Tetralto's official color palette.
+- **HEIC Conversion**: Automatic server-side HEIC to JPEG conversion with caching and EXIF stripping for universal browser compatibility.
+
+**Technical Implementations & Design Choices:**
+- **Database**: PostgreSQL (Replit built-in database) with WhiteNoise for static files.
+- **Deployment**: Configured for autoscale deployment using Gunicorn.
+- **Context Processors**: Used for global availability of social links and features, optimizing database queries.
+- **Code Refactoring**: Major forms refactoring to eliminate duplication and improve validation. Views are refactored to a service layer architecture following the Single Responsibility Principle.
+- **Google Drive Integration**: Proof-of-concept for customer portal media display using service account authentication and label-based querying. Secure proxying for images and files with authorization checks.
+- **Caching**: DatabaseCache used to support multi-worker environments.
+- **CSS Architecture**: Currently functional but noted as messy, requiring incremental cleanup.
+
+## External Dependencies
+- **PostgreSQL**: Primary database.
+- **MaxMind**: Used by the FastAPI geo-service for IP geolocation (requires API keys).
+- **Google Drive API**: Integrated for customer portal media management, using `google-api-python-client`, `google-auth`, and `google-auth-httplib2`.
+- **pillow-heif**: For HEIC image conversion.
+- **Pillow**: For image processing.

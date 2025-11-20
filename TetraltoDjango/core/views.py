@@ -489,7 +489,11 @@ def portal_proxy_image(request, file_id):
     """
     Proxy Google Drive images for authenticated portal users.
     Verifies file belongs to an authorized portal before streaming.
+    Automatically converts HEIC images to JPEG for browser compatibility.
     """
+    from django.core.cache import cache
+    from .image_utils import convert_image_if_needed
+    
     session_data = get_portal_session(request)
     
     if not session_data:
@@ -503,14 +507,17 @@ def portal_proxy_image(request, file_id):
         if not authorized_projects:
             return HttpResponse("Forbidden", status=403)
         
-        # Get file metadata from Drive to check Project property
+        # Get file metadata from Drive to check Project property and modifiedTime
         from .drive_utils import get_drive_service
         from googleapiclient.errors import HttpError
         
         service = get_drive_service()
         
         try:
-            file_metadata = service.files().get(fileId=file_id, fields='properties').execute()
+            file_metadata = service.files().get(
+                fileId=file_id, 
+                fields='properties,modifiedTime,mimeType'
+            ).execute()
         except HttpError as drive_error:
             # File doesn't exist or inaccessible - return 403 to avoid leaking file existence
             print(f"[Portal Proxy] Drive API error for file {file_id}: {drive_error}")
@@ -525,8 +532,32 @@ def portal_proxy_image(request, file_id):
             print(f"[Portal Proxy] Unauthorized: file Project='{file_project}', authorized={authorized_projects}")
             return HttpResponse("Forbidden", status=403)
         
-        # Download and stream file content
-        file_content, mime_type = download_file_content(file_id)
+        # Create cache key based on file_id and modifiedTime
+        modified_time = file_metadata.get('modifiedTime', 'unknown')
+        cache_key = f"portal_image_{file_id}_{modified_time}"
+        
+        # Try to get from cache first
+        cached_data = cache.get(cache_key)
+        if cached_data:
+            print(f"[Portal Proxy] Cache hit for {file_id}")
+            file_content, mime_type = cached_data
+        else:
+            # Download file content
+            file_content, original_mime = download_file_content(file_id)
+            
+            # Convert HEIC to JPEG if needed
+            try:
+                file_content, mime_type = convert_image_if_needed(file_content, original_mime)
+            except Exception as conv_error:
+                # If conversion fails, log error and return 415 Unsupported Media Type
+                print(f"[Portal Proxy] Image conversion failed for {file_id}: {conv_error}")
+                import traceback
+                traceback.print_exc()
+                return HttpResponse("Unsupported image format or corrupted file", status=415)
+            
+            # Cache the converted result for 7 days
+            cache.set(cache_key, (file_content, mime_type), timeout=60*60*24*7)
+            print(f"[Portal Proxy] Cached converted image {file_id} (original: {original_mime}, final: {mime_type})")
         
         response = HttpResponse(file_content, content_type=mime_type)
         response['Cache-Control'] = 'public, max-age=86400'  # Cache for 1 day
@@ -535,6 +566,8 @@ def portal_proxy_image(request, file_id):
     except Exception as e:
         # General errors return 403 to avoid leaking information
         print(f"[Portal Proxy Error] Unexpected error for file {file_id}: {e}")
+        import traceback
+        traceback.print_exc()
         return HttpResponse("Forbidden", status=403)
 
 def portal_download_file(request, file_id):
