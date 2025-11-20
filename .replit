@@ -4,7 +4,7 @@ expertMode = true
 
 [nix]
 channel = "stable-25_05"
-packages = ["libxcrypt"]
+packages = ["libaom", "libde265", "libheif", "libxcrypt", "nasm", "x265"]
 
 [workflows]
 runButton = "Project"
