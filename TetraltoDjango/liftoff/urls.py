@@ -20,7 +20,8 @@ from core.views import (
     home, health, api_health, services_view, contact, 
     blog_list, blog_post, robots_txt, terms_and_conditions,
     service_detail, thank_you, google_landing, google_thank_you, test_page,
-    portal_login, portal_select, portal_detail, portal_gallery, portal_proxy_image, portal_download_file, portal_logout
+    portal_login, portal_select, portal_detail, portal_gallery, portal_proxy_image, portal_download_file, portal_logout,
+    blog_proxy_image
 )
 from django.conf import settings
 from django.conf.urls.static import static
@@ -46,6 +47,7 @@ urlpatterns = [
     path('google-thank-you/', google_thank_you, name='google_thank_you'),
     path('blog/', blog_list, name='blog'),
     path('blog/<slug:slug>/', blog_post, name='blog_post'),
+    path('blog/images/<str:tag>/', blog_proxy_image, name='blog_proxy_image'),
     path('robots.txt', robots_txt, name='robots_txt'),
     path('terms-and-conditions/', terms_and_conditions, name='terms_and_conditions'),
     path('test/', test_page, name='test_page'),

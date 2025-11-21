@@ -245,6 +245,52 @@ def query_files_by_labels(project_tag: str, additional_filters: Optional[Dict[st
         raise
 
 
+def query_file_by_blog_tag(tag: str) -> Optional[str]:
+    """
+    Query Google Drive for a file with the specified BlogTag custom property.
+    
+    Args:
+        tag: Value of the 'BlogTag' custom property (e.g., 'sienna-legacy-1')
+        
+    Returns:
+        File ID if found, None if no file matches the tag
+        
+    Raises:
+        Exception: If Drive API query fails
+    """
+    try:
+        service = get_drive_service()
+        
+        query = f"properties has {{ key='BlogTag' and value='{tag}' }} and trashed=false"
+        
+        logger.info(f"Querying Drive for BlogTag='{tag}'")
+        
+        results = service.files().list(
+            q=query,
+            fields="files(id, name, mimeType)",
+            pageSize=1
+        ).execute()
+        
+        files = results.get('files', [])
+        
+        if not files:
+            logger.warning(f"No file found with BlogTag='{tag}'")
+            return None
+        
+        file_id = files[0]['id']
+        file_name = files[0]['name']
+        logger.info(f"Found file '{file_name}' (ID: {file_id}) for BlogTag='{tag}'")
+        
+        return file_id
+        
+    except HttpError as e:
+        logger.error(f"Google Drive API error querying BlogTag '{tag}': {e}")
+        raise
+    except Exception as e:
+        logger.error(f"Error querying file by BlogTag '{tag}': {e}")
+        raise
+
+
 def list_all_accessible_files(max_results: int = 10) -> List[Dict]:
     """
     List all files the service account can access (for debugging).

@@ -150,14 +150,8 @@ def blog_post(request, slug):
         published_at__lte=timezone.now()
     )
     
-    
-    # Convert markdown to HTML
-    md = markdown.Markdown(extensions=[
-        'markdown.extensions.fenced_code',
-        'markdown.extensions.tables',
-        'markdown.extensions.toc',
-    ])
-    post.content_html = md.convert(post.content)
+    # content_html is already preprocessed and converted in BlogPost.save()
+    # No need to re-convert markdown here
     
     context = {
         'post': post,
@@ -626,4 +620,106 @@ def portal_logout(request):
     """Logout from portal and redirect to home."""
     clear_portal_session(request)
     messages.success(request, "You have been logged out of the customer portal.")
-    return redirect('home') 
+    return redirect('home')
+
+def blog_proxy_image(request, tag):
+    """
+    Proxy Google Drive images for blog posts (public access, no authentication).
+    Queries Drive by BlogTag custom property and serves images with caching.
+    
+    Security:
+    - Only serves image MIME types (blocks documents/other files)
+    - Validates BlogTag format to prevent injection
+    - Two-level caching: tag→file_id (1h) and file_id→bytes (24h)
+    """
+    from django.core.cache import cache
+    from .image_utils import convert_image_if_needed
+    from .drive_utils import query_file_by_blog_tag, get_drive_service
+    from googleapiclient.errors import HttpError
+    import re
+    
+    try:
+        # Security: Validate tag format (alphanumeric, hyphens, underscores only)
+        if not re.match(r'^[a-zA-Z0-9\-_]+$', tag):
+            print(f"[Blog Proxy] Invalid tag format: '{tag}'")
+            return HttpResponse("Invalid tag format", status=400)
+        
+        # Level 1 Cache: tag → file_id mapping (1 hour for faster updates)
+        tag_cache_key = f"blog_tag_{tag}"
+        file_id = cache.get(tag_cache_key)
+        
+        if not file_id:
+            # Query Drive for file with this BlogTag
+            file_id = query_file_by_blog_tag(tag)
+            
+            if not file_id:
+                print(f"[Blog Proxy] No file found for BlogTag='{tag}'")
+                return HttpResponse("Image not found", status=404)
+            
+            # Cache tag→file_id mapping for 1 hour
+            cache.set(tag_cache_key, file_id, timeout=60*60)
+            print(f"[Blog Proxy] Cached tag '{tag}' → file_id '{file_id}'")
+        else:
+            print(f"[Blog Proxy] Cache hit for tag '{tag}' → file_id '{file_id}'")
+        
+        # Get file metadata and validate it's an image
+        service = get_drive_service()
+        try:
+            file_metadata = service.files().get(
+                fileId=file_id,
+                fields='modifiedTime,mimeType,name'
+            ).execute()
+        except HttpError as drive_error:
+            print(f"[Blog Proxy] Drive API error for file {file_id}: {drive_error}")
+            # Clear invalid cache entry
+            cache.delete(tag_cache_key)
+            return HttpResponse("Image not found", status=404)
+        
+        mime_type = file_metadata.get('mimeType', '')
+        
+        # Security: Only allow image MIME types
+        if not mime_type.startswith('image/'):
+            print(f"[Blog Proxy] SECURITY: Non-image file blocked - tag='{tag}', mime='{mime_type}'")
+            cache.delete(tag_cache_key)  # Clear cache for non-image
+            return HttpResponse("Not an image file", status=403)
+        
+        # Level 2 Cache: file_id → image bytes (24 hours for reasonable freshness)
+        modified_time = file_metadata.get('modifiedTime', 'unknown')
+        image_cache_key = f"blog_image_{file_id}_{modified_time}"
+        
+        cached_data = cache.get(image_cache_key)
+        if cached_data:
+            print(f"[Blog Proxy] Image cache hit for {file_id}")
+            file_content, final_mime = cached_data
+        else:
+            # Download and convert image
+            file_content, original_mime = download_file_content(file_id)
+            
+            try:
+                file_content, final_mime = convert_image_if_needed(file_content, original_mime)
+            except Exception as conv_error:
+                print(f"[Blog Proxy] Image conversion failed for {file_id}: {conv_error}")
+                import traceback
+                traceback.print_exc()
+                return HttpResponse("Unsupported image format", status=415)
+            
+            # Cache converted image for 24 hours (balance between performance and freshness)
+            cache.set(image_cache_key, (file_content, final_mime), timeout=60*60*24)
+            print(f"[Blog Proxy] Cached image {file_id} for tag '{tag}' (original: {original_mime}, final: {final_mime})")
+        
+        response = HttpResponse(file_content, content_type=final_mime)
+        # Cache for 24 hours client-side, with ETag for conditional requests
+        response['Cache-Control'] = 'public, max-age=86400'
+        response['ETag'] = f'"{file_id}-{modified_time}"'
+        
+        # Support conditional GET requests
+        if request.META.get('HTTP_IF_NONE_MATCH') == response['ETag']:
+            return HttpResponse(status=304)  # Not Modified
+        
+        return response
+        
+    except Exception as e:
+        print(f"[Blog Proxy Error] Unexpected error for tag '{tag}': {e}")
+        import traceback
+        traceback.print_exc()
+        return HttpResponse("Error loading image", status=500) 

@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.text import slugify
 from django.contrib.postgres.fields import ArrayField
 import markdown
+import re
 
 class Service(models.Model):
     title = models.CharField(max_length=100)
@@ -103,7 +104,13 @@ class BlogPost(models.Model):
         * Headers (# ## ###)
         * Lists (* or -)
         * Links [text](url)
-        * Images ![alt](/static/images/filename)
+        * Static images: ![alt](/static/images/filename)
+        * Drive images: ![alt](drive:tag-name)
+          - ONLY for images (not links or other files)
+          - Tag images in Google Drive with custom property 'BlogTag'
+          - Example: BlogTag='sienna-legacy-1' → ![alt](drive:sienna-legacy-1)
+          - Tags: alphanumeric, hyphens, underscores only
+          - Tags can be reused across multiple blog posts
         * Code blocks (```)
         * Emphasis (*italic* or **bold**)
         """
@@ -135,9 +142,32 @@ class BlogPost(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
+        
+        # Preprocess markdown to transform drive: references
+        processed_content = self._preprocess_drive_images(self.content)
+        
         # Convert markdown to HTML
-        self.content_html = markdown.markdown(self.content)
+        self.content_html = markdown.markdown(processed_content)
         super().save(*args, **kwargs)
+    
+    def _preprocess_drive_images(self, content):
+        """
+        Transform drive:<tag> image references to blog proxy URLs.
+        
+        Converts:
+            ![alt text](drive:sienna-legacy-1)
+        To:
+            ![alt text](/blog/images/sienna-legacy-1/)
+        
+        This allows backward compatibility with static images while
+        enabling Drive-backed images using the drive: prefix.
+        """
+        # Pattern to match markdown image syntax with drive: prefix
+        # Matches: ![anything](drive:tag-name)
+        pattern = r'!\[([^\]]*)\]\(drive:([^)]+)\)'
+        replacement = r'![\1](/blog/images/\2/)'
+        
+        return re.sub(pattern, replacement, content)
 
 class Portal(models.Model):
     customer_name = models.CharField(max_length=200, help_text="Customer's full name")
