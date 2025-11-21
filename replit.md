@@ -23,7 +23,16 @@ The project utilizes a microservices architecture with a Django 5.2 application 
 - **Deployment**: Configured for autoscale deployment using Gunicorn.
 - **Context Processors**: Used for global availability of social links and features, optimizing database queries.
 - **Code Refactoring**: Major forms refactoring to eliminate duplication and improve validation. Views are refactored to a service layer architecture following the Single Responsibility Principle.
-- **Google Drive Integration**: Proof-of-concept for customer portal media display using service account authentication and label-based querying. Secure proxying for images and files with authorization checks.
+- **Google Drive Integration**: 
+  - Customer portal media display using service account authentication and label-based querying
+  - Blog image proxy system for live Drive-backed images with `BlogTag` custom property
+  - Secure proxying for images and files with authorization checks
+- **Blog Image System**: 
+  - Markdown syntax: `![alt](drive:tag-name)` transforms to `/blog/images/tag-name/` proxy URL
+  - Two-level caching: tag→file_id (1h) + image bytes (24h) with ETag support
+  - Security: Tag validation, MIME type checking (images only), BlogTag property serves as authorization
+  - Backward compatible with static images (`/static/images/...`)
+  - Automatic HEIC→JPEG conversion for universal browser support
 - **Caching**: DatabaseCache used to support multi-worker environments.
 - **CSS Architecture**: Currently functional but noted as messy, requiring incremental cleanup.
 
