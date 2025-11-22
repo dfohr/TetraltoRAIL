@@ -166,6 +166,9 @@ CSRF_TRUSTED_ORIGINS = [
     'https://*.replit.co',
 ]
 
+# Store CSRF token in session instead of cookie (fixes admin login in proxied environments)
+CSRF_USE_SESSIONS = True
+
 # Add the specific Replit domain from environment
 if os.environ.get('REPLIT_DEV_DOMAIN'):
     replit_domain = os.environ['REPLIT_DEV_DOMAIN']
