@@ -29,10 +29,13 @@ The project utilizes a microservices architecture with a Django 5.2 application 
   - Secure proxying for images and files with authorization checks
 - **Blog Image System**: 
   - Markdown syntax: `![alt](drive:tag-name)` transforms to `/blog/images/tag-name/` proxy URL
+  - Hero images: `hero_image_filename` field supports both static files and `drive:tag-name` syntax
+  - Template filter: `drive_url` converts drive references to proxy URLs or static paths
   - Two-level caching: tag→file_id (1h) + image bytes (24h) with ETag support
   - Security: Tag validation, MIME type checking (images only), BlogTag property serves as authorization
   - Backward compatible with static images (`/static/images/...`)
   - Automatic HEIC→JPEG conversion for universal browser support
+  - SEO: Drive-backed hero images work with Open Graph, Twitter Cards, and Schema.org metadata
 - **Caching**: DatabaseCache used to support multi-worker environments.
 - **CSS Architecture**: Currently functional but noted as messy, requiring incremental cleanup.
 
