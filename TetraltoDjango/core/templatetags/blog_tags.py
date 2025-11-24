@@ -55,7 +55,7 @@ def drive_url(value):
     # Check if it's a drive: reference
     if value.startswith('drive:'):
         tag = value[6:]  # Remove 'drive:' prefix
-        return reverse('blog_image_proxy', kwargs={'tag': tag})
+        return reverse('blog_proxy_image', kwargs={'tag': tag})
     
     # Otherwise, return static file path
     return static(f'images/{value}')
