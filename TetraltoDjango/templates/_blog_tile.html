@@ -1,7 +1,7 @@
-{% load static %}
+{% load static blog_tags %}
 <a href="{% url 'blog_post' post.slug %}" class="{{ css_class }}">
     <div class="blog-tile-image">
-        <img src="{% static 'images/'|add:post.hero_image_filename %}" 
+        <img src="{{ post.hero_image_filename|drive_url }}" 
              alt="{{ post.hero_image_alt|default:post.title }}"
              loading="lazy">
     </div>

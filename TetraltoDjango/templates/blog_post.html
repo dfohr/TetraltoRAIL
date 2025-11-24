@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static blog_tags %}
 
 {% block title %}{{ post.title }} - Tetralto Roofing Blog{% endblock %}
 
@@ -11,7 +11,7 @@
 
 {% block og_description %}{{ post.meta_description }}{% endblock %}
 
-{% block og_image %}{% if post.hero_image_filename %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/'|add:post.hero_image_filename %}{% endif %}{% endblock %}
+{% block og_image %}{% if post.hero_image_filename %}{{ request.scheme }}://{{ request.get_host }}{{ post.hero_image_filename|drive_url }}{% endif %}{% endblock %}
 
 {% block og_image_alt %}{{ post.hero_image_alt|default:post.title }}{% endblock %}
 
@@ -19,7 +19,7 @@
 
 {% block twitter_description %}{{ post.meta_description }}{% endblock %}
 
-{% block twitter_image %}{% if post.hero_image_filename %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/'|add:post.hero_image_filename %}{% endif %}{% endblock %}
+{% block twitter_image %}{% if post.hero_image_filename %}{{ request.scheme }}://{{ request.get_host }}{{ post.hero_image_filename|drive_url }}{% endif %}{% endblock %}
 
 {% block twitter_image_alt %}{{ post.hero_image_alt|default:post.title }}{% endblock %}
 
@@ -37,7 +37,7 @@
     {% if post.hero_image_filename %}
     ,"image": {
         "@type": "ImageObject",
-        "url": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/'|add:post.hero_image_filename %}",
+        "url": "{{ request.scheme }}://{{ request.get_host }}{{ post.hero_image_filename|drive_url }}",
         "caption": "{{ post.hero_image_alt|default:post.title }}"
     }
     {% endif %}

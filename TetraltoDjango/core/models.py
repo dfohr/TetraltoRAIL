@@ -119,7 +119,7 @@ class BlogPost(models.Model):
     author = models.CharField(max_length=100)
     hero_image_filename = models.CharField(
         max_length=100,
-        help_text="Filename of the hero image in static/images/",
+        help_text="Static filename (e.g., 'blog-hero.avif') or Drive reference (e.g., 'drive:hero-tag'). For Drive images, tag the file in Google Drive with custom property 'BlogTag'.",
         blank=True
     )
     hero_image_alt = models.CharField(max_length=200, blank=True, default="")
