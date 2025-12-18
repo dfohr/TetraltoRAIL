@@ -111,6 +111,14 @@
             background: #f5f5f5;
         }
         
+        .page-tile-fallback {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #E75A35 0%, #F47924 100%);
+            color: white;
+        }
+        
         .page-tile-content {
             padding: 1.5rem;
         }
@@ -440,16 +448,26 @@
         {% if portal_pages %}
         <h2 class="section-title">Project Photos</h2>
         <div class="portal-pages-grid">
-            {% for page_name, files in portal_pages.items|dictsort:0 %}
+            {% for page_name, page_data in portal_pages.items|dictsort:0 %}
             <a href="{% url 'portal_gallery' project_tag=portal.project_tag page_name=page_name %}" class="page-tile">
-                {% if files.0.id %}
-                <img src="{% url 'portal_proxy_image' file_id=files.0.id %}" alt="{{ page_name }}" class="page-tile-image">
+                {% if page_data.has_image_thumbnail and page_data.thumbnail_file.id %}
+                <img src="{% url 'portal_proxy_image' file_id=page_data.thumbnail_file.id %}" alt="{{ page_name }}" class="page-tile-image">
                 {% else %}
-                <div class="page-tile-image"></div>
+                <div class="page-tile-image page-tile-fallback">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        {% if 'Drone' in page_name or 'Video' in page_name or 'Movie' in page_name %}
+                        <polygon points="5 3 19 12 5 21 5 3"/>
+                        {% else %}
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5"/>
+                        <polyline points="21 15 16 10 5 21"/>
+                        {% endif %}
+                    </svg>
+                </div>
                 {% endif %}
                 <div class="page-tile-content">
                     <h3>{{ page_name }}</h3>
-                    <p class="page-tile-count">{{ files|length }} photo{% if files|length != 1 %}s{% endif %}</p>
+                    <p class="page-tile-count">{{ page_data.files|length }} {% if 'Drone' in page_name or 'Video' in page_name or 'Movie' in page_name %}item{% else %}photo{% endif %}{% if page_data.files|length != 1 %}s{% endif %}</p>
                 </div>
             </a>
             {% endfor %}

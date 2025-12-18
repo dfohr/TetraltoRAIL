@@ -416,9 +416,30 @@ def portal_detail(request, project_tag):
     # Sort files section by name, descending (Z to A)
     files_section.sort(key=lambda x: x.get('name', ''), reverse=True)
     
+    # For each portal page, find the best thumbnail (prefer images over videos)
+    portal_pages_with_thumbnails = {}
+    for page_name, files in portal_pages.items():
+        # Try to find an image file for the thumbnail
+        thumbnail_file = None
+        for f in files:
+            mime = f.get('mime_type', '') or ''
+            if mime.startswith('image/'):
+                thumbnail_file = f
+                break
+        
+        # If no image found, use first file (may not have displayable thumbnail)
+        if not thumbnail_file and files:
+            thumbnail_file = files[0]
+        
+        portal_pages_with_thumbnails[page_name] = {
+            'files': files,
+            'thumbnail_file': thumbnail_file,
+            'has_image_thumbnail': thumbnail_file and (thumbnail_file.get('mime_type', '') or '').startswith('image/')
+        }
+    
     return render(request, 'portal/detail.html', {
         'portal': portal,
-        'portal_pages': portal_pages,
+        'portal_pages': portal_pages_with_thumbnails,
         'files_section': files_section,
         'error_message': error_message,
         'email': session_data.get('email')
