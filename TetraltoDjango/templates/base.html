@@ -2,101 +2,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% if settings.FACEBOOK_PIXEL_ID %}
-    <!-- Meta Pixel Code -->
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '{{ settings.FACEBOOK_PIXEL_ID }}');
-    fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id={{ settings.FACEBOOK_PIXEL_ID }}&ev=PageView&noscript=1"
-    /></noscript>
-    <!-- End Meta Pixel Code -->
-    {% endif %}
-    
-    {% if settings.GTM_CONTAINER_ID %}
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','{{ settings.GTM_CONTAINER_ID }}');</script>
-    <!-- End Google Tag Manager -->
-    {% endif %}
-    
-    <!-- reCAPTCHA v3 (global) -->
-    <script src="https://www.google.com/recaptcha/api.js?render={{ settings.RECAPTCHA_PUBLIC_KEY }}"></script>
-    
-    {% if settings.POSTHOG_API_KEY %}
-    <!-- PostHog Analytics -->
-    <script>
-        try {
-            !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-            posthog.init('{{ settings.POSTHOG_API_KEY }}', {
-                api_host: 'https://e.tetralto.com',
-                person_profiles: 'identified_only',
-                capture_pageview: true,
-                capture_pageleave: true,
-                autocapture: true,
-                persistence: 'localStorage',
-                loaded: function(posthog) {
-                    // Capture UTM parameters and campaign data
-                    var urlParams = new URLSearchParams(window.location.search);
-                    var utmParams = {};
-                    
-                    // Standard UTM parameters
-                    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(function(param) {
-                        if (urlParams.has(param)) {
-                            utmParams[param] = urlParams.get(param);
-                        }
-                    });
-                    
-                    // Google Ads specific parameters
-                    if (urlParams.has('gclid')) {
-                        utmParams.gclid = urlParams.get('gclid');
-                    }
-                    if (urlParams.has('gad_source')) {
-                        utmParams.gad_source = urlParams.get('gad_source');
-                    }
-                    if (urlParams.has('gad_campaignid')) {
-                        utmParams.gad_campaignid = urlParams.get('gad_campaignid');
-                    }
-                    
-                    // Capture full URL information
-                    utmParams.landing_page = window.location.href;
-                    utmParams.path = window.location.pathname;
-                    utmParams.referrer = document.referrer;
-                    
-                    // Set properties if we have any UTM data
-                    if (Object.keys(utmParams).length > 0) {
-                        posthog.people.set(utmParams);
-                        // Log campaign data for debugging
-                        console.log('Campaign Data:', utmParams);
-                    }
-                }
-            });
-        } catch (error) {
-            console.error('PostHog initialization failed:', error);
-            // Create a stub posthog object to prevent errors in the rest of the application
-            window.posthog = {
-                capture: function() {},
-                identify: function() {},
-                reset: function() {},
-                // Add other commonly used methods as needed
-            };
-        }
-    </script>
-    <!-- End PostHog Analytics -->
-    {% endif %}
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Tetralto Roofing">
@@ -131,10 +36,11 @@
     <meta name="description" content="{% block meta_description %}Top-rated roofing Missouri City TX. Tetralto offers roof replacement, repair & gutter services. Free estimates! Call 281-895-1213 today.{% endblock %}">
     <meta name="keywords" content="roofing contractors Missouri City TX, roofing contractor, roof replacement, roof repair, gutter services, Missouri City roofer, Sugar Land roofing, Houston roofing company, professional roofers">
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts with preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
     
     <!-- Our CSS -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}?v=1.1">
@@ -149,7 +55,9 @@
 
     <!-- Preload critical assets -->
     <link rel="preload" as="image" href="{% static 'images/tetralto-roofing-logo.avif' %}" type="image/avif">
-    <link rel="preload" as="font" href="https://fonts.gstatic.com/s/comfortaa/v45/1Pt_g8LJRfWJmhDAuUsSQamb1W0lwk4S4WjMPrQ.ttf" type="font/ttf" crossorigin>
+    {% block preload_hero %}
+    <link rel="preload" as="image" href="{% static 'images/blog-sienna-silverwood-1.avif' %}" type="image/avif">
+    {% endblock %}
     
     <!-- DNS Prefetch -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
@@ -229,9 +137,79 @@
         </div>
     </footer>
 
-    <script src="{% static 'js/main.js' %}"></script>
-    <script src="{% static 'js/testimonials-carousel.js' %}"></script>
-    <script src="{% static 'js/lead-form.js' %}"></script>
+    <script src="{% static 'js/main.js' %}" defer></script>
+    <script src="{% static 'js/testimonials-carousel.js' %}" defer></script>
+    <!-- reCAPTCHA must load before lead-form.js - defer scripts execute in order -->
+    <script src="https://www.google.com/recaptcha/api.js?render={{ settings.RECAPTCHA_PUBLIC_KEY }}" defer></script>
+    <script src="{% static 'js/lead-form.js' %}" defer></script>
+
+    <!-- Deferred Third-Party Analytics -->
+    <script>
+    (function() {
+        function loadAnalytics() {
+            {% if settings.FACEBOOK_PIXEL_ID %}
+            // Meta Pixel
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '{{ settings.FACEBOOK_PIXEL_ID }}');
+            fbq('track', 'PageView');
+            {% endif %}
+
+            {% if settings.GTM_CONTAINER_ID %}
+            // Google Tag Manager
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','{{ settings.GTM_CONTAINER_ID }}');
+            {% endif %}
+
+            {% if settings.POSTHOG_API_KEY %}
+            // PostHog Analytics
+            try {
+                !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+                posthog.init('{{ settings.POSTHOG_API_KEY }}', {
+                    api_host: 'https://e.tetralto.com',
+                    person_profiles: 'identified_only',
+                    capture_pageview: true,
+                    capture_pageleave: true,
+                    autocapture: true,
+                    persistence: 'localStorage',
+                    loaded: function(posthog) {
+                        var urlParams = new URLSearchParams(window.location.search);
+                        var utmParams = {};
+                        ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(function(param) {
+                            if (urlParams.has(param)) { utmParams[param] = urlParams.get(param); }
+                        });
+                        if (urlParams.has('gclid')) { utmParams.gclid = urlParams.get('gclid'); }
+                        if (urlParams.has('gad_source')) { utmParams.gad_source = urlParams.get('gad_source'); }
+                        if (urlParams.has('gad_campaignid')) { utmParams.gad_campaignid = urlParams.get('gad_campaignid'); }
+                        utmParams.landing_page = window.location.href;
+                        utmParams.path = window.location.pathname;
+                        utmParams.referrer = document.referrer;
+                        if (Object.keys(utmParams).length > 0) { posthog.people.set(utmParams); }
+                    }
+                });
+            } catch (error) {
+                window.posthog = { capture: function() {}, identify: function() {}, reset: function() {} };
+            }
+            {% endif %}
+        }
+
+        // Load analytics after page is interactive
+        if (document.readyState === 'complete') {
+            setTimeout(loadAnalytics, 100);
+        } else {
+            window.addEventListener('load', function() { setTimeout(loadAnalytics, 100); });
+        }
+    })();
+    </script>
 
     <!-- Schema.org Structured Data -->
     <script type="application/ld+json">
