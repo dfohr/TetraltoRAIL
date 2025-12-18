@@ -466,7 +466,7 @@ def portal_gallery(request, project_tag, page_name):
         return redirect('portal_select')
     
     # Query Google Drive for files in this PortalPage category
-    images = []
+    media_items = []
     error_message = None
     
     try:
@@ -478,16 +478,20 @@ def portal_gallery(request, project_tag, page_name):
             portal_page = properties.get('PortalPage')
             
             if portal_page == page_name:
-                # Only include image files
-                if file_data.get('mimeType', '').startswith('image/'):
+                mime_type = file_data.get('mimeType', '')
+                # Include images and videos
+                if mime_type.startswith('image/') or mime_type.startswith('video/'):
                     # Normalize keys for template
                     file_data['thumbnail_link'] = file_data.get('thumbnailLink')
                     file_data['web_view_link'] = file_data.get('webViewLink')
                     file_data['web_content_link'] = file_data.get('webContentLink')
-                    images.append(file_data)
+                    file_data['mime_type'] = mime_type
+                    file_data['is_video'] = mime_type.startswith('video/')
+                    file_data['is_image'] = mime_type.startswith('image/')
+                    media_items.append(file_data)
         
     except Exception as e:
-        error_message = f"Error loading images: {str(e)}"
+        error_message = f"Error loading media: {str(e)}"
         print(f"[Portal Gallery Error] {e}")
         import traceback
         traceback.print_exc()
@@ -495,7 +499,8 @@ def portal_gallery(request, project_tag, page_name):
     return render(request, 'portal/gallery.html', {
         'portal': portal,
         'page_name': page_name,
-        'images': images,
+        'media_items': media_items,
+        'images': [m for m in media_items if m.get('is_image')],  # Backward compatibility
         'error_message': error_message,
         'email': session_data.get('email')
     })

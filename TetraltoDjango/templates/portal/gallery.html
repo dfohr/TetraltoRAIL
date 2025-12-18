@@ -88,6 +88,46 @@
             display: block;
         }
         
+        .gallery-item.video-item {
+            position: relative;
+        }
+        
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, rgba(231, 90, 53, 0.85) 0%, rgba(244, 121, 36, 0.85) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .video-overlay svg {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .video-overlay .video-name {
+            font-size: 0.9rem;
+            padding: 0 1rem;
+            text-align: center;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .video-overlay .video-label {
+            font-size: 0.75rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+        
         .error-message {
             background: #fff3cd;
             border: 1px solid #ffc107;
@@ -222,17 +262,29 @@
         </div>
         {% endif %}
         
-        {% if images %}
+        {% if media_items %}
         <div class="gallery-grid">
-            {% for image in images %}
-            <div class="gallery-item" onclick="openModal({{ forloop.counter0 }})">
-                <img src="{% url 'portal_proxy_image' file_id=image.id %}" alt="{{ image.name }}">
+            {% for item in media_items %}
+            {% if item.is_video %}
+            <a href="{{ item.web_view_link }}" target="_blank" class="gallery-item video-item">
+                <div class="video-overlay">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="5 3 19 12 5 21 5 3"/>
+                    </svg>
+                    <span class="video-name">{{ item.name }}</span>
+                    <span class="video-label">Click to play in Google Drive</span>
+                </div>
+            </a>
+            {% else %}
+            <div class="gallery-item" data-image-index="{{ item.id }}">
+                <img src="{% url 'portal_proxy_image' file_id=item.id %}" alt="{{ item.name }}">
             </div>
+            {% endif %}
             {% endfor %}
         </div>
         {% else %}
         <div class="empty-state">
-            <p>No images found in this gallery.</p>
+            <p>No media found in this gallery.</p>
         </div>
         {% endif %}
     </div>
@@ -246,18 +298,28 @@
     </div>
     
     <script>
+        // Only include image files for the lightbox
         const images = [
-            {% for image in images %}
+            {% for item in media_items %}{% if item.is_image %}
             {
-                url: "{% url 'portal_proxy_image' file_id=image.id %}",
-                name: "{{ image.name|escapejs }}"
-            }{% if not forloop.last %},{% endif %}
-            {% endfor %}
-        ];
+                id: "{{ item.id }}",
+                url: "{% url 'portal_proxy_image' file_id=item.id %}",
+                name: "{{ item.name|escapejs }}"
+            },
+            {% endif %}{% endfor %}
+        ].filter(Boolean);
         
         let currentIndex = 0;
         
+        function openModalById(imageId) {
+            const index = images.findIndex(img => img.id === imageId);
+            if (index >= 0) {
+                openModal(index);
+            }
+        }
+        
         function openModal(index) {
+            if (images.length === 0) return;
             currentIndex = index;
             const modal = document.getElementById('imageModal');
             const modalImg = document.getElementById('modalImage');
@@ -276,6 +338,7 @@
         }
         
         function changeImage(direction) {
+            if (images.length === 0) return;
             currentIndex += direction;
             
             if (currentIndex < 0) {
@@ -288,6 +351,14 @@
             modalImg.src = images[currentIndex].url;
             modalImg.alt = images[currentIndex].name;
         }
+        
+        // Click handlers for image gallery items
+        document.querySelectorAll('.gallery-item[data-image-index]').forEach(item => {
+            item.addEventListener('click', () => {
+                const imageId = item.getAttribute('data-image-index');
+                openModalById(imageId);
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
