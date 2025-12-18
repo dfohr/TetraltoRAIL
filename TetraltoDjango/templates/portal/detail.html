@@ -281,6 +281,33 @@
             line-height: 1.6;
         }
         
+        .thanks-tile .tile-header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        
+        .thanks-tile .tile-content {
+            background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);
+        }
+        
+        .thanks-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .thanks-message {
+            color: #065f46;
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-top: 1rem;
+        }
+        
+        .thanks-signature {
+            margin-top: 1.5rem;
+            font-style: italic;
+            color: #047857;
+            font-weight: 500;
+        }
+        
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 1.5rem;
@@ -396,6 +423,28 @@
                         <p class="tile-footer">Tetralto Roofing grants free yearly inspections for the roofs we install. This helps maintain your roof in excellent condition and prolong its life expectancy!{% if not portal.has_left_review %} We kindly request that you leave us a review before requesting a free inspection (but it's not mandatory).{% endif %}</p>
                     </div>
                 </div>
+                
+                {% if portal.has_left_review %}
+                <!-- Thank You Tile -->
+                <div class="action-tile thanks-tile">
+                    <div class="tile-header">
+                        <div class="thanks-icon">💚</div>
+                        <h3>Thank You From the Bottom of Our Hearts</h3>
+                    </div>
+                    <div class="tile-content">
+                        <p class="thanks-message">
+                            Your review means the world to us and to our families. In an industry where trust is everything, your words help other homeowners find a roofing company they can believe in.
+                        </p>
+                        <p class="thanks-message">
+                            Because of customers like you who take the time to share their experience, we're able to continue doing what we love — protecting homes and serving our community with integrity.
+                        </p>
+                        <p class="thanks-signature">
+                            With deepest gratitude,<br>
+                            David & The Tetralto Family
+                        </p>
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
