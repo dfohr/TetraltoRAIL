@@ -722,4 +722,28 @@ def blog_proxy_image(request, tag):
         print(f"[Blog Proxy Error] Unexpected error for tag '{tag}': {e}")
         import traceback
         traceback.print_exc()
-        return HttpResponse("Error loading image", status=500) 
+        return HttpResponse("Error loading image", status=500)
+
+
+def support_us(request):
+    """Support Us page - encourage reviews, referrals, and sharing."""
+    testimonials = Testimonial.objects.filter(is_active=True, is_featured=True).order_by('?')[:3]
+    
+    # Handle referral form submission
+    if request.method == 'POST':
+        form = LeadForm(request.POST, request=request, variant='contact')
+        if form.is_valid():
+            lead = form.save(commit=False)
+            lead.source = 'referral'  # Mark as referral lead
+            lead.save()
+            messages.success(request, "Thank you for the referral! We'll reach out to them soon, and if they complete a full roof replacement, you'll receive your $200 gift card.")
+            return redirect('support_us')
+        else:
+            messages.error(request, "Please correct the errors below.")
+    else:
+        form = LeadForm(request=request, variant='contact')
+    
+    return render(request, 'support.html', {
+        'testimonials': testimonials,
+        'form': form,
+    })

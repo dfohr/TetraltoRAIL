@@ -1,0 +1,68 @@
+The web page you're describing sounds like a dedicated "Support Us" or "Spread the Word" landing page on the Tetralto Roofing website (tetralto.com), aimed at past customers or fans to encourage organic growth through reviews, shares, and referrals. Since Tetralto is a roofing company specializing in replacements, repairs, and gutters in the Missouri City, TX area, their voice is typically professional yet approachable—emphasizing reliability, quality work, great communication, and customer satisfaction, based on their site and reviews. It's friendly without being overly salesy, focusing on building trust and community. Avoid hype; lean into gratitude and straightforward value.
+Overall Strategy and Best Practices
+
+Purpose and Goals: Position this as a thank-you page that empowers users to help Tetralto grow while benefiting themselves (e.g., the $200 gift card). Track engagement with Google Analytics or UTM parameters on links. Aim for conversions like review submissions or referral forms.
+Design Principles: Keep it simple, mobile-responsive (use Bootstrap or similar framework), with clean visuals like roofing icons or subtle before/after photos. Use Tetralto's branding—likely blues/greys for trust, sans-serif fonts for modernity. Load time under 3 seconds; include accessibility (alt text, ARIA labels).
+SEO and Visibility: Title it "Ways to Support Tetralto Roofing | Reviews, Referrals & More". Use keywords like "Tetralto reviews", "roofing referrals Missouri City". Link from footer, post-service emails, and social bios.
+Voice Integration: Write in first-person plural ("we" at Tetralto) to feel personal. Be appreciative: "Your support means the world to us and helps families like yours get reliable roofing." Keep it concise—under 800 words—to respect busy homeowners.
+Legal/Compliance: Disclose referral terms clearly (e.g., "Gift card issued upon project completion and payment"). Ensure GDPR/CCPA compliance if collecting data.
+Testing: A/B test headlines and CTAs. Use heatmaps (e.g., Hotjar) to see where users click.
+Tech Stack: Build with WordPress/Elementor for ease, or HTML/CSS/JS if custom. Integrate forms via Google Forms or HubSpot for referrals.
+
+Suggested Page Structure
+
+Hero Section (Top of Page):
+Eye-catching headline: "Thank You for Choosing Tetralto—Now Help Us Help More Families!"
+Subheadline: "Your experience matters. Share it through reviews, social media, or referrals, and earn a $200 gift card for successful full roof replacement referrals."
+Visual: Subtle background image of a completed roof or happy customer testimonial. Include a prominent CTA button: "Submit a Referral Now" linking to a form.
+Why this works: Grabs attention, ties into Tetralto's customer-first voice, and highlights the incentive upfront (best practice for motivation).
+
+Incentive Spotlight:
+Dedicated box or banner: "Refer a Friend to a Full Roof Replacement Project and Get a $200 Gift Card!"
+Details: Explain eligibility (e.g., "When your referral books and completes a full replacement with us, we'll send you a $200 Visa gift card as our thanks. No limits—refer as many as you like!").
+CTA: Form fields for referrer's name/email, referral's contact info. Auto-email confirmation.
+Best practice: Incentives boost referrals by 2-3x (per marketing studies); make it risk-free and transparent to align with Tetralto's integrity-focused voice.
+
+Ways to Support Section:
+Use an accordion, tabs, or card layout for scannability. Each subsection covers one method with a brief explanation, benefits, and step-by-step how-to.
+Google Reviews:
+Text: "Your honest feedback on Google helps local homeowners find reliable roofing services like ours."
+Steps: 1. Search 'Tetralto Roofing' on Google. 2. Click 'Write a Review'. 3. Share your story!
+CTA: Direct link to Google review page (e.g., via Google My Business).
+Voice tip: Encourage specifics like "Mention how our team handled your project promptly."
+
+Other Platform Reviews:
+Text: "Boost our visibility on trusted sites where homeowners shop for pros."
+Platforms: Yelp, HomeAdvisor, Angi, BBB—link to each profile.
+Steps: Similar to Google; suggest focusing on quality, communication.
+Best practice: Multi-platform reviews improve SEO and trust signals; Tetralto already has strong ratings (e.g., 4.9 on HomeAdvisor), so leverage that.
+
+Social Media:
+Text: "Tag us in your posts to spread the word about your new roof!"
+Platforms: Facebook, Instagram, Nextdoor (relevant for local services).
+Steps: 1. Post a photo of your project. 2. Tag @TetraltoRoofing and use #TetraltoRoofing. 3. Share why you chose us.
+CTA: Share buttons or pre-written post templates.
+Voice tip: Fun and community-oriented: "We love seeing your before-and-afters!"
+
+Group Chats:
+Text: "In neighborhood apps or chats? Mention Tetralto when someone asks for roofing recommendations."
+Platforms: Facebook Groups, WhatsApp, local forums.
+Steps: 1. Join local home improvement groups. 2. Respond to queries with your experience. 3. Include our contact: 281-895-1213.
+Best practice: Organic word-of-mouth in chats builds authenticity; encourage without spamming.
+
+Direct Referrals:
+Text: "The best compliment is referring us to friends and family needing roof work."
+Steps: 1. Tell them about your experience. 2. Share our site or number. 3. Use our referral form below to track and claim your gift card.
+Tie back to incentive.
+
+
+
+Testimonials or Social Proof:
+Pull 3-4 real reviews from Google/Yelp (with permission/anonymized).
+Example: "David and his team were awesome—best price and prompt service!" – Yelp reviewer.
+Best practice: Builds credibility; fits Tetralto's review-heavy marketing.
+
+Footer/Closing:
+Reiterate thanks: "Your support keeps Tetralto growing and serving Missouri City better."
+Contact info, privacy note, and newsletter signup for updates.
+CTA: "Ready to refer? Start here."

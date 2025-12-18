@@ -1,0 +1,393 @@
+/* ===== SUPPORT PAGE STYLES ===== */
+
+/* Hero Section */
+.support-hero {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.support-hero .container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.support-hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.support-hero .hero-subtitle {
+    font-size: 1.25rem;
+    opacity: 0.95;
+    margin-bottom: 2rem;
+}
+
+.incentive-banner {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    text-align: left;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.incentive-icon {
+    flex-shrink: 0;
+    background: var(--accent-color);
+    color: var(--primary-color);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.incentive-text strong {
+    font-size: 1.25rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.incentive-text p {
+    margin: 0;
+    opacity: 0.95;
+    font-size: 0.95rem;
+}
+
+/* Support Cards Section */
+.support-cards-section {
+    padding: 4rem 2rem;
+    background: var(--background-light);
+}
+
+.support-cards-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.support-cards-section h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.section-intro {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+}
+
+.support-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.support-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.support-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.support-card.featured-card {
+    border: 2px solid var(--primary-color);
+    background: linear-gradient(to bottom, #fff 0%, #fff9f7 100%);
+}
+
+.card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.google-icon {
+    background: #f0f7ff;
+    color: #4285f4;
+}
+
+.platforms-icon {
+    background: #fff9e6;
+    color: #f5a623;
+}
+
+.social-icon {
+    background: #e8f5e9;
+    color: #4caf50;
+}
+
+.referral-icon {
+    background: #fef3ed;
+    color: var(--primary-color);
+}
+
+.support-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-color);
+}
+
+.support-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--primary-color);
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.card-cta:hover {
+    background: var(--secondary-color);
+    color: white;
+}
+
+.card-note {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.referral-details {
+    background: #fef9f7;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 0.5rem;
+}
+
+.referral-details p {
+    margin: 0.25rem 0;
+}
+
+.referral-details a {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.incentive-reminder {
+    color: var(--primary-color) !important;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+/* Referral Form Section */
+.referral-form-section {
+    padding: 4rem 2rem;
+    background: white;
+}
+
+.referral-form-section .container {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.referral-form-wrapper {
+    background: var(--background-light);
+    border-radius: 16px;
+    padding: 2.5rem;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.form-header h2 {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.form-header p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.form-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+}
+
+.form-disclaimer {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 1.5rem;
+}
+
+.messages .alert {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Testimonials Section */
+.support-testimonials {
+    padding: 4rem 2rem;
+    background: var(--background-light);
+}
+
+.support-testimonials .container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.support-testimonials h2 {
+    text-align: center;
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.testimonial-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.testimonial-card .stars {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 1rem;
+}
+
+.testimonial-text {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.testimonial-author {
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+/* Closing Section */
+.support-closing {
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    text-align: center;
+}
+
+.support-closing .container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.support-closing p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.95;
+}
+
+.support-closing .cta-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: white;
+    color: var(--primary-color);
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.support-closing .cta-phone:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .support-hero {
+        padding: 3rem 1.5rem;
+    }
+    
+    .support-hero h1 {
+        font-size: 2rem;
+    }
+    
+    .incentive-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+    }
+    
+    .support-cards-section,
+    .referral-form-section,
+    .support-testimonials {
+        padding: 3rem 1.5rem;
+    }
+    
+    .referral-form-wrapper {
+        padding: 1.5rem;
+    }
+    
+    .form-container {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .support-hero h1 {
+        font-size: 1.75rem;
+    }
+    
+    .support-cards-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+}
