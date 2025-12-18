@@ -306,6 +306,24 @@
   }
 },
 {
+  "model": "core.blogpost",
+  "pk": 19,
+  "fields": {
+    "title": "Roof Replacement in Sienna, TX: GAF HDZ Weathered Wood Shingles with Lomanco Turbine Ventilation",
+    "slug": "Sienna-Weathered-Wood",
+    "meta_description": "Explore Tetralto Roofing's roof replacement in Sienna, TX: GAF HDZ Weathered Wood shingles & three 12-inch Lomanco Turbine vents for superior ventilation.",
+    "content": "At Tetralto Roofing, we're passionate about providing durable, aesthetically pleasing roof solutions tailored to the unique needs of Texas homes. Our recent project in the vibrant Sienna neighborhood of Missouri City, TX, showcases our expertise in transforming outdated roofs into resilient, beautiful structures. This installation not only upgraded the home's protection against harsh weather but also improved its overall energy efficiency through advanced ventilation.\r\n\r\n![alt](drive:2025-06-Bret-Davis-1)\r\n\r\nFor this project, we selected GAF Timberline HDZ shingles in the elegant Weathered Wood color. These premium architectural shingles offer a natural, rustic look that complements the suburban charm of Sienna homes, while providing superior durability with features like Dura Grip™ adhesive seals and StainGuard Plus™ for long-term performance in Houston's humid climate.\r\n\r\n![alt](drive:2025-06-Bret-Davis-2)\r\n\r\nA key highlight of this replacement was our focus on optimal attic ventilation. We installed three 12-inch Lomanco Turbine vents, strategically placed to promote airflow and reduce heat buildup. As a Lomanco-certified contractor for attic ventilation design, we ensure every system is customized to maximize efficiency, helping prevent moisture issues and extending the roof's lifespan.\r\n\r\n![alt](drive:2025-06-Bret-Davis-3)\r\n![alt](drive:2025-06-Bret-Davis-4)\r\n\r\nOur team handled the entire process with precision, from removing the old materials to inspecting the decking and adding the new shingles and vents. The result is a roof that's not only visually stunning but also built to withstand Texas storms and heat.\r\n\r\nIf you're in Sienna or the greater Houston area and need a roof replacement that prioritizes quality and ventilation, reach out to Tetralto Roofing for a free estimate. Let's protect and enhance your home today!\r\n\r\n![alt](drive:2025-06-Bret-Davis-5)",
+    "content_html": "<p>At Tetralto Roofing, we're passionate about providing durable, aesthetically pleasing roof solutions tailored to the unique needs of Texas homes. Our recent project in the vibrant Sienna neighborhood of Missouri City, TX, showcases our expertise in transforming outdated roofs into resilient, beautiful structures. This installation not only upgraded the home's protection against harsh weather but also improved its overall energy efficiency through advanced ventilation.</p>\n<p><img alt=\"alt\" src=\"/blog/images/2025-06-Bret-Davis-1/\" /></p>\n<p>For this project, we selected GAF Timberline HDZ shingles in the elegant Weathered Wood color. These premium architectural shingles offer a natural, rustic look that complements the suburban charm of Sienna homes, while providing superior durability with features like Dura Grip™ adhesive seals and StainGuard Plus™ for long-term performance in Houston's humid climate.</p>\n<p><img alt=\"alt\" src=\"/blog/images/2025-06-Bret-Davis-2/\" /></p>\n<p>A key highlight of this replacement was our focus on optimal attic ventilation. We installed three 12-inch Lomanco Turbine vents, strategically placed to promote airflow and reduce heat buildup. As a Lomanco-certified contractor for attic ventilation design, we ensure every system is customized to maximize efficiency, helping prevent moisture issues and extending the roof's lifespan.</p>\n<p><img alt=\"alt\" src=\"/blog/images/2025-06-Bret-Davis-3/\" />\n<img alt=\"alt\" src=\"/blog/images/2025-06-Bret-Davis-4/\" /></p>\n<p>Our team handled the entire process with precision, from removing the old materials to inspecting the decking and adding the new shingles and vents. The result is a roof that's not only visually stunning but also built to withstand Texas storms and heat.</p>\n<p>If you're in Sienna or the greater Houston area and need a roof replacement that prioritizes quality and ventilation, reach out to Tetralto Roofing for a free estimate. Let's protect and enhance your home today!</p>\n<p><img alt=\"alt\" src=\"/blog/images/2025-06-Bret-Davis-5/\" /></p>",
+    "author": "David Fohr",
+    "hero_image_filename": "drive:2025-06-Bret-Davis-6",
+    "hero_image_alt": "",
+    "created_at": "2025-12-18T23:11:23.896Z",
+    "updated_at": "2025-12-18T23:15:17.306Z",
+    "published_at": "2025-06-16T22:11:13Z",
+    "is_active": true
+  }
+},
+{
   "model": "core.feature",
   "pk": 1,
   "fields": {
