@@ -451,12 +451,26 @@
             {% for page_name, page_data in portal_pages.items|dictsort:0 %}
             <a href="{% url 'portal_gallery' project_tag=portal.project_tag page_name=page_name %}" class="page-tile">
                 {% if page_data.has_image_thumbnail and page_data.thumbnail_file.id %}
-                <img src="{% url 'portal_proxy_image' file_id=page_data.thumbnail_file.id %}" alt="{{ page_name }}" class="page-tile-image">
+                <img src="{% url 'portal_proxy_image' file_id=page_data.thumbnail_file.id %}" 
+                     alt="{{ page_name }}" 
+                     class="page-tile-image"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="page-tile-image page-tile-fallback" style="display: none;">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        {% if 'Drone' in page_name or 'Video' in page_name or 'Movie' in page_name %}
+                        <polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/>
+                        {% else %}
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5"/>
+                        <polyline points="21 15 16 10 5 21"/>
+                        {% endif %}
+                    </svg>
+                </div>
                 {% else %}
                 <div class="page-tile-image page-tile-fallback">
                     <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                         {% if 'Drone' in page_name or 'Video' in page_name or 'Movie' in page_name %}
-                        <polygon points="5 3 19 12 5 21 5 3"/>
+                        <polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/>
                         {% else %}
                         <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
                         <circle cx="8.5" cy="8.5" r="1.5"/>
