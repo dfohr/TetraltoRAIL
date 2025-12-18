@@ -308,6 +308,92 @@
             font-weight: 500;
         }
         
+        /* Support Cards (for reviewed customers) */
+        .support-tiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .support-tile {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .support-tile:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .support-tile-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+        
+        .support-tile-icon.platforms {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .support-tile-icon.social {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+        
+        .support-tile-icon.referral {
+            background: #fce7f3;
+            color: #db2777;
+        }
+        
+        .support-tile h3 {
+            color: #E75A35;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .support-tile p {
+            color: #4b5563;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .support-tile .tile-note {
+            color: #6b7280;
+            font-size: 0.8rem;
+            font-style: italic;
+        }
+        
+        .support-tile .referral-phone {
+            color: #E75A35;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .support-tile .referral-phone:hover {
+            text-decoration: underline;
+        }
+        
+        .support-tile .incentive-note {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+        
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 1.5rem;
@@ -446,6 +532,56 @@
                 </div>
                 {% endif %}
             </div>
+            
+            {% if portal.has_left_review %}
+            <!-- Additional Support Options (shown after review) -->
+            <h2 class="section-title" style="margin-top: 3rem;">Other Ways to Support Us</h2>
+            <div class="support-tiles-grid">
+                <!-- Other Platforms Tile -->
+                <div class="support-tile">
+                    <div class="support-tile-icon platforms">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h3>Review Us on Other Platforms</h3>
+                    <p>If you use Angi, Yelp, or HomeAdvisor, we'd appreciate your review there too. Multi-platform reviews help more homeowners discover us.</p>
+                    <span class="tile-note">Search "Tetralto Roofing" on your preferred platform</span>
+                </div>
+                
+                <!-- Social Media Tile -->
+                <div class="support-tile">
+                    <div class="support-tile-icon social">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="18" cy="5" r="3"/>
+                            <circle cx="6" cy="12" r="3"/>
+                            <circle cx="18" cy="19" r="3"/>
+                            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                        </svg>
+                    </div>
+                    <h3>Share on Social Media</h3>
+                    <p>Post a photo of your new roof on Facebook, Instagram, or Nextdoor. Tag us <strong>@TetraltoRoofing</strong> and use <strong>#TetraltoRoofing</strong>!</p>
+                    <span class="tile-note">Your posts help neighbors discover quality roofing</span>
+                </div>
+                
+                <!-- Refer a Friend Tile -->
+                <div class="support-tile">
+                    <div class="support-tile-icon referral">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3>Tell a Friend or Neighbor</h3>
+                    <p>When someone mentions they need a roofer, share your experience. A personal recommendation means more than any ad.</p>
+                    <p><strong>Share our number:</strong> <a href="tel:+12818951213" class="referral-phone">(281) 895-1213</a></p>
+                    <span class="incentive-note">$200 gift card for full roof replacement referrals!</span>
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
 </body>
