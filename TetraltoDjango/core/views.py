@@ -416,29 +416,39 @@ def portal_detail(request, project_tag):
     # Sort files section by name, descending (Z to A)
     files_section.sort(key=lambda x: x.get('name', ''), reverse=True)
     
-    # For each portal page, find the best thumbnail (prefer files WITH thumbnails)
+    # For each portal page, find the best thumbnail (prefer IMAGE files since they can be proxied)
     portal_pages_with_thumbnails = {}
     for page_name, files in portal_pages.items():
-        # Try to find a file that has a thumbnail (images usually do, some videos do too)
         thumbnail_file = None
         
-        # First pass: find any file with a thumbnail link
+        # First pass: find an IMAGE file with a thumbnail (can be proxied reliably)
         for f in files:
-            if f.get('thumbnail_link'):
+            mime = f.get('mime_type', '') or ''
+            if mime.startswith('image/') and f.get('thumbnail_link'):
                 thumbnail_file = f
                 break
         
-        # If no file with thumbnail found, use first file
+        # Second pass: if no image, find ANY file with a thumbnail (video fallback)
+        if not thumbnail_file:
+            for f in files:
+                if f.get('thumbnail_link'):
+                    thumbnail_file = f
+                    break
+        
+        # Last resort: use first file
         if not thumbnail_file and files:
             thumbnail_file = files[0]
         
-        # Check if the selected file has a usable thumbnail
-        has_thumbnail = thumbnail_file and thumbnail_file.get('thumbnail_link')
+        # Check if the selected file is an image that can be proxied
+        is_proxyable_image = (
+            thumbnail_file and 
+            (thumbnail_file.get('mime_type', '') or '').startswith('image/')
+        )
         
         portal_pages_with_thumbnails[page_name] = {
             'files': files,
             'thumbnail_file': thumbnail_file,
-            'has_image_thumbnail': has_thumbnail
+            'has_image_thumbnail': is_proxyable_image
         }
     
     return render(request, 'portal/detail.html', {
