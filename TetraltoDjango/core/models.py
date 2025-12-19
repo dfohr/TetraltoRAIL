@@ -143,6 +143,10 @@ class BlogPost(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         
+        # Ensure slug is always lowercase for consistent URLs
+        if self.slug:
+            self.slug = self.slug.lower()
+        
         # Preprocess markdown to transform drive: references
         processed_content = self._preprocess_drive_images(self.content)
         
