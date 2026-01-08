@@ -324,6 +324,24 @@
   }
 },
 {
+  "model": "core.blogpost",
+  "pk": 20,
+  "fields": {
+    "title": "Roof Replacement in Fresno, Houston TX: GAF HDZ Charcoal Shingles After Hurricane and Hail Damage",
+    "slug": "roof-replacement-in-fresno-houston-tx-gaf-hdz",
+    "meta_description": "Tetralto Roofing's roof replacement in Fresno, Houston TX: GAF HDZ Charcoal shingles post-hurricane/hail damage. Insurance-approved, rebuilt patio, ridge vent",
+    "content": "At Tetralto Roofing, we specialize in restoring homes hit hard by Texas weather. Our latest project in the Fresno neighborhood of Houston, TX, tackled severe hurricane and hail damage to a homeowner's roof and fence. \r\n\r\n![alt](drive:2025-05-Pat-Shumate-1)\r\n\r\nWorking closely with the insurance adjuster during the inspection, we secured approval for a comprehensive replacement, ensuring the process was smooth and covered.\r\n\r\n![alt](drive:2025-05-Pat-Shumate-2)\r\n\r\nThe damage was extensive, with the main roof compromised by high winds and hail impacts. Additionally, the back patio roof had deteriorated severely over time, requiring a full rebuild. We installed premium GAF Timberline HDZ shingles in the sleek Charcoal color, which provides a modern, durable finish resistant to future storms. These shingles feature advanced wind and impact protection, ideal for Houston's volatile climate.\r\n\r\n![alt](drive:2025-05-Pat-Shumate-3)\r\n![alt](drive:2025-05-Pat-Shumate-4)\r\n\r\nA standout aspect of this roof is its ample ridge line, allowing for proper ventilation with ridge vents. This setup promotes airflow, reduces heat and moisture buildup, and extends the roof's lifespan—critical in our humid region.\r\nOur team efficiently removed the damaged materials, rebuilt the patio structure, and completed the installation with meticulous attention to detail. The result? A resilient, attractive roof that restores the home's safety and curb appeal.\r\n\r\n![alt](drive:2025-05-Pat-Shumate-5)\r\n\r\nIf your home has suffered storm damage in Fresno or the greater Houston area, contact Tetralto Roofing for an insurance-assisted inspection and expert replacement. We're here to protect what matters most!",
+    "content_html": "<p>At Tetralto Roofing, we specialize in restoring homes hit hard by Texas weather. Our latest project in the Fresno neighborhood of Houston, TX, tackled severe hurricane and hail damage to a homeowner's roof and fence. </p>\n<p><img alt=\"alt\" src=\"/blog/images/2025-05-Pat-Shumate-1/\" /></p>\n<p>Working closely with the insurance adjuster during the inspection, we secured approval for a comprehensive replacement, ensuring the process was smooth and covered.</p>\n<p><img alt=\"alt\" src=\"/blog/images/2025-05-Pat-Shumate-2/\" /></p>\n<p>The damage was extensive, with the main roof compromised by high winds and hail impacts. Additionally, the back patio roof had deteriorated severely over time, requiring a full rebuild. We installed premium GAF Timberline HDZ shingles in the sleek Charcoal color, which provides a modern, durable finish resistant to future storms. These shingles feature advanced wind and impact protection, ideal for Houston's volatile climate.</p>\n<p><img alt=\"alt\" src=\"/blog/images/2025-05-Pat-Shumate-3/\" />\n<img alt=\"alt\" src=\"/blog/images/2025-05-Pat-Shumate-4/\" /></p>\n<p>A standout aspect of this roof is its ample ridge line, allowing for proper ventilation with ridge vents. This setup promotes airflow, reduces heat and moisture buildup, and extends the roof's lifespan—critical in our humid region.\nOur team efficiently removed the damaged materials, rebuilt the patio structure, and completed the installation with meticulous attention to detail. The result? A resilient, attractive roof that restores the home's safety and curb appeal.</p>\n<p><img alt=\"alt\" src=\"/blog/images/2025-05-Pat-Shumate-5/\" /></p>\n<p>If your home has suffered storm damage in Fresno or the greater Houston area, contact Tetralto Roofing for an insurance-assisted inspection and expert replacement. We're here to protect what matters most!</p>",
+    "author": "David Fohr",
+    "hero_image_filename": "drive:2025-05-Pat-Shumate-1",
+    "hero_image_alt": "",
+    "created_at": "2026-01-08T14:41:12.393Z",
+    "updated_at": "2026-01-08T14:43:06.541Z",
+    "published_at": "2025-05-22T13:32:14Z",
+    "is_active": true
+  }
+},
+{
   "model": "core.feature",
   "pk": 1,
   "fields": {
